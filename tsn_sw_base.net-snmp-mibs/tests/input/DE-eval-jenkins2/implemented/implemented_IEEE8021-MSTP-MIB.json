@@ -1,0 +1,154 @@
+{
+	"ieee8021MstpCistBridgeIdentifier.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpCistTopologyChange.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpCistRegionalRootIdentifier.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpCistPathCost.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpCistMaxHops.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpBridgeId.1.4094": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpTimeSinceTopologyChange.1.4094": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpTopologyChanges.1.4094": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpDesignatedRoot.1.4094": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpRootPathCost.1.4094": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpRootPort.1.4094": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpBridgePriority.1.4094": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpCistPortAdminPathCost.1.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpCistPortDesignatedRoot.1.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpCistPortTopologyChangeAck.1.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpCistPortHelloTime.1.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpCistPortAdminEdgePort.1.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpCistPortOperEdgePort.1.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpCistPortMacEnabled.1.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpCistPortRestrictedRole.1.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpCistPortRestrictedTcn.1.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpCistPortRole.1.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpCistPortDisputed.1.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpCistPortCistRegionalRootId.1.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpCistPortCistPathCost.1.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpPortState.1.4094.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpPortPriority.1.4094.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpPortPathCost.1.4094.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpPortDesignatedRoot.1.4094.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpPortDesignatedCost.1.4094.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpPortDesignatedBridge.1.4094.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpPortDesignatedPort.1.4094.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpPortRole.1.4094.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpPortDisputed.1.4094.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpConfigIdFormatSelector.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpConfigurationName.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpRevisionLevel.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021MstpConfigurationDigest.1": {
+		"read": "true",
+		"write": "false"
+	}
+}

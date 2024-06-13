@@ -1,0 +1,214 @@
+{
+	"ieee8021BridgeBaseBridgeAddress.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeBaseNumPorts.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeBaseComponentType.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeBaseTrafficClassesEnabled.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeBasePortIfIndex.1.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeBasePortType.1.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeBasePortAdminPointToPoint.1.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeBasePortOperPointToPoint.1.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeBasePortName.1.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgePhyPortIfIndex.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgePhyPortToComponentId.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgePortDefaultUserPriority.1.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgePortNumTrafficClasses.1.2": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.1.0": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.1.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.1.2": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.1.3": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.1.4": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.1.5": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.1.6": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.1.7": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.2.0": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.2.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.2.2": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.2.3": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.2.4": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.2.5": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.2.6": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.2.7": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.3.0": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.3.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.3.2": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.3.3": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.3.4": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.3.5": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.3.6": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.3.7": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.4.0": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.4.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.4.2": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.4.3": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.4.4": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.4.5": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.4.6": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.4.7": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.5.0": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.5.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.5.2": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.5.3": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.5.4": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.5.5": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.5.6": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021BridgeTrafficClass.1.5.7": {
+		"read": "true",
+		"write": "false"
+	}
+}

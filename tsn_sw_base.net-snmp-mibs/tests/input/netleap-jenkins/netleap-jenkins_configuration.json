@@ -1,0 +1,14 @@
+{
+	"target": {
+		"ip-address": "10.107.16.240",
+		"username": "snmp_access",
+		"password": ""
+	},
+	"tests": {
+		"IF-MIB": ["implemented"],
+		"IEEE8021-MSTP-MIB":["implemented", "expected"],
+		"IEEE8021-Q-BRIDGE-MIB":["implemented", "expected"],
+		"IEEE8021-BRIDGE-MIB":["implemented", "expected"]
+	}
+
+}

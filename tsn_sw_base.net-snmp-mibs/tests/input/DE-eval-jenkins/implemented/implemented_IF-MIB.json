@@ -1,0 +1,94 @@
+{
+	"ifNumber.0": {
+		"read": "true",
+		"write": "false"
+	},
+	"ifIndex.6": {
+		"read": "true",
+		"write": "false"
+	},
+	"ifDescr.6": {
+		"read": "true",
+		"write": "false"
+	},
+	"ifType.6": {
+		"read": "true",
+		"write": "false"
+	},
+	"ifMtu.6": {
+		"read": "true",
+		"write": "false"
+	},
+	"ifSpeed.6": {
+		"read": "true",
+		"write": "false"
+	},
+	"ifPhysAddress.6": {
+		"read": "true",
+		"write": "false"
+	},
+	"ifAdminStatus.6": {
+		"read": "true",
+		"write": "false"
+	},
+	"ifOperStatus.6": {
+		"read": "true",
+		"write": "false"
+	},
+	"ifLastChange.6": {
+		"read": "true",
+		"write": "false"
+	},
+	"ifInOctets.6": {
+		"read": "true",
+		"write": "false"
+	},
+	"ifInUcastPkts.6": {
+		"read": "true",
+		"write": "false"
+	},
+	"ifInNUcastPkts.6": {
+		"read": "true",
+		"write": "false"
+	},
+	"ifInDiscards.6": {
+		"read": "true",
+		"write": "false"
+	},
+	"ifInErrors.6": {
+		"read": "true",
+		"write": "false"
+	},
+	"ifInUnknownProtos.6": {
+		"read": "true",
+		"write": "false"
+	},
+	"ifOutOctets.6": {
+		"read": "true",
+		"write": "false"
+	},
+	"ifOutUcastPkts.6": {
+		"read": "true",
+		"write": "false"
+	},
+	"ifOutNUcastPkts.6": {
+		"read": "true",
+		"write": "false"
+	},
+	"ifOutDiscards.6": {
+		"read": "true",
+		"write": "false"
+	},
+	"ifOutErrors.6": {
+		"read": "true",
+		"write": "false"
+	},
+	"ifOutQLen.6": {
+		"read": "true",
+		"write": "false"
+	},
+	"ifSpecific.6": {
+		"read": "true",
+		"write": "false"
+	}
+}

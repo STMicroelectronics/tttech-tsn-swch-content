@@ -1,0 +1,16 @@
+{
+	"ieee8021QBridgeMaxVlanId.1": {
+		"expected_value": "4094"
+	}
+	,
+	"ieee8021QBridgeMaxSupportedVlans.1": {
+		"expected_value": "64"
+	},
+	"ieee8021QBridgeNumVlans.1": {
+		"expected_value": "1"
+	}
+	,
+	"ieee8021QBridgeVlanStaticName.1.1": {
+		"expected_value": "deipce0"
+	}
+}

@@ -1,0 +1,13 @@
+# To install all tools required for development, run command:
+# pip install -r requirements.txt
+#
+# Tools required for development:
+#
+pysnmp
+xmltodict
+dicttoxml
+lxml
+#
+# Tools required for unit testing:
+#
+pytest

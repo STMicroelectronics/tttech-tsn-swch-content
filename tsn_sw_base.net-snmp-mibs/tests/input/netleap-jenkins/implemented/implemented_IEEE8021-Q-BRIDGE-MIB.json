@@ -1,0 +1,26 @@
+{
+	"ieee8021QBridgeMaxVlanId.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021QBridgeMaxSupportedVlans.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021QBridgeNumVlans.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021QBridgeVlanStaticName.1.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021QBridgeVlanStaticEgressPorts.1.1": {
+		"read": "true",
+		"write": "false"
+	},
+	"ieee8021QBridgeVlanStaticUntaggedPorts.1.1": {
+		"read": "true",
+		"write": "false"
+	}
+}

@@ -1,0 +1,278 @@
+{
+	"ieee8021MstpCistBridgeIdentifier.1": {
+		"expected_value": "8.000.00:80:82:85:E1:27"
+	},
+	"ieee8021MstpCistTopologyChange.1": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpCistMaxHops.1": {
+		"expected_value": "20"
+	},
+	"ieee8021MstpCistPathCost.1": {
+		"expected_value": "20000"
+	},
+	"ieee8021MstpRootPathCost.1.4094": {
+		"expected_value": "0"
+	},
+	"ieee8021MstpRootPort.1.4094": {
+		"expected_value": "0"
+	},
+	"ieee8021MstpBridgePriority.1.4094": {
+		"expected_value": "8"
+	},
+	"ieee8021MstpCistPortAdminPathCost.1.1": {
+		"expected_value": "0"
+	},
+	"ieee8021MstpCistPortAdminPathCost.1.2": {
+		"expected_value": "0"
+	},
+	"ieee8021MstpCistPortAdminPathCost.1.3": {
+		"expected_value": "0"
+	},
+	"ieee8021MstpCistPortAdminPathCost.1.4": {
+		"expected_value": "0"
+	},
+	"ieee8021MstpCistPortAdminPathCost.1.5": {
+		"expected_value": "0"
+	},
+	"ieee8021MstpCistPortTopologyChangeAck.1.1": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpCistPortTopologyChangeAck.1.2": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpCistPortTopologyChangeAck.1.3": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpCistPortTopologyChangeAck.1.4": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpCistPortTopologyChangeAck.1.5": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpCistPortHelloTime.1.1": {
+		"expected_value": "200"
+	},
+	"ieee8021MstpCistPortHelloTime.1.2": {
+		"expected_value": "200"
+	},
+	"ieee8021MstpCistPortHelloTime.1.3": {
+		"expected_value": "200"
+	},
+	"ieee8021MstpCistPortHelloTime.1.4": {
+		"expected_value": "200"
+	},
+	"ieee8021MstpCistPortHelloTime.1.5": {
+		"expected_value": "200"
+	},
+	"ieee8021MstpCistPortAdminEdgePort.1.1": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpCistPortAdminEdgePort.1.2": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpCistPortAdminEdgePort.1.3": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpCistPortAdminEdgePort.1.4": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpCistPortAdminEdgePort.1.5": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpCistPortOperEdgePort.1.1": {
+		"expected_value": "1"
+	},
+	"ieee8021MstpCistPortOperEdgePort.1.2": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpCistPortOperEdgePort.1.3": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpCistPortOperEdgePort.1.4": {
+		"expected_value": "1"
+	},
+	"ieee8021MstpCistPortOperEdgePort.1.5": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpCistPortMacEnabled.1.1": {
+		"expected_value": "1"
+	},
+	"ieee8021MstpCistPortMacEnabled.1.2": {
+		"expected_value": "1"
+	},
+	"ieee8021MstpCistPortMacEnabled.1.3": {
+		"expected_value": "1"
+	},
+	"ieee8021MstpCistPortMacEnabled.1.4": {
+		"expected_value": "1"
+	},
+	"ieee8021MstpCistPortMacEnabled.1.5": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpCistPortRestrictedRole.1.1": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpCistPortRestrictedRole.1.2": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpCistPortRestrictedRole.1.3": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpCistPortRestrictedRole.1.4": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpCistPortRestrictedRole.1.5": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpCistPortRestrictedTcn.1.1": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpCistPortRestrictedTcn.1.2": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpCistPortRestrictedTcn.1.3": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpCistPortRestrictedTcn.1.4": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpCistPortRestrictedTcn.1.5": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpCistPortRole.1.1": {
+		"expected_value": "3"
+	},
+	"ieee8021MstpCistPortRole.1.2": {
+		"expected_value": "3"
+	},
+	"ieee8021MstpCistPortRole.1.3": {
+		"expected_value": "1"
+	},
+	"ieee8021MstpCistPortRole.1.4": {
+		"expected_value": "3"
+	},
+	"ieee8021MstpCistPortRole.1.5": {
+		"expected_value": "0"
+	},
+	"ieee8021MstpCistPortDisputed.1.1": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpCistPortDisputed.1.2": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpCistPortDisputed.1.3": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpCistPortDisputed.1.4": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpCistPortDisputed.1.5": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpCistPortCistPathCost.1.1": {
+		"expected_value": "0"
+	},
+	"ieee8021MstpCistPortCistPathCost.1.2": {
+		"expected_value": "0"
+	},
+	"ieee8021MstpCistPortCistPathCost.1.3": {
+		"expected_value": "0"
+	},
+	"ieee8021MstpCistPortCistPathCost.1.4": {
+		"expected_value": "0"
+	},
+	"ieee8021MstpCistPortCistPathCost.1.5": {
+		"expected_value": "0"
+	},
+	"ieee8021MstpPortState.1.4094.1": {
+		"expected_value": "4"
+	},
+	"ieee8021MstpPortState.1.4094.2": {
+		"expected_value": "4"
+	},
+	"ieee8021MstpPortState.1.4094.3": {
+		"expected_value": "4"
+	},
+	"ieee8021MstpPortState.1.4094.4": {
+		"expected_value": "4"
+	},
+	"ieee8021MstpPortState.1.4094.5": {
+		"expected_value": "4"
+	},
+	"ieee8021MstpPortPriority.1.4094.1": {
+		"expected_value": "8"
+	},
+	"ieee8021MstpPortPriority.1.4094.2": {
+		"expected_value": "8"
+	},
+	"ieee8021MstpPortPriority.1.4094.3": {
+		"expected_value": "8"
+	},
+	"ieee8021MstpPortPriority.1.4094.4": {
+		"expected_value": "8"
+	},
+	"ieee8021MstpPortPriority.1.4094.5": {
+		"expected_value": "8"
+	},
+	"ieee8021MstpPortPathCost.1.4094.1": {
+		"expected_value": "20000"
+	},
+	"ieee8021MstpPortPathCost.1.4094.2": {
+		"expected_value": "20000"
+	},
+	"ieee8021MstpPortPathCost.1.4094.3": {
+		"expected_value": "20000"
+	},
+	"ieee8021MstpPortPathCost.1.4094.4": {
+		"expected_value": "20000"
+	},
+	"ieee8021MstpPortPathCost.1.4094.5": {
+		"expected_value": "200000000"
+	},
+	"ieee8021MstpPortDesignatedCost.1.4094.1": {
+		"expected_value": "0"
+	},
+	"ieee8021MstpPortDesignatedCost.1.4094.2": {
+		"expected_value": "0"
+	},
+	"ieee8021MstpPortDesignatedCost.1.4094.3": {
+		"expected_value": "0"
+	},
+	"ieee8021MstpPortDesignatedCost.1.4094.4": {
+		"expected_value": "0"
+	},
+	"ieee8021MstpPortDesignatedCost.1.4094.5": {
+		"expected_value": "0"
+	},
+	"ieee8021MstpPortRole.1.4094.1": {
+		"expected_value": "0"
+	},
+	"ieee8021MstpPortRole.1.4094.2": {
+		"expected_value": "0"
+	},
+	"ieee8021MstpPortRole.1.4094.3": {
+		"expected_value": "0"
+	},
+	"ieee8021MstpPortRole.1.4094.4": {
+		"expected_value": "0"
+	},
+	"ieee8021MstpPortRole.1.4094.5": {
+		"expected_value": "0"
+	},
+	"ieee8021MstpPortDisputed.1.4094.1": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpPortDisputed.1.4094.2": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpPortDisputed.1.4094.3": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpPortDisputed.1.4094.4": {
+		"expected_value": "2"
+	},
+	"ieee8021MstpPortDisputed.1.4094.5": {
+		"expected_value": "2"
+	}
+}
