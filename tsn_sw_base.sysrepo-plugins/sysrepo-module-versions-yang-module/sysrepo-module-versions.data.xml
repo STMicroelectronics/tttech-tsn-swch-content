@@ -1,0 +1,96 @@
+<sysrepo-module-versions xmlns="urn:tttech:bu-industrial:yang:sysrepo-module-versions">
+    <module>
+      <name>ietf-interfaces</name>
+      <revision>2018-02-20</revision>
+      <source>github</source>
+      <commit_id>6a93b0d09590c5631a776104a96929033cbb81e7</commit_id>
+      <internal_version>1.0.0</internal_version>
+    </module>
+    <module>
+      <name>ieee802-dot1q-preemption</name>
+      <revision>2018-09-10</revision>
+      <source>github</source>
+      <commit_id>0add086a6e7af0d67a1f6deb8b773518650788e4</commit_id>
+      <internal_version>1.0.0</internal_version>
+    </module>
+    <module>
+      <name>ieee802-dot3br-preempt</name>
+      <revision>2022-04-19</revision>
+      <source>proprietary</source>
+      <internal_version>1.0.0</internal_version>
+    </module>
+    <module>
+      <name>ieee802-dot1ab-lldp</name>
+      <revision>2018-11-12</revision>
+      <source>github</source>
+      <commit_id>0add086a6e7af0d67a1f6deb8b773518650788e4</commit_id>
+      <internal_version>1.1.0</internal_version>
+	  <developer_change>Type of the leaf port/name 'must' statement updated with "derived-from-or-self".</developer_change>
+	  <developer_change>The typedef 'man-addr-type' changed to string.</developer_change>
+    </module>
+    <module>
+      <name>ieee802-dot1q-fqtss</name>
+      <revision>2011-02-27</revision>
+      <source>fromMIB</source>
+      <internal_version>1.0.0</internal_version>
+      <developer_change>YANG generated from MIB.</developer_change>
+      <developer_change>ieee8021BridgeBaseComponentId and ieee8021BridgeBasePort objects are manualy added to yang module.</developer_change>
+    </module>
+    <module>
+      <name>ieee802-ethernet-interface</name>
+      <revision>2019-06-21</revision>
+      <source>github</source>
+      <commit_id>38d20fa3d443fb4f3c3a44bfbeaf397b29a64740</commit_id>
+      <internal_version>1.0.0</internal_version>
+    </module>
+    <module>
+      <name>ieee802-dot1q-bridge</name>
+      <revision>2018-03-07</revision>
+      <source>github</source>
+      <commit_id>c3b7b1f01a044269b0496234deb8a051448c2f8c</commit_id>
+      <internal_version>1.0.0</internal_version>
+    </module>
+    <module>
+      <name>ieee802-dot1q-sched</name>
+      <revision>2018-09-10</revision>
+      <source>github</source>
+      <commit_id>0add086a6e7af0d67a1f6deb8b773518650788e4</commit_id>
+      <internal_version>1.0.0</internal_version>
+    </module>
+    <module>
+      <name>ieee8021-mstp</name>
+      <revision>2012-08-10</revision>
+      <source>fromMIB</source>
+      <internal_version>1.0.0</internal_version>
+      <developer_change>YANG generated from MIB.</developer_change>
+      <developer_change>Leafs ieee8021MstpBridgePriority and ieee8021MstpPortPriority are modified and they have limited values in range 0-15.</developer_change>
+      <developer_change>Import of SNMPv2-TC commented.</developer_change>
+      <developer_change>Unimplemented objects commented.</developer_change>
+      <developer_change>ieee8021MstpCistPortRole type modified: enum "disabled" added.</developer_change>
+      <developer_change>ieee8021MstpPortState type modified: enum "discarding" added.</developer_change>
+      <developer_change>ieee8021MstpPortRole type modified: enum "disabled" added.</developer_change>
+      <developer_change>ieee8021MstpCistMaxHops range is changed from 6..40 into 10..255.</developer_change>
+      <developer_change>leaf ieee8021MstpConfigurationName: length "32" is commented out</developer_change>
+      <developer_change>Added leaf ieee8021MstpCistBridgePriority inside list ieee8021MstpCistEntry.</developer_change>
+      <developer_change>Removed imported modules ieee8021-tc, BRIDGE-MIB and snmp-framework-mib. Types used from these modules copied to ieee8021-mstp yang module.</developer_change>
+    </module>
+    <module>
+      <name>ietf-ptp</name>
+      <revision>2018-09-12</revision>
+      <source>github</source>
+      <internal_version>1.0.0</internal_version>
+	  <developer_change>Multiple config objects are changed to operational data.</developer_change>
+	  <developer_change>Typedef 'clock-identity-type' changed from binary to string with pattern restriction.</developer_change>
+    </module>
+    <module>
+      <name>ieee802-dot1CB</name>
+      <revision>2020-03-31</revision>
+      <source>standard_document</source>
+      <internal_version>1.1.0</internal_version>
+	  <developer_change>Leaf 'max-concurrent-stream' changed to config false.</developer_change>
+      <developer_change>Prefix of imported ieee802-dot1q-bridge module changed from dot1q-bridge to dot1q.</developer_change>
+	  <developer_change>The leaf index added as a key in the frer-seg-gen-entry.</developer_change>
+      <developer_change>The leaf index deleted from the sequence-identification-list list.</developer_change>
+      <developer_change>The leaf port set as a key inside sequence-identification-list list.</developer_change>
+    </module>
+  </sysrepo-module-versions>

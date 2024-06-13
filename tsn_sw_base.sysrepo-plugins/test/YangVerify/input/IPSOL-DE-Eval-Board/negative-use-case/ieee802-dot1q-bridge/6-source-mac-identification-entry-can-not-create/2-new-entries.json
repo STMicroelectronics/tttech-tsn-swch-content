@@ -1,0 +1,75 @@
+{
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/bridges/bridge/name",
+				"2": "/bridges/bridge/component/name"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"br0",
+						"br0"
+					],
+					"objects": {
+						"/bridges/bridge/component": {
+							"new_entries": [
+								{
+                                    "stream-identification": {
+                                        "stream-handles": {
+                                            "stream-handle": "55",
+                                            "tsn-stream-identication-type": "source-mac",
+                                            "out-facing-input-port-list": "sw0p1",
+                                            "source-mac-identification-entry": {
+                                                "source-mac": "01-10-5e-01-01-05",
+                                                "tagged": "tagged",
+                                                "vlan": "3"
+                                            }
+                                        }
+                                    }
+								}
+							]
+						}
+					}
+				}
+			}
+		},
+        "2": {
+			"key": {
+				"1": "/bridges/bridge/name",
+				"2": "/bridges/bridge/component/name"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"br0",
+						"br0"
+					],
+					"objects": {
+						"/bridges/bridge/component": {
+							"new_entries": [
+								{
+                                    "stream-identification": {
+                                        "stream-handles": {
+                                            "stream-handle": "66",
+                                            "tsn-stream-identication-type": "source-mac",
+                                            "out-facing-input-port-list": "sw0p1",
+                                            "out-facing-input-port-list": "sw0p2",
+                                            "out-facing-input-port-list": "sw0p3",
+                                            "source-mac-identification-entry": {
+                                                "source-mac": "01-10-5e-01-01-05",
+                                                "tagged": "tagged",
+                                                "vlan": "2"
+                                            }
+                                        }
+                                    }
+								}
+							]
+						}
+					}
+				}
+			}
+		}
+	}
+}
+

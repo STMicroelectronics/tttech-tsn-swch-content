@@ -1,0 +1,1408 @@
+{
+	"unique_keys": 
+	{
+		"1": 
+		{
+			"key": 
+			{
+				"1": "/interfaces/interface/name"
+			},
+
+			"key_values": 
+			{
+				"1": 
+				{
+					"value": 
+					[
+						"sw0p2"
+					],
+
+					"objects": 
+					{
+						"/interfaces/interface/type": 
+						{
+							"expected_value": "ianaift:ethernetCsmacd"
+						},
+
+						"/interfaces/interface/enabled": 
+						{
+							"expected_value": "true"
+						},
+						
+						"/interfaces/interface/if-index": 
+						{
+							"expected_value": "4"
+						},
+						
+						"/interfaces/interface/phys-address": 
+						{
+							"expected_value": "00:80:82:85:8d:46"
+						},
+
+						"/interfaces/interface/ethernet/auto-negotiation/enable": 
+						{
+							"expected_value": "true"
+						},
+
+						"/interfaces/interface/ethernet/max-frame-length": 
+						{
+							"expected_value": "1500"
+						}
+					}
+				},
+
+				"2": 
+				{
+					"value": 
+					[
+						"sw0p3"
+					],
+
+					"objects": 
+					{
+						"/interfaces/interface/type": 
+						{
+							"expected_value": "ianaift:ethernetCsmacd"
+						},
+
+						"/interfaces/interface/enabled": 
+						{
+							"expected_value": "true"
+						},
+
+						"/interfaces/interface/if-index": 
+						{
+							"expected_value": "5"
+						},
+						
+						"/interfaces/interface/phys-address": 
+						{
+							"expected_value": "00:80:82:85:8d:47"
+						},
+
+						"/interfaces/interface/ethernet/auto-negotiation/enable": 
+						{
+							"expected_value": "true"
+						},
+
+						"/interfaces/interface/ethernet/max-frame-length": 
+						{
+							"expected_value": "1500"
+						}
+					}
+				},
+
+				"3": 
+				{
+					"value": 
+					[
+						"sw0p4"
+					],
+
+					"objects": 
+					{
+						"/interfaces/interface/type": 
+						{
+							"expected_value": "ianaift:ethernetCsmacd"
+						},
+
+						"/interfaces/interface/enabled": 
+						{
+							"expected_value": "true"
+						},
+
+						"/interfaces/interface/if-index": 
+						{
+							"expected_value": "6"
+						},
+						
+						"/interfaces/interface/phys-address": 
+						{
+							"expected_value": "00:80:82:85:8d:48"
+						},
+
+						"/interfaces/interface/ethernet/auto-negotiation/enable": 
+						{
+							"expected_value": "true"
+						},
+
+						"/interfaces/interface/ethernet/max-frame-length": 
+						{
+							"expected_value": "1500"
+						}
+					}
+				},
+
+				"4": 
+				{
+					"value": 
+					[
+						"sw0p5"
+					],
+
+					"objects": 
+					{
+						"/interfaces/interface/type": 
+						{
+							"expected_value": "ianaift:ethernetCsmacd"
+						},
+
+						"/interfaces/interface/enabled": 
+						{
+							"expected_value": "true"
+						},
+
+						"/interfaces/interface/if-index": 
+						{
+							"expected_value": "7"
+						},
+						
+						"/interfaces/interface/phys-address": 
+						{
+							"expected_value": "00:80:82:85:8d:49"
+						},
+
+						"/interfaces/interface/ethernet/auto-negotiation/enable": 
+						{
+							"expected_value": "true"
+						},
+
+						"/interfaces/interface/ethernet/max-frame-length": 
+						{
+							"expected_value": "1500"
+						}
+					}
+				}
+			}
+		},
+
+		"2": 
+		{
+			"key": 
+			{
+				"1": "/interfaces/interface/name",
+				"2": "/interfaces/interface/bridge-port/component-name"
+			},
+
+			"key_values": 
+			{
+				"1": 
+				{
+					"value": 
+					[
+						"sw0p2",
+						"br0"
+					],
+
+					"objects": 
+					{
+						"/interfaces/interface/bridge-port/port-type": 
+						{
+							"expected_value": "c-vlan-bridge-port"
+						},
+
+						"/interfaces/interface/bridge-port/pvid": 
+						{
+							"expected_value": "1"
+						},
+
+						"/interfaces/interface/bridge-port/default-priority": 
+						{
+							"expected_value": "0"
+						},
+
+						"/interfaces/interface/bridge-port/priority-regeneration/priority0": 
+						{
+							"expected_value": "0"
+						},
+
+						"/interfaces/interface/bridge-port/priority-regeneration/priority1": 
+						{
+							"expected_value": "1"
+						},
+
+						"/interfaces/interface/bridge-port/priority-regeneration/priority2": 
+						{
+							"expected_value": "2"
+						},
+
+						"/interfaces/interface/bridge-port/priority-regeneration/priority3": 
+						{
+							"expected_value": "3"
+						},
+
+						"/interfaces/interface/bridge-port/priority-regeneration/priority4": 
+						{
+							"expected_value": "4"
+						},
+
+						"/interfaces/interface/bridge-port/priority-regeneration/priority5": 
+						{
+							"expected_value": "5"
+						},
+
+						"/interfaces/interface/bridge-port/priority-regeneration/priority6": 
+						{
+							"expected_value": "6"
+						},
+
+						"/interfaces/interface/bridge-port/priority-regeneration/priority7": 
+						{
+							"expected_value": "7"
+						},
+
+						"/interfaces/interface/bridge-port/traffic-class/priority0": 
+						{
+							"expected_value": "0"
+						},
+
+						"/interfaces/interface/bridge-port/traffic-class/priority1": 
+						{
+							"expected_value": "1"
+						},
+
+						"/interfaces/interface/bridge-port/traffic-class/priority2": 
+						{
+							"expected_value": "2"
+						},
+
+						"/interfaces/interface/bridge-port/traffic-class/priority3": 
+						{
+							"expected_value": "3"
+						},
+
+						"/interfaces/interface/bridge-port/traffic-class/priority4": 
+						{
+							"expected_value": "4"
+						},
+
+						"/interfaces/interface/bridge-port/traffic-class/priority5": 
+						{
+							"expected_value": "5"
+						},
+
+						"/interfaces/interface/bridge-port/traffic-class/priority6": 
+						{
+							"expected_value": "6"
+						},
+
+						"/interfaces/interface/bridge-port/traffic-class/priority7": 
+						{
+							"expected_value": "7"
+						},
+                        
+						"/interfaces/interface/bridge-port/acceptable-frame": 
+						{
+							"expected_value": "admit-all-frames"
+						},
+
+						"/interfaces/interface/bridge-port/enable-ingress-filtering": 
+						{
+							"expected_value": "true"
+						},
+
+
+						"/interfaces/interface/bridge-port/port-number": 
+						{
+							"expected_value": "4"
+						},
+
+						"/interfaces/interface/bridge-port/capabilities": 
+						{
+							"expected_value": "tagging ingress-filtering"
+						},
+                        
+						"/interfaces/interface/bridge-port/type-capabilties": 
+						{
+							"expected_value": "customer-vlan-port d-bridge-port"
+						},
+
+						"/interfaces/interface/bridge-port/external": 
+						{
+							"expected_value": "true"
+						},
+
+						"/interfaces/interface/max-sdu-table/traffic-class": 
+						{
+							"expected_value": 
+							[
+								"0",
+								"1",
+								"2",
+								"3",
+								"4",
+								"5",
+								"6",
+								"7"
+							]
+						},
+
+						"/interfaces/interface/max-sdu-table/queue-max-sdu": 
+						{
+							"expected_value": 
+							[
+								"1506",
+								"1506",
+								"1506",
+								"1506",
+								"1506",
+								"1506",
+								"1506",
+								"1506"
+							]
+						},
+
+						"/interfaces/interface/gate-parameters/gate-enabled": 
+						{
+							"expected_value": "false"
+						},
+
+						"/interfaces/interface/gate-parameters/admin-gate-states": 
+						{
+							"expected_value": "255"
+						},
+
+						"/interfaces/interface/gate-parameters/admin-control-list-length": 
+						{
+							"expected_value": "0"
+						},
+
+						"/interfaces/interface/gate-parameters/admin-cycle-time/numerator": 
+						{
+							"expected_value": "0"
+						},
+
+						"/interfaces/interface/gate-parameters/admin-cycle-time/denominator": 
+						{
+							"expected_value": "1"
+						},
+
+						"/interfaces/interface/gate-parameters/admin-cycle-time-extension": 
+						{
+							"expected_value": "0"
+						},
+
+						"/interfaces/interface/gate-parameters/admin-base-time/seconds": 
+						{
+							"expected_value": "0"
+						},
+
+						"/interfaces/interface/gate-parameters/admin-base-time/fractional-seconds": 
+						{
+							"expected_value": "0"
+						},
+
+						"/interfaces/interface/gate-parameters/config-change-time/seconds": 
+						{
+							"expected_value": "0"
+						},
+
+						"/interfaces/interface/gate-parameters/config-change-time/fractional-seconds": 
+						{
+							"expected_value": "0"
+						},
+
+						"/interfaces/interface/gate-parameters/config-change": 
+						{
+							"expected_value": "false"
+						},
+
+						"/interfaces/interface/gate-parameters/config-pending": 
+						{
+							"expected_value": "false"
+						},
+
+						"/interfaces/interface/gate-parameters/config-change-error": 
+						{
+							"expected_value": "0"
+						},
+
+						"/interfaces/interface/gate-parameters/supported-list-max": 
+						{
+							"expected_value": "255"
+						},
+
+						"/interfaces/interface/frame-preemption-parameters/frame-preemption-status-table/traffic-class": 
+						{
+							"expected_value": 
+							[
+								"0",
+								"1",
+								"2",
+								"3",
+								"4",
+								"5",
+								"6",
+								"7"
+							]
+						},
+
+						"/interfaces/interface/frame-preemption-parameters/frame-preemption-status-table/frame-preemption-status": 
+						{
+							"expected_value": 
+							[
+								"express",
+								"express",
+								"express",
+								"express",
+								"express",
+								"express",
+								"express",
+								"express"
+							]
+						},
+
+						"/interfaces/interface/frame-preemption-parameters/hold-advance": 
+						{
+							"expected_value": "1024"
+						},
+
+						"/interfaces/interface/frame-preemption-parameters/release-advance": 
+						{
+							"expected_value": "0"
+						},
+
+						"/interfaces/interface/frame-preemption-parameters/preemption-active": 
+						{
+							"expected_value": "false"
+						},
+
+						"/interfaces/interface/frame-preemption-parameters/hold-request": 
+						{
+							"expected_value": "hold"
+						},
+
+						"/interfaces/interface/mac-merge/admin-control/merge-enable-tx": 
+						{
+							"expected_value": "Disabled"
+						},
+
+						"/interfaces/interface/mac-merge/admin-control/verify-disable-tx": 
+						{
+							"expected_value": "Disabled"
+						},
+
+						"/interfaces/interface/mac-merge/admin-control/verify-time": 
+						{
+							"expected_value": "10"
+						},
+
+						"/interfaces/interface/mac-merge/admin-control/frag-size": 
+						{
+							"expected_value": "0"
+						},
+
+						"/interfaces/interface/mac-merge/admin-status/merge-support": 
+						{
+							"expected_value": "Supported"
+						},
+
+						"/interfaces/interface/mac-merge/admin-status/verify-status": 
+						{
+							"expected_value": "initial"
+						},
+
+						"/interfaces/interface/mac-merge/admin-status/status-tx": 
+						{
+							"expected_value": "unknown"
+						}
+					}
+				}
+			},
+
+			"2": 
+			{
+				"value": 
+				[
+					"sw0p3",
+					"sw0p3"
+				],
+
+				"objects": 
+				{
+					"/interfaces/interface/bridge-port/port-type": 
+					{
+						"expected_value": "c-vlan-bridge-port"
+					},
+
+					"/interfaces/interface/bridge-port/pvid": 
+					{
+						"expected_value": "1"
+					},
+
+					"/interfaces/interface/bridge-port/default-priority": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/bridge-port/priority-regeneration/priority0": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/bridge-port/priority-regeneration/priority1": 
+					{
+						"expected_value": "1"
+					},
+
+					"/interfaces/interface/bridge-port/priority-regeneration/priority2": 
+					{
+						"expected_value": "2"
+					},
+
+					"/interfaces/interface/bridge-port/priority-regeneration/priority3": 
+					{
+						"expected_value": "3"
+					},
+
+					"/interfaces/interface/bridge-port/priority-regeneration/priority4": 
+					{
+						"expected_value": "4"
+					},
+
+					"/interfaces/interface/bridge-port/priority-regeneration/priority5": 
+					{
+						"expected_value": "5"
+					},
+
+					"/interfaces/interface/bridge-port/priority-regeneration/priority6": 
+					{
+						"expected_value": "6"
+					},
+
+					"/interfaces/interface/bridge-port/priority-regeneration/priority7": 
+					{
+						"expected_value": "7"
+					},
+
+					"/interfaces/interface/bridge-port/traffic-class/priority0": 
+					{
+						"expected_value": "1"
+					},
+
+					"/interfaces/interface/bridge-port/traffic-class/priority1": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/bridge-port/traffic-class/priority2": 
+					{
+						"expected_value": "2"
+					},
+
+					"/interfaces/interface/bridge-port/traffic-class/priority3": 
+					{
+						"expected_value": "3"
+					},
+
+					"/interfaces/interface/bridge-port/traffic-class/priority4": 
+					{
+						"expected_value": "4"
+					},
+
+					"/interfaces/interface/bridge-port/traffic-class/priority5": 
+					{
+						"expected_value": "5"
+					},
+
+					"/interfaces/interface/bridge-port/traffic-class/priority6": 
+					{
+						"expected_value": "6"
+					},
+
+					"/interfaces/interface/bridge-port/traffic-class/priority7": 
+					{
+						"expected_value": "7"
+					},
+
+
+					"/interfaces/interface/bridge-port/port-number": 
+					{
+						"expected_value": "6"
+					},
+
+					"/interfaces/interface/max-sdu-table/traffic-class": 
+					{
+						"expected_value": 
+						[
+							"0",
+							"1",
+							"2",
+							"3",
+							"4",
+							"5",
+							"6",
+							"7"
+						]
+					},
+
+					"/interfaces/interface/max-sdu-table/queue-max-sdu": 
+					{
+						"expected_value": 
+						[
+							"1504",
+							"1504",
+							"1504",
+							"1504",
+							"1504",
+							"1504",
+							"1504",
+							"1504"
+						]
+					},
+
+					"/interfaces/interface/gate-parameters/gate-enabled": 
+					{
+						"expected_value": "false"
+					},
+
+					"/interfaces/interface/gate-parameters/admin-gate-states": 
+					{
+						"expected_value": "255"
+					},
+
+					"/interfaces/interface/gate-parameters/admin-control-list-length": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/gate-parameters/admin-cycle-time/numerator": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/gate-parameters/admin-cycle-time/denominator": 
+					{
+						"expected_value": "1"
+					},
+
+					"/interfaces/interface/gate-parameters/admin-cycle-time-extension": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/gate-parameters/admin-base-time/seconds": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/gate-parameters/admin-base-time/fractional-seconds": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/gate-parameters/config-change-time/seconds": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/gate-parameters/config-change-time/fractional-seconds": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/gate-parameters/config-change": 
+					{
+						"expected_value": "false"
+					},
+
+					"/interfaces/interface/gate-parameters/config-pending": 
+					{
+						"expected_value": "false"
+					},
+
+					"/interfaces/interface/gate-parameters/config-change-error": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/gate-parameters/supported-list-max": 
+					{
+						"expected_value": "255"
+					},
+
+					"/interfaces/interface/frame-preemption-parameters/frame-preemption-status-table/traffic-class": 
+					{
+						"expected_value": 
+						[
+							"0",
+							"1",
+							"2",
+							"3",
+							"4",
+							"5",
+							"6",
+							"7"
+						]
+					},
+
+					"/interfaces/interface/frame-preemption-parameters/frame-preemption-status-table/frame-preemption-status": 
+					{
+						"expected_value": 
+						[
+							"express",
+							"express",
+							"express",
+							"express",
+							"express",
+							"express",
+							"express",
+							"express"
+						]
+					},
+
+					"/interfaces/interface/frame-preemption-parameters/hold-advance": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/frame-preemption-parameters/release-advance": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/frame-preemption-parameters/preemption-active": 
+					{
+						"expected_value": "false"
+					},
+
+					"/interfaces/interface/frame-preemption-parameters/hold-request": 
+					{
+						"expected_value": "hold"
+					},
+
+					"/interfaces/interface/mac-merge/admin-control/merge-enable-tx": 
+					{
+						"expected_value": "Disabled"
+					},
+
+					"/interfaces/interface/mac-merge/admin-control/verify-disable-tx": 
+					{
+						"expected_value": "Disabled"
+					},
+
+					"/interfaces/interface/mac-merge/admin-control/verify-time": 
+					{
+						"expected_value": "10"
+					},
+
+					"/interfaces/interface/mac-merge/admin-control/frag-size": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/mac-merge/admin-status/merge-support": 
+					{
+						"expected_value": "Supported"
+					},
+
+					"/interfaces/interface/mac-merge/admin-status/verify-status": 
+					{
+						"expected_value": "initial"
+					},
+
+					"/interfaces/interface/mac-merge/admin-status/status-tx": 
+					{
+						"expected_value": "unknown"
+					}
+				}
+			},
+
+			"3": 
+			{
+				"value": 
+				[
+					"sw0p4",
+					"sw0p4"
+				],
+
+				"objects": 
+				{
+					"/interfaces/interface/bridge-port/port-type": 
+					{
+						"expected_value": "c-vlan-bridge-port"
+					},
+
+					"/interfaces/interface/bridge-port/pvid": 
+					{
+						"expected_value": "1"
+					},
+
+					"/interfaces/interface/bridge-port/default-priority": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/bridge-port/priority-regeneration/priority0": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/bridge-port/priority-regeneration/priority1": 
+					{
+						"expected_value": "1"
+					},
+
+					"/interfaces/interface/bridge-port/priority-regeneration/priority2": 
+					{
+						"expected_value": "2"
+					},
+
+					"/interfaces/interface/bridge-port/priority-regeneration/priority3": 
+					{
+						"expected_value": "3"
+					},
+
+					"/interfaces/interface/bridge-port/priority-regeneration/priority4": 
+					{
+						"expected_value": "4"
+					},
+
+					"/interfaces/interface/bridge-port/priority-regeneration/priority5": 
+					{
+						"expected_value": "5"
+					},
+
+					"/interfaces/interface/bridge-port/priority-regeneration/priority6": 
+					{
+						"expected_value": "6"
+					},
+
+					"/interfaces/interface/bridge-port/priority-regeneration/priority7": 
+					{
+						"expected_value": "7"
+					},
+
+					"/interfaces/interface/bridge-port/traffic-class/priority0": 
+					{
+						"expected_value": "1"
+					},
+
+					"/interfaces/interface/bridge-port/traffic-class/priority1": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/bridge-port/traffic-class/priority2": 
+					{
+						"expected_value": "2"
+					},
+
+					"/interfaces/interface/bridge-port/traffic-class/priority3": 
+					{
+						"expected_value": "3"
+					},
+
+					"/interfaces/interface/bridge-port/traffic-class/priority4": 
+					{
+						"expected_value": "4"
+					},
+
+					"/interfaces/interface/bridge-port/traffic-class/priority5": 
+					{
+						"expected_value": "5"
+					},
+
+					"/interfaces/interface/bridge-port/traffic-class/priority6": 
+					{
+						"expected_value": "6"
+					},
+
+					"/interfaces/interface/bridge-port/traffic-class/priority7": 
+					{
+						"expected_value": "7"
+					},
+
+
+					"/interfaces/interface/bridge-port/port-number": 
+					{
+						"expected_value": "7"
+					},
+
+					"/interfaces/interface/max-sdu-table/traffic-class": 
+					{
+						"expected_value": 
+						[
+							"0",
+							"1",
+							"2",
+							"3",
+							"4",
+							"5",
+							"6",
+							"7"
+						]
+					},
+
+					"/interfaces/interface/max-sdu-table/queue-max-sdu": 
+					{
+						"expected_value": 
+						[
+							"1504",
+							"1504",
+							"1504",
+							"1504",
+							"1504",
+							"1504",
+							"1504",
+							"1504"
+						]
+					},
+
+					"/interfaces/interface/gate-parameters/gate-enabled": 
+					{
+						"expected_value": "false"
+					},
+
+					"/interfaces/interface/gate-parameters/admin-gate-states": 
+					{
+						"expected_value": "255"
+					},
+
+					"/interfaces/interface/gate-parameters/admin-control-list-length": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/gate-parameters/admin-cycle-time/numerator": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/gate-parameters/admin-cycle-time/denominator": 
+					{
+						"expected_value": "1"
+					},
+
+					"/interfaces/interface/gate-parameters/admin-cycle-time-extension": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/gate-parameters/admin-base-time/seconds": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/gate-parameters/admin-base-time/fractional-seconds": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/gate-parameters/config-change-time/seconds": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/gate-parameters/config-change-time/fractional-seconds": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/gate-parameters/config-change": 
+					{
+						"expected_value": "false"
+					},
+
+					"/interfaces/interface/gate-parameters/config-pending": 
+					{
+						"expected_value": "false"
+					},
+
+					"/interfaces/interface/gate-parameters/config-change-error": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/gate-parameters/supported-list-max": 
+					{
+						"expected_value": "255"
+					},
+
+					"/interfaces/interface/frame-preemption-parameters/frame-preemption-status-table/traffic-class": 
+					{
+						"expected_value": 
+						[
+							"0",
+							"1",
+							"2",
+							"3",
+							"4",
+							"5",
+							"6",
+							"7"
+						]
+					},
+
+					"/interfaces/interface/frame-preemption-parameters/frame-preemption-status-table/frame-preemption-status": 
+					{
+						"expected_value": 
+						[
+							"express",
+							"express",
+							"express",
+							"express",
+							"express",
+							"express",
+							"express",
+							"express"
+						]
+					},
+
+					"/interfaces/interface/frame-preemption-parameters/hold-advance": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/frame-preemption-parameters/release-advance": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/frame-preemption-parameters/preemption-active": 
+					{
+						"expected_value": "false"
+					},
+
+					"/interfaces/interface/frame-preemption-parameters/hold-request": 
+					{
+						"expected_value": "hold"
+					},
+
+					"/interfaces/interface/mac-merge/admin-control/merge-enable-tx": 
+					{
+						"expected_value": "Disabled"
+					},
+
+					"/interfaces/interface/mac-merge/admin-control/verify-disable-tx": 
+					{
+						"expected_value": "Disabled"
+					},
+
+					"/interfaces/interface/mac-merge/admin-control/verify-time": 
+					{
+						"expected_value": "10"
+					},
+
+					"/interfaces/interface/mac-merge/admin-control/frag-size": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/mac-merge/admin-status/merge-support": 
+					{
+						"expected_value": "Supported"
+					},
+
+					"/interfaces/interface/mac-merge/admin-status/verify-status": 
+					{
+						"expected_value": "initial"
+					},
+
+					"/interfaces/interface/mac-merge/admin-status/status-tx": 
+					{
+						"expected_value": "unknown"
+					}
+				}
+			},
+
+			"4": 
+			{
+				"value": 
+				[
+					"sw0p5",
+					"sw0p5"
+				],
+
+				"objects": 
+				{
+					"/interfaces/interface/bridge-port/port-type": 
+					{
+						"expected_value": "c-vlan-bridge-port"
+					},
+
+					"/interfaces/interface/bridge-port/pvid": 
+					{
+						"expected_value": "1"
+					},
+
+					"/interfaces/interface/bridge-port/default-priority": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/bridge-port/priority-regeneration/priority0": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/bridge-port/priority-regeneration/priority1": 
+					{
+						"expected_value": "1"
+					},
+
+					"/interfaces/interface/bridge-port/priority-regeneration/priority2": 
+					{
+						"expected_value": "2"
+					},
+
+					"/interfaces/interface/bridge-port/priority-regeneration/priority3": 
+					{
+						"expected_value": "3"
+					},
+
+					"/interfaces/interface/bridge-port/priority-regeneration/priority4": 
+					{
+						"expected_value": "4"
+					},
+
+					"/interfaces/interface/bridge-port/priority-regeneration/priority5": 
+					{
+						"expected_value": "5"
+					},
+
+					"/interfaces/interface/bridge-port/priority-regeneration/priority6": 
+					{
+						"expected_value": "6"
+					},
+
+					"/interfaces/interface/bridge-port/priority-regeneration/priority7": 
+					{
+						"expected_value": "7"
+					},
+
+					"/interfaces/interface/bridge-port/traffic-class/priority0": 
+					{
+						"expected_value": "1"
+					},
+
+					"/interfaces/interface/bridge-port/traffic-class/priority1": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/bridge-port/traffic-class/priority2": 
+					{
+						"expected_value": "2"
+					},
+
+					"/interfaces/interface/bridge-port/traffic-class/priority3": 
+					{
+						"expected_value": "3"
+					},
+
+					"/interfaces/interface/bridge-port/traffic-class/priority4": 
+					{
+						"expected_value": "4"
+					},
+
+					"/interfaces/interface/bridge-port/traffic-class/priority5": 
+					{
+						"expected_value": "5"
+					},
+
+					"/interfaces/interface/bridge-port/traffic-class/priority6": 
+					{
+						"expected_value": "6"
+					},
+
+					"/interfaces/interface/bridge-port/traffic-class/priority7": 
+					{
+						"expected_value": "7"
+					},
+
+
+					"/interfaces/interface/bridge-port/port-number": 
+					{
+						"expected_value": "8"
+					},
+
+					"/interfaces/interface/max-sdu-table/traffic-class": 
+					{
+						"expected_value": 
+						[
+							"0",
+							"1",
+							"2",
+							"3",
+							"4",
+							"5",
+							"6",
+							"7"
+						]
+					},
+
+					"/interfaces/interface/max-sdu-table/queue-max-sdu": 
+					{
+						"expected_value": 
+						[
+							"1504",
+							"1504",
+							"1504",
+							"1504",
+							"1504",
+							"1504",
+							"1504",
+							"1504"
+						]
+					},
+
+					"/interfaces/interface/gate-parameters/gate-enabled": 
+					{
+						"expected_value": "false"
+					},
+
+					"/interfaces/interface/gate-parameters/admin-gate-states": 
+					{
+						"expected_value": "255"
+					},
+
+					"/interfaces/interface/gate-parameters/admin-control-list-length": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/gate-parameters/admin-cycle-time/numerator": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/gate-parameters/admin-cycle-time/denominator": 
+					{
+						"expected_value": "1"
+					},
+
+					"/interfaces/interface/gate-parameters/admin-cycle-time-extension": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/gate-parameters/admin-base-time/seconds": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/gate-parameters/admin-base-time/fractional-seconds": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/gate-parameters/config-change-time/seconds": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/gate-parameters/config-change-time/fractional-seconds": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/gate-parameters/config-change": 
+					{
+						"expected_value": "false"
+					},
+
+					"/interfaces/interface/gate-parameters/config-pending": 
+					{
+						"expected_value": "false"
+					},
+
+					"/interfaces/interface/gate-parameters/config-change-error": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/gate-parameters/supported-list-max": 
+					{
+						"expected_value": "255"
+					},
+
+					"/interfaces/interface/frame-preemption-parameters/frame-preemption-status-table/traffic-class": 
+					{
+						"expected_value": 
+						[
+							"0",
+							"1",
+							"2",
+							"3",
+							"4",
+							"5",
+							"6",
+							"7"
+						]
+					},
+
+					"/interfaces/interface/frame-preemption-parameters/frame-preemption-status-table/frame-preemption-status": 
+					{
+						"expected_value": 
+						[
+							"express",
+							"express",
+							"express",
+							"express",
+							"express",
+							"express",
+							"express",
+							"express"
+						]
+					},
+
+					"/interfaces/interface/frame-preemption-parameters/hold-advance": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/frame-preemption-parameters/release-advance": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/frame-preemption-parameters/preemption-active": 
+					{
+						"expected_value": "false"
+					},
+
+					"/interfaces/interface/frame-preemption-parameters/hold-request": 
+					{
+						"expected_value": "hold"
+					},
+
+					"/interfaces/interface/mac-merge/admin-control/merge-enable-tx": 
+					{
+						"expected_value": "Disabled"
+					},
+
+					"/interfaces/interface/mac-merge/admin-control/verify-disable-tx": 
+					{
+						"expected_value": "Disabled"
+					},
+
+					"/interfaces/interface/mac-merge/admin-control/verify-time": 
+					{
+						"expected_value": "10"
+					},
+
+					"/interfaces/interface/mac-merge/admin-control/frag-size": 
+					{
+						"expected_value": "0"
+					},
+
+					"/interfaces/interface/mac-merge/admin-status/merge-support": 
+					{
+						"expected_value": "Supported"
+					},
+
+					"/interfaces/interface/mac-merge/admin-status/verify-status": 
+					{
+						"expected_value": "initial"
+					},
+
+					"/interfaces/interface/mac-merge/admin-status/status-tx": 
+					{
+						"expected_value": "unknown"
+					}
+				}
+			}
+		}
+	}
+}

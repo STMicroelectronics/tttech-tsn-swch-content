@@ -1,0 +1,34 @@
+#!/bin/bash
+#
+# It will be installed on location /etc/sysrepo/restore_datastore
+#
+
+#kill sysrepo-plugind
+PID=$(pidof sysrepo-plugind)
+
+if [[ "" !=  "$PID" ]];
+then
+  echo "killing sysrepo-plugind ($PID)"
+  kill -9 $PID
+else
+  echo "Process sysrepo-plugind does not exist!"
+fi
+
+#kill netopeer2-server
+PID=$(pidof netopeer2-server)
+
+if [[ "" !=  "$PID" ]];
+then
+  echo "killing netopeer2-server ($PID)"
+  kill -9 $PID
+else
+  echo "Process netopeer2-server does not exist!"
+fi
+
+rm -rf /dev/shm/sr_*
+rm -rf /dev/shm/srsub_*
+rm -rf /etc/sysrepo/data/*.done
+
+sync
+
+reboot

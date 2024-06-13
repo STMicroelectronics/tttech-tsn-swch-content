@@ -1,0 +1,44 @@
+{
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/bridges/bridge/name",
+				"2": "/bridges/bridge/component/name"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"br0",
+						"br0"
+					],
+					"objects": {
+						"/bridges/bridge/component/bridge-mst": {
+							"new_entries": [
+								{"mstid": "1"},
+								{"mstid": "5"},
+								{"mstid": "15"},
+								{"mstid": "55"},
+								{"fid-to-mstid-allocation": {
+										"fids": "1",
+										"mstid": "1"
+									}
+								},
+								{"fid-to-mstid-allocation": {
+										"fids": "4,14-17",
+										"mstid": "5"
+									}
+								},
+								{
+									"fid-to-mstid-allocation": {
+										"fids": "32,35-40,50",
+										"mstid": "15"
+									}
+								}
+							]
+						}
+					}
+				}
+			}
+		}
+	}
+}

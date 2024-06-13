@@ -1,0 +1,150 @@
+{
+  "new_yang": {
+    "object": [
+      {
+          "new_entries": [
+            {
+              "stream-identity": {
+                "index": "1",
+                "handle": "1",
+                "out-facing": {
+                  "input-port": "sw0p1"
+                },
+                "null-stream-identification": {
+                  "destination-mac": "aa-bb-cc-dd-ee-01",
+                  "tagged": "tagged",
+                  "vlan": "1"
+                }
+              }
+            },
+            {
+              "stream-identity": {
+                "index": "2",
+                "handle": "2",
+                "out-facing": {
+                  "input-port": "sw0p2"
+                },
+                "null-stream-identification": {
+                  "destination-mac": "aa-bb-cc-dd-ee-02",
+                  "tagged": "tagged",
+                  "vlan": "2"
+                }
+              }
+            },
+            {
+              "stream-identity": {
+                "index": "3",
+                "handle": "3",
+                "out-facing": {
+                  "input-port": "sw0p3"
+                },
+                "null-stream-identification": {
+                  "destination-mac": "aa-bb-cc-dd-ee-03",
+                  "tagged": "tagged",
+                  "vlan": "3"
+                }
+              }
+            },
+            {
+              "stream-identity": {
+                "index": "4",
+                "handle": "4",
+                "out-facing": {
+                  "input-port": "sw0p4"
+                },
+                "null-stream-identification": {
+                  "destination-mac": "aa-bb-cc-dd-ee-04",
+                  "tagged": "tagged",
+                  "vlan": "4"
+                }
+              }
+            },
+            {
+              "stream-identity": {
+                "index": "5",
+                "handle": "5",
+                "out-facing": {
+                  "input-port": "sw0p5"
+                },
+                "null-stream-identification": {
+                  "destination-mac": "aa-bb-cc-dd-ee-05",
+                  "tagged": "tagged",
+                  "vlan": "5"
+                }
+              }
+            },
+            {
+              "stream-identity": {
+                "index": "6",
+                "handle": "6",
+                "out-facing": {
+                  "input-port": "sw0p1"
+                },
+                "null-stream-identification": {
+                  "destination-mac": "aa-bb-cc-dd-ee-06",
+                  "tagged": "tagged",
+                  "vlan": "6"
+                }
+              }
+            },
+            {
+              "stream-identity": {
+                "index": "7",
+                "handle": "7",
+                "out-facing": {
+                  "input-port": "sw0p2"
+                },
+                "null-stream-identification": {
+                  "destination-mac": "aa-bb-cc-dd-ee-07",
+                  "tagged": "tagged",
+                  "vlan": "7"
+                }
+              }
+            },
+            {
+              "stream-identity": {
+                "index": "8",
+                "handle": "8",
+                "out-facing": {
+                  "input-port": "sw0p3"
+                },
+                "null-stream-identification": {
+                  "destination-mac": "aa-bb-cc-dd-ee-08",
+                  "tagged": "tagged",
+                  "vlan": "8"
+                }
+              }
+            },
+            {
+              "stream-identity": {
+                "index": "9",
+                "handle": "9",
+                "out-facing": {
+                  "input-port": "sw0p4"
+                },
+                "null-stream-identification": {
+                  "destination-mac": "aa-bb-cc-dd-ee-09",
+                  "tagged": "tagged",
+                  "vlan": "9"
+                }
+              }
+            },
+            {
+              "stream-identity": {
+                "index": "10",
+                "handle": "10",
+                "out-facing": {
+                  "input-port": "sw0p5"
+                },
+                "null-stream-identification": {
+                  "destination-mac": "aa-bb-cc-dd-ee-0a",
+                  "tagged": "tagged",
+                  "vlan": "10"
+                }
+              }
+            }
+          ]
+      }
+    ]
+  }
+}

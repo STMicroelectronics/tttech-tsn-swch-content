@@ -1,0 +1,311 @@
+{
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/ptp/instance-list/instance-index"
+			},
+			"key_values": {
+				"1": {
+					"value":
+					[
+						"1"
+					],
+
+					"objects": {
+						"/ptp/instance-list/default-ds/two-step-flag": {
+							"expected_value": "true"
+						},
+
+						"/ptp/instance-list/default-ds/number-ports": {
+							"expected_value": "4"
+						},
+
+						"/ptp/instance-list/default-ds/clock-quality/clock-class": {
+							"expected_value": "187"
+						},
+
+						"/ptp/instance-list/default-ds/clock-quality/clock-accuracy": {
+							"expected_value": "35"
+						},
+
+						"/ptp/instance-list/default-ds/clock-quality/offset-scaled-log-variance": {
+							"expected_value": "17258"
+						},
+
+						"/ptp/instance-list/default-ds/priority1": {
+							"expected_value": "247"
+						},
+
+						"/ptp/instance-list/default-ds/priority2": {
+							"expected_value": "248"
+						},
+
+						"/ptp/instance-list/default-ds/domain-number": {
+							"expected_value": "0"
+						},
+
+						"/ptp/instance-list/default-ds/slave-only": {
+							"expected_value": "false"
+						},
+
+						"/ptp/instance-list/default-ds/clock-identity": {
+							"expected_value": "00-80-82-FF-FE-85-8D-46"
+						},
+
+						"/ptp/instance-list/current-ds/steps-removed": {
+							"expected_value": "1"
+						},
+
+						"/ptp/instance-list/current-ds/mean-path-delay": {
+							"expected_value": "0"
+						},
+
+						"/ptp/instance-list/parent-ds/parent-port-identity/port-number": {
+							"expected_value": "2"
+						},
+
+						"/ptp/instance-list/parent-ds/parent-stats": {
+							"expected_value": "false"
+						},
+
+						"/ptp/instance-list/parent-ds/observed-parent-clock-phase-change-rate": {
+							"expected_value": "2147483647"
+						},
+
+						"/ptp/instance-list/parent-ds/grandmaster-clock-quality/clock-class": {
+							"expected_value": "187"
+						},
+
+						"/ptp/instance-list/parent-ds/grandmaster-clock-quality/clock-accuracy": {
+							"expected_value": "35"
+						},
+
+						"/ptp/instance-list/parent-ds/grandmaster-clock-quality/offset-scaled-log-variance": {
+							"expected_value": "17258"
+						},
+
+						"/ptp/instance-list/parent-ds/grandmaster-priority1": {
+							"expected_value": "0"
+						},
+
+						"/ptp/instance-list/parent-ds/grandmaster-priority2": {
+							"expected_value": "248"
+						},
+
+						"/ptp/instance-list/time-properties-ds/current-utc-offset-valid": {
+							"expected_value": "false"
+						},
+
+						"/ptp/instance-list/time-properties-ds/leap59": {
+							"expected_value": "false"
+						},
+
+						"/ptp/instance-list/time-properties-ds/leap61": {
+							"expected_value": "false"
+						},
+
+						"/ptp/instance-list/time-properties-ds/time-traceable": {
+							"expected_value": "false"
+						},
+
+						"/ptp/instance-list/time-properties-ds/frequency-traceable": {
+							"expected_value": "false"
+						},
+
+						"/ptp/instance-list/time-properties-ds/ptp-timescale": {
+							"expected_value": "true"
+						},
+
+						"/ptp/instance-list/time-properties-ds/time-source": {
+							"expected_value": "internal-oscillator"
+						}
+					}
+				}
+			}
+		},
+
+		"2": {
+			"key": {
+				"1": "/ptp/instance-list/port-ds-list/port-index"
+			},
+			"key_values": {
+				"1": {
+					"value":
+					[
+						"1"
+					],
+
+					"objects": {
+						"/ptp/instance-list/port-ds-list/port-state": {
+							"expected_value": "listening"
+						},
+						
+						"/ptp/instance-list/port-ds-list/underlying-interface": {
+							"expected_value": "sw0p2"
+						},
+
+						"/ptp/instance-list/port-ds-list/log-min-delay-req-interval": {
+							"expected_value": "0"
+						},
+
+						"/ptp/instance-list/port-ds-list/log-announce-interval": {
+							"expected_value": "0"
+						},
+
+						"/ptp/instance-list/port-ds-list/announce-receipt-timeout": {
+							"expected_value": "3"
+						},
+
+						"/ptp/instance-list/port-ds-list/log-sync-interval": {
+							"expected_value": "-3"
+						},
+
+						"/ptp/instance-list/port-ds-list/delay-mechanism": {
+							"expected_value": "p2p"
+						},
+
+						"/ptp/instance-list/port-ds-list/log-min-pdelay-req-interval": {
+							"expected_value": "0"
+						},
+
+						"/ptp/instance-list/port-ds-list/version-number": {
+							"expected_value": "18"
+						}
+					}
+				},
+				"1": {
+					"value":
+					[
+						"2"
+					],
+
+					"objects": {
+						"/ptp/instance-list/port-ds-list/port-state": {
+							"expected_value": "listening"
+						},
+						
+						"/ptp/instance-list/port-ds-list/underlying-interface": {
+							"expected_value": "sw0p3"
+						},
+
+						"/ptp/instance-list/port-ds-list/log-min-delay-req-interval": {
+							"expected_value": "0"
+						},
+
+						"/ptp/instance-list/port-ds-list/log-announce-interval": {
+							"expected_value": "0"
+						},
+
+						"/ptp/instance-list/port-ds-list/announce-receipt-timeout": {
+							"expected_value": "3"
+						},
+
+						"/ptp/instance-list/port-ds-list/log-sync-interval": {
+							"expected_value": "-3"
+						},
+
+						"/ptp/instance-list/port-ds-list/delay-mechanism": {
+							"expected_value": "p2p"
+						},
+
+						"/ptp/instance-list/port-ds-list/log-min-pdelay-req-interval": {
+							"expected_value": "0"
+						},
+
+						"/ptp/instance-list/port-ds-list/version-number": {
+							"expected_value": "18"
+						}
+					}
+				},
+				"1": {
+					"value":
+					[
+						"3"
+					],
+
+					"objects": {
+						"/ptp/instance-list/port-ds-list/port-state": {
+							"expected_value": "listening"
+						},
+						
+						"/ptp/instance-list/port-ds-list/underlying-interface": {
+							"expected_value": "sw0p4"
+						},
+
+						"/ptp/instance-list/port-ds-list/log-min-delay-req-interval": {
+							"expected_value": "0"
+						},
+
+						"/ptp/instance-list/port-ds-list/log-announce-interval": {
+							"expected_value": "0"
+						},
+
+						"/ptp/instance-list/port-ds-list/announce-receipt-timeout": {
+							"expected_value": "3"
+						},
+
+						"/ptp/instance-list/port-ds-list/log-sync-interval": {
+							"expected_value": "-3"
+						},
+
+						"/ptp/instance-list/port-ds-list/delay-mechanism": {
+							"expected_value": "p2p"
+						},
+
+						"/ptp/instance-list/port-ds-list/log-min-pdelay-req-interval": {
+							"expected_value": "0"
+						},
+
+						"/ptp/instance-list/port-ds-list/version-number": {
+							"expected_value": "18"
+						}
+					}
+				},
+				"1": {
+					"value":
+					[
+						"4"
+					],
+
+					"objects": {
+						"/ptp/instance-list/port-ds-list/port-state": {
+							"expected_value": "listening"
+						},
+						
+						"/ptp/instance-list/port-ds-list/underlying-interface": {
+							"expected_value": "sw0p5"
+						},
+
+						"/ptp/instance-list/port-ds-list/log-min-delay-req-interval": {
+							"expected_value": "0"
+						},
+
+						"/ptp/instance-list/port-ds-list/log-announce-interval": {
+							"expected_value": "0"
+						},
+
+						"/ptp/instance-list/port-ds-list/announce-receipt-timeout": {
+							"expected_value": "3"
+						},
+
+						"/ptp/instance-list/port-ds-list/log-sync-interval": {
+							"expected_value": "-3"
+						},
+
+						"/ptp/instance-list/port-ds-list/delay-mechanism": {
+							"expected_value": "p2p"
+						},
+
+						"/ptp/instance-list/port-ds-list/log-min-pdelay-req-interval": {
+							"expected_value": "0"
+						},
+
+						"/ptp/instance-list/port-ds-list/version-number": {
+							"expected_value": "18"
+						}
+					}
+				}
+			}
+		}
+	}
+}

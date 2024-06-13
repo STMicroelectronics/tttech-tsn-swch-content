@@ -1,0 +1,65 @@
+module ieee802-dot1cb-stream-identification-params {
+
+	namespace urn:ieee:std:802.1Q:yang:ieee802-dot1cb-stream-identification-params;
+	prefix sid-params;
+	
+	description "Yang model for the stream identification data parameters.";
+
+    revision 2021-12-20 {
+        description "Initial revision";
+    }
+	 
+	container stream-identification-params {
+		config false;
+		description
+		"Defines stream identification function that is part of the bridge/system.";
+			
+		leaf table-length {
+			type uint32;
+			description
+			"Stream identification table length.";
+		}
+		
+		leaf max-supported-stream-handle {
+			type uint32;
+			description
+			"Maximum supported stream handle value.";
+		}
+		
+		container sid-methods {
+			description
+			"Type of supported stream identification methods.";
+			
+			leaf null-stream {
+				type boolean;
+				description
+				"Null stream identification type. If TRUE then the NULL stream identification is supported.";
+			}
+			
+			leaf source-stream {
+				type boolean;
+				description
+				"Source stream identification type. If TRUE then the SOURCE stream identification is supported.";
+			}
+			
+			leaf active-stream {
+				type boolean;
+				description
+				"Active stream identification type. If TRUE then the ACTIVE stream identification is supported.";
+			}
+			
+			leaf ip-stream {
+				type boolean;
+				description
+				"IP stream identification type. If TRUE then the IP stream identification is supported.";
+			}
+			
+		}
+		
+		leaf-list enabled-ports {
+			type string;
+			description
+			"List of ports on which stream identification feature is enabled.";
+		}		
+	}
+}

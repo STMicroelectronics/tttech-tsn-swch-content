@@ -1,0 +1,15 @@
+# To install all tools required for development, run command:
+# pip install -r requirements.txt
+#
+# Tools required for development:
+#
+pyang
+paramiko == 2.4.2
+ncclient
+xmltodict
+dicttoxml
+lxml
+#
+# Tools required for unit testing:
+#
+pytest

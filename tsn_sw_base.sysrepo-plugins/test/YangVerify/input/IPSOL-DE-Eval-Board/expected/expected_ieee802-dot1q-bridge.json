@@ -1,0 +1,488 @@
+{
+	"/bridges/bridge/name": {
+		"expected_value": "br0"
+	},
+	"/bridges/bridge/bridge-type": {
+		"expected_value": "customer-vlan-bridge"
+	},
+	"/bridges/bridge/ports": {
+		"expected_value": "5"
+	},
+	"/bridges/bridge/components": {
+		"expected_value": "1"
+	},
+	"/bridges/bridge/component/name": {
+		"expected_value": "br0"
+	},
+	"/bridges/bridge/component/id": {
+		"expected_value": "1"
+	},
+	"/bridges/bridge/component/type": {
+		"expected_value": "c-vlan-component"
+	},
+	"/bridges/bridge/component/traffic-class-enabled": {
+		"expected_value": "true"
+	},
+	"/bridges/bridge/component/ports": {
+		"expected_value": "5"
+	},
+	"/bridges/bridge/component/bridge-port": {
+		"expected_value": [
+			"sw0p1",
+			"sw0p2",
+			"sw0p3",
+			"sw0p4",
+			"sw0p5"
+		]
+	},
+	"/bridges/bridge/component/capabilities/extended-filtering": {
+		"expected_value": "false"
+	},
+	"/bridges/bridge/component/capabilities/traffic-classes": {
+		"expected_value": "true"
+	},
+	"/bridges/bridge/component/capabilities/static-entry-individual-port": {
+		"expected_value": "false"
+	},
+	"/bridges/bridge/component/capabilities/ivl-capable": {
+		"expected_value": "true"
+	},
+	"/bridges/bridge/component/capabilities/svl-capable": {
+		"expected_value": "true"
+	},
+	"/bridges/bridge/component/capabilities/hybrid-capable": {
+		"expected_value": "true"
+	},
+	"/bridges/bridge/component/capabilities/configurable-pvid-tagging": {
+		"expected_value": "true"
+	},
+	"/bridges/bridge/component/capabilities/local-vlan-capable": {
+		"expected_value": "false"
+	},
+	"/bridges/bridge/component/filtering-database/vlan-registration-entry/database-id": {
+		"expected_value": "1"
+	},
+	"/bridges/bridge/component/filtering-database/vlan-registration-entry/vids": {
+		"expected_value": "1"
+	},
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/bridges/bridge/component/filtering-database/vlan-registration-entry/database-id",
+				"2": "/bridges/bridge/component/filtering-database/vlan-registration-entry/vids"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"1",
+						"1"
+					],
+					"objects": {
+						"/bridges/bridge/component/filtering-database/vlan-registration-entry/entry-type": {
+							"expected_value": "static"
+						},
+						"/bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/port-ref": {
+							"expected_value": [
+								"1",
+								"2",
+								"3",
+								"4",
+								"5"
+							]
+						}
+					}
+				}
+			}
+		},
+		"2": {
+			"key": {
+				"1": "/bridges/bridge/name",
+				"2": "/bridges/bridge/component/name"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"br0",
+						"br0"
+					],
+					"objects": {
+						"/bridges/bridge/component/bridge-mst/mstid": {
+							"expected_value": [
+								"4094"
+							]
+						}
+					}
+				}
+			}
+		},
+		"3": {
+			"key": {
+				"1": "/bridges/bridge/component/stream-gates/stream-gate-instance-table/stream-gate-instance-id"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"0"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/gate-enable": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-gate-states": {
+							"expected_value": "open"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-ipv": {
+							"expected_value": "null"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-cycle-time/numerator": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-cycle-time/denominator": {
+							"expected_value": "1"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-cycle-time-extension": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-base-time/seconds": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-base-time/nanoseconds": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/config-change": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/gate-closed-due-to-invalid-rx-enable": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/gate-closed-due-to-invalid-rx": {
+							"expected_value": "false"
+						}
+					}
+				},
+				"2": {
+					"value": [
+						"1"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/gate-enable": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-gate-states": {
+							"expected_value": "open"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-ipv": {
+							"expected_value": "null"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-cycle-time/numerator": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-cycle-time/denominator": {
+							"expected_value": "1"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-cycle-time-extension": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-base-time/seconds": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-base-time/nanoseconds": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/config-change": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/gate-closed-due-to-invalid-rx-enable": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/gate-closed-due-to-invalid-rx": {
+							"expected_value": "false"
+						}
+					}
+				},
+				"3": {
+					"value": [
+						"2"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/gate-enable": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-gate-states": {
+							"expected_value": "open"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-ipv": {
+							"expected_value": "null"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-cycle-time/numerator": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-cycle-time/denominator": {
+							"expected_value": "1"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-cycle-time-extension": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-base-time/seconds": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-base-time/nanoseconds": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/config-change": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/gate-closed-due-to-invalid-rx-enable": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/gate-closed-due-to-invalid-rx": {
+							"expected_value": "false"
+						}
+					}
+				},
+				"4": {
+					"value": [
+						"3"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/gate-enable": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-gate-states": {
+							"expected_value": "open"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-ipv": {
+							"expected_value": "null"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-cycle-time/numerator": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-cycle-time/denominator": {
+							"expected_value": "1"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-cycle-time-extension": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-base-time/seconds": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-base-time/nanoseconds": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/config-change": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/gate-closed-due-to-invalid-rx-enable": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/gate-closed-due-to-invalid-rx": {
+							"expected_value": "false"
+						}
+					}
+				},
+				"5": {
+					"value": [
+						"4"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/gate-enable": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-gate-states": {
+							"expected_value": "open"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-ipv": {
+							"expected_value": "null"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-cycle-time/numerator": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-cycle-time/denominator": {
+							"expected_value": "1"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-cycle-time-extension": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-base-time/seconds": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-base-time/nanoseconds": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/config-change": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/gate-closed-due-to-invalid-rx-enable": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/gate-closed-due-to-invalid-rx": {
+							"expected_value": "false"
+						}
+					}
+				},
+				"6": {
+					"value": [
+						"5"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/gate-enable": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-gate-states": {
+							"expected_value": "open"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-ipv": {
+							"expected_value": "null"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-cycle-time/numerator": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-cycle-time/denominator": {
+							"expected_value": "1"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-cycle-time-extension": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-base-time/seconds": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-base-time/nanoseconds": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/config-change": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/gate-closed-due-to-invalid-rx-enable": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/gate-closed-due-to-invalid-rx": {
+							"expected_value": "false"
+						}
+					}
+				},
+				"7": {
+					"value": [
+						"6"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/gate-enable": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-gate-states": {
+							"expected_value": "open"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-ipv": {
+							"expected_value": "null"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-cycle-time/numerator": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-cycle-time/denominator": {
+							"expected_value": "1"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-cycle-time-extension": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-base-time/seconds": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-base-time/nanoseconds": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/config-change": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/gate-closed-due-to-invalid-rx-enable": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/gate-closed-due-to-invalid-rx": {
+							"expected_value": "false"
+						}
+					}
+				},
+				"8": {
+					"value": [
+						"7"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/gate-enable": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-gate-states": {
+							"expected_value": "open"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-ipv": {
+							"expected_value": "null"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-cycle-time/numerator": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-cycle-time/denominator": {
+							"expected_value": "1"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-cycle-time-extension": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-base-time/seconds": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-base-time/nanoseconds": {
+							"expected_value": "0"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/config-change": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/gate-closed-due-to-invalid-rx-enable": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/gate-closed-due-to-invalid-rx": {
+							"expected_value": "false"
+						}
+					}
+				}
+			}
+		}
+	},
+	"/bridges/bridge/component/filtering-database/size": {
+		"expected_value": "512"
+	},
+	"/bridges/bridge/component/filtering-database/static-entries": {
+		"expected_value": "0"
+	},
+	"/bridges/bridge/component/filtering-database/dynamic-entries": {
+		"expected_value": "0"
+	},
+	"/bridges/bridge/component/filtering-database/static-vlan-registration-entries": {
+		"expected_value": "1"
+	},
+	"/bridges/bridge/component/filtering-database/dynamic-vlan-registration-entries": {
+		"expected_value": "0"
+	},
+	"/bridges/bridge/component/bridge-vlan/max-vids": {
+		"expected_value": "64"
+	},
+	"/bridges/bridge/component/bridge-vlan/override-default-pvid": {
+		"expected_value": "true"
+	},
+	"/bridges/bridge/component/bridge-vlan/max-msti": {
+		"expected_value": "64"
+	},
+	"/bridges/bridge/component/stream-gates/supported-list-max": {
+		"expected_value": "255"
+	},
+	"/bridges/bridge/component/stream-gates/max-stream-gate-instances": {
+		"expected_value": "8"
+	},
+	"/bridges/bridge/component/stream-gates/supported-cycle-max/numerator": {
+		"expected_value": "16000000"
+	},
+	"/bridges/bridge/component/stream-gates/supported-cycle-max/denominator": {
+		"expected_value": "1000000000"
+	},
+	"/bridges/bridge/component/stream-gates/supported-interval-max": {
+		"expected_value": "20971200"
+	},
+	"/bridges/bridge/component/flow-meters/max-flow-meter-instances": {
+		"expected_value": "0"
+	}
+}

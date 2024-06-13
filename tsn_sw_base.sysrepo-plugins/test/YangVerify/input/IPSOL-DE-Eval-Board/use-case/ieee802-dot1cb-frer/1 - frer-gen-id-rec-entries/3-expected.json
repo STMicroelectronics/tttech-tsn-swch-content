@@ -1,0 +1,462 @@
+{
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/frer/sequence-generation/index"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"1"
+					],
+                        "objects": {
+                            "/frer/sequence-generation/direction-out-facing": {
+                                "expected_value": "false"
+                            },
+                            "/frer/sequence-generation/stream": {
+                                "expected_value": "1"
+                            }
+                        }
+                    },
+                "2": {
+					"value": [
+						"2"
+					],
+                        "objects": {
+                            "/frer/sequence-generation/direction-out-facing": {
+                                "expected_value": "false"
+                            },
+                            "/frer/sequence-generation/stream": {
+                                "expected_value": "2"
+                            }
+                        }
+                    },
+                "3": {
+					"value": [
+						"3"
+					],
+                        "objects": {
+                            "/frer/sequence-generation/direction-out-facing": {
+                                "expected_value": "false"
+                            },
+                            "/frer/sequence-generation/stream": {
+                                "expected_value": "3"
+                            }
+                        }
+                    },
+                "4": {
+					"value": [
+						"4"
+					],
+                        "objects": {
+                            "/frer/sequence-generation/direction-out-facing": {
+                                "expected_value": "false"
+                            },
+                            "/frer/sequence-generation/stream": {
+                                "expected_value": "4"
+                            }
+                        }
+                    },
+                "5": {
+					"value": [
+						"5"
+					],
+                        "objects": {
+                            "/frer/sequence-generation/direction-out-facing": {
+                                "expected_value": "false"
+                            },
+                            "/frer/sequence-generation/stream": {
+                                "expected_value": "5"
+                            }
+                        }
+                    },
+                "6": {
+					"value": [
+						"6"
+					],
+                        "objects": {
+                            "/frer/sequence-generation/direction-out-facing": {
+                                "expected_value": "false"
+                            },
+                            "/frer/sequence-generation/stream": {
+                                "expected_value": "6"
+                            }
+                        }
+                    },
+                "7": {
+					"value": [
+						"7"
+					],
+                        "objects": {
+                            "/frer/sequence-generation/direction-out-facing": {
+                                "expected_value": "false"
+                            },
+                            "/frer/sequence-generation/stream": {
+                                "expected_value": "7"
+                            }
+                        }
+                    },
+                "8": {
+					"value": [
+						"8"
+					],
+                        "objects": {
+                            "/frer/sequence-generation/direction-out-facing": {
+                                "expected_value": "false"
+                            },
+                            "/frer/sequence-generation/stream": {
+                                "expected_value": "8"
+                            }
+                        }
+                    },
+                "9": {
+					"value": [
+						"9"
+					],
+                        "objects": {
+                            "/frer/sequence-generation/direction-out-facing": {
+                                "expected_value": "false"
+                            },
+                            "/frer/sequence-generation/stream": {
+                                "expected_value": "9"
+                            }
+                        }
+                    },
+                "10": {
+					"value": [
+						"10"
+					],
+                        "objects": {
+                            "/frer/sequence-generation/direction-out-facing": {
+                                "expected_value": "false"
+                            },
+                            "/frer/sequence-generation/stream": {
+                                "expected_value": "10"
+                            }
+                        }
+                    }
+                }
+            },
+        "2": {
+			"key": {
+				"1": "/frer/sequence-identification/port",
+                "2": "/frer/sequence-identification/direction-out-facing"
+            },
+			"key_values": {
+				"1": {
+					"value": [
+						"sw0p2",
+                        "true"
+					],
+                    "objects": {
+                        "/frer/sequence-identification/active": {
+                            "expected_value": "true"
+                        },
+                        "/frer/sequence-identification/stream": {
+                            "expected_value": "1"
+                        }
+                    }
+                },
+                "2": {
+					"value": [
+						"sw0p3",
+                        "true"
+					],
+                    "objects": {
+                        "/frer/sequence-identification/active": {
+                            "expected_value": "true"
+                        },
+                        "/frer/sequence-identification/stream": {
+                            "expected_value": "2"
+                        }
+                    }
+                },
+                "3": {
+					"value": [
+						"sw0p4",
+                        "true"
+					],
+                    "objects": {
+                        "/frer/sequence-identification/active": {
+                            "expected_value": "true"
+                        },
+                        "/frer/sequence-identification/stream": {
+                            "expected_value": "3"
+                        }
+                    }
+                },
+                "4": {
+					"value": [
+						"sw0p5",
+                        "true"
+					],
+                    "objects": {
+                        "/frer/sequence-identification/active": {
+                            "expected_value": "true"
+                        },
+                        "/frer/sequence-identification/stream": {
+                            "expected_value": "4"
+                        }
+                    }
+                }
+            }
+        },
+        "3": {
+			"key": {
+				"1": "/frer/sequence-recovery/index"
+            },
+			"key_values": {
+				"1": {
+					"value": [
+						"1"
+					],
+                    "objects": {
+                        "/frer/sequence-recovery/direction-out-facing": {
+                            "expected_value": "false"
+                        },
+                        "/frer/sequence-recovery/history-length": {
+                            "expected_value": "2"
+                        },
+                        "/frer/sequence-recovery/reset-timeout": {
+                            "expected_value": "5"
+                        },
+                        "/frer/sequence-recovery/take-no-sequence": {
+                            "expected_value": "false"
+                        },
+                        "/frer/sequence-recovery/port": {
+                            "expected_value": "sw0p2"
+                        },
+                        "/frer/sequence-recovery/stream": {
+                            "expected_value": "2"
+                        }
+                    }
+                },
+                "2": {
+					"value": [
+						"2"
+					],
+                    "objects": {
+                        "/frer/sequence-recovery/direction-out-facing": {
+                            "expected_value": "false"
+                        },
+                        "/frer/sequence-recovery/history-length": {
+                            "expected_value": "3"
+                        },
+                        "/frer/sequence-recovery/reset-timeout": {
+                            "expected_value": "4"
+                        },
+                        "/frer/sequence-recovery/take-no-sequence": {
+                            "expected_value": "false"
+                        },
+                        "/frer/sequence-recovery/port": {
+                            "expected_value": "sw0p2"
+                        },
+                        "/frer/sequence-recovery/stream": {
+                            "expected_value": "3"
+                        }
+                    }
+                },
+                "3": {
+					"value": [
+						"3"
+					],
+                    "objects": {
+                        "/frer/sequence-recovery/direction-out-facing": {
+                            "expected_value": "false"
+                        },
+                        "/frer/sequence-recovery/history-length": {
+                            "expected_value": "2"
+                        },
+                        "/frer/sequence-recovery/reset-timeout": {
+                            "expected_value": "8"
+                        },
+                        "/frer/sequence-recovery/take-no-sequence": {
+                            "expected_value": "false"
+                        },
+                        "/frer/sequence-recovery/port": {
+                            "expected_value": "sw0p3"
+                        },
+                        "/frer/sequence-recovery/stream": {
+                            "expected_value": "3"
+                        }
+                    }
+                },
+                "4": {
+					"value": [
+						"4"
+					],
+                    "objects": {
+                        "/frer/sequence-recovery/direction-out-facing": {
+                            "expected_value": "false"
+                        },
+                        "/frer/sequence-recovery/history-length": {
+                            "expected_value": "2"
+                        },
+                        "/frer/sequence-recovery/reset-timeout": {
+                            "expected_value": "4"
+                        },
+                        "/frer/sequence-recovery/take-no-sequence": {
+                            "expected_value": "false"
+                        },
+                        "/frer/sequence-recovery/port": {
+                            "expected_value": "sw0p4"
+                        },
+                        "/frer/sequence-recovery/stream": {
+                            "expected_value": "5"
+                        }
+                    }
+                },
+                "5": {
+					"value": [
+						"5"
+					],
+                    "objects": {
+                        "/frer/sequence-recovery/direction-out-facing": {
+                            "expected_value": "false"
+                        },
+                        "/frer/sequence-recovery/history-length": {
+                            "expected_value": "4"
+                        },
+                        "/frer/sequence-recovery/reset-timeout": {
+                            "expected_value": "8"
+                        },
+                        "/frer/sequence-recovery/take-no-sequence": {
+                            "expected_value": "false"
+                        },
+                        "/frer/sequence-recovery/port": {
+                            "expected_value": "sw0p5"
+                        },
+                        "/frer/sequence-recovery/stream": {
+                            "expected_value": "2"
+                        }
+                    }
+                },
+                "6": {
+					"value": [
+						"6"
+					],
+                    "objects": {
+                        "/frer/sequence-recovery/direction-out-facing": {
+                            "expected_value": "false"
+                        },
+                        "/frer/sequence-recovery/history-length": {
+                            "expected_value": "2"
+                        },
+                        "/frer/sequence-recovery/reset-timeout": {
+                            "expected_value": "5"
+                        },
+                        "/frer/sequence-recovery/take-no-sequence": {
+                            "expected_value": "false"
+                        },
+                        "/frer/sequence-recovery/port": {
+                            "expected_value": "sw0p4"
+                        },
+                        "/frer/sequence-recovery/stream": {
+                            "expected_value": "7"
+                        }
+                    }
+                },
+                "7": {
+					"value": [
+						"7"
+					],
+                    "objects": {
+                        "/frer/sequence-recovery/direction-out-facing": {
+                            "expected_value": "false"
+                        },
+                        "/frer/sequence-recovery/history-length": {
+                            "expected_value": "5"
+                        },
+                        "/frer/sequence-recovery/reset-timeout": {
+                            "expected_value": "3"
+                        },
+                        "/frer/sequence-recovery/take-no-sequence": {
+                            "expected_value": "false"
+                        },
+                        "/frer/sequence-recovery/port": {
+                            "expected_value": "sw0p3"
+                        },
+                        "/frer/sequence-recovery/stream": {
+                            "expected_value": "7"
+                        }
+                    }
+                },
+                "8": {
+					"value": [
+						"8"
+					],
+                    "objects": {
+                        "/frer/sequence-recovery/direction-out-facing": {
+                            "expected_value": "false"
+                        },
+                        "/frer/sequence-recovery/history-length": {
+                            "expected_value": "7"
+                        },
+                        "/frer/sequence-recovery/reset-timeout": {
+                            "expected_value": "5"
+                        },
+                        "/frer/sequence-recovery/take-no-sequence": {
+                            "expected_value": "false"
+                        },
+                        "/frer/sequence-recovery/port": {
+                            "expected_value": "sw0p2"
+                        },
+                        "/frer/sequence-recovery/stream": {
+                            "expected_value": "9"
+                        }
+                    }
+                },
+                "9": {
+					"value": [
+						"9"
+					],
+                    "objects": {
+                        "/frer/sequence-recovery/direction-out-facing": {
+                            "expected_value": "false"
+                        },
+                        "/frer/sequence-recovery/history-length": {
+                            "expected_value": "4"
+                        },
+                        "/frer/sequence-recovery/reset-timeout": {
+                            "expected_value": "3"
+                        },
+                        "/frer/sequence-recovery/take-no-sequence": {
+                            "expected_value": "false"
+                        },
+                        "/frer/sequence-recovery/port": {
+                            "expected_value": "sw0p5"
+                        },
+                        "/frer/sequence-recovery/stream": {
+                            "expected_value": "5"
+                        }
+                    }
+                },
+                "10": {
+					"value": [
+						"10"
+					],
+                    "objects": {
+                        "/frer/sequence-recovery/direction-out-facing": {
+                            "expected_value": "false"
+                        },
+                        "/frer/sequence-recovery/history-length": {
+                            "expected_value": "9"
+                        },
+                        "/frer/sequence-recovery/reset-timeout": {
+                            "expected_value": "8"
+                        },
+                        "/frer/sequence-recovery/take-no-sequence": {
+                            "expected_value": "false"
+                        },
+                        "/frer/sequence-recovery/port": {
+                            "expected_value": "sw0p4"
+                        },
+                        "/frer/sequence-recovery/stream": {
+                            "expected_value": "6"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,32 @@
+<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+<frame-replication-and-elimination xmlns="urn:ieee:std:802.1Q:yang:ieee802-dot1cb-frer">
+  <sequence-generation-list>
+    <index>1</index>
+    <direction>false</direction>
+    <stream-list>55</stream-list>
+    <stream-list>33</stream-list>
+  </sequence-generation-list>
+  <sequence-generation-list>
+    <index>2</index>
+    <direction>false</direction>
+    <stream-list>88</stream-list>
+    <stream-list>99</stream-list>
+  </sequence-generation-list>
+  <sequence-recovery-list>
+    <index>5</index>
+    <direction>false</direction>
+    <history-length>2</history-length>
+    <reset-timeout>65535</reset-timeout>
+    <port-list>sw0p2</port-list>
+    <port-list>sw0p3</port-list>
+    <stream-list>22</stream-list>
+  </sequence-recovery-list>
+  <sequence-identification-list>
+    <port>sw0p2</port>
+    <direction>true</direction>
+    <encapsulation>r-tag</encapsulation>
+    <active>false</active>
+    <stream-list>22</stream-list>
+  </sequence-identification-list>
+</frame-replication-and-elimination>
+</config>

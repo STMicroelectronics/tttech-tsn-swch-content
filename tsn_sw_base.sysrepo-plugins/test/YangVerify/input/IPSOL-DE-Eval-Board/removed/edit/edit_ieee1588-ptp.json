@@ -1,0 +1,78 @@
+{
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/ptp/instance-list/instance-index"
+			},
+			"key_values": {
+				"1": {
+					"value":
+					[
+						"1"
+					],
+
+					"objects": {
+
+						"/ptp/instance-list/default-ds/clock-quality/clock-accuracy": {
+							"new_value": 
+							[
+								"43",
+								"34",
+								"40",
+								"46",
+								"49",
+								"32"
+							]
+						},
+
+						"/ptp/instance-list/default-ds/priority1": {
+							"new_value": 
+							[
+								"200",
+								"100",
+								"150",
+								"15"
+							]
+						},
+
+						"/ptp/instance-list/default-ds/priority2": {
+							"new_value": 
+							[
+								"80",
+								"210",
+								"100",
+								"123",
+								"222"
+							]
+						},
+
+						"/ptp/instance-list/time-properties-ds/current-utc-offset-valid": {
+							"new_value": 
+							[
+								"false"
+							]
+						},
+
+						"/ptp/instance-list/time-properties-ds/leap59": {
+							"new_value": 
+							[
+								"true",
+								"false",
+								"true"
+							]
+						},
+
+						"/ptp/instance-list/time-properties-ds/leap61": {
+							"new_value": 
+							[
+								"true",
+								"false",
+								"true"
+							]
+						}
+					}
+				}
+			}
+		}
+	}
+}

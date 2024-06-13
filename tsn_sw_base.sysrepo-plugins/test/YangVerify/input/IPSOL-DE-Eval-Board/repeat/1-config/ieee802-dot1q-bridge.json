@@ -1,0 +1,93 @@
+{
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/bridges/bridge/name",
+				"2": "/bridges/bridge/component/name"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"br0",
+						"br0"
+					],
+					"objects": {
+						"/bridges/bridge/component/bridge-vlan": {
+							"new_entries": [
+								{
+									"vid-to-fid": {
+										"vid": "1100",
+										"fid": "2"
+									}
+								},
+								{
+									"vid-to-fid": {
+										"vid": "2000",
+										"fid": "2"
+									}
+								}
+							]
+						}
+					}
+				}
+			}
+		},
+		"2": {
+			"key": {
+				"1": "/bridges/bridge/component/filtering-database/vlan-registration-entry/database-id",
+				"2": "/bridges/bridge/component/filtering-database/vlan-registration-entry/vids",
+				"3": "/bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/port-ref"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"1",
+						"1",
+						"2"
+					],
+					"objects": {
+						"/bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/static-vlan-registration-entries/vlan-transmitted": {
+							"new_value": [
+								"untagged"
+							]
+						}
+					}
+				}
+			}
+		},
+		"3": {
+			"key": {
+				"1": "/bridges/bridge/name",
+				"2": "/bridges/bridge/component/name"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"br0",
+						"br0"
+					],
+					"objects": {
+						"/bridges/bridge/component": {
+							"new_entries": [
+								{
+                                    "stream-identification": {
+                                        "stream-handles": {
+                                            "stream-handle": "66",
+                                            "tsn-stream-identication-type": "null-stream",
+                                            "out-facing-input-port-list": "sw0p3",
+                                            "null-stream-identification-entry": {
+                                                "destination-mac": "01-10-5e-01-01-05",
+                                                "tagged": "tagged",
+                                                "vlan": "2"
+                                            }
+                                        }
+                                    }
+								}
+							]
+						}
+					}
+				}
+			}
+		}
+	}
+}

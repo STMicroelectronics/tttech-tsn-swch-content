@@ -1,0 +1,357 @@
+{
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/bridges/bridge/name",
+				"2": "/bridges/bridge/component/name",
+				"3": "/bridges/bridge/component/stream-gates/stream-gate-instance-table/stream-gate-instance-id"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"br0",
+						"br0",
+						"7"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/gate-enable": {
+							"expected_value": "true"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-gate-states": {
+							"expected_value": "closed"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-cycle-time/numerator": {
+							"expected_value": "100"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-cycle-time/denominator": {
+							"expected_value": "100000000"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/config-change": {
+							"expected_value": "true"
+						}
+					}
+				},
+				"2": {
+					"value": [
+						"br0",
+						"br0",
+						"3"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/gate-enable": {
+							"expected_value": "true"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-gate-states": {
+							"expected_value": "closed"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-cycle-time/numerator": {
+							"expected_value": "200"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-cycle-time/denominator": {
+							"expected_value": "100000000"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/config-change": {
+							"expected_value": "true"
+						}
+					}
+				}
+			}
+		},
+		"2": {
+			"key": {
+				"1": "/bridges/bridge/name",
+				"2": "/bridges/bridge/component/name",
+				"3": "/bridges/bridge/component/stream-gates/stream-gate-instance-table/stream-gate-instance-id",
+				"4": "/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-control-list/gate-control-entry/index"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"br0",
+						"br0",
+						"7",
+						"0"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/operation-name": {
+							"expected_value": "set-gate-and-ipv"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/gate-state-value": {
+							"expected_value": "open"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/time-interval-value": {
+							"expected_value": "9600"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/ipv-spec": {
+							"expected_value": "seven"
+						}
+					}
+				},
+				"2": {
+					"value": [
+						"br0",
+						"br0",
+						"7",
+						"1"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/operation-name": {
+							"expected_value": "set-gate-and-ipv"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/gate-state-value": {
+							"expected_value": "closed"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/time-interval-value": {
+							"expected_value": "117760"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/ipv-spec": {
+							"expected_value": "five"
+						}
+					}
+				},
+				"3": {
+					"value": [
+						"br0",
+						"br0",
+						"7",
+						"2"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/operation-name": {
+							"expected_value": "set-gate-and-ipv"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/gate-state-value": {
+							"expected_value": "open"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/time-interval-value": {
+							"expected_value": "81280"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/ipv-spec": {
+							"expected_value": "two"
+						}
+					}
+				},
+				"4": {
+					"value": [
+						"br0",
+						"br0",
+						"3",
+						"0"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/operation-name": {
+							"expected_value": "set-gate-and-ipv"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/gate-state-value": {
+							"expected_value": "open"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/time-interval-value": {
+							"expected_value": "9600"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/ipv-spec": {
+							"expected_value": "seven"
+						}
+					}
+				},
+				"5": {
+					"value": [
+						"br0",
+						"br0",
+						"3",
+						"1"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/operation-name": {
+							"expected_value": "set-gate-and-ipv"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/gate-state-value": {
+							"expected_value": "closed"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/time-interval-value": {
+							"expected_value": "117760"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/ipv-spec": {
+							"expected_value": "five"
+						}
+					}
+				},
+				"6": {
+					"value": [
+						"br0",
+						"br0",
+						"3",
+						"2"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/operation-name": {
+							"expected_value": "set-gate-and-ipv"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/gate-state-value": {
+							"expected_value": "open"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/time-interval-value": {
+							"expected_value": "81280"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/ipv-spec": {
+							"expected_value": "two"
+						}
+					}
+				},
+				"7": {
+					"value": [
+						"br0",
+						"br0",
+						"3",
+						"3"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/operation-name": {
+							"expected_value": "set-gate-and-ipv"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/gate-state-value": {
+							"expected_value": "closed"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/time-interval-value": {
+							"expected_value": "117760"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/ipv-spec": {
+							"expected_value": "one"
+						}
+					}
+				},
+				"8": {
+					"value": [
+						"br0",
+						"br0",
+						"3",
+						"4"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/operation-name": {
+							"expected_value": "set-gate-and-ipv"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/gate-state-value": {
+							"expected_value": "open"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/time-interval-value": {
+							"expected_value": "81280"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/ipv-spec": {
+							"expected_value": "two"
+						}
+					}
+				},
+				"9": {
+					"value": [
+						"br0",
+						"br0",
+						"3",
+						"5"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/operation-name": {
+							"expected_value": "set-gate-and-ipv"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/gate-state-value": {
+							"expected_value": "closed"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/time-interval-value": {
+							"expected_value": "31360"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/ipv-spec": {
+							"expected_value": "three"
+						}
+					}
+				},
+				"10": {
+					"value": [
+						"br0",
+						"br0",
+						"3",
+						"6"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/operation-name": {
+							"expected_value": "set-gate-and-ipv"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/gate-state-value": {
+							"expected_value": "open"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/time-interval-value": {
+							"expected_value": "17920"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/ipv-spec": {
+							"expected_value": "four"
+						}
+					}
+				},
+				"11": {
+					"value": [
+						"br0",
+						"br0",
+						"3",
+						"7"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/operation-name": {
+							"expected_value": "set-gate-and-ipv"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/gate-state-value": {
+							"expected_value": "closed"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/time-interval-value": {
+							"expected_value": "152960"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/ipv-spec": {
+							"expected_value": "five"
+						}
+					}
+				},
+				"12": {
+					"value": [
+						"br0",
+						"br0",
+						"3",
+						"8"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/operation-name": {
+							"expected_value": "set-gate-and-ipv"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/gate-state-value": {
+							"expected_value": "open"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/time-interval-value": {
+							"expected_value": "117760"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/ipv-spec": {
+							"expected_value": "six"
+						}
+					}
+				},
+				"13": {
+					"value": [
+						"br0",
+						"br0",
+						"3",
+						"9"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/operation-name": {
+							"expected_value": "set-gate-and-ipv"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/gate-state-value": {
+							"expected_value": "closed"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/time-interval-value": {
+							"expected_value": "81280"
+						},
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/oper-control-list/gate-control-entry/ipv-spec": {
+							"expected_value": "seven"
+						}
+					}
+				}
+			}
+		}
+	}
+}

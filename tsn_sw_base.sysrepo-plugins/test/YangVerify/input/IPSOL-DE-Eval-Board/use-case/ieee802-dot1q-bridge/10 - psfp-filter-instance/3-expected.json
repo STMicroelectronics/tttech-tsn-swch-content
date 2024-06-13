@@ -1,0 +1,283 @@
+{
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/bridges/bridge/name",
+				"2": "/bridges/bridge/component/name",
+				"3": "/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-filter-instance-id"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"br0",
+						"br0",
+						"2"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-handle": {
+							"expected_value": "2"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/priority-spec": {
+							"expected_value": "two"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/max-sdu-size": {
+							"expected_value": "200"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-blocked-due-to-oversize-frame-enabled": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-blocked-due-to-oversize-frame": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-gate-ref": {
+							"expected_value": "2"
+						}
+					}
+				},
+				"2": {
+					"value": [
+						"br0",
+						"br0",
+						"4"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-handle": {
+							"expected_value": "4"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/priority-spec": {
+							"expected_value": "four"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/max-sdu-size": {
+							"expected_value": "400"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-blocked-due-to-oversize-frame-enabled": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-blocked-due-to-oversize-frame": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-gate-ref": {
+							"expected_value": "4"
+						}
+					}
+				},
+				"3": {
+					"value": [
+						"br0",
+						"br0",
+						"6"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-handle": {
+							"expected_value": "6"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/priority-spec": {
+							"expected_value": "six"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/max-sdu-size": {
+							"expected_value": "600"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-blocked-due-to-oversize-frame-enabled": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-blocked-due-to-oversize-frame": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-gate-ref": {
+							"expected_value": "6"
+						}
+					}
+				},
+				"4": {
+					"value": [
+						"br0",
+						"br0",
+						"3"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-handle": {
+							"expected_value": "3"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/priority-spec": {
+							"expected_value": "three"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/max-sdu-size": {
+							"expected_value": "300"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-blocked-due-to-oversize-frame-enabled": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-blocked-due-to-oversize-frame": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-gate-ref": {
+							"expected_value": "3"
+						}
+					}
+				},
+				"5": {
+					"value": [
+						"br0",
+						"br0",
+						"33"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-handle": {
+							"expected_value": "3"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/priority-spec": {
+							"expected_value": "three"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/max-sdu-size": {
+							"expected_value": "300"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-blocked-due-to-oversize-frame-enabled": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-blocked-due-to-oversize-frame": {
+							"expected_value": "true"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-gate-ref": {
+							"expected_value": "3"
+						}
+					}
+				},
+				"6": {
+					"value": [
+						"br0",
+						"br0",
+						"333"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-handle": {
+							"expected_value": "3"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/priority-spec": {
+							"expected_value": "three"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/max-sdu-size": {
+							"expected_value": "300"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-blocked-due-to-oversize-frame-enabled": {
+							"expected_value": "true"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-blocked-due-to-oversize-frame": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-gate-ref": {
+							"expected_value": "3"
+						}
+					}
+				},
+				"7": {
+					"value": [
+						"br0",
+						"br0",
+						"1023"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-handle": {
+							"expected_value": "1"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/priority-spec": {
+							"expected_value": "seven"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/max-sdu-size": {
+							"expected_value": "1"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-blocked-due-to-oversize-frame-enabled": {
+							"expected_value": "true"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-blocked-due-to-oversize-frame": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-gate-ref": {
+							"expected_value": "0"
+						}
+					}
+				},
+				"8": {
+					"value": [
+						"br0",
+						"br0",
+						"1000"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-handle": {
+							"expected_value": "1"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/priority-spec": {
+							"expected_value": "six"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/max-sdu-size": {
+							"expected_value": "1000"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-blocked-due-to-oversize-frame-enabled": {
+							"expected_value": "true"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-blocked-due-to-oversize-frame": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-gate-ref": {
+							"expected_value": "2"
+						}
+					}
+				},
+				"9": {
+					"value": [
+						"br0",
+						"br0",
+						"0"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-handle": {
+							"expected_value": "1"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/priority-spec": {
+							"expected_value": "seven"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/max-sdu-size": {
+							"expected_value": "1510"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-blocked-due-to-oversize-frame-enabled": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-blocked-due-to-oversize-frame": {
+							"expected_value": "false"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-gate-ref": {
+							"expected_value": "0"
+						}
+					}
+				},
+				"10": {
+					"value": [
+						"br0",
+						"br0",
+						"127"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-handle": {
+							"expected_value": "127"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/priority-spec": {
+							"expected_value": "seven"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/max-sdu-size": {
+							"expected_value": "1"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-blocked-due-to-oversize-frame-enabled": {
+							"expected_value": "true"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-blocked-due-to-oversize-frame": {
+							"expected_value": "true"
+						},
+						"/bridges/bridge/component/stream-filters/stream-filter-instance-table/stream-gate-ref": {
+							"expected_value": "0"
+						}
+					}
+				}
+			}
+		}
+	}
+}

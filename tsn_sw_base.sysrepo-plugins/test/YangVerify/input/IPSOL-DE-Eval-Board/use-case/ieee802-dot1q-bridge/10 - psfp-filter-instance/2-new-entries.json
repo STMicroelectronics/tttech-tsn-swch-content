@@ -1,0 +1,153 @@
+{
+	"unique_keys": 
+	{
+		"1": 
+		{
+			"key": 
+			{	
+				"1": "/bridges/bridge/name",
+				"2": "/bridges/bridge/component/name"
+			},
+
+			"key_values": 
+			{
+				"1": 
+				{
+					"value":
+					[
+						"br0",
+						"br0"
+					],
+					"objects":
+					{
+						"/bridges/bridge/component/stream-filters": 
+						{
+							"new_entries": [
+								{
+									"stream-filter-instance-table": 
+									{
+										"stream-filter-instance-id": "2",
+										"stream-handle": "2",
+										"priority-spec": "two",
+										"max-sdu-size": "200",
+										"stream-blocked-due-to-oversize-frame-enabled": "false",
+										"stream-blocked-due-to-oversize-frame": "false",
+										"stream-gate-ref": "2"
+									}
+								},
+								{
+									"stream-filter-instance-table":
+									{
+										"stream-filter-instance-id": "4",
+										"stream-handle": "4",
+										"priority-spec": "four",
+										"max-sdu-size": "400",
+										"stream-blocked-due-to-oversize-frame-enabled": "false",
+										"stream-blocked-due-to-oversize-frame": "false",
+										"stream-gate-ref": "4"
+									}
+								},
+								{
+									"stream-filter-instance-table":
+									{
+										"stream-filter-instance-id": "6",
+										"stream-handle": "6",
+										"priority-spec": "six",
+										"max-sdu-size": "600",
+										"stream-blocked-due-to-oversize-frame-enabled": "false",
+										"stream-blocked-due-to-oversize-frame": "false",
+										"stream-gate-ref": "6"
+									}
+								},
+								{
+									"stream-filter-instance-table":
+									{
+										"stream-filter-instance-id": "3",
+										"stream-handle": "3",
+										"priority-spec": "three",
+										"max-sdu-size": "300",
+										"stream-blocked-due-to-oversize-frame-enabled": "false",
+										"stream-blocked-due-to-oversize-frame": "false",
+										"stream-gate-ref": "3"
+									}
+								},
+								{
+									"stream-filter-instance-table":
+									{
+										"stream-filter-instance-id": "33",
+										"stream-handle": "3",
+										"priority-spec": "three",
+										"max-sdu-size": "300",
+										"stream-blocked-due-to-oversize-frame-enabled": "false",
+										"stream-blocked-due-to-oversize-frame": "true",
+										"stream-gate-ref": "3"
+									}
+								},
+								{
+									"stream-filter-instance-table":
+									{
+										"stream-filter-instance-id": "333",
+										"stream-handle": "3",
+										"priority-spec": "three",
+										"max-sdu-size": "300",
+										"stream-blocked-due-to-oversize-frame-enabled": "true",
+										"stream-blocked-due-to-oversize-frame": "false",
+										"stream-gate-ref": "3"
+									}
+								},
+								{
+									"stream-filter-instance-table":
+									{
+										"stream-filter-instance-id": "1023",
+										"stream-handle": "1",
+										"priority-spec": "seven",
+										"max-sdu-size": "1",
+										"stream-blocked-due-to-oversize-frame-enabled": "true",
+										"stream-blocked-due-to-oversize-frame": "false",
+										"stream-gate-ref": "0"
+									}
+								},
+								{
+									"stream-filter-instance-table":
+									{
+										"stream-filter-instance-id": "1000",
+										"stream-handle": "1",
+										"priority-spec": "six",
+										"max-sdu-size": "1000",
+										"stream-blocked-due-to-oversize-frame-enabled": "true",
+										"stream-blocked-due-to-oversize-frame": "false",
+										"stream-gate-ref": "2"
+									}
+								},
+								{
+									"stream-filter-instance-table":
+									{
+										"stream-filter-instance-id": "0",
+										"stream-handle": "1",
+										"priority-spec": "seven",
+										"max-sdu-size": "1510",
+										"stream-blocked-due-to-oversize-frame-enabled": "false",
+										"stream-blocked-due-to-oversize-frame": "false",
+										"stream-gate-ref": "0"
+									}
+								},
+								{
+									"stream-filter-instance-table":
+									{
+										"stream-filter-instance-id": "127",
+										"stream-handle": "127",
+										"priority-spec": "seven",
+										"max-sdu-size": "1",
+										"stream-blocked-due-to-oversize-frame-enabled": "true",
+										"stream-blocked-due-to-oversize-frame": "true",
+										"stream-gate-ref": "0"
+									}
+								}
+							]
+						}
+					}
+				}
+			}	
+		}
+	}
+}

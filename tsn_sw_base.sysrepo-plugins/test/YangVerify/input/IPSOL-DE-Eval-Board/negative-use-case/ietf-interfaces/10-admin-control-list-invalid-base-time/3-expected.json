@@ -1,0 +1,112 @@
+{
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/interfaces/interface/name",
+				"2": "/interfaces/interface/gate-parameters/oper-control-list/index"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"sw0p3",
+						"0"
+					],
+					"objects": {
+						"/interfaces/interface/gate-parameters/oper-control-list/operation-name": {
+							"expected_value": "set-gate-states"
+						},
+						"/interfaces/interface/gate-parameters/oper-control-list/sgs-params/gate-states-value": {
+							"expected_value": "117"
+						},
+						"/interfaces/interface/gate-parameters/oper-control-list/sgs-params/time-interval-value": {
+							"expected_value": "250000"
+						}
+					}
+				},
+				"2": {
+					"value": [
+						"sw0p3",
+						"1"
+					],
+					"objects": {
+						"/interfaces/interface/gate-parameters/oper-control-list/operation-name": {
+							"expected_value": "set-gate-states"
+						},
+						"/interfaces/interface/gate-parameters/oper-control-list/sgs-params/gate-states-value": {
+							"expected_value": "133"
+						},
+						"/interfaces/interface/gate-parameters/oper-control-list/sgs-params/time-interval-value": {
+							"expected_value": "250000"
+						}
+					}
+				},
+				"3": {
+					"value": [
+						"sw0p3",
+						"2"
+					],
+					"objects": {
+						"/interfaces/interface/gate-parameters/oper-control-list/operation-name": {
+							"expected_value": "set-gate-states"
+						},
+						"/interfaces/interface/gate-parameters/oper-control-list/sgs-params/gate-states-value": {
+							"expected_value": "167"
+						},
+						"/interfaces/interface/gate-parameters/oper-control-list/sgs-params/time-interval-value": {
+							"expected_value": "250000"
+						}
+					}
+				},
+				"4": {
+					"value": [
+						"sw0p3",
+						"3"
+					],
+					"objects": {
+						"/interfaces/interface/gate-parameters/oper-control-list/operation-name": {
+							"expected_value": "set-gate-states"
+						},
+						"/interfaces/interface/gate-parameters/oper-control-list/sgs-params/gate-states-value": {
+							"expected_value": "103"
+						},
+						"/interfaces/interface/gate-parameters/oper-control-list/sgs-params/time-interval-value": {
+							"expected_value": "240000"
+						}
+					}
+				}
+			}
+		},
+		"2": {
+			"key": {
+				"1": "/interfaces/interface/name"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"sw0p3"
+					],
+					"objects": {
+						"/interfaces/interface/gate-parameters/gate-enabled": {
+							"expected_value": "true"
+						},
+						"/interfaces/interface/gate-parameters/oper-control-list-length": {
+							"expected_value": "4"
+						},
+						"/interfaces/interface/gate-parameters/oper-cycle-time/numerator": {
+							"expected_value": "1"
+						},
+						"/interfaces/interface/gate-parameters/oper-cycle-time/denominator": {
+							"expected_value": "100"
+						},
+						"/interfaces/interface/frame-preemption-parameters/hold-advance": {
+							"expected_value": "17870"
+						},
+						"/interfaces/interface/frame-preemption-parameters/release-advance": {
+							"expected_value": "3140"
+						}
+					}
+				}
+			}
+		}
+	}
+}

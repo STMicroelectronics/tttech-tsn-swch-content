@@ -1,0 +1,266 @@
+{
+    "new_yang":{
+            "object": [
+            {
+                "frer": {
+                    "new_entries": [
+                        {
+                            "sequence-generation": {
+                                "index": "1",
+                                "direction-out-facing": "false",
+                                "stream": "1"
+                            }
+                        },
+                        {
+                            "sequence-generation": {
+                                "index": "2",
+                                "direction-out-facing": "false",
+                                "stream": "2"
+                            }
+                        },
+                        {
+                            "sequence-generation": {
+                                "index": "3",
+                                "direction-out-facing": "false",
+                                "stream": "3"
+                            }
+                        },
+                        {
+                            "sequence-generation": {
+                                "index": "4",
+                                "direction-out-facing": "false",
+                                "stream": "4"
+                            }
+                        },
+                         {
+                            "sequence-generation": {
+                                "index": "5",
+                                "direction-out-facing": "false",
+                                "stream": "5"
+                            }
+                        },
+                        {
+                            "sequence-generation": {
+                                "index": "6",
+                                "direction-out-facing": "false",
+                                "stream": "6"
+                            }
+                        },
+                        {
+                            "sequence-generation": {
+                                "index": "7",
+                                "direction-out-facing": "false",
+                                "stream": "7"
+                            }
+                        },
+                        {
+                            "sequence-generation": {
+                                "index": "8",
+                                "direction-out-facing": "false",
+                                "stream": "8"
+                            }
+                        },
+                        {
+                            "sequence-generation": {
+                                "index": "9",
+                                "direction-out-facing": "false",
+                                "stream": "9"
+                            }
+                        },
+                        {
+                            "sequence-generation": {
+                                "index": "10",
+                                "direction-out-facing": "false",
+                                "stream": "10"
+                            }
+                        },
+                        {
+                            "sequence-identification": {
+                                "port": "sw0p2",
+                                "direction-out-facing": "true",
+                                "encapsulation": {
+                                    "r-tag": ""
+                                },
+                                "active": "true",
+                                "stream": "1"
+                            }
+                        },
+                        {
+                            "sequence-identification": {
+                                "port": "sw0p3",
+                                "direction-out-facing": "true",
+                                "encapsulation": {
+                                    "r-tag": ""
+                                },
+                                "active": "true",
+                                "stream": "2"
+                            }
+                        },
+                        {
+                            "sequence-identification": {
+                                "port": "sw0p4",
+                                "direction-out-facing": "true",
+                                "encapsulation": {
+                                    "r-tag": ""
+                                },
+                                "active": "true",
+                                "stream": "3"
+                            }
+                        },
+                        {
+                            "sequence-identification": {
+                                "port": "sw0p5",
+                                "direction-out-facing": "true",
+                                "encapsulation": {
+                                    "r-tag": ""
+                                },
+                                "active": "true",
+                                "stream": "4"
+                            }
+                        },
+                        {
+                            "sequence-recovery": {
+                                "index": "1",
+                                "direction-out-facing": "false",
+                                "history-length": "2",
+                                "reset-timeout": "5",
+                                "take-no-sequence": "false",
+                                "port": "sw0p2",
+                                "stream": "2",
+                                "algorithm": {
+                                    "match": ""
+                                }
+                            }
+                        },
+                        {
+                            "sequence-recovery": {
+                                "index": "2",
+                                "direction-out-facing": "false",
+                                "history-length": "3",
+                                "reset-timeout": "4",
+                                "take-no-sequence": "false",
+                                "port": "sw0p2",
+                                "stream": "3",
+                                "algorithm": {
+                                    "match": ""
+                                }
+                            }
+                        },
+                        {
+                            "sequence-recovery": {
+                                "index": "3",
+                                "direction-out-facing": "false",
+                                "history-length": "2",
+                                "reset-timeout": "8",
+                                "take-no-sequence": "false",
+                                "port": "sw0p3",
+                                "stream": "3",
+                                "algorithm": {
+                                    "match": ""
+                                }
+                            }
+                        },
+                        {
+                            "sequence-recovery": {
+                                "index": "4",
+                                "direction-out-facing": "false",
+                                "history-length": "2",
+                                "reset-timeout": "4",
+                                "take-no-sequence": "false",
+                                "port": "sw0p4",
+                                "stream": "5",
+                                "algorithm": {
+                                    "match": ""
+                                }
+                            }
+                        },
+                        {
+                            "sequence-recovery": {
+                                "index": "5",
+                                "direction-out-facing": "false",
+                                "history-length": "4",
+                                "reset-timeout": "8",
+                                "take-no-sequence": "false",
+                                "port": "sw0p5",
+                                "stream": "2",
+                                "algorithm": {
+                                    "match": ""
+                                }
+                            }
+                        },
+                        {
+                            "sequence-recovery": {
+                                "index": "6",
+                                "direction-out-facing": "false",
+                                "history-length": "2",
+                                "reset-timeout": "5",
+                                "take-no-sequence": "false",
+                                "port": "sw0p4",
+                                "stream": "7",
+                                "algorithm": {
+                                    "match": ""
+                                }
+                            }
+                        },
+                        {
+                            "sequence-recovery": {
+                                "index": "7",
+                                "direction-out-facing": "false",
+                                "history-length": "5",
+                                "reset-timeout": "3",
+                                "take-no-sequence": "false",
+                                "port": "sw0p3",
+                                "stream": "7",
+                                "algorithm": {
+                                    "match": ""
+                                }
+                            }
+                        },
+                        {
+                            "sequence-recovery": {
+                                "index": "8",
+                                "direction-out-facing": "false",
+                                "history-length": "7",
+                                "reset-timeout": "5",
+                                "take-no-sequence": "false",
+                                "port": "sw0p2",
+                                "stream": "9",
+                                "algorithm": {
+                                    "match": ""
+                                }
+                            }
+                        },
+                        {
+                            "sequence-recovery": {
+                                "index": "9",
+                                "direction-out-facing": "false",
+                                "history-length": "4",
+                                "reset-timeout": "3",
+                                "take-no-sequence": "false",
+                                "port": "sw0p5",
+                                "stream": "5",
+                                "algorithm": {
+                                    "match": ""
+                                }
+                            }
+                        },
+                        {
+                            "sequence-recovery": {
+                                "index": "10",
+                                "direction-out-facing": "false",
+                                "history-length": "9",
+                                "reset-timeout": "8",
+                                "take-no-sequence": "false",
+                                "port": "sw0p4",
+                                "stream": "6",
+                                "algorithm": {
+                                    "match": ""
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

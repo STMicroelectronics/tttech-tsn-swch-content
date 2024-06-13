@@ -1,0 +1,25 @@
+<lldp xmlns="urn:ieee:std:802.1AB:yang:ieee802-dot1ab-lldp">
+  <message-fast-tx>1</message-fast-tx>
+  <message-tx-hold-multiplier>4</message-tx-hold-multiplier>
+  <message-tx-interval>30</message-tx-interval>
+  <reinit-delay>2</reinit-delay>
+  <tx-credit-max>5</tx-credit-max>
+  <tx-fast-init>4</tx-fast-init>
+  <notification-interval>30</notification-interval>
+  <port>
+    <name>CE01</name>
+    <dest-mac-address>00-80-82-85-e1-38</dest-mac-address>
+  </port>
+  <port>
+    <name>CE02</name>
+    <dest-mac-address>00-80-82-85-e1-39</dest-mac-address>
+  </port>
+  <port>
+    <name>CE03</name>
+    <dest-mac-address>00-80-82-85-e1-3a</dest-mac-address>
+  </port>
+  <port>
+    <name>CE04</name>
+    <dest-mac-address>00-80-82-85-e1-3b</dest-mac-address>
+  </port>
+</lldp>

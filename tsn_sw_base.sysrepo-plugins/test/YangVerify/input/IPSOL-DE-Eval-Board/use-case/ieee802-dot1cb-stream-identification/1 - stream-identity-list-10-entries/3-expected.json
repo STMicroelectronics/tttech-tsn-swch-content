@@ -1,0 +1,233 @@
+{
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/stream-identity/index"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"1"
+					],
+                        "objects": {
+                            "/stream-identity/handle": {
+                                "expected_value": "1"
+                            },
+                            "/stream-identity/out-facing/input-port": {
+                                "expected_value": "sw0p1"
+                            },
+                            "/stream-identity/null-stream-identification/destination-mac": {
+                                "expected_value": "aa-bb-cc-dd-ee-01"
+                            },
+                            "/stream-identity/null-stream-identification/tagged": {
+                                "expected_value": "tagged"
+                            },
+                            "/stream-identity/null-stream-identification/vlan": {
+                                "expected_value": "1"
+                            }
+                        }
+                    },
+                "2": {
+					"value": [
+						"2"
+					],
+                        "objects": {
+                            "/stream-identity/handle": {
+                                "expected_value": "2"
+                            },
+                            "/stream-identity/out-facing/input-port": {
+                                "expected_value": "sw0p2"
+                            },
+                            "/stream-identity/null-stream-identification/destination-mac": {
+                                "expected_value": "aa-bb-cc-dd-ee-02"
+                            },
+                            "/stream-identity/null-stream-identification/tagged": {
+                                "expected_value": "tagged"
+                            },
+                            "/stream-identity/null-stream-identification/vlan": {
+                                "expected_value": "2"
+                            }
+                        }
+                    },
+                    "3": {
+                        "value": [
+                            "3"
+                        ],
+                            "objects": {
+                                "/stream-identity/handle": {
+                                    "expected_value": "3"
+                                },
+                                "/stream-identity/out-facing/input-port": {
+                                    "expected_value": "sw0p3"
+                                },
+                                "/stream-identity/null-stream-identification/destination-mac": {
+                                    "expected_value": "aa-bb-cc-dd-ee-03"
+                                },
+                                "/stream-identity/null-stream-identification/tagged": {
+                                    "expected_value": "tagged"
+                                },
+                                "/stream-identity/null-stream-identification/vlan": {
+                                    "expected_value": "3"
+                                }
+                            }
+                        },
+                        "4": {
+                            "value": [
+                                "4"
+                            ],
+                                "objects": {
+                                    "/stream-identity/handle": {
+                                        "expected_value": "4"
+                                    },
+                                    "/stream-identity/out-facing/input-port": {
+                                        "expected_value": "sw0p4"
+                                    },
+                                    "/stream-identity/null-stream-identification/destination-mac": {
+                                        "expected_value": "aa-bb-cc-dd-ee-04"
+                                    },
+                                    "/stream-identity/null-stream-identification/tagged": {
+                                        "expected_value": "tagged"
+                                    },
+                                    "/stream-identity/null-stream-identification/vlan": {
+                                        "expected_value": "4"
+                                    }
+                                }
+                            },
+                        "5": {
+                            "value": [
+                                "5"
+                            ],
+                                "objects": {
+                                    "/stream-identity/handle": {
+                                        "expected_value": "5"
+                                    },
+                                    "/stream-identity/out-facing/input-port": {
+                                        "expected_value": "sw0p5"
+                                    },
+                                    "/stream-identity/null-stream-identification/destination-mac": {
+                                        "expected_value": "aa-bb-cc-dd-ee-05"
+                                    },
+                                    "/stream-identity/null-stream-identification/tagged": {
+                                        "expected_value": "tagged"
+                                    },
+                                    "/stream-identity/null-stream-identification/vlan": {
+                                        "expected_value": "5"
+                                    }
+                                }
+                            },
+                        "6": {
+                            "value": [
+                                "6"
+                            ],
+                                "objects": {
+                                    "/stream-identity/handle": {
+                                        "expected_value": "6"
+                                    },
+                                    "/stream-identity/out-facing/input-port": {
+                                        "expected_value": "sw0p1"
+                                    },
+                                    "/stream-identity/null-stream-identification/destination-mac": {
+                                        "expected_value": "aa-bb-cc-dd-ee-06"
+                                    },
+                                    "/stream-identity/null-stream-identification/tagged": {
+                                        "expected_value": "tagged"
+                                    },
+                                    "/stream-identity/null-stream-identification/vlan": {
+                                        "expected_value": "6"
+                                    }
+                                }
+                            },
+                        "7": {
+                            "value": [
+                                "7"
+                            ],
+                                "objects": {
+                                    "/stream-identity/handle": {
+                                        "expected_value": "7"
+                                    },
+                                    "/stream-identity/out-facing/input-port": {
+                                        "expected_value": "sw0p2"
+                                    },
+                                    "/stream-identity/null-stream-identification/destination-mac": {
+                                        "expected_value": "aa-bb-cc-dd-ee-07"
+                                    },
+                                    "/stream-identity/null-stream-identification/tagged": {
+                                        "expected_value": "tagged"
+                                    },
+                                    "/stream-identity/null-stream-identification/vlan": {
+                                        "expected_value": "7"
+                                    }
+                                }
+                            },
+                        "8": {
+                            "value": [
+                                "8"
+                            ],
+                                "objects": {
+                                    "/stream-identity/handle": {
+                                        "expected_value": "8"
+                                    },
+                                    "/stream-identity/out-facing/input-port": {
+                                        "expected_value": "sw0p3"
+                                    },
+                                    "/stream-identity/null-stream-identification/destination-mac": {
+                                        "expected_value": "aa-bb-cc-dd-ee-08"
+                                    },
+                                    "/stream-identity/null-stream-identification/tagged": {
+                                        "expected_value": "tagged"
+                                    },
+                                    "/stream-identity/null-stream-identification/vlan": {
+                                        "expected_value": "8"
+                                    }
+                                }
+                            },
+                        "9": {
+                            "value": [
+                                "9"
+                            ],
+                                "objects": {
+                                    "/stream-identity/handle": {
+                                        "expected_value": "9"
+                                    },
+                                    "/stream-identity/out-facing/input-port": {
+                                        "expected_value": "sw0p4"
+                                    },
+                                    "/stream-identity/null-stream-identification/destination-mac": {
+                                        "expected_value": "aa-bb-cc-dd-ee-09"
+                                    },
+                                    "/stream-identity/null-stream-identification/tagged": {
+                                        "expected_value": "tagged"
+                                    },
+                                    "/stream-identity/null-stream-identification/vlan": {
+                                        "expected_value": "9"
+                                    }
+                                }
+                            },
+                        "10": {
+                            "value": [
+                                "10"
+                            ],
+                                "objects": {
+                                    "/stream-identity/handle": {
+                                        "expected_value": "10"
+                                    },
+                                    "/stream-identity/out-facing/input-port": {
+                                        "expected_value": "sw0p5"
+                                    },
+                                    "/stream-identity/null-stream-identification/destination-mac": {
+                                        "expected_value": "aa-bb-cc-dd-ee-0a"
+                                    },
+                                    "/stream-identity/null-stream-identification/tagged": {
+                                        "expected_value": "tagged"
+                                    },
+                                    "/stream-identity/null-stream-identification/vlan": {
+                                        "expected_value": "10"
+                                    }
+                                }
+                            }
+                        
+
+                }
+            }
+		}    
+    }

@@ -1,0 +1,635 @@
+{
+	"unique_keys": 
+	{
+		"1": 
+		{
+			"key": 
+			{	
+				"1": "/bridges/bridge/name",
+				"2": "/bridges/bridge/component/name",
+				"3": "/bridges/bridge/component/stream-gates/stream-gate-instance-table/stream-gate-instance-id"
+			},
+
+			"key_values": 
+			{
+				"1": 
+				{
+					"value":
+					[
+						"br0",
+						"br0",
+						"5"
+					],
+					"objects":
+					{
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-control-list": {
+							"new_entries": [
+								{
+									"gate-control-entry": {
+										"index": "0",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "9600",
+										"ipv-spec": "seven"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "1",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "117760",
+										"ipv-spec": "five"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "2",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "81280",
+										"ipv-spec": "two"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "3",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "9600",
+										"ipv-spec": "two"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "4",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "81280",
+										"ipv-spec": "five"
+									}
+								}
+							]
+						}
+					}
+				},
+				"2":
+				{
+					"value":
+					[
+						"br0",
+						"br0",
+						"3"
+					],
+					"objects":
+					{
+						"/bridges/bridge/component/stream-gates/stream-gate-instance-table/admin-control-list": {
+							"new_entries": [
+								{
+									"gate-control-entry": {
+										"index": "0",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "9600",
+										"ipv-spec": "seven"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "1",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "117760",
+										"ipv-spec": "five"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "2",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "81280",
+										"ipv-spec": "two"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "3",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "117760",
+										"ipv-spec": "one"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "4",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "81280",
+										"ipv-spec": "two"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "5",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "31360",
+										"ipv-spec": "three"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "6",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "17920",
+										"ipv-spec": "four"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "7",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "152960",
+										"ipv-spec": "five"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "8",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "117760",
+										"ipv-spec": "six"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "9",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "81280",
+										"ipv-spec": "seven"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "10",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "9600",
+										"ipv-spec": "seven"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "11",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "117760",
+										"ipv-spec": "five"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "12",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "81280",
+										"ipv-spec": "two"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "13",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "117760",
+										"ipv-spec": "one"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "14",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "81280",
+										"ipv-spec": "two"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "15",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "31360",
+										"ipv-spec": "three"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "16",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "17920",
+										"ipv-spec": "four"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "17",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "152960",
+										"ipv-spec": "five"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "18",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "117760",
+										"ipv-spec": "six"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "19",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "81280",
+										"ipv-spec": "seven"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "20",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "9600",
+										"ipv-spec": "seven"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "21",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "117760",
+										"ipv-spec": "five"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "22",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "81280",
+										"ipv-spec": "two"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "23",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "117760",
+										"ipv-spec": "one"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "24",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "81280",
+										"ipv-spec": "two"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "25",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "31360",
+										"ipv-spec": "three"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "26",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "17920",
+										"ipv-spec": "four"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "27",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "152960",
+										"ipv-spec": "five"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "28",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "117760",
+										"ipv-spec": "six"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "29",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "81280",
+										"ipv-spec": "seven"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "30",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "9600",
+										"ipv-spec": "seven"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "31",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "117760",
+										"ipv-spec": "five"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "32",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "81280",
+										"ipv-spec": "two"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "33",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "117760",
+										"ipv-spec": "one"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "34",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "81280",
+										"ipv-spec": "two"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "35",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "31360",
+										"ipv-spec": "three"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "36",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "17920",
+										"ipv-spec": "four"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "37",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "152960",
+										"ipv-spec": "five"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "38",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "117760",
+										"ipv-spec": "six"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "39",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "81280",
+										"ipv-spec": "seven"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "40",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "9600",
+										"ipv-spec": "seven"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "41",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "117760",
+										"ipv-spec": "five"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "42",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "81280",
+										"ipv-spec": "two"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "43",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "117760",
+										"ipv-spec": "one"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "44",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "81280",
+										"ipv-spec": "two"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "45",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "31360",
+										"ipv-spec": "three"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "46",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "17920",
+										"ipv-spec": "four"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "47",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "152960",
+										"ipv-spec": "five"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "48",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "117760",
+										"ipv-spec": "six"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "49",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "81280",
+										"ipv-spec": "seven"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "50",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "9600",
+										"ipv-spec": "seven"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "51",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "117760",
+										"ipv-spec": "five"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "52",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "81280",
+										"ipv-spec": "two"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "53",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "117760",
+										"ipv-spec": "one"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "54",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "81280",
+										"ipv-spec": "two"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "55",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "31360",
+										"ipv-spec": "three"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "56",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "17920",
+										"ipv-spec": "four"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "57",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "152960",
+										"ipv-spec": "five"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "58",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "open",
+										"time-interval-value": "117760",
+										"ipv-spec": "six"
+									}
+								},
+								{
+									"gate-control-entry": {
+										"index": "59",
+										"operation-name": "set-gate-and-ipv",
+										"gate-state-value": "closed",
+										"time-interval-value": "81280",
+										"ipv-spec": "seven"
+									}
+								}
+							]
+						}
+					}
+				}
+			}	
+		}
+	}
+}

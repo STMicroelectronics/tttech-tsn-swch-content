@@ -1,0 +1,129 @@
+{
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/bridges/bridge/name",
+				"2": "/bridges/bridge/component/name"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"br0",
+						"br0"
+					],
+					"objects": {
+						"/bridges/bridge/component/bridge-vlan": {
+							"new_entries": [
+								{
+                                    "vid-to-fid": {
+                                            "vid": "1101",
+                                            "fid": "1"
+                                    }
+								},
+								{
+                                    "vid-to-fid": {
+                                            "vid": "1102",
+                                            "fid": "1"
+                                    }
+								},
+								{
+                                    "vid-to-fid": {
+                                            "vid": "1103",
+                                            "fid": "1"
+                                    }
+								},
+								{
+                                    "vid-to-fid": {
+                                            "vid": "1104",
+                                            "fid": "1"
+                                    }
+								},
+								{
+                                    "vid-to-fid": {
+                                            "vid": "1105",
+                                            "fid": "1"
+                                    }
+								},
+								{
+                                    "vid-to-fid": {
+                                            "vid": "1106",
+                                            "fid": "1"
+                                    }
+								},
+								{
+                                    "vid-to-fid": {
+                                            "vid": "1107",
+                                            "fid": "1"
+                                    }
+								},
+								{
+                                    "vid-to-fid": {
+                                            "vid": "1108",
+                                            "fid": "1"
+                                    }
+								},
+								{
+                                    "vid-to-fid": {
+                                            "vid": "1109",
+                                            "fid": "1"
+                                    }
+								},
+								{
+                                    "vid-to-fid": {
+                                            "vid": "1110",
+                                            "fid": "1"
+                                    }
+								},
+								{
+                                    "vid-to-fid-allocation": {
+                                            "vids": "1101"
+                                    }
+								},
+								{
+                                    "vid-to-fid-allocation": {
+                                            "vids": "1110"
+                                    }
+								},
+								{
+                                    "vid-to-fid-allocation": {
+                                            "vids": "1105"
+                                    }
+								},
+								{
+                                    "vid-to-fid-allocation": {
+                                            "vids": "1101,1105,1110"
+                                    }
+								},
+								{
+                                    "vid-to-fid-allocation": {
+                                            "vids": "1101-1110"
+                                    }
+								},
+								{
+                                    "vid-to-fid-allocation": {
+                                            "vids": "1103-1107"
+                                    }
+								},
+								{
+                                    "vid-to-fid-allocation": {
+                                            "vids": "1101-1103,1105-1108"
+                                    }
+								},
+								{
+                                    "vid-to-fid-allocation": {
+                                            "vids": "1101,1102-1104,1106-1108,1110"
+                                    }
+								},
+								{
+                                    "vid-to-fid-allocation": {
+                                            "vids": "1102-1103,1105,1107-1108"
+                                    }
+								}	
+							]
+						}
+					}
+				}
+			}
+		}
+	}
+}

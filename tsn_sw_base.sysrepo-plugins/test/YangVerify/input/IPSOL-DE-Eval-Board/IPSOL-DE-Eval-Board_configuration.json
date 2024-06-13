@@ -1,0 +1,17 @@
+{
+	"target": {
+		"ip-address": "192.168.7.8",
+		"username": "root",
+		"password": "",
+		"repeat" : false
+	},
+	"tests": {
+		"ietf-interfaces": 		["implemented", "expected", "edit", "use-case", "negative-use-case"],
+		"ieee802-dot1q-bridge":		["implemented", "expected", "edit", "use-case", "negative-use-case"],
+		"ieee8021-mstp":		["implemented", "expected", "edit"],
+		"ieee802-dot1q-fqtss":		["implemented", "expected", "edit", "use-case"],
+		"ieee802-dot1ab-lldp":		["implemented", "expected", "edit"],
+		"ietf-ptp": 			["implemented", "expected", "edit"],
+		"ieee802-dot1cb-stream-identification":	["use-case"]
+	}
+}

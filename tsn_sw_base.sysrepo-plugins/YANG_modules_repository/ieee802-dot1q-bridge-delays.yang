@@ -1,0 +1,104 @@
+module ieee802-dot1q-bridge-delays {
+
+	namespace urn:ieee:std:802.1Q:yang:ieee802-dot1q-bridge-delays;
+	prefix dot1q-delays;
+	
+	import ietf-interfaces {
+        prefix if;
+    }
+		
+	import ieee802-dot1q-bridge {
+          prefix dot1q;
+    }
+	
+	description "Yang model for the 802.1Qdj Bridge Delays";
+
+    revision 2021-11-23 {
+        description "Redefinition of delays data type. 
+		The dependent delays have 'ps' (picoseconds) as an unit.
+		The independent delays have 'ns' (nanoseconds) as an unit.
+		The bridge port speed represented in Megabits per second (Mb/s)";
+    }
+	
+    revision 2021-06-22 {
+        description "Initial revision";
+    }
+	
+	typedef dependent-delay-type {
+		type uint64;
+		units ps;
+		description
+        "This is the data type definition for bridge port dependent delays.";
+	}
+	
+	typedef independent-delay-type {
+		type uint64;
+		units ns;
+		description
+        "This is the data type definition for bridge port dependent delays.";
+	}
+  
+	augment "/if:interfaces/if:interface/dot1q:bridge-port" {
+		list bridge-port-delays {
+			config false;
+			key "port-speed";
+			description
+			"A list containing a set of the bridge port delays for every available port speed.";
+			
+			leaf port-speed {
+				type uint32;
+				units "Mb/s";
+				description
+					"Bridge port speed in Megabits per second (Mb/s).";
+			}
+			
+			leaf dependentRxDelayMin {
+				type dependent-delay-type;
+				description
+				"Dependent RX delay minimum.";
+			}
+			
+			leaf dependentRxDelayMax {
+				type dependent-delay-type;
+				description
+				"Dependent RX delay maximum.";
+			}
+			
+			leaf independentRxDelayMin {
+				type independent-delay-type;
+				description
+				"Independent RX delay minimum.";
+			}
+			
+			leaf independentRxDelayMax {
+				type independent-delay-type;
+				description
+				"Independent RX delay maximum.";
+			}
+			
+			leaf independentRlyDelayMin {
+				type independent-delay-type;
+				description
+				"Independent relay delay minimum..";
+			}
+			
+			leaf independentRlyDelayMax {
+				type independent-delay-type;
+				description
+				"Independent relay delay maximum.";
+			}
+			
+			leaf independentTxDelayMin {
+				type independent-delay-type;
+				description
+				"Independent TX delay minimum..";
+			}
+			
+			leaf independentTxDelayMax {
+				type independent-delay-type;
+				description
+				"Independent TX delay maximum.";
+			}
+		}
+	}
+}

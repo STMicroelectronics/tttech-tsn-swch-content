@@ -1,0 +1,29 @@
+<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+<stream-identity-list xmlns="urn:ieee:std:802.1Q:yang:ieee802-dot1cb-stream-identification">
+  <index>0</index>
+  <handle>33</handle>
+  <identification-type>null-stream-identification</identification-type>
+  <out-facing>
+    <input-port-list>sw0p2</input-port-list>
+  </out-facing>
+  <null-stream-identification>
+    <destination-mac>01-00-63-8e-cd-be</destination-mac>
+    <tagged>tagged</tagged>
+    <vlan>7</vlan>
+  </null-stream-identification>
+</stream-identity-list>
+<stream-identity-list xmlns="urn:ieee:std:802.1Q:yang:ieee802-dot1cb-stream-identification">
+  <index>1</index>
+  <handle>55</handle>
+  <identification-type>null-stream-identification</identification-type>
+  <out-facing>
+    <input-port-list>sw0p2</input-port-list>
+    <input-port-list>sw0p3</input-port-list>
+  </out-facing>
+  <null-stream-identification>
+    <destination-mac>01-00-63-8e-e1-be</destination-mac>
+    <tagged>tagged</tagged>
+    <vlan>7</vlan>
+  </null-stream-identification>
+</stream-identity-list>
+</config>

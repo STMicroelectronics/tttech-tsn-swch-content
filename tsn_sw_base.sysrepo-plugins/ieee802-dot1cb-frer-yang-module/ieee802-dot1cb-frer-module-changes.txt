@@ -1,0 +1,18 @@
+1. Type of leaf-list stream-list inside sequence-generation-list changed from leafref to uint32,
+because this leaf-list entry will exist only if leaf handle inside stream-identity-list inside stream-identification
+module exist. Also minimal elements is commented out, because you can create sequence-generation-list entry od board 
+without adding any leaf-list stream-list inside it.
+
+
+2. Type of leaf-list stream-list inside sequence-recovery-list changed from leafref to uint32,
+because this leaf-list entry will exist only if leaf handle inside stream-identity-list inside stream-identification
+module exist. Also minimal elements is commented out, because you can create sequence-recovery-list entry od board 
+without adding any leaf-list stream-list inside it.
+
+3. Minimal elements commented out from  leaf-list port-list inside sequence-recovery-list, because you can create sequence-recovery-list entry od board 
+without adding any leaf-list port-list inside it.
+
+4.Type of leaf-list stream-list inside sequence-identification-list changed from leafref to uint32,
+because this leaf-list entry will exist only if leaf handle inside stream-identity-list inside stream-identification
+module exist. Also minimal elements is commented out, because you can create sequence-identification-list entry od board 
+without adding any leaf-list stream-list inside it.
