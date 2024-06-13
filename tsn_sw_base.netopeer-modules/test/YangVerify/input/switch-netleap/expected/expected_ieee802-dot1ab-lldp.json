@@ -1,0 +1,35 @@
+{
+	"/lldp/message-fast-tx": {
+		"expected_value": "1"
+	},
+   "/lldp/message-tx-hold-multiplier": {
+		"expected_value": "4"
+	},
+   "/lldp/message-tx-interval": {
+		"expected_value": "30"
+	},
+   "/lldp/reinit-delay": {
+		"expected_value": "2"
+	},
+   "/lldp/tx-credit-max": {
+		"expected_value": "5"
+	},
+   "/lldp/tx-fast-init": {
+		"expected_value": "4"
+	},
+   "/lldp/notification-interval": {
+		"expected_value": "30"
+	},
+   "/lldp/local-system-data/chassis-id-subtype": {
+		"expected_value": "4"
+	},
+   "/lldp/local-system-data/system-name": {
+		"expected_value": "de-eval-board"
+	},
+   "/lldp/local-system-data/system-capabilities-supported": {
+		"expected_value": "16"
+	},
+   "/lldp/local-system-data/system-capabilities-enabled": {
+		"expected_value": "0"
+	}
+}

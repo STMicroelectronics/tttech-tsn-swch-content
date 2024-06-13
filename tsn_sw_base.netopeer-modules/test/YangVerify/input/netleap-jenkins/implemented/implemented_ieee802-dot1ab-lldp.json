@@ -1,0 +1,291 @@
+{	
+	"/lldp/message-fast-tx": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/message-tx-hold-multiplier": {
+		"read": "true",
+		"write": "true"
+	},
+	"/lldp/message-tx-interval": {
+		"read": "true",
+		"write": "true"
+	},
+	"/lldp/reinit-delay": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/tx-credit-max": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/tx-fast-init": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/notification-interval": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/remote-statistics/last-change-time": {
+		"read": "false",
+		"write": "false"
+	},
+	"/lldp/remote-statistics/remote-inserts": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/remote-statistics/remote-deletes": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/remote-statistics/remote-drops": {
+		"read": "true",
+		"write": "true"
+	},
+	"/lldp/remote-statistics/remote-ageouts": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/local-system-data/chassis-id-subtype": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/local-system-data/chassis-id": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/local-system-data/system-name": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/local-system-data/system-description": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/local-system-data/system-capabilities-supported": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/local-system-data/system-capabilities-enabled": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/name": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/dest-mac-address": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/admin-status": {
+		"read": "false",
+		"write": "false"
+	},
+	"/lldp/port/notification-enable": {
+		"read": "false",
+		"write": "false"
+	},
+	"/lldp/port/tlvs-tx-enable": {
+		"read": "false",
+		"write": "false"
+	},
+	"/lldp/port/port-id-subtype": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/port-id": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/port-desc": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/message-fast-tx": {
+		"read": "false",
+		"write": "false"
+	},
+	"/lldp/port/message-tx-hold-multiplier": {
+		"read": "false",
+		"write": "false"
+	},
+	"/lldp/port/message-tx-interval": {
+		"read": "false",
+		"write": "false"
+	},
+	"/lldp/port/reinit-delay": {
+		"read": "false",
+		"write": "false"
+	},
+	"/lldp/port/tx-credit-max": {
+		"read": "false",
+		"write": "false"
+	},
+	"/lldp/port/tx-fast-init": {
+		"read": "false",
+		"write": "false"
+	},
+	"/lldp/port/notification-interval": {
+		"read": "false",
+		"write": "false"
+	},
+	"/lldp/port/management-address-tx-port/address-subtype": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/management-address-tx-port/man-address": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/management-address-tx-port/tx-enable": {
+		"read": "false",
+		"write": "false"
+	},
+	"/lldp/port/management-address-tx-port/addr-len": {
+		"read": "false",
+		"write": "false"
+	},
+	"/lldp/port/management-address-tx-port/if-subtype": {
+		"read": "false",
+		"write": "false"
+	},
+	"/lldp/port/management-address-tx-port/if-id": {
+		"read": "false",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/time-mark": {
+		"read": "false",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/remote-index": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/chassis-id-subtype": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/chassis-id": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/port-id-subtype": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/port-id": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/port-desc": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/system-name": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/system-description": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/system-capabilities-supported": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/system-capabilities-enabled": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/management-address/address-subtype": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/management-address/address": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/management-address/if-subtype": {
+		"read": "false",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/management-address/if-id": {
+		"read": "false",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/remote-unknown-tlv/tlv-type": {
+		"read": "false",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/remote-unknown-tlv/tlv-info": {
+		"read": "false",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/remote-org-defined-info/info-identifier": {
+		"read": "false",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/remote-org-defined-info/info-subtype": {
+		"read": "false",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/remote-org-defined-info/info-index": {
+		"read": "false",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/remote-org-defined-info/remote-info": {
+		"read": "false",
+		"write": "false"
+	},
+	"/lldp/port/tx-statistics/total-frames": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/tx-statistics/total-length-errors": {
+		"read": "false",
+		"write": "false"
+	},
+	"/lldp/port/rx-statistics/total-ageouts": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/rx-statistics/total-discarded-frames": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/rx-statistics/error-frames": {
+		"read": "false",
+		"write": "false"
+	},
+	"/lldp/port/rx-statistics/total-frames": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/rx-statistics/total-discarded-tlvs": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/rx-statistics/total-unrecognized-tlvs": {
+		"read": "true",
+		"write": "false"
+	},
+	"/remote-table-change/remote-insert": {
+		"read": "false",
+		"write": "false"
+	},
+	"/remote-table-change/remote-delete": {
+		"read": "false",
+		"write": "false"
+	},
+	"/remote-table-change/remote-drops": {
+		"read": "false",
+		"write": "false"
+	},
+	"/remote-table-change/remote-ageouts": {
+		"read": "false",
+		"write": "false"
+	}
+	
+}

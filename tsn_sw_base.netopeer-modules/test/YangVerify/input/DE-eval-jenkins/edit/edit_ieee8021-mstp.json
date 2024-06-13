@@ -1,0 +1,230 @@
+{
+	"unique_keys": 
+	{
+		"1": 
+		{
+			"key": 
+			{
+				"1": "/ieee8021-mstp/ieee8021MstpCistTable/ieee8021MstpCistEntry/ieee8021MstpCistComponentId"
+			},
+
+			"key_values": 
+			{
+				"1": 
+				{
+					"value": 
+					[
+						"1"
+					],
+
+					"objects": 
+					{
+						"/ieee8021-mstp/ieee8021MstpCistTable/ieee8021MstpCistEntry/ieee8021MstpCistMaxHops": 
+						{
+							"new_value": 
+							[
+								"10",
+								"20",
+								"40"
+							]
+						}
+					}
+				}
+			}
+		},
+
+		"2": 
+		{
+			"key": 
+			{
+				"1": "/ieee8021-mstp/ieee8021MstpTable/ieee8021MstpEntry/ieee8021MstpComponentId",
+				"2": "/ieee8021-mstp/ieee8021MstpTable/ieee8021MstpEntry/ieee8021MstpId"
+			},
+
+			"key_values": 
+			{
+				"1": 
+				{
+					"value": 
+					[
+						"1",
+						"4094"
+					],
+
+					"objects": 
+					{
+						"/ieee8021-mstp/ieee8021MstpTable/ieee8021MstpEntry/ieee8021MstpBridgePriority": 
+						{
+							"new_value": 
+							[
+								"0",
+								"15",
+								"8",
+								"10"
+							]
+						}
+					}
+				}
+			}
+		},
+
+		"3": 
+		{
+			"key": 
+			{
+				"1": "/ieee8021-mstp/ieee8021MstpCistPortTable/ieee8021MstpCistPortEntry/ieee8021MstpCistPortComponentId",
+				"2": "/ieee8021-mstp/ieee8021MstpCistPortTable/ieee8021MstpCistPortEntry/ieee8021MstpCistPortNum"
+			},
+
+			"key_values": 
+			{
+				"1": 
+				{
+					"value": 
+					[
+						"1",
+						"3"
+					],
+
+					"objects": 
+					{
+						"/ieee8021-mstp/ieee8021MstpCistPortTable/ieee8021MstpCistPortEntry/ieee8021MstpCistPortAdminPathCost": 
+						{
+							"new_value": 
+							[
+								"0",
+								"1000",
+								"200000000",
+								"10"
+							]
+						},
+
+						"/ieee8021-mstp/ieee8021MstpCistPortTable/ieee8021MstpCistPortEntry/ieee8021MstpCistPortAdminEdgePort": 
+						{
+							"new_value": 
+							[
+								"true",
+								"false"
+							]
+						},
+
+						"/ieee8021-mstp/ieee8021MstpCistPortTable/ieee8021MstpCistPortEntry/ieee8021MstpCistPortMacEnabled": 
+						{
+							"new_value": 
+							[
+								"true",
+								"false"
+							]
+						},
+
+						"/ieee8021-mstp/ieee8021MstpCistPortTable/ieee8021MstpCistPortEntry/ieee8021MstpCistPortRestrictedRole": 
+						{
+							"new_value": 
+							[
+								"true",
+								"false"
+							]
+						},
+
+						"/ieee8021-mstp/ieee8021MstpCistPortTable/ieee8021MstpCistPortEntry/ieee8021MstpCistPortRestrictedTcn": 
+						{
+							"new_value": 
+							[
+								"true",
+								"false"
+							]
+						}
+					}
+				}
+			}
+		},
+
+		"4": 
+		{
+			"key": 
+			{
+				"1": "/ieee8021-mstp/ieee8021MstpPortTable/ieee8021MstpPortEntry/ieee8021MstpPortComponentId",
+				"2": "/ieee8021-mstp/ieee8021MstpPortTable/ieee8021MstpPortEntry/ieee8021MstpPortMstId",
+				"3": "/ieee8021-mstp/ieee8021MstpPortTable/ieee8021MstpPortEntry/ieee8021MstpPortNum"
+			},
+
+			"key_values": 
+			{
+				"1": 
+				{
+					"value": 
+					[
+						"1",
+						"4094",
+						"3"
+					],
+
+					"objects": 
+					{
+						"/ieee8021-mstp/ieee8021MstpPortTable/ieee8021MstpPortEntry/ieee8021MstpPortPriority": 
+						{
+							"new_value": 
+							[
+								"0",
+								"15",
+								"8"
+							]
+						},
+
+						"/ieee8021-mstp/ieee8021MstpPortTable/ieee8021MstpPortEntry/ieee8021MstpPortPathCost": 
+						{
+							"new_value": 
+							[
+								"1",
+								"1000",
+								"200000000",
+								"10"
+							]
+						}
+					}
+				}
+			}
+		},
+
+		"5": 
+		{
+			"key": 
+			{
+				"1": "/ieee8021-mstp/ieee8021MstpConfigIdTable/ieee8021MstpConfigIdEntry/ieee8021MstpConfigIdComponentId"
+			},
+
+			"key_values": 
+			{
+				"1": 
+				{
+					"value": 
+					[
+						"1"
+					],
+
+					"objects": 
+					{
+						"/ieee8021-mstp/ieee8021MstpConfigIdTable/ieee8021MstpConfigIdEntry/ieee8021MstpRevisionLevel": 
+						{
+							"new_value": 
+							[
+								"0",
+								"1",
+								"65535",
+								"10"
+							]
+						},
+						"/ieee8021-mstp/ieee8021MstpConfigIdTable/ieee8021MstpConfigIdEntry/ieee8021MstpConfigurationName": 
+						{
+							"new_value": 
+							[
+								"test20123456789test2012345678900",
+								"test-regression-mstp-00000000000"
+							]
+						}
+					}
+				}
+			}
+		}
+	}
+}

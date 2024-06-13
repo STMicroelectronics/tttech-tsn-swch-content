@@ -1,0 +1,251 @@
+{
+	"/ptp/instance-list/default-ds/two-step-flag": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/default-ds/clock-identity": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/default-ds/number-ports": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/default-ds/clock-quality/clock-class": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/default-ds/clock-quality/clock-accuracy": {
+		"read": "true",
+		"write": "true"
+	},
+
+	"/ptp/instance-list/default-ds/clock-quality/offset-scaled-log-variance": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/default-ds/priority1": {
+		"read": "true",
+		"write": "true"
+	},
+
+	"/ptp/instance-list/default-ds/priority2": {
+		"read": "true",
+		"write": "true"
+	},
+
+	"/ptp/instance-list/default-ds/domain-number": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/default-ds/slave-only": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/current-ds/steps-removed": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/current-ds/offset-from-master": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/current-ds/mean-path-delay": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/parent-ds/parent-port-identity/clock-identity": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/parent-ds/parent-port-identity/port-number": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/parent-ds/parent-stats": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/parent-ds/observed-parent-offset-scaled-log-variance": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/parent-ds/observed-parent-clock-phase-change-rate": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/parent-ds/grandmaster-identity": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/parent-ds/grandmaster-clock-quality/clock-class": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/parent-ds/grandmaster-clock-quality/clock-accuracy": {
+		"read": "true",
+		"write": "true"
+	},
+
+	"/ptp/instance-list/parent-ds/grandmaster-clock-quality/offset-scaled-log-variance": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/parent-ds/grandmaster-priority1": {
+		"read": "true",
+		"write": "true"
+	},
+
+	"/ptp/instance-list/parent-ds/grandmaster-priority2": {
+		"read": "true",
+		"write": "true"
+	},
+
+	"/ptp/instance-list/time-properties-ds/current-utc-offset-valid": {
+		"read": "true",
+		"write": "true"
+	},
+
+	"/ptp/instance-list/time-properties-ds/current-utc-offset": {
+		"read": "false",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/time-properties-ds/leap59": {
+		"read": "true",
+		"write": "true"
+	},
+
+	"/ptp/instance-list/time-properties-ds/leap61": {
+		"read": "true",
+		"write": "true"
+	},
+
+	"/ptp/instance-list/time-properties-ds/time-traceable": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/time-properties-ds/frequency-traceable": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/time-properties-ds/ptp-timescale": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/time-properties-ds/time-source": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/port-ds-list/port-state": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/port-ds-list/underlying-interface": {
+		"read": "false",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/port-ds-list/log-min-delay-req-interval": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/port-ds-list/peer-mean-path-delay": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/port-ds-list/log-announce-interval": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/port-ds-list/announce-receipt-timeout": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/port-ds-list/log-sync-interval": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/port-ds-list/delay-mechanism": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/port-ds-list/log-min-pdelay-req-interval": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/instance-list/port-ds-list/version-number": {
+		"read": "true",
+		"write": "false"
+	},
+
+	"/ptp/transparent-clock-default-ds/clock-identity": {
+		"read": "false",
+		"write": "false"
+	},
+
+	"/ptp/transparent-clock-default-ds/number-ports": {
+		"read": "false",
+		"write": "false"
+	},
+
+	"/ptp/transparent-clock-default-ds/delay-mechanism": {
+		"read": "false",
+		"write": "false"
+	},
+
+	"/ptp/transparent-clock-default-ds/primary-domain": {
+		"read": "false",
+		"write": "false"
+	},
+
+	"/ptp/transparent-clock-port-ds-list/port-number": {
+		"read": "false",
+		"write": "false"
+	},
+
+	"/ptp/transparent-clock-port-ds-list/log-min-pdelay-req-interval": {
+		"read": "false",
+		"write": "false"
+	},
+
+	"/ptp/transparent-clock-port-ds-list/faulty-flag": {
+		"read": "false",
+		"write": "false"
+	},
+
+	"/ptp/transparent-clock-port-ds-list/peer-mean-path-delay": {
+		"read": "false",
+		"write": "false"
+	}
+}

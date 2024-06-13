@@ -1,0 +1,36 @@
+{
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/interfaces/interface/name"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"sw0p3"
+					],
+					"objects": {
+						"/interfaces/interface/gate-parameters/gate-enabled": {
+							"new_value": "true"
+						},
+						"/interfaces/interface/gate-parameters/admin-gate-states": {
+							"new_value": "255"
+						},
+						"/interfaces/interface/gate-parameters/admin-control-list-length": {
+							"new_value": "64"
+						},
+						"/interfaces/interface/gate-parameters/admin-cycle-time/numerator": {
+							"new_value": "10"
+						},
+						"/interfaces/interface/gate-parameters/admin-cycle-time/denominator": {
+							"new_value": "100"
+						},
+						"/interfaces/interface/gate-parameters/config-change": {
+							"new_value": "true"
+						}
+					}
+				}
+			}
+		}
+	}
+}

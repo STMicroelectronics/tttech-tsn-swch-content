@@ -1,0 +1,29 @@
+{
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/bridges/bridge/name",
+				"2": "/bridges/bridge/component/name",
+				"3": "/bridges/bridge/component/filtering-database/filtering-entry/database-id",
+				"4": "/bridges/bridge/component/filtering-database/filtering-entry/vids",
+				"5": "/bridges/bridge/component/filtering-database/filtering-entry/address"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"deipce0",
+						"deipce0",
+						"1",
+						"2",
+						"aa:bb:cc:dd:ee:ff"
+					],
+					"objects": {
+						"/bridges/bridge/component/filtering-database/filtering-entry/entry-type": {
+							"expected_value": "static"
+						}
+					}
+				}
+			}
+		}
+	}
+}

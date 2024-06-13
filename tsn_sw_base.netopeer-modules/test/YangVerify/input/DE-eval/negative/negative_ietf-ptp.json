@@ -1,0 +1,85 @@
+{
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/ptp/instance-list/instance-number"
+			},
+			"key_values": {
+				"1": {
+					"value":
+					[
+						"1"
+					],
+
+					"objects": {
+
+
+						"/ptp/instance-list/default-ds/priority1": {
+							"new_value": 
+							[
+								"string",
+								"-1",
+								"256"
+							]
+						},
+
+						"/ptp/instance-list/default-ds/priority2": {
+							"new_value": 
+							[
+								"string",
+								"-1",
+								"256"
+							]
+						},
+
+
+						"/ptp/instance-list/parent-ds/grandmaster-priority1": {
+							"new_value": 
+							[
+								"string",
+								"-1",
+								"256"
+							]
+						},
+
+						"/ptp/instance-list/parent-ds/grandmaster-priority2": {
+							"new_value": 
+							[
+								"string",
+								"-1",
+								"256"
+							]
+						},
+
+						"/ptp/instance-list/time-properties-ds/current-utc-offset-valid": {
+							"new_value": 
+							[
+								"string",
+								"0",
+								"-1"
+							]
+						},
+
+						"/ptp/instance-list/time-properties-ds/leap59": {
+							"new_value": 
+							[
+								"string",
+								"0",
+								"-1"
+							]
+						},
+
+						"/ptp/instance-list/time-properties-ds/leap61": {
+							"new_value": 
+							[
+								"string",
+								"0",
+								"-1"
+							]
+						}
+					}
+				}
+			}
+		}
+	}
+}

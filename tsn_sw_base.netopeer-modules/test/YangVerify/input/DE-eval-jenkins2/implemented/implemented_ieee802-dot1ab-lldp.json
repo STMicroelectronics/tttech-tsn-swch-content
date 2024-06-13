@@ -1,0 +1,178 @@
+{	
+	"/lldp/message-fast-tx": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/message-tx-hold-multiplier": {
+		"read": "true",
+		"write": "true"
+	},
+	"/lldp/message-tx-interval": {
+		"read": "true",
+		"write": "true"
+	},
+	"/lldp/reinit-delay": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/tx-credit-max": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/tx-fast-init": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/notification-interval": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/remote-statistics/last-change-time": {
+		"read": "false",
+		"write": "false"
+	},
+	"/lldp/remote-statistics/remote-inserts": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/remote-statistics/remote-deletes": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/remote-statistics/remote-drops": {
+		"read": "true",
+		"write": "true"
+	},
+	"/lldp/remote-statistics/remote-ageouts": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/local-system-data/chassis-id-subtype": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/local-system-data/chassis-id": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/local-system-data/system-name": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/local-system-data/system-description": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/local-system-data/system-capabilities-supported": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/local-system-data/system-capabilities-enabled": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/name": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/dest-mac-address": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/port-id-subtype": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/port-id": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/port-desc": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/management-address-tx-port/address-subtype": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/management-address-tx-port/man-address": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/time-mark": {
+		"read": "false",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/remote-index": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/chassis-id-subtype": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/chassis-id": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/port-id-subtype": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/port-id": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/port-desc": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/system-name": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/system-description": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/system-capabilities-supported": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/system-capabilities-enabled": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/management-address/address-subtype": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/remote-systems-data/management-address/address": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/tx-statistics/total-frames": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/rx-statistics/total-ageouts": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/rx-statistics/total-discarded-frames": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/rx-statistics/total-frames": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/rx-statistics/total-discarded-tlvs": {
+		"read": "true",
+		"write": "false"
+	},
+	"/lldp/port/rx-statistics/total-unrecognized-tlvs": {
+		"read": "true",
+		"write": "false"
+	}
+}

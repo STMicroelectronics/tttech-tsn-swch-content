@@ -1,0 +1,770 @@
+{
+	"/interfaces/interface/higher-layer-if": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/lower-layer-if": {
+		"read": "false",
+		"write": "false"
+	},
+	"": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/name": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/description": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/type": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/enabled": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/link-up-down-trap-enable": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/admin-status": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/oper-status": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/last-change": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/if-index": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/phys-address": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/speed": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/statistics/discontinuity-time": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/statistics/in-octets": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/statistics/in-unicast-pkts": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/statistics/in-broadcast-pkts": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/statistics/in-discards": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/statistics/in-errors": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/statistics/in-unknown-protos": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/statistics/out-octets": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/statistics/out-unicast-pkts": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/statistics/out-broadcast-pkts": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/statistics/out-multicast-pkts": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/statistics/out-discards": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/statistics/out-errors": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/frame-preemption-parameters/frame-preemption-status-table/traffic-class": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/frame-preemption-parameters/frame-preemption-status-table/frame-preemption-status": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/frame-preemption-parameters/hold-advance": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/frame-preemption-parameters/release-advance": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/frame-preemption-parameters/preemption-active": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/frame-preemption-parameters/hold-request": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/max-sdu-table/traffic-class": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/max-sdu-table/queue-max-sdu": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/max-sdu-table/transmission-overrun": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/gate-parameters/gate-enabled": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/gate-parameters/admin-gate-states": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/gate-parameters/oper-gate-states": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/admin-control-list-length": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/gate-parameters/oper-control-list-length": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/admin-cycle-time-extension": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/gate-parameters/oper-cycle-time-extension": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/config-change": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/gate-parameters/tick-granularity": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/gate-parameters/config-pending": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/gate-parameters/config-change-error": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/gate-parameters/supported-list-max": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/gate-parameters/admin-control-list/index": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/oper-control-list/index": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/admin-cycle-time/numerator": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/admin-cycle-time/denominator": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/oper-cycle-time/numerator": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/oper-cycle-time/denominator": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/component-name": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/port-type": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/pvid": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/default-priority": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/pcp-selection": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/use-dei": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/drop-encoding": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/service-access-priority-selection": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/acceptable-frame": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/enable-ingress-filtering": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/enable-restricted-vlan-registration": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/enable-vid-translation-table": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/enable-egress-vid-translation-table": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/admin-point-to-point": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/protocol-based-vlan-classification": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/max-vid-set-entries": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/port-number": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/address": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/capabilities": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/type-capabilities": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/external": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/oper-point-to-point": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/statistics/discard-on-ingress-filtering": {
+		"read": "false",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/protocol-group-vid-set/vid": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/protocol-group-vid-set/group-id": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/vid-translations/local-vid": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/vid-translations/relay-vid": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/egress-vid-translations/relay-vid": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/egress-vid-translations/local-vid": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/ethernet/auto-negotiation/enable": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/ethernet/auto-negotiation/negotiation-status": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/ethernet/flow-control/pause/direction": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/ethernet/flow-control/pause/statistics/in-frames-pause": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/ethernet/flow-control/pause/statistics/out-frames-pause": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/ethernet/flow-control/pfc/enable": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/ethernet/flow-control/pfc/statistics/in-frames-pfc": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/ethernet/flow-control/pfc/statistics/out-frames-pfc": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/ethernet/flow-control/force-flow-control": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/ethernet/capabilities/auto-negotiation": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/ethernet/statistics/frame/in-total-frames": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/ethernet/statistics/frame/in-total-octets": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/ethernet/statistics/frame/in-frames": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/ethernet/statistics/frame/in-multicast-frames": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/ethernet/statistics/frame/in-broadcast-frames": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/ethernet/statistics/frame/in-error-fcs-frames": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/ethernet/statistics/frame/in-error-undersize-frames": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/ethernet/statistics/frame/in-error-oversize-frames": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/ethernet/statistics/frame/in-error-mac-internal-frames": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/ethernet/statistics/frame/out-frames": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/ethernet/statistics/frame/out-multicast-frames": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/ethernet/statistics/frame/out-broadcast-frames": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/ethernet/statistics/frame/out-error-mac-internal-frames": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/ethernet/statistics/phy/in-error-symbol": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/ethernet/statistics/phy/lpi/in-lpi-transitions": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/ethernet/statistics/phy/lpi/in-lpi-time": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/ethernet/statistics/phy/lpi/out-lpi-transitions": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/ethernet/statistics/phy/lpi/out-lpi-time": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/ethernet/statistics/mac-control/in-frames-mac-control-unknown": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/ethernet/statistics/mac-control/in-frames-mac-control-extension": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/ethernet/statistics/mac-control/out-frames-mac-control-extension": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/ethernet/duplex": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/ethernet/speed": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/ethernet/max-frame-length": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/ethernet/mac-control-extension-control": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/ethernet/frame-limit-slow-protocol": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/mac-merge/admin-control/merge-enable-tx": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/mac-merge/admin-control/verify-disable-tx": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/mac-merge/admin-control/verify-time": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/mac-merge/admin-control/frag-size": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/mac-merge/admin-status/merge-support": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/mac-merge/admin-status/verify-status": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/mac-merge/admin-status/status-tx": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/mac-merge/statistics/assembly-error-count": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/mac-merge/statistics/smd-error-count": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/mac-merge/statistics/assembly-ok-count": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/mac-merge/statistics/fragment-count-rx": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/mac-merge/statistics/fragment-count-tx": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/mac-merge/statistics/hold-count": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/gate-parameters/admin-control-list/operation-name": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/admin-control-list/sgs-params/gate-states-value": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/admin-control-list/sgs-params/time-interval-value": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/admin-control-list/shm-params/gate-states-value": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/admin-control-list/shm-params/time-interval-value": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/admin-control-list/srm-params/gate-states-value": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/admin-control-list/srm-params/time-interval-value": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/oper-control-list/operation-name": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/oper-control-list/sgs-params/gate-states-value": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/oper-control-list/sgs-params/time-interval-value": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/oper-control-list/shm-params/gate-states-value": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/oper-control-list/shm-params/time-interval-value": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/oper-control-list/srm-params/gate-states-value": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/oper-control-list/srm-params/time-interval-value": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/admin-base-time/seconds": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/gate-parameters/admin-base-time/fractional-seconds": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/gate-parameters/oper-base-time/seconds": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/oper-base-time/fractional-seconds": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/config-change-time/seconds": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/config-change-time/fractional-seconds": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/current-time/seconds": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/gate-parameters/current-time/fractional-seconds": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/priority-regeneration/priority0": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/priority-regeneration/priority1": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/priority-regeneration/priority2": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/priority-regeneration/priority3": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/priority-regeneration/priority4": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/priority-regeneration/priority5": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/priority-regeneration/priority6": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/priority-regeneration/priority7": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/pcp-decoding-table/pcp-decoding-map/pcp": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/pcp-decoding-table/pcp-decoding-map/priority-map/priority-code-point": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/pcp-decoding-table/pcp-decoding-map/priority-map/priority": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/pcp-decoding-table/pcp-decoding-map/priority-map/drop-eligible": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/pcp-encoding-table/pcp-encoding-map/pcp": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/pcp-encoding-table/pcp-encoding-map/priority-map/priority": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/pcp-encoding-table/pcp-encoding-map/priority-map/dei": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/pcp-encoding-table/pcp-encoding-map/priority-map/priority-code-point": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/service-access-priority/priority0": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/service-access-priority/priority1": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/service-access-priority/priority2": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/service-access-priority/priority3": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/service-access-priority/priority4": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/service-access-priority/priority5": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/service-access-priority/priority6": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/service-access-priority/priority7": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/traffic-class/traffic-class-map/priority": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/traffic-class/traffic-class-map/available-traffic-class/num-traffic-class": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/traffic-class/traffic-class-map/available-traffic-class/traffic-class": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/statistics/delay-exceeded-discards": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/statistics/mtu-exceeded-discards": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/statistics/frame-rx": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/statistics/octets-rx": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/statistics/frame-tx": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/statistics/octets-tx": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/statistics/discard-inbound": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/statistics/forward-outbound": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/statistics/discard-lack-of-buffers": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/statistics/discard-transit-delay-exceeded": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/statistics/discard-on-error": {
+		"read": "false",
+		"write": "false"
+	}
+}

@@ -1,0 +1,27 @@
+{
+	"/bridges/bridge/component/filtering-database": [
+		{
+			"vlan-registration-entry": {
+				"database-id": "1",
+				"vids": "6",
+				"entry-type": "static",
+				"port-map": [
+					{
+						"port-ref": "5",
+						"static-vlan-registration-entries": {
+							"registrar-admin-control": "normal",
+							"vlan-transmitted": "untagged"
+						}
+					},
+					{
+						"port-ref": "6",
+						"static-vlan-registration-entries": {
+							"registrar-admin-control": "normal",
+							"vlan-transmitted": "untagged"
+						}
+					}
+				]
+			}
+		}
+	]
+}

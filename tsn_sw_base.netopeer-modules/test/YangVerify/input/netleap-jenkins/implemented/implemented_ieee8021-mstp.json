@@ -1,0 +1,195 @@
+{
+	"/ieee8021-mstp/ieee8021MstpCistTable/ieee8021MstpCistEntry/ieee8021MstpCistComponentId": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpCistTable/ieee8021MstpCistEntry/ieee8021MstpCistBridgeIdentifier": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpCistTable/ieee8021MstpCistEntry/ieee8021MstpCistTopologyChange": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpCistTable/ieee8021MstpCistEntry/ieee8021MstpCistRegionalRootIdentifier": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpCistTable/ieee8021MstpCistEntry/ieee8021MstpCistPathCost": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpCistTable/ieee8021MstpCistEntry/ieee8021MstpCistMaxHops": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpTable/ieee8021MstpEntry/ieee8021MstpComponentId": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpTable/ieee8021MstpEntry/ieee8021MstpId": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpTable/ieee8021MstpEntry/ieee8021MstpBridgeId": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpTable/ieee8021MstpEntry/ieee8021MstpTimeSinceTopologyChange": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpTable/ieee8021MstpEntry/ieee8021MstpTopologyChanges": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpTable/ieee8021MstpEntry/ieee8021MstpDesignatedRoot": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpTable/ieee8021MstpEntry/ieee8021MstpRootPathCost": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpTable/ieee8021MstpEntry/ieee8021MstpRootPort": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpTable/ieee8021MstpEntry/ieee8021MstpBridgePriority": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpCistPortTable/ieee8021MstpCistPortEntry/ieee8021MstpCistPortComponentId": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpCistPortTable/ieee8021MstpCistPortEntry/ieee8021MstpCistPortNum": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpCistPortTable/ieee8021MstpCistPortEntry/ieee8021MstpCistPortUptime": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpCistPortTable/ieee8021MstpCistPortEntry/ieee8021MstpCistPortAdminPathCost": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpCistPortTable/ieee8021MstpCistPortEntry/ieee8021MstpCistPortDesignatedRoot": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpCistPortTable/ieee8021MstpCistPortEntry/ieee8021MstpCistPortTopologyChangeAck": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpCistPortTable/ieee8021MstpCistPortEntry/ieee8021MstpCistPortHelloTime": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpCistPortTable/ieee8021MstpCistPortEntry/ieee8021MstpCistPortAdminEdgePort": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpCistPortTable/ieee8021MstpCistPortEntry/ieee8021MstpCistPortOperEdgePort": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpCistPortTable/ieee8021MstpCistPortEntry/ieee8021MstpCistPortMacEnabled": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpCistPortTable/ieee8021MstpCistPortEntry/ieee8021MstpCistPortRestrictedRole": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpCistPortTable/ieee8021MstpCistPortEntry/ieee8021MstpCistPortRestrictedTcn": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpCistPortTable/ieee8021MstpCistPortEntry/ieee8021MstpCistPortRole": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpCistPortTable/ieee8021MstpCistPortEntry/ieee8021MstpCistPortDisputed": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpCistPortTable/ieee8021MstpCistPortEntry/ieee8021MstpCistPortCistRegionalRootId": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpCistPortTable/ieee8021MstpCistPortEntry/ieee8021MstpCistPortCistPathCost": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpPortTable/ieee8021MstpPortEntry/ieee8021MstpPortComponentId": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpPortTable/ieee8021MstpPortEntry/ieee8021MstpPortMstId": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpPortTable/ieee8021MstpPortEntry/ieee8021MstpPortNum": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpPortTable/ieee8021MstpPortEntry/ieee8021MstpPortState": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpPortTable/ieee8021MstpPortEntry/ieee8021MstpPortPriority": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpPortTable/ieee8021MstpPortEntry/ieee8021MstpPortPathCost": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpPortTable/ieee8021MstpPortEntry/ieee8021MstpPortDesignatedRoot": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpPortTable/ieee8021MstpPortEntry/ieee8021MstpPortDesignatedCost": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpPortTable/ieee8021MstpPortEntry/ieee8021MstpPortDesignatedBridge": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpPortTable/ieee8021MstpPortEntry/ieee8021MstpPortDesignatedPort": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpPortTable/ieee8021MstpPortEntry/ieee8021MstpPortRole": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpPortTable/ieee8021MstpPortEntry/ieee8021MstpPortDisputed": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpConfigIdTable/ieee8021MstpConfigIdEntry/ieee8021MstpConfigIdComponentId": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpConfigIdTable/ieee8021MstpConfigIdEntry/ieee8021MstpConfigIdFormatSelector": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpConfigIdTable/ieee8021MstpConfigIdEntry/ieee8021MstpConfigurationName": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpConfigIdTable/ieee8021MstpConfigIdEntry/ieee8021MstpRevisionLevel": {
+		"read": "true",
+		"write": "false"
+	},
+	"/ieee8021-mstp/ieee8021MstpConfigIdTable/ieee8021MstpConfigIdEntry/ieee8021MstpConfigurationDigest": {
+		"read": "true",
+		"write": "false"
+	}
+}
+

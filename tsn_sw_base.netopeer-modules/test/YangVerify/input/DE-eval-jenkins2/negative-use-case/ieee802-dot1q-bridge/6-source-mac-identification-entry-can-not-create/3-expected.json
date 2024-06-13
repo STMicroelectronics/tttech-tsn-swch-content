@@ -1,0 +1,31 @@
+{
+	"unique_keys": {
+        "1": 
+		{
+			"key": 
+			{	"1": "/bridges/bridge/name",
+				"2": "/bridges/bridge/component/name"
+			},
+
+			"key_values": 
+			{
+				"1": 
+				{
+					"value": 
+					[
+						"br0",
+						"br0"
+					],
+
+					"objects": 
+					{
+						"/bridges/bridge/component/stream-identification/max-concurrent-stream": 
+						{
+                            "expected_value": "128"
+						}
+					}
+				}
+			}
+		}
+	}
+}

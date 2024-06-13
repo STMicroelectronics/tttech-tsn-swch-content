@@ -1,0 +1,25 @@
+{
+	"/lldp/message-tx-hold-multiplier": 
+	{
+		"new_value": 
+		[
+			"2",
+			"5",
+			"10",
+			"4"
+		]
+	},
+
+	"/lldp/message-tx-interval": 
+	{
+		"new_value": 
+		[
+			"1",
+			"10",
+			"100",
+			"3000",
+			"3600",
+			"30"
+		]
+	}
+}

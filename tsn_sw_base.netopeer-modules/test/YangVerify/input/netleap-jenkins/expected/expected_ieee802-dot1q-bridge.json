@@ -1,0 +1,185 @@
+{
+	"/bridges/bridge/name": {
+		"expected_value": "deipce0"
+	},
+	"/bridges/bridge/bridge-type": {
+		"expected_value": "customer-vlan-bridge"
+	},
+	"/bridges/bridge/ports": {
+		"expected_value": "5"
+	},
+	"/bridges/bridge/components": {
+		"expected_value": "1"
+	},
+	"/bridges/bridge/component/name": {
+		"expected_value": "deipce0"
+	},
+	"/bridges/bridge/component/id": {
+		"expected_value": "1"
+	},
+	"/bridges/bridge/component/type": {
+		"expected_value": "c-vlan-component"
+	},
+	"/bridges/bridge/component/traffic-class-enabled": {
+		"expected_value": "true"
+	},
+	"/bridges/bridge/component/ports": {
+		"expected_value": "5"
+	},
+	"/bridges/bridge/component/bridge-port": {
+		"expected_value": [
+			"IE01",
+			"CE01",
+			"CE02",
+			"CE03",
+			"CE04"
+		]
+	},
+	"/bridges/bridge/component/capabilities/extended-filtering": {
+		"expected_value": "false"
+	},
+	"/bridges/bridge/component/capabilities/traffic-classes": {
+		"expected_value": "true"
+	},
+	"/bridges/bridge/component/capabilities/static-entry-individual-port": {
+		"expected_value": "false"
+	},
+	"/bridges/bridge/component/capabilities/ivl-capable": {
+		"expected_value": "true"
+	},
+	"/bridges/bridge/component/capabilities/svl-capable": {
+		"expected_value": "true"
+	},
+	"/bridges/bridge/component/capabilities/hybrid-capable": {
+		"expected_value": "true"
+	},
+	"/bridges/bridge/component/capabilities/configurable-pvid-tagging": {
+		"expected_value": "true"
+	},
+	"/bridges/bridge/component/capabilities/local-vlan-capable": {
+		"expected_value": "false"
+	},
+	"/bridges/bridge/component/filtering-database/vlan-registration-entry/database-id": {
+		"expected_value": "1"
+	},
+	"/bridges/bridge/component/filtering-database/vlan-registration-entry/vids": {
+		"expected_value": "1"
+	},
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/bridges/bridge/component/filtering-database/vlan-registration-entry/database-id",
+				"2": "/bridges/bridge/component/filtering-database/vlan-registration-entry/vids"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"1",
+						"1"
+					],
+					"objects": {
+						"/bridges/bridge/component/filtering-database/vlan-registration-entry/entry-type": {
+							"expected_value": "static"
+						},
+						"/bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/port-ref": {
+							"expected_value": [
+								"5",
+								"6",
+								"7",
+								"8",
+								"9"
+							]
+						}
+					}
+				}
+			}
+		},
+		"2": {
+			"key": {
+				"1": "/bridges/bridge/name",
+				"2": "/bridges/bridge/component/name",
+				"3": "/bridges/bridge/component/bridge-vlan/vlan/vid"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"deipce0",
+						"deipce0",
+						"1"
+					],
+					"objects": {
+						"/bridges/bridge/component/bridge-vlan/vlan/untagged-ports": {
+							"expected_value": [
+								"IE01",
+								"CE01",
+								"CE02",
+								"CE03",
+								"CE04"
+							]
+						},
+						"/bridges/bridge/component/bridge-vlan/vlan/egress-ports": {
+							"expected_value": [
+								"IE01",
+								"CE01",
+								"CE02",
+								"CE03",
+								"CE04"
+							]
+						}
+					}
+				}
+			}
+		},
+		"3": {
+			"key": {
+				"1": "/bridges/bridge/name",
+				"2": "/bridges/bridge/component/name"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"deipce0",
+						"deipce0"
+					],
+					"objects": {
+						"/bridges/bridge/component/bridge-mst/mstid": {
+							"expected_value": [
+								"4094"
+							]
+						}
+					}
+				}
+			}
+		}
+	},
+	"/bridges/bridge/component/filtering-database/size": {
+		"expected_value": "512"
+	},
+	"/bridges/bridge/component/filtering-database/static-entries": {
+		"expected_value": "0"
+	},
+	"/bridges/bridge/component/filtering-database/dynamic-entries": {
+		"expected_value": "0"
+	},
+	"/bridges/bridge/component/filtering-database/static-vlan-registration-entries": {
+		"expected_value": "1"
+	},
+	"/bridges/bridge/component/filtering-database/dynamic-vlan-registration-entries": {
+		"expected_value": "0"
+	},
+	"/bridges/bridge/component/bridge-vlan/max-vids": {
+		"expected_value": "64"
+	},
+	"/bridges/bridge/component/bridge-vlan/override-default-pvid": {
+		"expected_value": "true"
+	},
+	"/bridges/bridge/component/bridge-vlan/max-msti": {
+		"expected_value": "64"
+	},
+	"/bridges/bridge/component/bridge-vlan/vid-to-fid-allocation/vids": {
+		"expected_value": "1-4094"
+	},
+	"/bridges/bridge/component/bridge-vlan/vid-to-fid-allocation/fid": {
+		"expected_value": "0"
+	}	
+}

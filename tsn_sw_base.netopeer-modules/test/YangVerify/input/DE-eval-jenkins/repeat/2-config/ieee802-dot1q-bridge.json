@@ -1,0 +1,45 @@
+{
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/bridges/bridge/name",
+				"2": "/bridges/bridge/component/name"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"deipce0",
+						"deipce0"
+					],
+					"objects": {
+						"/bridges/bridge/component/filtering-database": {
+							"new_entries": [
+								{
+									"vlan-registration-entry": {
+										"database-id": "1",
+										"vids": "2",
+										"entry-type": "static",
+										"port-map": [
+											{
+												"port-ref": "6",
+												"static-vlan-registration-entries": {
+													"vlan-transmitted": "tagged"
+												}
+											},
+											{
+												"port-ref": "7",
+												"static-vlan-registration-entries": {
+													"vlan-transmitted": "tagged"
+												}
+											}
+										]
+									}
+								}
+							]
+						}
+					}
+				}
+			}
+		}
+	}
+}

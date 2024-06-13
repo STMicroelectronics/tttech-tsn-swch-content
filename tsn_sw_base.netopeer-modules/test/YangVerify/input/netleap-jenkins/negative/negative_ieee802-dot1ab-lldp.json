@@ -1,0 +1,21 @@
+{
+	"/lldp/message-tx-hold-multiplier": 
+	{
+		"new_value": 
+		[
+			"-1",
+			"0",
+			"11"
+		]
+	},
+
+	"/lldp/message-tx-interval": 
+	{
+		"new_value": 
+		[
+			"-1",
+			"0",
+			"3601"
+		]
+	}
+}

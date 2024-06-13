@@ -1,0 +1,81 @@
+{
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/bridges/bridge/name",
+				"2": "/bridges/bridge/component/name"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"deipce0",
+						"deipce0"
+					],
+					"objects": {
+						"/bridges/bridge/component/bridge-mst/mstid": {
+							"expected_value": [
+								"1",
+								"5",
+								"15",
+								"55",
+								"4094"
+							]
+						}
+					}
+				}
+			}
+		},
+		"2": {
+			"key": {
+				"1": "/bridges/bridge/name",
+				"2": "/bridges/bridge/component/name",
+				"3": "/bridges/bridge/component/bridge-mst/fid-to-mstid-allocation/fids"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"deipce0",
+						"deipce0",
+						"1"
+					],
+					"objects": {
+						"/bridges/bridge/component/bridge-mst/fid-to-mstid-allocation/mstid": {
+							"expected_value": [
+								"1"
+							]
+						}
+					}
+				},
+				"2": {
+					"value": [
+						"deipce0",
+						"deipce0",
+						"4,14-17"
+					],
+					"objects": {
+						"/bridges/bridge/component/bridge-mst/fid-to-mstid-allocation/mstid": {
+							"expected_value": [
+								"5"
+							]
+						}
+					}
+				},
+				"3": {
+					"value": [
+						"deipce0",
+						"deipce0",
+						"32,35-40,50"
+					],
+					"objects": {
+						"/bridges/bridge/component/bridge-mst/fid-to-mstid-allocation/mstid": {
+							"expected_value": [
+								"15"
+							]
+						}
+					}
+				}
+			}
+		}
+	}
+}
+

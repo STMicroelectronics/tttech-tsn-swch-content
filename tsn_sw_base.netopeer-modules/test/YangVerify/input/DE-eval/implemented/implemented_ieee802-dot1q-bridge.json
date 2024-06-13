@@ -1,0 +1,589 @@
+{
+	"/bridges/bridge/name": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/address": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/bridge-type": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/ports": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/up-time": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/components": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/name": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/id": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/type": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/address": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/traffic-class-enabled": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/ports": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/bridge-port": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/capabilities/extended-filtering": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/capabilities/traffic-classes": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/capabilities/static-entry-individual-port": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/capabilities/ivl-capable": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/capabilities/svl-capable": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/capabilities/hybrid-capable": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/capabilities/configurable-pvid-tagging": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/capabilities/local-vlan-capable": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/aging-time": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/size": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/static-entries": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/dynamic-entries": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/static-vlan-registration-entries": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/dynamic-vlan-registration-entries": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/mac-address-registration-entries": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/filtering-entry/database-id": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/filtering-entry/address": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/filtering-entry/vids": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/filtering-entry/entry-type": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/filtering-entry/status": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/filtering-entry/port-map/port-ref": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/filtering-entry/port-map/map-type/static-filtering-entries/control-element": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/filtering-entry/port-map/map-type/static-filtering-entries/connection-identifier": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/filtering-entry/port-map/map-type/static-vlan-registration-entries/registrar-admin-control": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/filtering-entry/port-map/map-type/static-vlan-registration-entries/vlan-transmitted": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/filtering-entry/port-map/map-type/mac-address-registration-entries/control-element": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/filtering-entry/port-map/map-type/dynamic-vlan-registration-entries/control-element": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/filtering-entry/port-map/map-type/dynamic-reservation-entries/control-element": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/filtering-entry/port-map/map-type/dynamic-filtering-entries/control-element": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/vlan-registration-entry/database-id": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/vlan-registration-entry/vids": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/vlan-registration-entry/entry-type": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/port-ref": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/map-type/static-filtering-entries/control-element": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/map-type/static-filtering-entries/connection-identifier": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/map-type/static-vlan-registration-entries/registrar-admin-control": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/map-type/static-vlan-registration-entries/vlan-transmitted": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/map-type/mac-address-registration-entries/control-element": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/map-type/dynamic-vlan-registration-entries/control-element": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/map-type/dynamic-reservation-entries/control-element": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/map-type/dynamic-filtering-entries/control-element": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/permanent-database/size": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/permanent-database/static-entries": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/permanent-database/static-vlan-registration-entries": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/permanent-database/filtering-entry/database-id": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/permanent-database/filtering-entry/address": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/permanent-database/filtering-entry/vids": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/permanent-database/filtering-entry/status": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/permanent-database/filtering-entry/port-map/port-ref": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/permanent-database/filtering-entry/port-map/map-type/static-filtering-entries/control-element": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/permanent-database/filtering-entry/port-map/map-type/static-filtering-entries/connection-identifier": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/permanent-database/filtering-entry/port-map/map-type/static-vlan-registration-entries/registrar-admin-control": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/permanent-database/filtering-entry/port-map/map-type/static-vlan-registration-entries/vlan-transmitted": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/permanent-database/filtering-entry/port-map/map-type/mac-address-registration-entries/control-element": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/permanent-database/filtering-entry/port-map/map-type/dynamic-vlan-registration-entries/control-element": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/permanent-database/filtering-entry/port-map/map-type/dynamic-reservation-entries/control-element": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/permanent-database/filtering-entry/port-map/map-type/dynamic-filtering-entries/control-element": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/bridge-vlan/version": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/bridge-vlan/max-vids": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/bridge-vlan/override-default-pvid": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/bridge-vlan/protocol-template": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/bridge-vlan/max-msti": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/bridge-vlan/vlan/vid": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/bridge-vlan/vlan/name": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/bridge-vlan/vlan/untagged-ports": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/bridge-vlan/vlan/egress-ports": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/bridge-vlan/protocol-group-database/db-index": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/bridge-vlan/protocol-group-database/frame-format-type": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/bridge-vlan/protocol-group-database/group-id": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/bridge-vlan/protocol-group-database/frame-format/ethernet-rfc1042-snap8021H/ethertype": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/bridge-vlan/protocol-group-database/frame-format/snap-other/protocol-id": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/bridge-vlan/protocol-group-database/frame-format/llc-other/dsap-ssap-pairs/llc-address": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/bridge-vlan/vid-to-fid-allocation/vids": 
+	{
+		"read": "true",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/bridge-vlan/vid-to-fid-allocation/fid": 
+	{
+		"read": "true",
+		"write": "true"
+	},
+
+	"/bridges/bridge/component/bridge-vlan/vid-to-fid-allocation/allocation-type": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/bridge-vlan/fid-to-vid-allocation/fid": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/bridge-vlan/fid-to-vid-allocation/allocation-type": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/bridge-vlan/fid-to-vid-allocation/vid": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/bridge-vlan/vid-to-fid/vid": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/bridge-vlan/vid-to-fid/fid": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/bridge-mst/mstid": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/bridge-mst/fid-to-mstid/fid": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/bridge-mst/fid-to-mstid/mstid": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/bridge-mst/fid-to-mstid-allocation/fids": 
+	{
+		"read": "false",
+		"write": "false"
+	},
+
+	"/bridges/bridge/component/bridge-mst/fid-to-mstid-allocation/mstid": 
+	{
+		"read": "false",
+		"write": "false"
+	}
+}

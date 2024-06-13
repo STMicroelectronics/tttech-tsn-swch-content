@@ -1,0 +1,59 @@
+{
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/bridges/bridge/name",
+				"2": "/bridges/bridge/component/name"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"br0",
+						"br0"
+					],
+					"objects": {
+						"/bridges/bridge/component": {
+							"new_entries": [
+								{
+									"frer": {
+										"sequence-recovery-list": [
+											{
+												"index": "1",
+												"stream-list": "11",
+												"port-list": "sw0p4",
+												"history-length": "2",
+												"reset-msec": "41"
+											},
+											{
+												"index": "2",
+												"stream-list": "22",
+												"port-list": "sw0p4",
+												"history-length": "2",
+												"reset-msec": "95"
+											},
+											{
+												"index": "3",
+												"stream-list": "33",
+												"port-list": "sw0p4",
+												"history-length": "2",
+												"reset-msec": "88"
+											},
+											{
+												"index": "4",
+												"stream-list": "44",
+												"port-list": "sw0p4",
+												"history-length": "2",
+												"reset-msec": "74"
+											}
+										]
+									}
+								}
+							]
+						}
+					}
+				}
+			}
+		}
+	}
+}
+

@@ -1,0 +1,13 @@
+ietf-interfaces:
+--->1-admin-gates-states-out-of-range: set admin-gate-states out of range
+--->2-admin-control-list-length-higher: set admin-control-list-length higher(10) than the actual number of entries (4)
+--->3-admin-control-list-length-lower: set admin-control-list-length lower(3) than the actual number of entries (4)
+--->4-admin-control-list-unknown: configure a non-existing operation
+--->5-admin-control-list-wrong-gate: invalid gate state
+--->6-admin-control-list-wrong-interval: interval out of range
+
+ieee802-dot1q-bridge:
+--->1-vlan-registration-entry-too-many: Try to register 64 VLANs
+--->2-vlan-registration-entry-wrong-order: Register 10 VLANs in descending order
+--->3-vlan-registration-entry-non-port: Register a VLAN on non-existing port
+--->4-to-many-static-fdb-entries: Register too many entries

@@ -1,0 +1,518 @@
+{
+	"/interfaces/interface/name": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/description": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/type": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/enabled": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/if-index": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/phys-address": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/speed": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/statistics/in-octets": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/statistics/in-unicast-pkts": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/statistics/in-multicast-pkts": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/statistics/in-discards": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/statistics/in-errors": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/statistics/out-octets": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/statistics/out-unicast-pkts": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/statistics/out-multicast-pkts": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/statistics/out-discards": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/statistics/out-errors": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/frame-preemption-parameters/frame-preemption-status-table/traffic-class": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/frame-preemption-parameters/frame-preemption-status-table/frame-preemption-status": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/frame-preemption-parameters/hold-advance": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/frame-preemption-parameters/release-advance": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/frame-preemption-parameters/preemption-active": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/frame-preemption-parameters/hold-request": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/max-sdu-table/traffic-class": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/max-sdu-table/queue-max-sdu": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/max-sdu-table/transmission-overrun": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/gate-parameters/gate-enabled": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/gate-parameters/admin-gate-states": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/gate-parameters/admin-control-list-length": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/gate-parameters/oper-control-list-length": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/admin-cycle-time-extension": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/gate-parameters/oper-cycle-time-extension": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/config-change": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/gate-parameters/tick-granularity": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/gate-parameters/config-pending": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/gate-parameters/config-change-error": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/gate-parameters/supported-list-max": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/gate-parameters/admin-control-list/index": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/oper-control-list/index": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/admin-cycle-time/numerator": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/admin-cycle-time/denominator": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/oper-cycle-time/numerator": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/oper-cycle-time/denominator": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/component-name": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/port-type": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/pvid": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/default-priority": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/acceptable-frame": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/enable-ingress-filtering": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/port-number": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/address": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/capabilities": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/type-capabilties": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/external": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/ethernet/auto-negotiation/enable": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/ethernet/statistics/frame/in-total-frames": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/ethernet/statistics/frame/in-total-octets": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/ethernet/statistics/frame/in-frames": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/ethernet/statistics/frame/in-multicast-frames": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/ethernet/statistics/frame/in-broadcast-frames": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/ethernet/statistics/frame/out-frames": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/ethernet/duplex": {
+		"read": "false",
+		"write": "true"
+	},
+	"/interfaces/interface/ethernet/speed": {
+		"read": "false",
+		"write": "true"
+	},
+	"/interfaces/interface/ethernet/max-frame-length": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/mac-merge/admin-control/merge-enable-tx": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/mac-merge/admin-control/verify-disable-tx": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/mac-merge/admin-control/verify-time": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/mac-merge/admin-control/frag-size": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/mac-merge/admin-status/merge-support": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/mac-merge/admin-status/verify-status": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/mac-merge/admin-status/status-tx": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/mac-merge/statistics/assembly-error-count": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/mac-merge/statistics/smd-error-count": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/mac-merge/statistics/assembly-ok-count": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/mac-merge/statistics/fragment-count-rx": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/mac-merge/statistics/fragment-count-tx": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/mac-merge/statistics/hold-count": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/gate-parameters/admin-control-list/operation-name": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/admin-control-list/sgs-params/gate-states-value": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/admin-control-list/sgs-params/time-interval-value": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/admin-control-list/shm-params/gate-states-value": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/admin-control-list/shm-params/time-interval-value": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/admin-control-list/srm-params/gate-states-value": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/admin-control-list/srm-params/time-interval-value": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/oper-control-list/operation-name": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/oper-control-list/sgs-params/gate-states-value": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/oper-control-list/sgs-params/time-interval-value": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/oper-control-list/shm-params/gate-states-value": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/oper-control-list/shm-params/time-interval-value": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/oper-control-list/srm-params/gate-states-value": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/oper-control-list/srm-params/time-interval-value": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/admin-base-time/seconds": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/gate-parameters/admin-base-time/fractional-seconds": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/gate-parameters/oper-base-time/seconds": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/oper-base-time/fractional-seconds": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/config-change-time/seconds": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/config-change-time/fractional-seconds": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/gate-parameters/current-time/seconds": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/gate-parameters/current-time/fractional-seconds": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/priority-regeneration/priority0": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/priority-regeneration/priority1": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/priority-regeneration/priority2": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/priority-regeneration/priority3": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/priority-regeneration/priority4": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/priority-regeneration/priority5": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/priority-regeneration/priority6": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/priority-regeneration/priority7": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/traffic-class/priority0": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/traffic-class/priority1": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/traffic-class/priority2": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/traffic-class/priority3": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/traffic-class/priority4": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/traffic-class/priority5": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/traffic-class/priority6": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/traffic-class/priority7": {
+		"read": "true",
+		"write": "true"
+	},
+	"/interfaces/interface/bridge-port/statistics/frame-rx": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/statistics/octets-rx": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/statistics/frame-tx": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/statistics/octets-tx": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/bridge-port/statistics/discard-inbound": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/stream-identification-statistics/input-packets": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/stream-identification-statistics/output-packets": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/per-port-frer-statistics/passed-packets": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/per-port-frer-statistics/discarded-packets": {
+		"read": "true",
+		"write": "false"
+	},
+	"/interfaces/interface/frer-per-port-per-stream-statistics/stream-handle": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/frer-per-port-per-stream-statistics/statistics/out-of-order-packets": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/frer-per-port-per-stream-statistics/statistics/rogue-packets": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/frer-per-port-per-stream-statistics/statistics/passed-packets": {
+		"read": "false",
+		"write": "false"
+	},
+	"/interfaces/interface/frer-per-port-per-stream-statistics/statistics/discarded-packets": {
+		"read": "false",
+		"write": "false"
+	}
+}

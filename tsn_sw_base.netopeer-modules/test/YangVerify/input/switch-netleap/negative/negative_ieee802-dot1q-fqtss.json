@@ -1,0 +1,144 @@
+{
+	"unique_keys": 
+	{
+		"1": 
+		{
+			"key": 
+			{
+				"1": "/ieee802-dot1q-fqtss/ieee8021FqtssBapTable/ieee8021FqtssBapEntry/ieee8021BridgeBaseComponentId",
+				"2": "/ieee802-dot1q-fqtss/ieee8021FqtssBapTable/ieee8021FqtssBapEntry/ieee8021BridgeBasePort",
+				"3": "/ieee802-dot1q-fqtss/ieee8021FqtssBapTable/ieee8021FqtssBapEntry/ieee8021FqtssBAPTrafficClass"
+			},
+
+			"key_values": 
+			{
+				"1": 
+				{
+					"value": 
+					[
+						"1",
+						"CE02",
+						"2"
+					],
+
+					"objects": 
+					{
+						"/ieee802-dot1q-fqtss/ieee8021FqtssBapTable/ieee8021FqtssBapEntry/ieee8021FqtssAdminIdleSlopeMs": 
+						{
+							"new_value": 
+							[
+								"str_value1",
+								"str_value2"
+							]
+						},
+
+						"/ieee802-dot1q-fqtss/ieee8021FqtssBapTable/ieee8021FqtssBapEntry/ieee8021FqtssAdminIdleSlopeLs": 
+						{
+							"new_value": 
+							[
+								"str_value1",
+								"str_value2",
+								"str_value3",
+								"str_value4",
+								"str_value5"
+							]
+						}
+					}
+				},
+
+				"2": 
+				{
+					"value": 
+					[
+						"1",
+						"CE02",
+						"7"
+					],
+
+					"objects": 
+					{
+						"/ieee802-dot1q-fqtss/ieee8021FqtssBapTable/ieee8021FqtssBapEntry/ieee8021FqtssAdminIdleSlopeMs": 
+						{
+							"new_value": 
+							[
+								"str_value0",
+								"str_value1"
+							]
+						},
+
+						"/ieee802-dot1q-fqtss/ieee8021FqtssBapTable/ieee8021FqtssBapEntry/ieee8021FqtssAdminIdleSlopeLs": 
+						{
+							"new_value": 
+							[
+								"str_value1",
+								"str_value2",
+								"str_value3",
+								"str_value4",
+								"str_value5 "
+							]
+						}
+					}
+				}
+			}
+		},
+
+		"2": 
+		{
+			"key": 
+			{
+				"1": "/ieee802-dot1q-fqtss/ieee8021FqtssTxSelectionAlgorithmTable/ieee8021FqtssTxSelectionAlgorithmEntry/ieee8021BridgeBaseComponentId",
+				"2": "/ieee802-dot1q-fqtss/ieee8021FqtssTxSelectionAlgorithmTable/ieee8021FqtssTxSelectionAlgorithmEntry/ieee8021BridgeBasePort",
+				"3": "/ieee802-dot1q-fqtss/ieee8021FqtssTxSelectionAlgorithmTable/ieee8021FqtssTxSelectionAlgorithmEntry/ieee8021FqtssTrafficClass"
+			},
+
+			"key_values": 
+			{
+				"1": 
+				{
+					"value": 
+					[
+						"1",
+						"CE02",
+						"2"
+					],
+
+					"objects": 
+					{
+						"/ieee802-dot1q-fqtss/ieee8021FqtssTxSelectionAlgorithmTable/ieee8021FqtssTxSelectionAlgorithmEntry/ieee8021FqtssTxSelectionAlgorithmID": 
+						{
+							"new_value": 
+							[
+								"str_value0",
+								"str_value1",
+								"str_value2"
+							]
+						}
+					}
+				},
+
+				"2": 
+				{
+					"value": 
+					[
+						"1",
+						"CE02",
+						"7"
+					],
+
+					"objects": 
+					{
+						"/ieee802-dot1q-fqtss/ieee8021FqtssTxSelectionAlgorithmTable/ieee8021FqtssTxSelectionAlgorithmEntry/ieee8021FqtssTxSelectionAlgorithmID": 
+						{
+							"new_value": 
+							[
+								"str_value1",
+								"str_value2",
+								"str_value3"
+							]
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,59 @@
+{
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/bridges/bridge/name",
+				"2": "/bridges/bridge/component/name"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"deipce0",
+						"deipce0"
+					],
+					"objects": {
+						"/bridges/bridge/component/bridge-vlan": {
+							"new_entries": [
+								{
+									"vid-to-fid": {
+										"vid": "1100",
+										"fid": "2"
+									}
+								},
+								{
+									"vid-to-fid": {
+										"vid": "2000",
+										"fid": "2"
+									}
+								}
+							]
+						}
+					}
+				}
+			}
+		},
+		"2": {
+			"key": {
+				"1": "/bridges/bridge/component/filtering-database/vlan-registration-entry/database-id",
+				"2": "/bridges/bridge/component/filtering-database/vlan-registration-entry/vids",
+				"3": "/bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/port-ref"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"1",
+						"1",
+						"5"
+					],
+					"objects": {
+						"/bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/static-vlan-registration-entries/vlan-transmitted": {
+							"new_value": [
+								"untagged"
+							]
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,62 @@
+{
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/interfaces/interface/name"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"CE01"
+					],
+					"objects": {
+						"/interfaces/interface/gate-parameters": {
+							"new_entries": [
+								{
+									"admin-control-list": {
+										"index": "0",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "117",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "1",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "133",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "2",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "167",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "3",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "103",
+											"time-interval-value": "240000"
+										}
+									}
+								}
+							]
+						}
+					}
+				}
+			}
+		}
+	}
+}

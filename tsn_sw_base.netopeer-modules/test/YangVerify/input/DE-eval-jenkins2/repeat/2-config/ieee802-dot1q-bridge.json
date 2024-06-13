@@ -1,0 +1,78 @@
+{
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/bridges/bridge/name",
+				"2": "/bridges/bridge/component/name"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"br0",
+						"br0"
+					],
+					"objects": {
+						"/bridges/bridge/component/filtering-database": {
+							"new_entries": [
+								{
+									"vlan-registration-entry": {
+										"database-id": "1",
+										"vids": "2",
+										"entry-type": "static",
+										"port-map": [
+											{
+												"port-ref": "4",
+												"static-vlan-registration-entries": {
+													"vlan-transmitted": "tagged"
+												}
+											},
+											{
+												"port-ref": "5",
+												"static-vlan-registration-entries": {
+													"vlan-transmitted": "tagged"
+												}
+											}
+										]
+									}
+								}
+							]
+						}
+					}
+				}
+			}
+		},
+        "2": {
+			"key": {
+				"1": "/bridges/bridge/name",
+				"2": "/bridges/bridge/component/name"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"br0",
+						"br0"
+					],
+					"objects": {
+						"/bridges/bridge/component": {
+							"new_entries": [
+								{
+                                    "stream-identification": {
+                                        "stream-handles": {
+                                            "stream-handle": "77",
+                                            "tsn-stream-identication-type": "null-stream",
+                                            "null-stream-identification-entry": {
+                                                "destination-mac": "01-10-5e-01-01-05",
+                                                "tagged": "tagged",
+                                                "vlan": "3"
+                                            }
+                                        }
+                                    }
+								}
+							]
+						}
+					}
+				}
+			}
+		}
+	}
+}

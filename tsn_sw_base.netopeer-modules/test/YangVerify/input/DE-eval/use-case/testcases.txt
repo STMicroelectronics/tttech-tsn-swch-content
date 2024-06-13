@@ -1,0 +1,11 @@
+ietf-interfaces:
+--->1-oper-control-list-64-entries: Load 64 entries in the admin-control-list, check the oper-control-list
+--->2-oper-control-list-4-enrties: Load 4 entries in the admin-control-list, set speed to 100Mbits, check the oper-control-list, check preemption timings
+
+ieee802-dot1q-fqtss:
+--->1-fqtss: Activate CBS for TC 2 and 4 on CE02, check ieee8021FqtssOperIdleSlopeLs
+
+ieee802-dot1q-bridge:
+--->1 - vlan-registration-entry: add vid 2 on port CE01 and CE02, check bridge-vlan container and VLAN-registration-entry 
+--->2 - filtering-entry: Add several static entries and check the filtering-database
+--->3-bridge-vlan: Create vid to fid allocation

@@ -1,0 +1,72 @@
+{
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/bridges/bridge/name",
+				"2": "/bridges/bridge/component/name",
+                "3": "/bridges/bridge/component/stream-identification/stream-handles/stream-handle"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"br0",
+						"br0",
+                        "44"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-identification/stream-handles/tsn-stream-identication-type":
+                        {
+							"expected_value": "null-stream"
+						},
+						"/bridges/bridge/component/stream-identification/stream-handles/out-facing-input-port-list":
+                        {
+							"expected_value": "sw0p1"
+						},
+                        "/bridges/bridge/component/stream-identification/stream-handles/null-stream-identification-entry/destination-mac": 
+                        {
+							"expected_value": "01-10-5e-01-01-05"
+						},
+                        "/bridges/bridge/component/stream-identification/stream-handles/null-stream-identification-entry/tagged": 
+                        {
+							"expected_value": "tagged"
+						},
+                        "/bridges/bridge/component/stream-identification/stream-handles/null-stream-identification-entry/vlan": 
+                        {
+							"expected_value": "5"
+						}
+                    }
+				},
+				"2": {
+					"value": [
+						"br0",
+						"br0",
+                        "55"
+					],
+					"objects": {
+						"/bridges/bridge/component/stream-identification/stream-handles/tsn-stream-identication-type":
+                        {
+							"expected_value": "null-stream"
+						},
+						"/bridges/bridge/component/stream-identification/stream-handles/out-facing-input-port-list":
+                        {
+							"expected_value": "sw0p2"
+						},
+                        "/bridges/bridge/component/stream-identification/stream-handles/null-stream-identification-entry/destination-mac": 
+                        {
+							"expected_value": "01-10-5e-01-01-06"
+						},
+                        "/bridges/bridge/component/stream-identification/stream-handles/null-stream-identification-entry/tagged": 
+                        {
+							"expected_value": "tagged"
+						},
+                        "/bridges/bridge/component/stream-identification/stream-handles/null-stream-identification-entry/vlan": 
+                        {
+							"expected_value": "6"
+						}
+                    }
+				}
+			}
+		}
+	}
+}
+

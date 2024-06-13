@@ -1,0 +1,2582 @@
+{
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/interfaces/interface/name"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"CE02"
+					],
+					"objects": {
+						"/interfaces/interface/gate-parameters": {
+							"new_entries": [
+								{
+									"admin-control-list": {
+										"index": "0",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "1",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "2",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "3",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "4",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "5",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "6",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "7",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "8",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "9",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "10",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "11",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "12",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "13",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "14",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "15",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "16",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "17",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "18",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "19",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "20",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "21",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "22",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "23",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "24",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "25",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "26",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "27",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "28",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "29",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "30",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "31",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "32",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "33",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "34",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "35",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "36",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "37",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "38",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "39",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "40",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "41",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "42",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "43",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "44",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "45",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "46",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "47",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "48",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "49",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "50",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "51",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "52",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "53",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "54",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "55",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "56",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "57",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "58",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "59",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "60",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "61",
+										"operation-name": "set-and-hold-mac",
+										"shm-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "62",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "63",
+										"operation-name": "set-and-release-mac",
+										"srm-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "64",
+										"operation-name": "set-and-release-mac",
+										"srm-params": {
+											"gate-states-value": "145",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+																{
+									"admin-control-list": {
+										"index": "65",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "66",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "67",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "68",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "69",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "70",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "71",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "72",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "73",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "74",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "75",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "76",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "77",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "78",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "79",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "80",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "81",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "82",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "83",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "84",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "85",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "86",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "87",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "88",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "89",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "90",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "91",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "92",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "93",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "94",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "95",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "96",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "97",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "98",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "99",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "100",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "101",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "102",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "103",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "104",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "105",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "106",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "107",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "108",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "109",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "110",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "111",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "112",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "113",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "114",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "115",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "116",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "117",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "118",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "119",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "120",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "121",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "122",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "123",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "124",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "125",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "126",
+										"operation-name": "set-and-hold-mac",
+										"shm-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "127",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+																{
+									"admin-control-list": {
+										"index": "128",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "129",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "130",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "131",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "132",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "133",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "134",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "135",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "136",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "137",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "138",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "139",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "140",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "141",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "142",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "143",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "144",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "145",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "146",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "147",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "148",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "149",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "150",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "151",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "152",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "153",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "154",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "155",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "156",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "157",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "158",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "159",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "160",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "161",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "162",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "163",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "164",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "165",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "166",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "167",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "168",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "169",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "170",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "171",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "172",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "173",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "174",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "175",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "176",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "177",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "178",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "179",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "180",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "181",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "182",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "183",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "184",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "185",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "186",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "187",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "188",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "189",
+										"operation-name": "set-and-hold-mac",
+										"shm-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "190",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "191",
+										"operation-name": "set-and-release-mac",
+										"srm-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "192",
+										"operation-name": "set-and-release-mac",
+										"srm-params": {
+											"gate-states-value": "145",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+																{
+									"admin-control-list": {
+										"index": "193",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "194",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "195",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "196",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "197",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "198",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "199",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "200",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "201",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "202",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "203",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "204",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "205",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "206",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "207",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "208",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "209",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "210",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "211",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "212",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "213",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "214",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "215",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "216",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "217",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "218",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "219",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "220",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "221",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "222",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "223",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "224",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "225",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "226",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "227",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "228",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "229",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "230",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "231",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "232",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "233",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "234",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "235",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "236",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "237",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "238",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "239",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "240",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "241",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "242",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "243",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "244",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "245",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "246",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "247",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "248",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "249",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "250",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "33",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "251",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "67",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "252",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "253",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "254",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "143",
+											"time-interval-value": "240000"
+										}
+									}
+								},
+								{
+									"admin-control-list": {
+										"index": "255",
+										"operation-name": "set-gate-states",
+										"sgs-params": {
+											"gate-states-value": "17",
+											"time-interval-value": "250000"
+										}
+									}
+								}
+							]
+						}
+					}
+				}
+			}
+		}
+	}
+}

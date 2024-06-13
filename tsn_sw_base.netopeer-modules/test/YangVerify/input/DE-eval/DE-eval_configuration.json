@@ -1,0 +1,17 @@
+{
+	"target": {
+		"ip-address": "192.168.0.1",
+		"username": "root",
+		"password": "",
+		"repeat" : true
+	},
+	"tests": {
+		"ietf-interfaces": [],
+		"ieee802-dot1q-bridge":["implemented"],
+		"ieee8021-mstp":[],
+		"ieee802-dot1q-fqtss":[],
+		"ieee802-dot1ab-lldp":[],
+		"ietf-ptp": []
+	}
+
+}

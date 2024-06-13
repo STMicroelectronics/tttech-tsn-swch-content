@@ -1,0 +1,240 @@
+{
+	"/lldp/message-fast-tx": {
+		"expected_value": "1"
+	},
+	"/lldp/message-tx-hold-multiplier": {
+		"expected_value": "4"
+	},
+	"/lldp/message-tx-interval": {
+		"expected_value": "30"
+	},
+	"/lldp/reinit-delay": {
+		"expected_value": "2"
+	},
+	"/lldp/tx-credit-max": {
+		"expected_value": "5"
+	},
+	"/lldp/tx-fast-init": {
+		"expected_value": "4"
+	},
+	"/lldp/notification-interval": {
+		"expected_value": "30"
+	},
+	"/lldp/local-system-data/chassis-id-subtype": {
+		"expected_value": "mac-address"
+	},
+	"/lldp/local-system-data/system-capabilities-supported": {
+		"expected_value": "bridge wlan-access-point router station-only"
+	},
+	"/lldp/local-system-data/system-capabilities-enabled": {
+		"expected_value": "bridge"
+	},
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/lldp/port/name"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"CE02"
+					],
+					"objects": {
+						"/lldp/port/port-id-subtype": {
+							"expected_value": "mac-address"
+						},
+						"/lldp/port/port-desc": {
+							"expected_value": "CE02"
+						}
+					}
+				},
+				"2": {
+					"value": [
+						"CE01"
+					],
+					"objects": {
+						"/lldp/port/port-id-subtype": {
+							"expected_value": "mac-address"
+						},
+						"/lldp/port/port-desc": {
+							"expected_value": "CE01"
+						},
+						"/lldp/port/remote-systems-data/chassis-id-subtype": {
+							"expected_value": "mac-address"
+						},
+						"/lldp/port/remote-systems-data/chassis-id": {
+							"expected_value": "00:80:82:85:e1:28"
+						},
+						"/lldp/port/remote-systems-data/port-id-subtype": {
+							"expected_value": "mac-address"
+						},
+						"/lldp/port/remote-systems-data/port-id": {
+							"expected_value": "00:80:82:85:e1:2a"
+						},
+						"/lldp/port/remote-systems-data/port-desc": {
+							"expected_value": "CE03"
+						},
+						"/lldp/port/remote-systems-data/system-capabilities-supported": {
+							"expected_value": "bridge wlan-access-point router station-only"
+						},
+						"/lldp/port/remote-systems-data/system-capabilities-enabled": {
+							"expected_value": "bridge"
+						}
+					}
+				},
+				"3": {
+					"value": [
+						"CE03"
+					],
+					"objects": {
+						"/lldp/port/port-id-subtype": {
+							"expected_value": "mac-address"
+						},
+						"/lldp/port/port-desc": {
+							"expected_value": "CE03"
+						}
+					}
+				},
+				"4": {
+					"value": [
+						"CE04"
+					],
+					"objects": {
+						"/lldp/port/port-id-subtype": {
+							"expected_value": "mac-address"
+						},
+						"/lldp/port/port-desc": {
+							"expected_value": "CE04"
+						}
+					}
+				}
+			}
+		},
+		"2": {
+			"key": {
+				"1": "/lldp/port/name",
+				"2": "/lldp/port/remote-systems-data/management-address/address-subtype"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"CE01",
+						"1"
+					],
+					"objects": {
+						"/lldp/port/remote-systems-data/management-address/address": {
+							"expected_value": "10.107.16.242"
+						}
+					}
+				},
+				"2": {
+					"value": [
+						"CE01",
+						"2"
+					],
+					"objects": {
+						"/lldp/port/remote-systems-data/management-address/address": {
+							"expected_value": "fe80::280:82ff:fe85:e127"
+						}
+					}
+				}
+			}
+		},
+		"3": {
+			"key": {
+				"1": "/lldp/port/name",
+				"2": "/lldp/port/management-address-tx-port/address-subtype"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"CE01",
+						"1"
+					],
+					"objects": {
+						"/lldp/port/management-address-tx-port/man-address": {
+							"expected_value": "10.107.16.240"
+						}
+					}
+				},
+				"2": {
+					"value": [
+						"CE02",
+						"1"
+					],
+					"objects": {
+						"/lldp/port/management-address-tx-port/man-address": {
+							"expected_value": "10.107.16.240"
+						}
+					}
+				},
+				"3": {
+					"value": [
+						"CE03",
+						"1"
+					],
+					"objects": {
+						"/lldp/port/management-address-tx-port/man-address": {
+							"expected_value": "10.107.16.240"
+						}
+					}
+				},
+				"4": {
+					"value": [
+						"CE04",
+						"1"
+					],
+					"objects": {
+						"/lldp/port/management-address-tx-port/man-address": {
+							"expected_value": "10.107.16.240"
+						}
+					}
+				},
+				"5": {
+					"value": [
+						"CE01",
+						"2"
+					],
+					"objects": {
+						"/lldp/port/management-address-tx-port/man-address": {
+							"expected_value": "fe80::1ea0:d3ff:fe20:905"
+						}
+					}
+				},
+				"6": {
+					"value": [
+						"CE02",
+						"2"
+					],
+					"objects": {
+						"/lldp/port/management-address-tx-port/man-address": {
+							"expected_value": "fe80::1ea0:d3ff:fe20:905"
+						}
+					}
+				},
+				"7": {
+					"value": [
+						"CE03",
+						"2"
+					],
+					"objects": {
+						"/lldp/port/management-address-tx-port/man-address": {
+							"expected_value": "fe80::1ea0:d3ff:fe20:905"
+						}
+					}
+				},
+				"8": {
+					"value": [
+						"CE04",
+						"2"
+					],
+					"objects": {
+						"/lldp/port/management-address-tx-port/man-address": {
+							"expected_value": "fe80::1ea0:d3ff:fe20:905"
+						}
+					}
+				}
+			}
+		}
+	}
+}

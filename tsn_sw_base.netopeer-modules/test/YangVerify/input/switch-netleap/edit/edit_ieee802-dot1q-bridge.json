@@ -1,0 +1,31 @@
+{
+	"/bridges/bridge/address": {
+		"new_value": ["1c-a0-d3-20-03-ff", "1c-a0-d3-20-03-f0", "1c-a0-d3-20-03-f2"]
+	},
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/bridges/bridge/component/filtering-database/vlan-registration-entry/database-id",
+				"2": "/bridges/bridge/component/filtering-database/vlan-registration-entry/vids"
+			},
+			"key_values": {
+				"1": {
+					"value": ["1", "1"],
+					"objects": {
+						"/bridges/bridge/component/filtering-database/vlan-registration-entry/entry-type": {
+						"new_value": ["dynamic", "static"]
+						}
+					}
+				},
+				"2": {
+					"value": ["1", "2-5"],
+					"objects": {
+						"/bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/port-ref": {
+						"new_value": ["6", "7"]
+						}
+					}
+				}
+			}
+		}
+	}
+}

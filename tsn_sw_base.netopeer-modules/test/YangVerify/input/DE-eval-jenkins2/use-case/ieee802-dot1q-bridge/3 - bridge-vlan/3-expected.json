@@ -1,0 +1,102 @@
+{
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/bridges/bridge/name",
+				"2": "/bridges/bridge/component/name",
+				"3": "/bridges/bridge/component/bridge-vlan/vid-to-fid/vid"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"br0",
+						"br0",
+						"1100"
+					],
+					"objects": {
+						"/bridges/bridge/component/bridge-vlan/vid-to-fid/fid": {
+							"expected_value": [
+								"2"
+							]
+						}
+					}
+				},
+				"2": {
+					"value": [
+						"br0",
+						"br0",
+						"2000"
+					],
+					"objects": {
+						"/bridges/bridge/component/bridge-vlan/vid-to-fid/fid": {
+							"expected_value": [
+								"2"
+							]
+						}
+					}
+				}
+			}
+		},
+		"2": {
+			"key": {
+				"1": "/bridges/bridge/name",
+				"2": "/bridges/bridge/component/name",
+				"3": "/bridges/bridge/component/bridge-vlan/vid-to-fid-allocation/vids"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"br0",
+						"br0",
+						"1-1099,1101-1999,2001-4094"
+					],
+					"objects": {
+						"/bridges/bridge/component/bridge-vlan/vid-to-fid-allocation/fid": {
+							"expected_value": [
+								"0"
+							]
+						}
+					}
+				},
+				"2": {
+					"value": [
+						"br0",
+						"br0",
+						"1100,2000"
+					],
+					"objects": {
+						"/bridges/bridge/component/bridge-vlan/vid-to-fid-allocation/fid": {
+							"expected_value": [
+								"2"
+							]
+						}
+					}
+				}
+			}
+		},
+		"3": {
+			"key": {
+				"1": "/bridges/bridge/name",
+				"2": "/bridges/bridge/component/name",
+				"3": "/bridges/bridge/component/bridge-vlan/fid-to-vid-allocation/fid"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"br0",
+						"br0",
+						"2"
+					],
+					"objects": {
+						"/bridges/bridge/component/bridge-vlan/fid-to-vid-allocation/vid": {
+							"expected_value": [
+								"1100",
+								"2000"
+							]
+						}
+					}
+				}
+			}
+		}
+	}
+}

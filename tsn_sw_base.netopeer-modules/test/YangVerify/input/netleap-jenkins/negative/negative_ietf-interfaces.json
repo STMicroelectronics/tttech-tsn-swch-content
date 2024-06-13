@@ -1,0 +1,219 @@
+{
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/interfaces/interface/name"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"CE01"
+					],
+					"objects": {
+						"/interfaces/interface/enabled": {
+							"new_value": [
+								"1",
+								"string"
+							]
+						},
+						"/interfaces/interface/ethernet/auto-negotiation/enable": {
+							"new_value": [
+								"1",
+								"string"
+							]
+						},
+						"/interfaces/interface/ethernet/speed": {
+							"new_value": [
+								"-1",
+								"0",
+								"1",
+								"2.000"
+							]
+						},
+						"/interfaces/interface/gate-parameters/gate-enabled": {
+							"new_value": [
+								"1",
+								"string"
+							]
+						},
+						"/interfaces/interface/gate-parameters/admin-gate-states": {
+							"new_value": [
+								"-1",
+								"string",
+								"256",
+								"true"
+							]
+						},
+						"/interfaces/interface/mac-merge/admin-control/merge-enable-tx": {
+							"new_value": [
+								"True",
+								"false",
+								"0",
+								"1",
+								"string"
+							]
+						},
+						"/interfaces/interface/mac-merge/admin-control/verify-disable-tx": {
+							"new_value": [
+								"True",
+								"false",
+								"0",
+								"1",
+								"string"
+							]
+						},
+						"/interfaces/interface/mac-merge/admin-control/verify-time": {
+							"new_value": [
+								"0",
+								"-1",
+								"129"
+							]
+						},
+						"/interfaces/interface/mac-merge/admin-control/frag-size": {
+							"new_value": [
+								"string",
+								"-11",
+								"4"
+							]
+						}
+					}
+				}
+			}
+		},
+		"2": {
+			"key": {
+				"1": "/interfaces/interface/name",
+				"2": "/interfaces/interface/bridge-port/component-name"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"CE03",
+						"CE03"
+					],
+					"objects": {
+						"/interfaces/interface/bridge-port/pvid": {
+							"new_value": [
+								"string",
+								"0",
+								"-1",
+								"4096"
+							]
+						},
+						"/interfaces/interface/bridge-port/default-priority": {
+							"new_value": [
+								"string",
+								"-1",
+								"8"
+							]
+						},
+						"/interfaces/interface/bridge-port/priority-regeneration/priority0": {
+							"new_value": [
+								"string",
+								"-1",
+								"8"
+							]
+						},
+						"/interfaces/interface/bridge-port/priority-regeneration/priority7": {
+							"new_value": [
+								"string",
+								"-1",
+								"8"
+							]
+						},
+						"/interfaces/interface/bridge-port/traffic-class/priority0": {
+							"new_value": [
+								"string",
+								"-1",
+								"8"
+							]
+						},
+						"/interfaces/interface/bridge-port/traffic-class/priority7": {
+							"new_value": [
+								"string",
+								"-1",
+								"8"
+							]
+						}
+					}
+				}
+			}
+		},
+		"3": {
+			"key": {
+				"1": "/interfaces/interface/name",
+				"2": "/interfaces/interface/max-sdu-table/traffic-class"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"CE03",
+						"0"
+					],
+					"objects": {
+						"/interfaces/interface/max-sdu-table/queue-max-sdu": {
+							"new_value": [
+								"string",
+								"-1",
+								"10000"
+							]
+						}
+					}
+				},
+				"2": {
+					"value": [
+						"CE03",
+						"7"
+					],
+					"objects": {
+						"/interfaces/interface/max-sdu-table/queue-max-sdu": {
+							"new_value": [
+								"string",
+								"-1",
+								"10000"
+							]
+						}
+					}
+				}
+			}
+		},
+		"4": {
+			"key": {
+				"1": "/interfaces/interface/name",
+				"2": "/interfaces/interface/frame-preemption-parameters/frame-preemption-status-table/traffic-class"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"CE03",
+						"0"
+					],
+					"objects": {
+						"/interfaces/interface/frame-preemption-parameters/frame-preemption-status-table/frame-preemption-status": {
+							"new_value": [
+								"string",
+								"true",
+								"2"
+							]
+						}
+					}
+				},
+				"2": {
+					"value": [
+						"CE03",
+						"7"
+					],
+					"objects": {
+						"/interfaces/interface/frame-preemption-parameters/frame-preemption-status-table/frame-preemption-status": {
+							"new_value": [
+								"string",
+								"true",
+								"2"
+							]
+						}
+					}
+				}
+			}
+		}
+	}
+}

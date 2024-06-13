@@ -1,0 +1,82 @@
+{
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/bridges/bridge/name",
+				"2": "/bridges/bridge/component/name",
+                "3": "/bridges/bridge/component/frer/sequence-generation-list/frer-seg-gen-entry/index"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"br0",
+						"br0",
+                        "1"
+					],
+					"objects": {
+						"/bridges/bridge/component/frer/sequence-generation-list/frer-seg-gen-entry/stream-list":
+                        {
+							"expected_value": "11"
+						},
+						"/bridges/bridge/component/frer/sequence-generation-list/frer-seg-gen-entry/direction":
+                        {
+							"expected_value": "in-facing"
+						} 
+                    }
+				},
+				"2": {
+					"value": [
+						"br0",
+						"br0",
+                        "2"
+					],
+					"objects": {
+						"/bridges/bridge/component/frer/sequence-generation-list/frer-seg-gen-entry/stream-list":
+                        {
+							"expected_value": "22"
+						},
+						"/bridges/bridge/component/frer/sequence-generation-list/frer-seg-gen-entry/direction":
+                        {
+							"expected_value": "in-facing"
+						} 
+                    }
+				},
+				"3": {
+					"value": [
+						"br0",
+						"br0",
+                        "3"
+					],
+					"objects": {
+						"/bridges/bridge/component/frer/sequence-generation-list/frer-seg-gen-entry/stream-list":
+                        {
+							"expected_value": "33"
+						},
+						"/bridges/bridge/component/frer/sequence-generation-list/frer-seg-gen-entry/direction":
+                        {
+							"expected_value": "in-facing"
+						} 
+                    }
+				},
+				"4": {
+					"value": [
+						"br0",
+						"br0",
+                        "4"
+					],
+					"objects": {
+						"/bridges/bridge/component/frer/sequence-generation-list/frer-seg-gen-entry/stream-list":
+                        {
+							"expected_value": "44"
+						},
+						"/bridges/bridge/component/frer/sequence-generation-list/frer-seg-gen-entry/direction":
+                        {
+							"expected_value": "in-facing"
+						} 
+                    }
+				}
+			}
+		}
+	}
+}
+

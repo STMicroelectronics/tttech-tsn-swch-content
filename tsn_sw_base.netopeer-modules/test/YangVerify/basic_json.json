@@ -1,0 +1,22 @@
+{
+	"(/correct/path/to/yang/object/or/container)": {
+		"(value_type)": "(value_to_test)"
+	},
+	"unique_keys": {
+		"(order_number)": {
+			"key": {
+				"(order_number)":"(/correct/path/to/unique/key)"
+			},
+			"key_values": {
+				"(order_number)": {
+					"value": ["(actual_key_values)"],
+					"objects": {
+						"(/correct/path/to/yang/object/or/container)": {
+							"(value_type)": "(value_to_test)"
+						}
+					}
+				}
+			}
+		}
+	}
+}

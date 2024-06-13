@@ -1,0 +1,149 @@
+{
+	"/lldp/message-fast-tx": {
+		"expected_value": "1"
+	},
+	"/lldp/message-tx-hold-multiplier": {
+		"expected_value": "4"
+	},
+	"/lldp/message-tx-interval": {
+		"expected_value": "30"
+	},
+	"/lldp/reinit-delay": {
+		"expected_value": "2"
+	},
+	"/lldp/tx-credit-max": {
+		"expected_value": "5"
+	},
+	"/lldp/tx-fast-init": {
+		"expected_value": "4"
+	},
+	"/lldp/notification-interval": {
+		"expected_value": "30"
+	},
+	"/lldp/local-system-data/chassis-id-subtype": {
+		"expected_value": "mac-address"
+	},
+	"/lldp/local-system-data/system-name": {
+		"expected_value": "de-eval-board"
+	},
+	"/lldp/local-system-data/system-capabilities-supported": {
+		"expected_value": "bridge wlan-access-point router station-only"
+	},
+	"/lldp/local-system-data/system-capabilities-enabled": {
+		"expected_value": "bridge"
+	},
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/lldp/port/name"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"CE01"
+					],
+					"objects": {
+						"/lldp/port/port-id-subtype": {
+							"expected_value": "mac-address"
+						},
+						"/lldp/port/port-desc": {
+							"expected_value": "CE01"
+						}
+					}
+				},
+				"2": {
+					"value": [
+						"CE02"
+					],
+					"objects": {
+						"/lldp/port/port-id-subtype": {
+							"expected_value": "mac-address"
+						},
+						"/lldp/port/port-desc": {
+							"expected_value": "CE02"
+						}
+					}
+				},
+				"3": {
+					"value": [
+						"CE03"
+					],
+					"objects": {
+						"/lldp/port/port-id-subtype": {
+							"expected_value": "mac-address"
+						},
+						"/lldp/port/port-desc": {
+							"expected_value": "CE03"
+						}
+					}
+				},
+				"4": {
+					"value": [
+						"CE04"
+					],
+					"objects": {
+						"/lldp/port/port-id-subtype": {
+							"expected_value": "mac-address"
+						},
+						"/lldp/port/port-desc": {
+							"expected_value": "CE04"
+						}
+					}
+				}
+			}
+		},
+		
+		"3": {
+			"key": {
+				"1": "/lldp/port/name",
+				"2": "/lldp/port/management-address-tx-port/address-subtype"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"CE01",
+						"rt:ipv6"
+					],
+					"objects": {
+						"/lldp/port/management-address-tx-port/man-address": {
+							"expected_value": "ZmU4MDo6MjgwOjgyZmY6ZmU4NTo4ZDdkAAAAAAAAAA=="
+						}
+					}
+				},
+				"2": {
+					"value": [
+						"CE02",
+						"rt:ipv6"
+					],
+					"objects": {
+						"/lldp/port/management-address-tx-port/man-address": {
+							"expected_value": "ZmU4MDo6MjgwOjgyZmY6ZmU4NTo4ZDdkAAAAAAAAAA=="
+						}
+					}
+				},
+				"3": {
+					"value": [
+						"CE03",
+						"rt:ipv6"
+					],
+					"objects": {
+						"/lldp/port/management-address-tx-port/man-address": {
+							"expected_value": "ZmU4MDo6MjgwOjgyZmY6ZmU4NTo4ZDdkAAAAAAAAAA=="
+						}
+					}
+				},
+				"4": {
+					"value": [
+						"CE04",
+						"rt:ipv6"
+					],
+					"objects": {
+						"/lldp/port/management-address-tx-port/man-address": {
+							"expected_value": "ZmU4MDo6MjgwOjgyZmY6ZmU4NTo4ZDdkAAAAAAAAAA=="
+						}
+					}
+				}
+			}
+		}
+	}
+}

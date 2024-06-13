@@ -1,0 +1,53 @@
+{
+	"unique_keys": {
+		"1": {
+			"key": {
+				"1": "/bridges/bridge/name",
+				"2": "/bridges/bridge/component/name"
+			},
+			"key_values": {
+				"1": {
+					"value": [
+						"br0",
+						"br0"
+					],
+					"objects": {
+						"/bridges/bridge/component": {
+							"new_entries": [
+								{
+									"frer": {
+										"sequence-generation-list": {
+											"frer-seg-gen-entry": [
+												{
+													"index": "1",
+													"stream-list": "11",
+													"direction": "in-facing"
+												},
+												{
+													"index": "2",
+													"stream-list": "22",
+													"direction": "in-facing"
+												},
+												{
+													"index": "3",
+													"stream-list": "33",
+													"direction": "in-facing"
+												},
+												{
+													"index": "4",
+													"stream-list": "44",
+													"direction": "in-facing"
+												}
+											]
+										}
+									}
+								}
+							]
+						}
+					}
+				}
+			}
+		}
+	}
+}
+

@@ -1,0 +1,70 @@
+{
+	"/ieee802-dot1q-fqtss/ieee8021FqtssBapTable/ieee8021FqtssBapEntry/ieee8021BridgeBaseComponentId": {
+		"read": "true",
+		"write": "true"
+	},
+	"/ieee802-dot1q-fqtss/ieee8021FqtssBapTable/ieee8021FqtssBapEntry/ieee8021BridgeBasePort": {
+		"read": "true",
+		"write": "true"
+	},
+	"/ieee802-dot1q-fqtss/ieee8021FqtssBapTable/ieee8021FqtssBapEntry/ieee8021FqtssBAPTrafficClass": {
+		"read": "true",
+		"write": "true"
+	},
+	"/ieee802-dot1q-fqtss/ieee8021FqtssBapTable/ieee8021FqtssBapEntry/ieee8021FqtssOperIdleSlopeMs": {
+		"read": "true",
+		"write": "true"
+	},
+	"/ieee802-dot1q-fqtss/ieee8021FqtssBapTable/ieee8021FqtssBapEntry/ieee8021FqtssOperIdleSlopeLs": {
+		"read": "true",
+		"write": "true"
+	},
+	"/ieee802-dot1q-fqtss/ieee8021FqtssBapTable/ieee8021FqtssBapEntry/ieee8021FqtssAdminIdleSlopeMs": {
+		"read": "true",
+		"write": "true"
+	},
+	"/ieee802-dot1q-fqtss/ieee8021FqtssBapTable/ieee8021FqtssBapEntry/ieee8021FqtssAdminIdleSlopeLs": {
+		"read": "true",
+		"write": "true"
+	},
+	"/ieee802-dot1q-fqtss/ieee8021FqtssBapTable/ieee8021FqtssBapEntry/ieee8021FqtssBapRowStatus": {
+		"read": "false",
+		"write": "false"
+	},
+	"/ieee802-dot1q-fqtss/ieee8021FqtssTxSelectionAlgorithmTable/ieee8021FqtssTxSelectionAlgorithmEntry/ieee8021BridgeBaseComponentId": {
+		"read": "true",
+		"write": "true"
+	},
+	"/ieee802-dot1q-fqtss/ieee8021FqtssTxSelectionAlgorithmTable/ieee8021FqtssTxSelectionAlgorithmEntry/ieee8021BridgeBasePort": {
+		"read": "true",
+		"write": "true"
+	},
+	"/ieee802-dot1q-fqtss/ieee8021FqtssTxSelectionAlgorithmTable/ieee8021FqtssTxSelectionAlgorithmEntry/ieee8021FqtssTrafficClass": {
+		"read": "true",
+		"write": "true"
+	},
+	"/ieee802-dot1q-fqtss/ieee8021FqtssTxSelectionAlgorithmTable/ieee8021FqtssTxSelectionAlgorithmEntry/ieee8021FqtssTxSelectionAlgorithmID": {
+		"read": "true",
+		"write": "true"
+	},
+	"/ieee802-dot1q-fqtss/ieee8021FqtssSrpRegenOverrideTable/ieee8021FqtssSrpRegenOverrideEntry/ieee8021BridgeBaseComponentId": {
+		"read": "false",
+		"write": "false"
+	},
+	"/ieee802-dot1q-fqtss/ieee8021FqtssSrpRegenOverrideTable/ieee8021FqtssSrpRegenOverrideEntry/ieee8021BridgeBasePort": {
+		"read": "false",
+		"write": "false"
+	},
+	"/ieee802-dot1q-fqtss/ieee8021FqtssSrpRegenOverrideTable/ieee8021FqtssSrpRegenOverrideEntry/ieee8021FqtssSrClassPriority": {
+		"read": "false",
+		"write": "false"
+	},
+	"/ieee802-dot1q-fqtss/ieee8021FqtssSrpRegenOverrideTable/ieee8021FqtssSrpRegenOverrideEntry/ieee8021FqtssPriorityRegenOverride": {
+		"read": "false",
+		"write": "false"
+	},
+	"/ieee802-dot1q-fqtss/ieee8021FqtssSrpRegenOverrideTable/ieee8021FqtssSrpRegenOverrideEntry/ieee8021FqtssSrpBoundaryPort": {
+		"read": "false",
+		"write": "false"
+	}
+}
