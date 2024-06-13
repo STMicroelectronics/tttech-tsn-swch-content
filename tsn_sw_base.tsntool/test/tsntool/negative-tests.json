@@ -1,0 +1,356 @@
+[
+    {
+        "comment": " Slope out of range (too high)",
+        "error_code": 22,
+        "error_message": "Cannot set admin idle slope - 22 (Invalid argument)",
+        "command": [
+            "tsntool",
+            "fqtss",
+            "slope",
+            "7",
+            "10000000000",
+            "sw0p2"
+        ]
+    },
+    {
+        "comment": " Slope out of range (negative)",
+        "error_code": 22,
+        "error_message": "Cannot set admin idle slope - 22 (Invalid argument)",
+        "command": [
+            "tsntool",
+            "fqtss",
+            "slope",
+            "7",
+            "-1",
+            "sw0p2"
+        ]
+    },
+    {
+        "comment": " FQTSS TSA TC out of range ",
+        "error_code": 34,
+        "error_message": "Traffic Class out of range [0..7]",
+        "command": [
+            "tsntool",
+            "fqtss",
+            "tsa",
+            "8",
+            "cbs",
+            "sw0p2"
+        ]
+    },
+    {
+        "comment": "Non existing tsa",
+        "error_code": 255,
+        "error_message": "Wrong parameter syntax for command 'tsa', try 'tsntool fqtss help'",
+        "command": [
+            "tsntool",
+            "fqtss",
+            "tsa",
+            "7",
+            "rb",
+            "sw0p2"
+        ]
+    },
+    {
+        "comment": "FQTSS slope TC out of range",
+        "error_code": 34,
+        "error_message": "Traffic Class out of range [0..7]",
+        "command": [
+            "tsntool",
+            "fqtss",
+            "slope",
+            "8",
+            "500000",
+            "sw0p2"
+        ]
+    },
+    {
+        "comment": " brport wrpriotbl priority out of range",
+        "error_code": 27,
+        "error_message": "Cannot set traffic class table - 27 (File too large)",
+        "command": [
+            "tsntool",
+            "brport",
+            "wrpriotbl",
+            "8",
+            "7",
+            "sw0p2"
+        ]
+    },
+    {
+        "comment": " brport wrpriotbl TC out of range",
+        "error_code": 34,
+        "error_message": "Traffic class out of range [0..7]",
+        "command": [
+            "tsntool",
+            "brport",
+            "wrpriotbl",
+            "7",
+            "8",
+            "sw0p2"
+        ]
+    },
+    {
+        "comment": " brport wrtctbl priority out of range",
+        "error_code": 27,
+        "error_message": "Cannot set priority regeneration table - 27 (File too large)",
+        "command": [
+            "tsntool",
+            "brport",
+            "wrtctbl",
+            "8",
+            "7",
+            "sw0p2"
+        ]
+    },
+    {
+        "comment": " brport wrtctbl TC out of range",
+        "error_code": 34,
+        "error_message": "PRIORITY out of range [0..7]",
+        "command": [
+            "tsntool",
+            "brport",
+            "wrtctbl",
+            "7",
+            "8",
+            "sw0p2"
+        ]
+    },
+    {
+        "comment": " preempt enable wrong time (0)",
+        "error_code": 22,
+        "error_message": "Cannot set verify time - 22 (Invalid argument)",
+        "command": [
+            "tsntool",
+            "preempt",
+            "enable",
+            "verify",
+            "0",
+            "sw0p2"
+        ]
+    },
+    {
+        "comment": " preempt enable wrong time (130)",
+        "error_code": 22,
+        "error_message": "Cannot set verify time - 22 (Invalid argument)",
+        "command": [
+            "tsntool",
+            "preempt",
+            "enable",
+            "verify",
+            "130",
+            "sw0p2"
+        ]
+    },
+    {
+        "comment": " preempt wrong fragsize (62)",
+        "error_code": 255,
+        "error_message": "Wrong parameter syntax for command 'setfragsize', try 'tsntool preempt help'",
+        "command": [
+            "tsntool",
+            "preempt",
+            "setfragsize",
+            "62",
+            "sw0p2"
+        ]
+    },
+    {
+        "comment": " preempt wrong fragsize (257)",
+        "error_code": 255,
+        "error_message": "Wrong parameter syntax for command 'setfragsize', try 'tsntool preempt help'",
+        "command": [
+            "tsntool",
+            "preempt",
+            "setfragsize",
+            "62",
+            "sw0p2"
+        ]
+    },
+    {
+        "comment": " preempt setq wrong priority",
+        "error_code": 27,
+        "error_message": "Cannot set preemtion status for Traffic Class 8 - 27 (File too large)",
+        "command": [
+            "tsntool",
+            "preempt",
+            "setq",
+            "8",
+            "express",
+            "sw0p2"
+        ]
+    },
+    {
+        "comment": " preempt wrong fragsize (257)",
+        "error_code": 255,
+        "error_message": "Wrong parameter syntax for command 'setq', try 'tsntool preempt help'",
+        "command": [
+            "tsntool",
+            "preempt",
+            "setq",
+            "7",
+            "exo",
+            "sw0p2"
+        ]
+    },
+    {
+        "comment": " st validate - no file",
+        "error_code": 1,
+        "error_message": "ERROR: Cannot open input file 'qbv-none.cfg' - 2 (No such file or directory)",
+        "command": [
+            "tsntool",
+            "st",
+            "validate",
+            "qbv-none.cfg"
+        ]
+    },
+    {
+        "comment": " st wr - no file",
+        "error_code": 1,
+        "error_message": "ERROR: Cannot open input file 'qbv-none.cfg' - 2 (No such file or directory)",
+        "command": [
+            "tsntool",
+            "st",
+            "wrcl",
+            "sw0p2",
+            "qbv-none.cfg"
+        ]
+    },
+    {
+        "comment": " st wr - no file",
+        "error_code": 255,
+        "error_message": "Wrong number of arguments for command 'wrcl', try 'tsntool st help'",
+        "command": [
+            "tsntool",
+            "st",
+            "wrcl",
+            "sw0p2"
+        ]
+    },
+    {
+        "comment": " st rdacl - no entries",
+        "error_code": 0,
+        "error_message": "Control list length is set to 0 - no entries read.",
+        "command": [
+            "tsntool",
+            "st",
+            "rdacl",
+            "sw0p2"
+        ]
+    },
+    {
+        "comment": " st rdocl - no entries",
+        "error_code": 2,
+        "error_message": "ERROR: Cannot get oper. control list length - tsnlib reported 9 (Failed reading a single value from driver, errno is reported in lower 8 bits for more information)\nERROR: Cannot get oper. control list length - driver reported 2 (No such file or directory)",
+        "command": [
+            "tsntool",
+            "st",
+            "rdocl",
+            "sw0p2"
+        ]
+    },
+    {
+        "comment": " st configure - no entries configured",
+        "error_code": 14,
+        "error_message": "ERROR: Cannot trigger config change - tsnlib reported 10 (Failed writing a single value to driver, errno is reported in lower 8 bits for more information)\nERROR: Cannot trigger config change - driver reported 14 (Invalid admin parameter(s))",
+        "command": [
+            "tsntool",
+            "st",
+            "configure",
+            "+10.0",
+            "1/100",
+            "1000",
+            "sw0p2"
+        ]
+    },
+    {
+        "comment": " st configure - cycle time out of range",
+        "error_code": 34,
+        "error_message": "ERROR: Cannot set admin cycle time - tsnlib reported 10 (Failed writing a single value to driver, errno is reported in lower 8 bits for more information)\nERROR: Cannot set admin cycle time - driver reported 34 (Cycle time out of range)",
+        "command": [
+            "tsntool",
+            "st",
+            "configure",
+            "+10.0",
+            "10/1",
+            "1000",
+            "sw0p2"
+        ]
+    },
+    {
+        "comment": " st configure - cycle time denominator 0",
+        "error_code": 22,
+        "error_message": "ERROR: Cannot set admin cycle time - tsnlib reported 10 (Failed writing a single value to driver, errno is reported in lower 8 bits for more information)\nERROR: Cannot set admin cycle time - driver reported 22 (Invalid argument)",
+        "command": [
+            "tsntool",
+            "st",
+            "configure",
+            "+10.0",
+            "1/0",
+            "1000",
+            "sw0p2"
+        ]
+    },
+    {
+        "comment": " st configure - wrong relative base time",
+        "error_code": 22,
+        "error_message": "ERROR: Cannot set admin cycle time - tsnlib reported 10 (Failed writing a single value to driver, errno is reported in lower 8 bits for more information)\nERROR: Cannot set admin cycle time - driver reported 22 (Invalid argument)",
+        "command": [
+            "tsntool",
+            "st",
+            "configure",
+            "+10",
+            "1/0",
+            "1000",
+            "sw0p2"
+        ]
+    },
+    {
+        "comment": " st wrcl - too many entries",
+        "error_code": "-6",
+        "error_message": "ERROR: Tried to read more entries than supported by implementation, defaulting to 255 entries\ncorrupted size vs. prev_size",
+        "command": [
+            "tsntool",
+            "st",
+            "wrcl",
+            "sw0p2",
+            "./tsntool/qbv-257.cfg"
+        ]
+    },
+    {
+        "comment": " st validate - too many entries",
+        "error_code": "-6",
+        "error_message": "ERROR: Tried to read more entries than supported by implementation, defaulting to 255 entries\ncorrupted size vs. prev_size",
+        "command": [
+            "tsntool",
+            "st",
+            "validate",
+               "./tsntool/qbv-257.cfg"
+        ]
+    },
+    {
+        "comment": " qbridge fid show - non-existing fid",
+        "error_code": "34",
+        "error_message": "FID 4094 is out of range (maximum FID is 63) for bridge 'br0'",
+        "command": [
+            "tsntool",
+            "qbridge",
+            "fid",
+            "show",
+            "4094",
+            "br0"
+        ]
+    },
+    {
+        "comment": " mstp fid2mstid show - non-existing fid",
+        "error_code": "34",
+        "error_message": "FID 70 is out of range (maximum VID is 64) for bridge 'br0'",
+        "command": [
+            "tsntool",
+            "mstp",
+            "fid2mstid",
+            "show",
+            "70",
+            "br0"
+        ]
+    }
+]

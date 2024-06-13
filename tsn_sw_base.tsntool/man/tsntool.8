@@ -1,0 +1,1516 @@
+.TH TSNTOOL 8 "29 March 2018" "tsntool" "TTTECH"
+.SH NAME
+tsntool \- show / manipulate TSN attributes
+.SH SYNOPSIS
+
+.ad l
+.in +8
+.ti -8
+.B tsntool
+.RI "[ " OPTIONS " ] " OBJECT " { " COMMAND " | "
+.BR help " }"
+.sp
+
+.ti -8
+.IR OBJECT " := { "
+.BR brport " | " edge " | " fqtss " | " frer " | " st " | " preempt " | " psfp " | " qbridge " | " mstp " | " sid " }"
+.sp
+
+.ti -8
+.IR OPTIONS " := { "
+\fB\-V\fR[\fIersion\fR] |
+\fB\-h\fR[\fIelp\fR] }
+
+.ti -8
+.BR "tsntool brport show "
+.IR DEV
+.RB "[ " details " ]"
+
+.ti -8
+.BR "tsntool brport prio set "
+.IR PRIO
+.IR DEV
+
+.ti -8
+.BR "tsntool brport rdpriotbl "
+.IR DEV
+
+.ti -8
+.BR "tsntool brport rdtctbl "
+.IR DEV
+
+.ti -8
+.BR "tsntool brport wrpriotbl "
+.IR PCP
+.IR PRIO
+.IR DEV
+
+.ti -8
+.BR "tsntool brport wrtctbl "
+.IR PRIO
+.IR TC
+.IR DEV
+
+.ti -8
+.BR "tsntool edge show "
+.IR DEV
+
+.ti -8
+.BR "tsntool edge ct " { " on " | " off " }
+.IR DEV
+
+.ti -8
+.BR "tsntool edge mirror " { "
+.IR MIRROR_DEV
+.RB " | " off " }"
+.IR DEV
+
+.ti -8
+.BR "tsntool frer seqgencreate "
+.IR FN_IDX
+.IR DIR
+.IR BRDEV
+
+.ti -8
+.BR "tsntool frer seqgenaddstr "
+.IR STREAM_HDL
+.IR FN_IDX
+.IR BRDEV
+
+.ti -8
+.BR "tsntool frer seqgendel " { " str-hdl " | " fn-idx " }
+.IR NUM
+.IR BRDEV
+
+.ti -8
+.BR "tsntool frer seqgenshow "
+.IR BRDEV
+.RB "[ { " str-hdl " | " fn-idx " }"
+.IR NUM
+.RB "]"
+
+.ti -8
+.BR "tsntool frer seqenccreate "
+.IR DIR
+.IR TYPE
+.IR ACTIVE
+.IR DEV
+
+.ti -8
+.BR "tsntool frer seqencaddstr "
+.IR STREAM_HDL
+.IR DEV
+
+.ti -8
+.BR "tsntool frer seqencsetactive "
+.IR ACTIVE
+.IR DEV
+
+.ti -8
+.BR "tsntool frer seqencdelport "
+.IR DEV
+
+.ti -8
+.BR "tsntool frer seqencdelstr "
+.IR STREAM_HDL
+.IR DEV
+
+.ti -8
+.BR "tsntool frer seqencshow "
+.IR BRDEV
+.RB "["
+.IR DEV
+.RB "]"
+
+.ti -8
+.BR "tsntool frer seqencstrshow "
+.IR STREAM_HDL
+.IR BRDEV
+
+.ti -8
+.BR "tsntool frer seqreccreate "
+.IR FN_IDX
+.IR BRDEV
+
+.ti -8
+.BR "tsntool frer seqrecaddstr "
+.IR STREAM_HDL
+.IR FN_IDX
+.IR BRDEV
+
+.ti -8
+.BR "tsntool frer seqrecaddport "
+.IR DEV
+.IR FN_IDX
+
+.ti -8
+.BR "tsntool frer seqrecset "
+.IR FN_IDX
+.RB "{ " dir " | " alg " | " histlen " | " rstms " | " tns " | " indrec " | " laterr " }"
+.IR VAL
+.IR BRDEV
+
+.ti -8
+.BR "tsntool frer seqrecdel "
+.IR BRDEV
+.IR FN_IDX
+.RB "[ { " port
+.IR DEV
+.RB "} | { " str
+.IR STREAM_HDL
+.RB "} ]"
+
+.ti -8
+.BR "tsntool frer seqrecshow "
+.IR BRDEV
+.RB "["
+.IR FN_IDX
+.RB "]"
+
+.ti -8
+.BR "tsntool frer cntperfn "
+.IR FN_IDX
+.IR BRDEV
+
+.ti -8
+.BR "tsntool frer cntportstream "
+.IR DEV
+.IR STREAM_HDL
+
+.ti -8
+.BR "tsntool fqtss show "
+.IR DEV
+
+.ti -8
+.BR "tsntool fqtss slope "
+.IR TC
+.IR BITRATE
+.IR DEV
+
+.ti -8
+.BR "tsntool fqtss tsa "
+.IR TC
+.RB "{ " strict " | " cbs " }"
+.IR DEV
+
+.ti -8
+.BR "tsntool preempt enable "
+.RB "{ " verify " | " noverify " }"
+.IR VERIFYTIME
+.IR DEV
+
+.ti -8
+.BR "tsntool preempt disable "
+.IR DEV
+
+.ti -8
+.BR "tsntool preempt setfragsize "
+.IR FRAGSIZE
+.IR DEV
+
+.ti -8
+.BR "tsntool preempt setq "
+.IR TC
+.RB "[ " express " | " preempt " ]"
+.IR DEV
+
+.ti -8
+.BR "tsntool preempt show "
+.IR DEV
+
+.ti -8
+.BR "tsntool psfp show "
+.IR BRDEV
+
+.ti -8
+.BR "tsntool psfp filter create "
+.IR FILTER_ID
+.IR STREAM_HDL
+.IR PRIORITY
+.IR GATE_ID
+.IR MAX_SDU
+.IR FLOWMETER_ID
+.IR BLOCKED_DUE_TO_OVERSIZE_FRAME_ENABLE
+.IR BLOCKED_DUE_TO_OVERSIZE_FRAME
+.IR BRDEV
+
+.ti -8
+.BR "tsntool psfp filter delete "
+.IR FILTER_ID
+.IR BRDEV
+
+.ti -8
+.BR "tsntool psfp filter show "
+.IR BRDEV
+.IR [FILTER_ID]
+
+.ti -8
+.BR "tsntool psfp filter cntshow "
+.IR FILTER_ID
+.IR BRDEV
+
+.ti -8
+.BR "tsntool psfp gate wrcl "
+.IR GATE_ID
+.IR BRDEV
+.IR FILENAME
+
+.ti -8
+.BR "tsntool psfp gate rdacl "
+.IR GATE_ID
+.IR BRDEV
+.RI "[ " FILENAME " ]"
+
+.ti -8
+.BR "tsntool psfp gate rdocl "
+.IR GATE_ID
+.IR BRDEV
+.RI "[ " FILENAME " ]"
+
+.ti -8
+.BR "tsntool psfp gate configure "
+.IR GATE_ID
+.IR BASETIME
+.IR CYCLETIME
+.IR CYCLETIME_EXTENSION
+.IR BRDEV
+
+.ti -8
+.BR "tsntool psfp gate set "
+.IR GATE_ID
+.IR STATE
+.IR IPV
+.IR BRDEV
+
+.ti -8
+.BR "tsntool psfp gate closedinvrx "
+.IR GATE_ID
+.IR ENABLED
+.IR CLOSED
+.IR BRDEV
+
+.ti -8
+.BR "tsntool psfp gate "
+.RB "{ " show " | " disable " | " reset " }"
+.IR GATE_ID
+.IR BRDEV
+
+.ti -8
+.BR "tsntool psfp hit th set "
+.RB "{ " low " | " high " }"
+.IR THRESHOLD_NS
+.IR BRDEV
+.RB " (proprietary)"
+
+.ti -8
+.BR "tsntool psfp hit gate set "
+.IR GATE_ID
+.IR BRDEV
+.RB " (proprietary)"
+
+.ti -8
+.BR "tsntool psfp hit show "
+.IR BRDEV
+.RB " (proprietary)"
+
+.ti -8
+.BR "tsntool psfp hit cntshow "
+.IR STREAM_HDL
+.IR DEV
+.RB " (proprietary)"
+
+.ti -8
+.BR "tsntool qbridge show "
+.IR BRDEV
+.RB "[ " details " ]"
+
+.ti -8
+.BR "tsntool qbridge vid show "
+.IR VID
+.IR BRDEV
+
+.ti -8
+.BR "tsntool qbridge fid show "
+.IR FID
+.IR BRDEV
+
+.ti -8
+.BR "tsntool qbridge fid showall "
+.IR BRDEV
+
+.ti -8
+.BR "tsntool qbridge delay show "
+.IR BRDEV
+.RI "[ " DEV " ]"
+.RI "[ " DEV " ]"
+.RI "[ " TC " ]"
+
+.ti -8
+.BR "tsntool st wrcl"
+.IR DEV
+.IR FILENAME
+
+.ti -8
+.BR "tsntool st "
+.RB "{ " rdacl " | " rdocl " }"
+.IR DEV
+.RI "[ " FILENAME " ]"
+
+.ti -8
+.BR "tsntool st configure "
+.IR BASETIME
+.IR CYCLETIME
+.IR CYCLETIME_EXTENSION
+.IR DEV
+
+.ti -8
+.BR "tsntool st "
+.RB "{ " show " | " disable " | " reset " }"
+.IR DEV
+
+.ti -8
+.BR "tsntool st setsdu "
+.IR TRAFFIC_CLASS
+.IR MAX_SDU
+.IR DEV
+
+.ti -8
+.BR "tsntool mstp mstilist show "
+.IR BRDEV
+
+.ti -8
+.BR "tsntool mstp fid2mstid show "
+.IR FID
+.IR BRDEV
+
+.ti -8
+.BR "tsntool mstp portstate show "
+.IR MSTID
+.IR DEV
+
+.ti -8
+.BR "tsntool sid showmax "
+.IR BRDEV
+
+.ti -8
+.BR "tsntool sid create "
+.IR ORD
+.RB "{ " NULL " | " SRC " | " DEST " | " IP " }"
+.IR IDENT_PARAMS
+.IR BRDEV
+
+.ti -8
+.BR "tsntool sid delete "
+.IR ORD
+.IR BRDEV
+
+.ti -8
+.BR "tsntool sid addport "
+.IR ORD
+.IR POS
+.IR DEV
+.IR BRDEV
+
+.ti -8
+.BR "tsntool sid delport "
+.IR ORD
+.IR POS
+.IR DEV
+.IR BRDEV
+
+.ti -8
+.BR "tsntool sid setstreamhdl "
+.IR ORD
+.IR STREAM_HDL
+.IR BRDEV
+
+.ti -8
+.BR "tsntool sid show "
+.IR BRDEV
+.RI "[ " ORD " ]"
+
+.ti -8
+.BR "tsntool sid cntshow "
+.IR DEV
+.IR STREAM_HDL
+
+.ti -8
+.BR "tsntool sid tablen "
+.IR BRDEV
+
+.ti -8
+.BR "tsntool sid ports "
+.IR BRDEV
+
+.ti -8
+.BR "tsntool sid types "
+.IR BRDEV
+
+.SH OPTIONS
+
+.TP
+.BR "\-V" , " -Version"
+print the version of the
+.B tsntool
+utility and exit.
+
+.TP
+.BR "\-h" , " -help", " --help"
+print the help of the
+.B tsntool
+utility and exit.
+
+.SH TSNTOOL - COMMAND SYNTAX
+
+.SS
+.I OBJECT
+
+.TP
+.B brport
+- Bridge port objects (IEEE 802.1Q - BRIDGE-MIB)
+
+.TP
+.B edge
+- Specific settings for TTTech 'Edge' devices
+
+.TP
+.B frer
+- Frame Replication and Elimination for Reliability (IEEE 802.1CB)
+
+.TP
+.B fqtss
+- Forwarding and Queueing of Time Sensitive Streams (IEEE 802.1Q)
+
+.TP
+.B preempt
+- Preemption (IEEE 802.1Qbu and IEEE 802.3br)
+
+.TP
+.B psfp
+- Per stream filtering and policing
+
+.TP
+.B qbridge
+- Qbridge-related settings, affecting the bridge as a whole
+
+.TP
+.B st
+- Scheduled Traffic (IEEE 802.1Qbv)
+
+.TP
+.B mstp
+- IEEE 802.1s MSTP (Multiple Spanning Tree Protocol)
+
+.TP
+.B sid
+- IEEE 802.1CB Stream Identification
+
+.SS
+.I COMMAND
+
+Specifies the action to perform on the object.
+The set of possible actions depends on the object type. The
+.B help
+command is available for all objects. It prints out a list of available commands
+and argument syntax conventions for the respective object.
+
+.SH tsntool brport - bridge port
+
+.B brport
+objects correspond to the port devices of the bridge.
+
+.P The corresponding commands set and display Bridge Port specific attributes.
+They mainly correspond to the BRIDGE-MIB as of IEEE 802.1Q.
+
+.SS tsntool brport show - Show port data (number of traffic classes and default priority)
+.TP
+.BI DEV
+interface name of the bridge port
+.TP
+.RB "[ " details " ]"
+show additional port data
+
+.SS tsntool brport prio set - Set default priority for the port
+.TP
+.BI PRIO
+Chosen default priority, value in range 0 - 7
+.TP
+.BI DEV
+interface name of the bridge port
+
+
+.SS tsntool brport rdpriotbl - Show Priority Regeneration Table
+.TP
+.BI DEV
+interface name of the bridge port
+
+.SS tsntool brport rdtctbl - Show Traffic Class mapping Table (shows mapping of priority to traffic class)
+.TP
+.BI DEV
+interface name of the bridge port
+
+.SS tsntool brport wrpriotbl - Write priority to Priority Regeneration Table
+.TP
+.BI PCP
+Priority Code Point, selected row
+.TP
+.BI PRIO
+Priority which is to be assigned to selected row
+.TP
+.BI DEV
+interface name of the bridge port
+
+.SS tsntool brport wrtctbl - Write traffic class to Traffic Class Table
+.TP
+.BI PRIO
+Chosen priority
+.TP
+.BI TC
+Traffic Class which is to be assigned to chosen priority
+.TP
+.BI DEV
+interface name of the bridge port
+
+
+.SH tsntool edge - bridge port
+
+.B edge
+objects correspond to the port devices of the bridge.
+
+.P
+The corresponding commands set and display EDGE-specific port attributes.
+
+.SS tsntool edge show - Show actual values of EDGE-specific attributes
+.TP
+.BI DEV
+interface name of the bridge port
+
+.SS tsntool edge ct - Activate/deactivate cut-through operation
+.TP
+.RB "{ " on " | " off " }"
+switch cut-through operation on or off
+.TP
+.BI DEV
+interface name of the bridge port;
+If cut-through is needed between two ports, the same command must be applied to each port. It is important
+to note that some functions may not be available when cut-through is activated (e.g. VLAN tagging, PTP
+transparent clock).
+
+.SS tsntool edge mirror - Activate/deactivate port mirroring
+.TP
+When activated the ingress traffic of port DEV is mirrored as egress to port MIRROR_DEV.
+.TP
+.RB "{ " MIRROR_DEV " | " off " }"
+specifies to which port mirroring shall be activated or specifies to deactivate port mirroring
+.RS
+.TP
+.BI MIRROR_DEV
+interface name of the mirroring port
+.RE
+.TP
+.BI DEV
+interface name of the bridge port
+
+
+.SH tsntool frer - bridge device
+
+.B frer
+objects correspond to the bridge device.
+
+.P
+The corresponding commands control feature Frame Replication and Elimination
+for Reliability on bridge device.
+
+
+.SS tsntool frer seqgencreate - Create a Sequence Generation Function
+.TP
+.BI FN_IDX
+number of the Sequence Generation Function [0 ... 127]
+.TP
+.BI DIR
+Defined values for DIR are: 0 (IN-FACING), 1 OUT-FACING), 2 (UNKNOWN). For command
+"tsntool frer seqgencreate" only value 0 (IN-FACING) makes sense.
+.TP
+.BI BRDEV
+interface name of the bridge
+
+.SS tsntool frer seqgenaddstr - Add Stream Identification to a certain Sequence Generation Function.
+.TP
+.BI STREAM_HDL
+Add Stream handle number [0 ... 127] to Sequence Generation Function. It is not necessary
+that a stream with this Stream handle number already exists.
+If a Stream handle number is selected, that was already added to the Sequence
+Generation Function before, than the Function has no effect.
+.TP
+.BI FN_IDX
+Add stream to Sequence Generation Function with number FN_IDX.
+.TP
+.BI BRDEV
+interface name of the bridge
+
+.SS tsntool frer seqgendel - Delete Sequence Generation Function or remove Stream handle number from Sequence Generation Function.
+.TP
+.RB "{ " str-hdl " | " fn-idx " }"
+specifies if Sequence Generation Function is deleted or Stream handle number is
+removed from a Sequence Genertion Function. If there exists a Stream with the Stream
+handle number, it is not effected.
+.TP
+.BI NUM
+Stream handle number or number of Sequence Generation Function
+.TP
+.BI BRDEV
+interface name of the bridge
+
+.SS tsntool frer seqgenshow - Show configuration of Sequence Generation Function
+.TP
+.BI BRDEV
+interface name of the bridge
+.TP
+.RB "{ " str-hdl " | " fn-idx " }"
+select a specific part of configuration of Sequence Generation Function
+.TP
+.BI NUM
+Stream handle number or number of Sequence Generation Function
+
+.SS tsntool frer seqencstrshow - Show the ports (Sequence Encode/Decode Functions) a specific Stream handle number is assigned to
+.TP
+.BI STREAM_HDL
+Stream handle number [0 ... 127]
+.TP
+.BI BRDEV
+interface name of the bridge
+
+.SS tsntool frer seqreccreate - Create a Sequence Recovery Function
+.TP
+.BI FN_IDX
+number of the Sequence Recovery Function [0 ... 127]
+.TP
+.BI BRDEV
+interface name of the bridge
+
+.SS tsntool frer seqrecaddstr - Add Stream Identification to a certain Sequence Recovery Function.
+.TP
+.BI STREAM_HDL
+Add Stream handle number [0 ... 127] to Sequence Recovery Function. It is not necessary
+that a stream with this Stream handle number already exists.
+If a Stream handle number is selected, that was already added to the Sequence
+Recovery Function before, than the Function has no effect.
+.TP
+.BI FN_IDX
+Add stream to Sequence Recovery Function with number FN_IDX [0 ... 127].
+.TP
+.BI BRDEV
+interface name of the bridge
+
+.SS tsntool frer seqrecaddport - Add bridge port to a certain Sequence Recovery Function.
+.TP
+.BI DEV
+interface name of the bridge port
+.TP
+.BI FN_IDX
+Add bridge port to Sequence Recovery Function with number FN_IDX [0 ... 127].
+
+.SS tsntool frer seqrecset - Set configuration value of Sequence Recovery Function
+.TP
+.BI FN_IDX
+number of the Sequence Recovery Function [0 ... 127]
+.TP
+.RB "{ " dir " | " alg " | " histlen " | " rstms " | " tns " | " indrec " | " laterr " }"
+specifies which of the configuration values is set
+.RS
+.TP
+.BI dir:
+Defined values for Direction are: 0 (IN-FACING), 1 (OUT-FACING), 2 (UNKNOWN). For command
+"tsntool frer seqrecset" only value 0 (IN-FACING) is supported.
+.TP
+.BI alg:
+Defined values for Algorithm are: 0 (Vector Recovery Algorithm), 1 (Match Recovery Algorithm)
+.TP
+.BI histlen:
+Defined value range for History length: [2, 15]
+.TP
+.BI rstms:
+Defined value range for Recovery Reset Timeout: [0, 123]
+.TP
+.BI tns:
+Defined values for Take No Sequence: True(1), False(0)
+.TP
+.BI indrec:
+Defined values for Individual Recovery: True(1), False(0)
+Individual Recovery can be set to True(1) only if Latent Error is False(0).
+.TP
+.BI laterr:
+Defined values for Latent Error: True(1), False(0)
+Latent Error can be set to True(1) only if Individual Recovery is False(0)
+Only value False(0) is supported for Latent Error:
+.RE
+.TP
+.BI VAL
+Value to set
+.TP
+.BI BRDEV
+interface name of the bridge
+
+.SS tsntool frer seqrecdel - Delete Sequence Recovery Function or remove device or stream from it
+.TP
+.BI BRDEV
+interface name of the bridge
+.TP
+.BI FN_IDX
+number of the Sequence Recovery Function [0 ... 127]
+.TP
+.RB "[ { " "port DEV" " } | { " "str-hdl STREAM_HDL" " } ]"
+specifies to remove port or stream from Sequence Recovery Function
+.RS
+.TP
+.BI DEV
+interface name of the bridge port
+.TP
+.BI STREAM_HDL
+Stream handle number [0 ... 127]
+.RE
+
+.SS tsntool frer seqrecshow - Show configuration values of Sequence Recovery Functions
+.TP
+.BI BRDEV
+interface name of the bridge
+.TP
+.BI FN_IDX
+number of the Sequence Recovery Function [0 ... 127]
+
+.SS tsntool frer cntperfn - Display status values for Sequence Recovery Function
+.TP
+.BI FN_IDX
+number of the Sequence Recovery Function [0 ... 127]
+.TP
+.BI BRDEV
+interface name of the bridge
+
+
+.SH tsntool frer - bridge port
+
+.B frer
+objects correspond to the port devices of the bridge.
+
+.P
+The corresponding commands set and display FRER-specific port attributes.
+
+.SS tsntool frer seqenccreate - Create a Sequence Encoding/Decoding Function
+.TP
+.BI DIR
+Defined values for DIR are: 0 (IN-FACING), 1 (OUT-FACING), 2 (UNKNOWN).
+For command "tsntool frer seqenccreate" only value 1 (OUT-FACING) is supported.
+.TP
+.BI TYPE
+Defined values for TYPE are: 0 (Unknown), 1 (R-Tag), 2 (HSR-Tag), 3 (PRP-Trailer).
+Only value 1 (R-Tag) is supported.
+.TP
+.BI ACTIVE
+Defined values for ACTIVE are: 0 (Passive), 1 (Active), 2 (Unknown), 3 (Undefined).
+Values 2 (Unknown) and 3 (Undefined) are for internal use only and can't be set
+by the user.
+.TP
+.BI DEV
+interface name of the bridge port
+
+.SS tsntool frer seqencaddstr - Add Stream Identification to a port.
+.TP
+.BI STREAM_HDL
+Add Stream handle number [0 ... 127] to Sequence Encode/Decode Function. It is
+not necessary that a stream with this Stream handle number already exists. If a
+Stream handle number is selected, that was already added to the Sequence
+Encode/Decode Function before, than the Function has no effect.
+.TP
+.BI DEV
+interface name of the bridge port
+
+.SS tsntool frer seqencsetactive - Change activation status of a Sequence Encode/Decode Function
+.TP
+.BI ACTIVE
+Defined values for ACTIVE are: 0 (Passive), 1 (Active), 2 (Unknown), 3 (Undefined).
+Values 2 (Unknown) and 3 (Undefined) are for internal use only and can't be set
+by the user.
+.TP
+.BI DEV
+interface name of the bridge port
+
+.SS tsntool frer seqencdelport - Delete Sequence Encoding/Decoding Function
+.TP
+.BI DEV
+interface name of the bridge port
+
+.SS tsntool frer seqencdelstr - Remove Stream Identification from a port.
+.TP
+.BI STREAM_HDL
+Stream handle number [0 ... 127]
+.TP
+.BI DEV
+interface name of the bridge port
+
+.SS tsntool frer seqencshow - Show overview of Sequence Encoding/Decoding Functions of whole bridge or specific port of bridge
+.TP
+.BI BRDEV
+interface name of the bridge
+.TP
+.BI DEV
+interface name of the bridge port
+
+.SS tsntool frer cntportstream - Display status values for specific port and stream
+.TP
+.BI DEV
+interface name of the bridge port
+.TP
+.BI STREAM_HDL
+Stream handle number [0 ... 127]
+
+
+.SH tsntool fqtss - bridge port
+
+.B fqtss
+objects correspond to the port devices of the bridge.
+
+.P
+The corresponding commands set and display FQTSS-specific port attributes.
+
+
+.SS tsntool fqtss slope - set the idle-slope of a credit-based shaper on a port
+.TP
+.BI TC
+the traffic class (value [0 ... portNumTrafficClasses]) of the credit-based
+shaper for which the slope shall be set. Note, that not all devices support all
+8 possible traffic classes.
+.TP
+.BI BITRATE
+the rate of change of credit of the respective credit-based shaper.
+.TP
+.BI DEV
+interface name of the bridge port
+
+.SS tsntool fqtss tsa - set transmission selection algorithm
+.TP
+.BI TC
+the traffic class (value [0 ... portNumTrafficClasses]) of the credit-based
+shaper for which the transmission selection algorithm shall be set. Note, that
+not all devices support all 8 possible traffic classes.
+.TP
+.RB "{ " strict " | " cbs " }"
+Transmission algorithm to be chosen; "strict" denotes Strict priority, while
+"cbs" denotes Credit-based shaper algorithm
+.TP
+.BI DEV
+interface name of the bridge port
+
+.SS bridge fqtss show - show the current credit-based shaper configuration on a port
+.TP
+.BI DEV
+interface name of the bridge port
+
+
+.SH tsntool preempt - bridge port
+
+.B preempt
+objects correspond to the port devices of the bridge.
+
+.P The corresponding command control access to PREEMPT-specific port attributes.
+
+.SS tsntool preempt enable - enable preemption on a port
+.TP
+.RB "{ " verify " | " noverify " }"
+choose whether to have verification enabled or not
+.TP
+.BI VERIFYTIME
+verification time in milliseconds in the range 1-128.
+.TP
+.BI DEV
+interface name of the bridge port
+
+.SS tsntool preempt disable - disable preemption on a port
+.TP
+.BI DEV
+interface name of the bridge port
+
+.SS tsntool preempt setfragsize - set the fragment size of the port
+.TP
+.BI FRAGSIZE
+fragment size in bytes; allowed values are 64, 128, 192 and 256
+.TP
+.BI DEV
+interface name of the bridge port
+
+.SS tsntool preempt setq - set the preemption status of a port's queue
+.TP
+.BI TC
+traffic class which preemption state shall be set
+.TP
+.RB "{ " express " | " preempt " }"
+choose whether to set the traffic class to be express or preemptable
+.TP
+.BI DEV
+interface name of the bridge port
+
+.SS tsntool preempt show - displays PREEMPT parameters and counters on a port
+.TP
+.BI DEV
+interface name of the bridge port
+
+
+.SH tsntool psfp - bridge device
+
+.B psfp
+objects correspond to the bridge device.
+
+.SS tsntool psfp show - Display per stream filtering and policing specific attributes
+.TP
+.BI BRDEV
+Interface name of the bridge
+
+
+.SH tsntool psfp filter - bridge device
+
+.B psfp filter
+objects correspond to the bridge device.
+
+.P
+The corresponding commands control access to PSFP filter specific attributes.
+
+.SS tsntool psfp filter create - Create a new per stream filtering and policing filter
+.TP
+.BI FILTER_ID
+Filter number to create
+.TP
+.RB "{ " STREAM_HDL " | " any " }"
+Stream handle number to match. If multiple filters match the same stream handle
+and priority, the filter with smallest filter number is used.
+.TP
+.RB "{ " PRIORITY " | " any " }"
+Frame priority number to match. If multiple filters match the same stream handle
+and priority, the filter with smallest filter number is used.
+.TP
+.BI GATE_ID
+Gate number to associate with this filter.
+.TP
+.BI MAX_SDU
+Maximum frame SDU size [46 ... 1506]
+.TP
+.RB "{ " FLOWMETER_ID " | " none " }"
+Flow meter number to associate with this filter
+.TP
+.BI BLOCKED_DUE_TO_OVERSIZE_FRAME_ENABLE
+Enable or disable stream blocked due to oversize frame function.
+Allowed values are
+.BR on " and " off "."
+.TP
+.BI BLOCKED_DUE_TO_OVERSIZE_FRAME
+Block stream due to oversize frame when function is enabled. Allowed values are
+.BR on " and " off "."
+.TP
+.BI BRDEV
+Interface name of the bridge
+
+.SS tsntool psfp filter delete - Delete per stream filtering and policing filter
+.TP
+.BI FILTER_ID
+Filter number to delete
+.TP
+.BI BRDEV
+Interface name of the bridge
+
+.SS tsntool psfp filter show - Show per stream filtering and policing filter configuration
+.TP
+.BI BRDEV
+Interface name of the bridge
+.TP
+.RB "[ " FILTER_ID " ]"
+Show only information related to this filter number
+
+.SS tsntool psfp filter cntshow - Show per stream filtering and policing filter counters
+.TP
+.BI FILTER_ID
+Show counters related to this filter number
+.TP
+.BI BRDEV
+Interface name of the bridge
+
+
+.SH tsntool psfp gate - bridge device
+
+.B psfp gate
+objects correspond to the bridge device.
+
+.P
+The corresponding commands control access to PSFP gate specific attributes.
+
+.SS tsntool psfp gate wrcl - Write the AdminControlList on a gate
+.TP
+.BI GATE_ID
+Write control list to this gate number
+.TP
+.BI BRDEV
+Interface name of the bridge
+.TP
+.BI FILENAME
+the source file for the control list.
+
+.SS tsntool psfp gate rdacl - Read the AdminControlList from a gate
+.TP
+.BI GATE_ID
+Read control list on this gate number
+.TP
+.BI BRDEV
+Interface name of the bridge
+.TP
+.RB "[ " FILENAME " ]"
+The file where the control list shall be stored to.
+
+.SS tsntool psfp gate rdocl - Read the OperControlList from a gate
+.TP
+.BI GATE_ID
+Read control list on this gate number
+.TP
+.BI BRDEV
+Interface name of the bridge
+.TP
+.RB "[ " FILENAME " ]"
+The file where the control list shall be stored to.
+
+.SS tsntool psfp gate configure - Start the List Config state machine on a gate
+.TP
+.BI GATE_ID
+Start state machine on this gate number
+.TP
+.BI BASETIME
+the AdminBaseTime, i.e., the basis for the calculation of the action
+ConfigChangeTime, expressed in IEEE 1588 PTP timescale. The epoch is 1 January
+1970 00:00:00 TAI. The parameter can either be given as an absolute time within
+the epoch, or relative to the CurrentTime (by using an explict,
+leading '+' or '-'). The format of this parameter is
+.BI "[+|-]<seconds>.<nanoseconds>"
+.TP
+.BI CYCLETIME
+the length of the gating cycle expressed as a rational number of seconds. The
+format of this parameter is
+.BI "<numerator>/<denominator>".
+.TP
+.BI CYCLETIME_EXT
+the cycle time extension, i.e. the maximum amount of time by which the gating
+cycle for the port is permitted to be extended when a new cycle configuration
+is being installed. This parameter is given in nanoseconds.
+.TP
+.BI BRDEV
+Interface name of the bridge
+
+.SS tsntool psfp gate set - Set gate AdminGateStates and internal priority value (IPV)
+.TP
+.BI GATE_ID
+Set gate state and IPV for this gate number
+.TP
+.BI STATE
+Gate state value, "0" denotes closed and "1" denotes open
+.TP
+.RB "{ " IPV " | " -1 " }"
+Internal priority value (IPV) for the gate or "-1" to use priority of the frame
+.TP
+.BI BRDEV
+Interface name of the bridge
+
+.SS tsntool psfp gate closedinvrx - Configure gate closed due to invalid RX function
+.TP
+.BI GATE_ID
+Configure feature for this gate number
+.TP
+.BI ENABLED
+Enable or disable gate closed due to invalid RX function. Allowed values are
+.BR on " and " off "."
+.TP
+.BI CLOSED
+Discard all frames if gate closed due to invalid RX function is enabled.
+Allowed values are
+.BR on " and " off "."
+.TP
+.BI BRDEV
+Interface name of the bridge
+
+.SS tsntool psfp gate show - Display PSFP gate statistics and status on a gate
+.TP
+.BI GATE_ID
+Show information related to this gate number
+.TP
+.BI BRDEV
+Interface name of the bridge
+
+.SS tsntool psfp gate disable - Stop the execution of the PSFP gate state machine on a gate
+.TP
+.BI GATE_ID
+Stop state machine related to this gate number
+.TP
+.BI BRDEV
+interface name of the bridge port
+
+.SS tsntool psfp gate reset - Set gate to open, internal priority value (IPV) to -1 and then stop the execution of the PSFP gate state machines on a gate
+.TP
+.BI GATE_ID
+Reset this gate number
+.TP
+.BI BRDEV
+Interface name of the bridge
+
+
+.SH tsntool psfp hit - bridge or bridge port device (proprietary)
+
+.B psfp hit
+objects correspond to either bridge or bridge port device.
+
+.P
+The corresponding commands control access to PSFP perofrmance counters specific
+attributes.
+
+.SS tsntool psfp hit th set - Set thresholds for PSFP performance counters
+.TP
+.RB "{ " low " | " high " }"
+Select threshold to set
+.TP
+.BI THRESHOLD_NS
+Theshold value in nanoseconds. Thresholds have a granularity of 320 ns
+and low threshold must be smaller than the high threshold.
+.TP
+.BI BRDEV
+Interface name of the bridge
+
+.SS tsntool psfp hit gate set - Select PSFP gate for performance counters
+.TP
+.BI GATE_ID
+Use this gate number for performance counters.
+One gate can be selected at a time.
+.TP
+.BI BRDEV
+Interface name of the bridge
+
+.SS tsntool psfp hit cntshow - Show PSFP performance counters for a stream
+.TP
+.BI STREAM_HDL
+Show performance counters for this stream number.
+.TP
+.BI DEV
+Interface name of the bridge port
+
+
+.SH tsntool qbridge - bridge device
+
+.B qbridge
+objects correspond to the bridge device.
+
+.P The corresponding command control access to VLAN/FID-related bridge attributes.
+
+.SS tsntool qbridge show - show bridge data (max VLAN id, used VLANs)
+.TP
+.BI BRDEV
+interface name of the bridge
+.TP
+.RB "[ " details " ]"
+show additional bridge data
+
+.SS tsntool qbridge vid show - show filtering identifiers allocated to VLAN id on the bridge
+.TP
+.BI VID
+specifies the VLAN ID
+.TP
+.BI BRDEV
+interface name of the bridge
+
+.SS tsntool qbridge fid show - show VLAN ids allocated to filtering identifier on the bridge
+.TP
+.BI FID
+specifies the filtering identifier
+.TP
+.BI BRDEV
+interface name of the bridge
+
+.SS tsntool qbridge fid showall - show VLAN ids for all filtering identifiers on the bridge
+.TP
+.BI BRDEV
+interface name of the bridge
+
+.SS tsntool qbridge delay show  - show delay values from rx to tx port on the bridge
+.TP
+.BI BRDEV
+interface name of the bridge
+.TP
+.BI DEV
+interface name of the rx bridge port
+.TP
+.BI DEV
+interface name of the tx bridge port
+.TP
+.BI TC
+traffic class for which delays are requested
+
+
+.SH tsntool st - bridge port
+
+.B st
+objects correspond to the port devices of the bridge.
+
+.P
+The corresponding commands control access to ST-specific port attributes.
+
+.SS tsntool st wrcl - write the AdminControlList on a port
+.TP
+.BI DEV
+interface name of the bridge port
+.TP
+.BI FILENAME
+the source file for the control list.
+
+.SS tsntool st rdacl - reads the AdminControlList from a port
+.TP
+.BI DEV
+interface name of the bridge port
+.TP
+.RB "[ " FILENAME " ]"
+the file where the control list shall be stored to.
+
+.SS tsntool st rdocl - reads the OperControlList from a port
+.TP
+.BI DEV
+interface name of the bridge port
+.TP
+.RB "[ " FILENAME " ]"
+the file where the control list shall be stored to.
+
+.SS tsntool st configure - starts the List Config state machine on a port
+.TP
+.BI BASETIME
+the AdminBaseTime, i.e., the basis for the calculation of the action
+ConfigChangeTime, expressed in IEEE 1588 PTP timescale. The epoch is 1 January
+1970 00:00:00 TAI. The parameter can either be given as an absolute time within
+the epoch, or relative to the CurrentTime (by using an explict,
+leading '+' or '-'). The format of this parameter is
+.BI "[+|-]<seconds>.<nanoseconds>"
+.TP
+.BI CYCLETIME
+the length of the gating cycle expressed as a rational number of seconds. The
+format of this parameter is
+.BI "<numerator>/<denominator>".
+.TP
+.BI CYCLETIME_EXT
+the cycle time extension, i.e. the maximum amount of time by which the gating
+cycle for the port is permitted to be extended when a new cycle configuration
+is being installed. This parameter is given in nanoseconds.
+.TP
+.BI DEV
+interface name of the bridge port
+
+.SS tsntool st show - displays ST statistics and status on a port
+.TP
+.BI DEV
+interface name of the bridge port
+
+.SS tsntool st disable - stops the execution of the ST state machines on a port
+.TP
+.BI DEV
+interface name of the bridge port
+
+.SS tsntool st reset - sets all gates to open and then stops the execution of the ST state machines on a port
+.TP
+.BI DEV
+interface name of the bridge port
+
+.SS tsntool st setsdu - sets teh maximum SDU size of the specified traffic class
+.TP
+.BI TRAFFIC_CLASS
+the traffic class number [0 ... portNumTrafficClasses]
+.TP
+.BI MAX_SDU
+the maximum SDU size [0 ... 1504]
+.TP
+.BI DEV
+interface name of the bridge port
+
+
+.SH tsntool mstp - bridge device
+
+.B mstp
+objects correspond to the bridge device.
+
+.SS tsntool mstp mstilist show - displays the list of configured mstis on the bridge
+.TP
+.BI BRDEV
+interface name of the bridge
+
+.SS tsntool mstp fid2mstid show - displays the mstid to which the fid is allocated on the bridge
+.TP
+.BI FID
+the FID for which the query should take place
+.TP
+.BI BRDEV
+interface name of the bridge
+
+.SH tsntool mstp - bridge port
+.B mstp
+objects correspond to the brigde port.
+
+.SS tsntool mstp portstate show - displays the state of the port for a particular mstid
+.TP
+.BI MSTID
+the MSTID for which the query should take place
+.TP
+.BI DEV
+interface name of the bridge port
+
+.SH NOTES
+This command uses TTTech proprietary kernel interfaces over sysfs.
+
+.SH tsntool sid - bridge device
+
+.B sid
+objects correspond to the bridge device.
+
+.P
+The corresponding commands control Stream Identification feature on bridge device.
+
+.SS tsntool sid  showmax - Show the maximum supported stream handle on device
+.TP
+.BI BRDEV
+Name of the bridge device
+
+.SS tsntool sid create - Create new Stream Identification entry
+.TP
+.BI ORD
+Ordinal number to be created
+.TP
+.RB "{ " NULL " | " SRC " | " DEST " | " IP " }"
+Type of Stream identification which is to be used on device. Defined values
+(according IEEE 802.1CB, table 9.1) are:
+NULL (Null Stream identification),
+SRC (Source MAC and VLAN Stream identification),
+DEST (Active Destination MAC and VLAN Stream identification),
+IP (IP Stream identification).
+Currently only NULL is supported.
+.TP
+.BI IDENT_PARAMS
+Parameters specific to the type of Stream Identification that is being chosen.
+For Null Stream Identification this parameter translates to:
+.BI "MAC_ADDR VLAN_TAGGED VID"
+.RS
+.TP
+.BI MAC_ADDR
+Destination MAC address for the Stream Identification function
+.TP
+.BI VLAN_TAGGED
+Enumerated value indicating whether Stream Identification function is permitted to
+have VLAN tag, and can have following values:
+tagged (a frame must have VLAN tag to be recognized as belonging to the Stream)
+priority (a frame must be untagged or have VLAN tag with VLAN ID = 0)
+all (a frame can be both tagged and untagged)
+.TP
+.BI VID
+Specifies the VLAN ID
+.RE
+.TP
+.BI BRDEV
+Name of the bridge device
+
+.SS tsntool sid addport - Add Stream Identification which was already created to certain port
+.TP
+.BI ORD
+Ordinal number
+.TP
+.BI POS
+Position of the Stream Identification function which can be in-facing and
+out-facing and can be placed in the input and output direction
+(Check IEEE 802.1CB Chapters 3, 9.1.1). This parameter can be set to one of the
+following:
+.RB "{ " in-fac-out " | " in-fac-in " | " out-fac-out " | " out-fac-in " }"
+Note: For the Null Stream Identification, it only makes sense to use Out Facing
+Input direction (out-fac-in), check IEEE 802.1CB Table 8-1
+.TP
+.BI DEV
+Interface name of the bridge port
+.TP
+.BI BRDEV
+Interface name of the bridge
+
+.SS tsntool sid delport - Remove Stream Identification from certain port
+.TP
+.BI ORD
+Ordinal number
+.TP
+.BI POS
+Position of the Stream Identification function which can be in-facing and
+out-facing and can be placed in the input and output direction
+(Check IEEE 802.1CB Chapters 3, 9.1.1). This parameter can be set to one of the
+following:
+.RB "{ " in-fac-out " | " in-fac-in " | " out-fac-out " | " out-fac-in " }"
+Note: For the Null Stream Identification, it only makes sense to use Out Facing
+Input direction (out-fac-in), check IEEE 802.1CB Table 8-1
+.TP
+.BI DEV
+Interface name of the bridge port
+.TP
+.BI BRDEV
+Interface name of the bridge
+
+.SS tsntool sid setstreamhdl - Assign a stream handle to an ORD
+.TP
+.BI ORD
+Ordinal number
+.TP
+.BI STREAM_HDL
+Stream handle number [0 .. 127].
+Note: 0 value is used as "null-value" i.e. the stream handle assigned to packets
+that belong to no known stream.
+.TP
+.BI DEV
+Interface name of the bridge port
+.TP
+.BI BRDEV
+Interface name of the bridge
+
+.SS tsntool sid delete - Remove entire Stream Identification entry
+.TP
+.BI ORD
+Ordinal number
+.TP
+.BI BRDEV
+Interface name of the bridge
+
+.SS tsntool sid show - Show list of all added Stream Identification entries
+.TP
+.BI BRDEV
+Interface name of the bridge
+.TP
+.RB "[ " ORD " ]"
+Show only information related to this ordinal number
+
+.SS tsntool sid cntshow - Show Stream Identification counters for certain port
+.TP
+.BI DEV
+Interface name of the bridge port
+.TP
+.BI STREAM_HDL
+Show information related to this Stream handle number
+
+.SS tsntool sid tablen - Show the maximum (theoretical) number of entries they can be stored in the Stream Identification database
+.TP
+.BI BRDEV
+Interface name of the bridge
+
+.SS tsntool sid ports - Show the list of ports they support Stream Identification
+.TP
+.BI BRDEV
+Interface name of the bridge
+
+.SS tsntool sid types - Show the list of support Stream Identification
+types
+.TP
+.BI BRDEV
+Interface name of the bridge
+
+.SH SEE ALSO
+.BR ip (8)
+.BR bridge (8)
+.SH BUGS
+.RB "Please direct bugreports and patches to: " <support@tttech.com>
+
+.SH AUTHOR
+Original Manpage by Juergen Wohlmuth
