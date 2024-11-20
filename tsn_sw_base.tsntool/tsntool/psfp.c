@@ -1,23 +1,23 @@
 /*
  * TTTech TSN Command Line Tool (tsntool)
- * Copyright(c) 2017 TTTech Industrial Automation AG.
+ * Copyright(c) 2017 TTTech Computertechnik AG.
  *
  * ALL RIGHTS RESERVED.
  * Usage of this software, including source code, netlists, documentation,
  * is subject to restrictions and conditions of the applicable license
- * agreement with TTTech Industrial Automation AG or its affiliates.
+ * agreement with TTTech Computertechnik AG or its affiliates.
  *
  * All trademarks used are the property of their respective owners.
  *
- * TTTech Industrial Automation AG and its affiliates do not assume any liability
+ * TTTech Computertechnik AG and its affiliates do not assume any liability
  * arising out of the application or use of any product described or shown
- * herein. TTTech Industrial Automation AG and its affiliates reserve the right to
+ * herein. TTTech Computertechnik AG and its affiliates reserve the right to
  * make changes, at any time, in order to improve reliability, function or
  * design.
  *
  * Contact Information:
- * support@tttech-industrial.com
- * TTTech Industrial Automation AG, Schoenbrunnerstrasse 7, 1040 Vienna, Austria
+ * support@4me.tttech-dependablenetworks.com
+ * TTTech Computertechnik AG, Schoenbrunnerstrasse 7, 1040 Vienna, Austria
  */
 
 #include <errno.h>
@@ -38,7 +38,7 @@ enum gcl_select {
     OPER_GCL,
 };
 
-void assert_param_parse_bool(const char *str, bool *opt) {
+static void assert_param_parse_bool(const char *str, bool *opt) {
     if (!strcmp("on", str))
         *opt = true;
     else if (!strcmp("off", str))
@@ -771,9 +771,9 @@ static uint32_t do_psfp_gate_set(int argc, char **argv) {
 
 static uint32_t do_psfp_gate_closed_inv_rx(int argc, char **argv) {
     struct port_hdl *phdl = NULL;
-    uint32_t gate;
-    bool closed_inv_rx_ena;
-    bool closed_inv_rx;
+    uint32_t gate = 0;
+    bool closed_inv_rx_ena = false;
+    bool closed_inv_rx = false;
     uint32_t ret = 0u;
 
     assert_param_cnt(argc, 4);

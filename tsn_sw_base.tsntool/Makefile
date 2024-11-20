@@ -7,12 +7,11 @@ libdir  = /usr/lib
 mandir  = /usr/share/man
 incdir  = /usr/include
 
-VER_MAJ   := 2
-VER_MIN   := 4
-VER_PATCH := 0
-
-VER      := $(VER_MAJ).$(VER_MIN)
-VER_FULL := $(VER).$(VER_PATCH)
+VER_FULL  = $(or $(TSNTOOL_VERSION), 0.0.0)
+VER_SPLIT = $(subst ., , $(VER_FULL))
+VER_MAJ   = $(word 1, $(VER_SPLIT))
+VER_MIN   = $(word 2, $(VER_SPLIT))
+VER       = $(VER_MAJ).$(VER_MIN)
 
 VPATH := $(libsrc) $(toolsrc)
 

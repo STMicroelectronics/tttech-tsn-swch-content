@@ -395,7 +395,7 @@ tsntool \- show / manipulate TSN attributes
 .ti -8
 .BR "tsntool sid create "
 .IR ORD
-.RB "{ " NULL " | " SRC " | " DEST " | " IP " }"
+.RB "{ " NULL " | " SRC " | " DST " | " IP " }"
 .IR IDENT_PARAMS
 .IR BRDEV
 
@@ -1378,12 +1378,12 @@ Name of the bridge device
 .BI ORD
 Ordinal number to be created
 .TP
-.RB "{ " NULL " | " SRC " | " DEST " | " IP " }"
+.RB "{ " NULL " | " SRC " | " DST " | " IP " }"
 Type of Stream identification which is to be used on device. Defined values
 (according IEEE 802.1CB, table 9.1) are:
 NULL (Null Stream identification),
 SRC (Source MAC and VLAN Stream identification),
-DEST (Active Destination MAC and VLAN Stream identification),
+DST (Active Destination MAC and VLAN Stream identification),
 IP (IP Stream identification).
 Currently only NULL is supported.
 .TP

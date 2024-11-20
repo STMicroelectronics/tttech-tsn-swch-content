@@ -1,23 +1,23 @@
 /*
  * TTTech TSN Command Line Tool (tsntool)
- * Copyright(c) 2017 TTTech Industrial Automation AG.
+ * Copyright(c) 2017 TTTech Computertechnik AG.
  *
  * ALL RIGHTS RESERVED.
  * Usage of this software, including source code, netlists, documentation,
  * is subject to restrictions and conditions of the applicable license
- * agreement with TTTech Industrial Automation AG or its affiliates.
+ * agreement with TTTech Computertechnik AG or its affiliates.
  *
  * All trademarks used are the property of their respective owners.
  *
- * TTTech Industrial Automation AG and its affiliates do not assume any liability
+ * TTTech Computertechnik AG and its affiliates do not assume any liability
  * arising out of the application or use of any product described or shown
- * herein. TTTech Industrial Automation AG and its affiliates reserve the right to
+ * herein. TTTech Computertechnik AG and its affiliates reserve the right to
  * make changes, at any time, in order to improve reliability, function or
  * design.
  *
  * Contact Information:
- * support@tttech-industrial.com
- * TTTech Industrial Automation AG, Schoenbrunnerstrasse 7, 1040 Vienna, Austria
+ * support@4me.tttech-dependablenetworks.com
+ * TTTech Computertechnik AG, Schoenbrunnerstrasse 7, 1040 Vienna, Austria
  */
 
 #include <errno.h>
@@ -251,7 +251,7 @@ static uint32_t get_ord_list(struct port_hdl *brdev) {
     uint32_t ret = 0u;
     uint16_t *ord;
 
-    tsn_sid_get_current_cnt (brdev, &cnt);
+    tsn_sid_get_current_cnt(brdev, &cnt);
 
     ord = malloc(sizeof(*ord) * cnt);
     if (ord == NULL) {
@@ -359,7 +359,7 @@ static uint32_t do_sid_create(int argc, char **argv) {
     }
     else if (ret) {
         pr_error("Not able to create entry - %d (%s)\n", errno, strerror(errno));
-        tsn_sid_delete_entry (brdev, (uint16_t)ord);
+        tsn_sid_delete_entry(brdev, (uint16_t)ord);
     }
 
     release_if(brdev);
@@ -423,7 +423,7 @@ static uint32_t do_sid_delport(int argc, char **argv) {
     if ((sid.port == TSN_PORT_ID_INVALID) || (sid.pos >= POS_UNKNOWN))
         ret = EINVAL;
     else
-        ret = tsn_sid_del_port_pos (brdev, ord, &sid);
+        ret = tsn_sid_del_port_pos(brdev, ord, &sid);
 
     if (TSN_ERRNO_ERROR_CODE(ret) == ENOENT) {
         pr_error("Entry does not exist.\n");
@@ -562,7 +562,7 @@ static uint32_t do_sid_setstreamhdl(int argc, char **argv) {
 
 static uint32_t do_sid_help(int argc, char **argv) {
     pr_output("Usage: %s showmax BRDEV\n", _context);
-    pr_output("       %s create ORD {NULL | SRC | DEST | IP} IDENT_PARAMS BRDEV \n", _context);
+    pr_output("       %s create ORD {NULL | SRC | DST | IP} IDENT_PARAMS BRDEV \n", _context);
     pr_output("                   where: IDENT_PARAMS is MAC_ADDR VLAN_TAGGED VID\n");
     pr_output("                          VLAN_TAGGED is one of {tagged | priority | all}\n");
     pr_output("       %s delete ORD BRDEV \n", _context);
