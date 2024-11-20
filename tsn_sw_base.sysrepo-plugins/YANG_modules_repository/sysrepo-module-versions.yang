@@ -1,12 +1,12 @@
 module sysrepo-module-versions {
 
-  namespace "urn:tttech:bu-industrial:yang:sysrepo-module-versions";
+  namespace "urn:tttech:yang:sysrepo-module-versions";
   prefix sr_mod_ver;
   
   organization
-    "TTTech Industrial Automation AG";
+    "TTTech Computertechnik AG";
   contact
-    "Web URL: support@tttech-industrial.com";
+    "Web URL: support@4me.tttech-dependablenetworks.com";
   description 
     "The proprietary YANG module for configuration managament.
     

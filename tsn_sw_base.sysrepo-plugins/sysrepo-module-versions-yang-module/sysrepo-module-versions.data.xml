@@ -1,4 +1,4 @@
-<sysrepo-module-versions xmlns="urn:tttech:bu-industrial:yang:sysrepo-module-versions">
+<sysrepo-module-versions xmlns="urn:tttech:yang:sysrepo-module-versions">
     <module>
       <name>ietf-interfaces</name>
       <revision>2018-02-20</revision>
