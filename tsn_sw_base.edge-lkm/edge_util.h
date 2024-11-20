@@ -55,6 +55,7 @@ static inline void edgx_set32(edgx_io_t *iobase, size_t ofs, int bithi,
 	u32 mask = ((1 << ((bithi - bitlo + 1))) - 1) << bitlo;
 	u32 v    = (val << bitlo) & mask;
 
+	BUILD_BUG_ON(bithi < bitlo);
 	edgx_wr32(iobase, ofs, (edgx_rd32(iobase, ofs) & (~mask)) | v);
 }
 
@@ -63,11 +64,12 @@ static inline u32 edgx_get32(edgx_io_t *iobase, size_t ofs, int bithi,
 {
 	u32 mask = ((1 << ((bithi - bitlo + 1))) - 1);
 
+	BUILD_BUG_ON(bithi < bitlo);
 	return ((edgx_rd32(iobase, ofs) >> bitlo) & mask);
 }
 
-static inline void edgx_set16(edgx_io_t *iobase, size_t ofs, int bithi,
-			      int bitlo, u16 val)
+static inline void _edgx_set16(edgx_io_t *iobase, size_t ofs, int bithi,
+			       int bitlo, u16 val)
 {
 	u16 mask = ((1 << ((bithi - bitlo + 1))) - 1) << bitlo;
 	u16 v    = (val << bitlo) & mask;
@@ -75,13 +77,25 @@ static inline void edgx_set16(edgx_io_t *iobase, size_t ofs, int bithi,
 	edgx_wr16(iobase, ofs, (edgx_rd16(iobase, ofs) & (~mask)) | v);
 }
 
-static inline u16 edgx_get16(edgx_io_t *iobase, size_t ofs, int bithi,
-			     int bitlo)
+#define edgx_set16(iobase, ofs, bithi, bitlo, val) ({           \
+	if (__is_constexpr(bithi) && __is_constexpr(bitlo))     \
+		BUILD_BUG_ON(bithi < bitlo);                    \
+	_edgx_set16(iobase, ofs, bithi, bitlo, val);            \
+})
+
+static inline u16 _edgx_get16(edgx_io_t *iobase, size_t ofs, int bithi,
+			      int bitlo)
 {
 	u16 mask = ((1 << ((bithi - bitlo + 1))) - 1);
 
 	return ((edgx_rd16(iobase, ofs) >> bitlo) & mask);
 }
+
+#define edgx_get16(iobase, ofs, bithi, bitlo) ({                \
+	if (__is_constexpr(bithi) && __is_constexpr(bitlo))     \
+		BUILD_BUG_ON(bithi < bitlo);                    \
+	_edgx_get16(iobase, ofs, bithi, bitlo);                 \
+})
 
 #define ether_addr_cmp(mac1, mac2) memcmp((mac1), (mac2), ETH_ALEN)
 

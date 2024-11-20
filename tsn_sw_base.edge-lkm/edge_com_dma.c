@@ -921,13 +921,8 @@ static int edgx_com_dma_init(struct edgx_com_dma *dma, struct edgx_br *br,
 		goto out_err_init_dummy;
 	}
 
-#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 19, 0)
-	netif_napi_add(&dma->napi_dev, &dma->napi_rx,
-		       edgx_dma_poll_rx, EDGX_DMA_RX_WEIGHT);
-#else
 	netif_napi_add_weight(&dma->napi_dev, &dma->napi_rx,
 			      edgx_dma_poll_rx, EDGX_DMA_RX_WEIGHT);
-#endif
 
 	dma->real_num_tx_queues = edgx_br_get_generic(br,
 						      BR_GX_DMA_TX_DESC_RINGS);

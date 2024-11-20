@@ -6,7 +6,8 @@ ifeq ($(KDIR),)
 KDIR := $(KERNEL_SRC)
 endif
 ifeq ($(KDIR),)
-KDIR := /lib/modules/$(shell uname -r)/build
+KERNELRELEASE ?= $(shell uname -r)
+KDIR := /lib/modules/$(KERNELRELEASE)/build
 endif
 
 target ?= platform

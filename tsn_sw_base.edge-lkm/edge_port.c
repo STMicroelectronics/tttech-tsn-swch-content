@@ -297,6 +297,17 @@ static struct edgx_pt_ipo ipo_null = {0x0, 0x0, 0x0, 0x0,
 #define _IPO_CMD_READ	    (0<<14)
 #define _IPO_CMD_TRANSFER   (1<<15)
 
+static inline void edgx_pt_ipo_wait_cmd(edgx_io_t *ipo_rbase)
+{
+	u16 reg;
+
+	/* Sleep and then wait until flags are cleared again by chip. */
+	usleep_range(300, 400);
+	do {
+		reg = edgx_get16(ipo_rbase, _IPO_REG_CMD, 15, 15);
+	} while (reg);
+}
+
 static inline void edgx_pt_ipo_set_mac(edgx_io_t *ipo_rbase, const u8 *mac)
 {
 	edgx_set16(ipo_rbase, _IPO_REG_ETH_0, 7, 0, mac[0]);
@@ -311,15 +322,10 @@ static inline void edgx_pt_ipo_init_single(edgx_io_t *ipo_rbase,
 					   struct edgx_pt_ipo *ipo,
 					   u8 entry)
 {
-	u16 reg;
 	/* Read the value from registers */
 	edgx_wr16(ipo_rbase, _IPO_REG_CMD,
 		 (entry | _IPO_CMD_READ | _IPO_CMD_TRANSFER));
-	/* Sleep and then wait until flags are cleared by HW. */
-	usleep_range(300, 400);
-	do {
-		reg = edgx_get16(ipo_rbase, _IPO_REG_CMD, 15, 15);
-	} while (reg);
+	edgx_pt_ipo_wait_cmd(ipo_rbase);
 	edgx_wr16(ipo_rbase, _IPO_REG_CFG0, ipo->cfg0);
 	edgx_wr16(ipo_rbase, _IPO_REG_FWD,  ipo->fwd);
 	edgx_wr16(ipo_rbase, _IPO_REG_MIRR, ipo->mirror);
@@ -331,7 +337,6 @@ static void edgx_pt_ipo_init(struct edgx_pt *pt, ptid_t mgmt_ptid)
 {
 	unsigned int entry;
 	edgx_io_t *ipo_rbase;
-	u16 reg;
 	u16 mtc = edgx_get_tc_mgmtraffic(pt->parent);
 
 	mutex_lock(&pt->reg_lock);
@@ -356,11 +361,7 @@ static void edgx_pt_ipo_init(struct edgx_pt *pt, ptid_t mgmt_ptid)
 		/* Write the values to IP using indirect access */
 		edgx_wr16(ipo_rbase, _IPO_REG_CMD,
 			  (entry | _IPO_CMD_WRITE | _IPO_CMD_TRANSFER));
-		/* Sleep and wait until flags are cleared by HW */
-		usleep_range(300, 400);
-		do {
-			reg = edgx_get16(ipo_rbase, _IPO_REG_CMD, 15, 15);
-		} while (reg);
+		edgx_pt_ipo_wait_cmd(ipo_rbase);
 	}
 
 	/* Setup individual(self)-MAC-rule for port */
@@ -370,11 +371,7 @@ static void edgx_pt_ipo_init(struct edgx_pt *pt, ptid_t mgmt_ptid)
 		  (_IPO_SELF_ENT |
 		   _IPO_CMD_READ |
 		   _IPO_CMD_TRANSFER));
-	/* Sleep and wait until flags are cleared by HW */
-	usleep_range(300, 400);
-	do {
-		reg = edgx_get16(ipo_rbase, _IPO_REG_CMD, 15, 15);
-	} while (reg);
+	edgx_pt_ipo_wait_cmd(ipo_rbase);
 
 	edgx_pt_ipo_init_single(ipo_rbase, &ipo_self, _IPO_SELF_ENT);
 	edgx_pt_ipo_set_mac(ipo_rbase, pt->netdev->dev_addr);
@@ -387,11 +384,7 @@ static void edgx_pt_ipo_init(struct edgx_pt *pt, ptid_t mgmt_ptid)
 		  (_IPO_SELF_ENT |
 		   _IPO_CMD_WRITE |
 		   _IPO_CMD_TRANSFER));
-	/* Sleep and then wait until flags are cleared by HW */
-	usleep_range(300, 400);
-	do {
-		reg = edgx_get16(ipo_rbase, _IPO_REG_CMD, 15, 15);
-	} while (reg);
+	edgx_pt_ipo_wait_cmd(ipo_rbase);
 
 	/* Setup all-MAC rule for port */
 	ipo_rbase = _IPO_BASE(pt->iobase);
@@ -400,11 +393,7 @@ static void edgx_pt_ipo_init(struct edgx_pt *pt, ptid_t mgmt_ptid)
 		  (_IPO_ALL_ENT |
 		   _IPO_CMD_READ |
 		   _IPO_CMD_TRANSFER));
-	/* Sleep and then wait until flags are cleared by HW */
-	usleep_range(300, 400);
-	do {
-		reg = edgx_get16(ipo_rbase, _IPO_REG_CMD, 15, 15);
-	} while (reg);
+	edgx_pt_ipo_wait_cmd(ipo_rbase);
 
 	edgx_pt_ipo_init_single(ipo_rbase, &ipo_all, _IPO_ALL_ENT);
 	/* don't allow forwarding to self, no allowed for bridges! */
@@ -413,11 +402,7 @@ static void edgx_pt_ipo_init(struct edgx_pt *pt, ptid_t mgmt_ptid)
 		  (_IPO_ALL_ENT |
 		   _IPO_CMD_WRITE |
 		   _IPO_CMD_TRANSFER));
-	/* Sleep and then wait until flags are cleared by HW */
-	usleep_range(300, 400);
-	do {
-		reg = edgx_get16(ipo_rbase, _IPO_REG_CMD, 15, 15);
-	} while (reg);
+	edgx_pt_ipo_wait_cmd(ipo_rbase);
 
 	/* Clear out the rest using the none-rule */
 	for (entry = _IPO_NONE_ENT_START; entry < _IPO_NRULES; entry++) {
@@ -425,20 +410,12 @@ static void edgx_pt_ipo_init(struct edgx_pt *pt, ptid_t mgmt_ptid)
 		/* Read values for entry */
 		edgx_wr16(ipo_rbase, _IPO_REG_CMD,
 			  (entry | _IPO_CMD_READ | _IPO_CMD_TRANSFER));
-		/* Sleep and then wait until flags are cleared by HW */
-		usleep_range(300, 400);
-		do {
-			reg = edgx_get16(ipo_rbase, _IPO_REG_CMD, 15, 15);
-		} while (reg);
+		edgx_pt_ipo_wait_cmd(ipo_rbase);
 		edgx_pt_ipo_init_single(ipo_rbase, &ipo_null, entry);
 		/* Write values for entry rule */
 		edgx_wr16(ipo_rbase, _IPO_REG_CMD,
 			  (entry | _IPO_CMD_WRITE | _IPO_CMD_TRANSFER));
-		/* Sleep and then wait until flags are cleared by HW */
-		usleep_range(300, 400);
-		do {
-			reg = edgx_get16(ipo_rbase, _IPO_REG_CMD, 15, 15);
-		} while (reg);
+		edgx_pt_ipo_wait_cmd(ipo_rbase);
 	}
 
 	mutex_unlock(&pt->reg_lock);
@@ -446,7 +423,6 @@ static void edgx_pt_ipo_init(struct edgx_pt *pt, ptid_t mgmt_ptid)
 
 static ptid_t edgx_pt_ipo_get_mirror(struct edgx_pt *pt)
 {
-	u16 reg;
 	ptid_t mgmt_ptid = edgx_com_get_mgmt_ptid(edgx_br_get_com(pt2br(pt)));
 	edgx_io_t *ipo_rbase = _IPO_BASE(pt->iobase);
 	u16 mirr_cfg;
@@ -455,11 +431,7 @@ static ptid_t edgx_pt_ipo_get_mirror(struct edgx_pt *pt)
 
 	edgx_wr16(ipo_rbase, _IPO_REG_CMD,
 		 (_IPO_SELF_ENT | _IPO_CMD_READ | _IPO_CMD_TRANSFER));
-	/* Sleep and then wait until flags are cleared by HW */
-	usleep_range(300, 400);
-	do {
-		reg = edgx_get16(ipo_rbase, _IPO_REG_CMD, 15, 15);
-	} while (reg);
+	edgx_pt_ipo_wait_cmd(ipo_rbase);
 
 	mirr_cfg = edgx_rd16(ipo_rbase, _IPO_REG_MIRR);
 
@@ -476,7 +448,6 @@ static int edgx_pt_ipo_set_mirror(struct edgx_pt *pt, ptid_t mirr_ptid)
 	ptid_t mgmt_ptid = edgx_com_get_mgmt_ptid(edgx_br_get_com(pt2br(pt)));
 	ptid_t mirr_ptid_int = mirr_ptid - 1; // internal port id is one less than external port id
 	u16 mirr_cfg = BIT(mgmt_ptid) | ((mirr_ptid_int < 0) ? 0 : BIT(mirr_ptid_int));
-	u16 reg;
 
 	if (mirr_ptid_int == edgx_pt_get_id(pt) || mirr_ptid_int == mgmt_ptid) {
 		edgx_pt_err(pt, "Cannot mirror management port or to self.\n");
@@ -490,19 +461,11 @@ static int edgx_pt_ipo_set_mirror(struct edgx_pt *pt, ptid_t mirr_ptid)
 
 		edgx_wr16(ipo_rbase, _IPO_REG_CMD,
 			  (i | _IPO_CMD_READ | _IPO_CMD_TRANSFER));
-		/* Sleep and then wait until flags are cleared by HW */
-		usleep_range(300, 400);
-		do {
-			reg = edgx_get16(ipo_rbase, _IPO_REG_CMD, 15, 15);
-		} while (reg);
+		edgx_pt_ipo_wait_cmd(ipo_rbase);
 		edgx_wr16(ipo_rbase, _IPO_REG_MIRR, mirr_cfg);
 		edgx_wr16(ipo_rbase, _IPO_REG_CMD,
 			  (i | _IPO_CMD_WRITE | _IPO_CMD_TRANSFER));
-		/* Sleep and then wait until flags are cleared by HW */
-		usleep_range(300, 400);
-		do {
-			reg = edgx_get16(ipo_rbase, _IPO_REG_CMD, 15, 15);
-		} while (reg);
+		edgx_pt_ipo_wait_cmd(ipo_rbase);
 
 		mutex_unlock(&pt->reg_lock);
 	}
@@ -1199,7 +1162,6 @@ void edgx_pt_rcv(struct edgx_pt *pt, struct sk_buff *skb, ptflags_t flags)
 
 static int edgx_brpt_set_mac_addr(struct net_device *netdev, void *p)
 {
-	u16 reg;
 	struct edgx_pt *pt = net2pt(netdev);
 	struct sockaddr *addr = p;
 	edgx_io_t *ipo_rbase = _IPO_BASE(pt->iobase);
@@ -1213,22 +1175,14 @@ static int edgx_brpt_set_mac_addr(struct net_device *netdev, void *p)
 		  (_IPO_SELF_ENT |
 		   _IPO_CMD_READ |
 		   _IPO_CMD_TRANSFER));
-	/* Sleep and then wait until flags are cleared again by chip. */
-	usleep_range(300, 400);
-	do {
-		reg = edgx_get16(ipo_rbase, _IPO_REG_CMD, 15, 15);
-	} while (reg);
+	edgx_pt_ipo_wait_cmd(ipo_rbase);
 
 	edgx_pt_ipo_set_mac(ipo_rbase, addr->sa_data);
 	edgx_wr16(ipo_rbase, _IPO_REG_CMD,
 		  (_IPO_SELF_ENT |
 		   _IPO_CMD_WRITE |
 		   _IPO_CMD_TRANSFER));
-	/* Sleep and then wait until flags are cleared again by chip. */
-	usleep_range(300, 400);
-	do {
-		reg = edgx_get16(ipo_rbase, _IPO_REG_CMD, 15, 15);
-	} while (reg);
+	edgx_pt_ipo_wait_cmd(ipo_rbase);
 
 	mutex_unlock(&pt->reg_lock);
 
@@ -1456,16 +1410,10 @@ int edgx_pt_fdb_add(struct ndmsg *ndm, struct nlattr *tb[],
 	return 0;
 }
 
-#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 19, 0)
-int edgx_pt_fdb_del(struct ndmsg *ndm, struct nlattr *tb[],
-		    struct net_device *netdev,
-		    const unsigned char *addr, u16 vid)
-#else
 int edgx_pt_fdb_del(struct ndmsg *ndm, struct nlattr *tb[],
 		    struct net_device *netdev,
 		    const unsigned char *addr, u16 vid,
 		    struct netlink_ext_ack *extack)
-#endif
 {
 	int err;
 	struct edgx_pt *pt = net2pt(netdev);

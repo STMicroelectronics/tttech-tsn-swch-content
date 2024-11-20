@@ -1078,6 +1078,10 @@ int  edgx_link_init(struct edgx_pt *pt, struct edgx_link **lnk,
 
 	edgx_link_set_lnk_mode(*lnk, lnk_mode, internal);
 
+	if (PT_IS_EP_ID(edgx_pt_get_id(pt))) {
+		goto end_adpt;
+	}
+
 	adptif = edgx_ac_get_ptif(&ifreq, edgx_pt_get_id(pt), &ptifd);
 	if (!adptif) {
 		edgx_pt_info(pt, "   Adding mii/gmii (native) ...\n");

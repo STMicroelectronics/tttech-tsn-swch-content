@@ -562,6 +562,16 @@ static int edgx_psfp_flt_check(const struct psfp_flt *flt,
 	return 0;
 }
 
+static inline void _edgx_psfp_flt_wait_cmd(struct psfp_flt *flt)
+{
+	u16 cmd;
+
+	usleep_range(300, 400);
+	do {
+		cmd = edgx_get16(flt->iobase, FILTER_CMD, 15, 15);
+	} while (cmd);
+}
+
 static void _edgx_psfp_flt_write_hw(struct psfp_flt *flt,
 				    s32 str_hdl, s32 pcp,
 				    const struct psfp_flt_data *fltd)
@@ -609,10 +619,7 @@ static void _edgx_psfp_flt_write_hw(struct psfp_flt *flt,
 	edgx_wr16(flt->iobase, FILTER_TBL_1, table1);
 	edgx_wr16(flt->iobase, FILTER_TBL_2, table2);
 	edgx_wr16(flt->iobase, FILTER_CMD, cmd);
-	usleep_range(300, 400);
-	do {
-		cmd = edgx_get16(flt->iobase, FILTER_CMD, 15, 15);
-	} while (cmd);
+	_edgx_psfp_flt_wait_cmd(flt);
 }
 
 static void _edgx_psfp_flt_read_hw(struct psfp_flt *flt,
@@ -632,10 +639,7 @@ static void _edgx_psfp_flt_read_hw(struct psfp_flt *flt,
 	WARN_ON(pcp < 0);
 
 	edgx_wr16(flt->iobase, FILTER_CMD, cmd);
-	usleep_range(300, 400);
-	do {
-		cmd = edgx_get16(flt->iobase, FILTER_CMD, 15, 15);
-	} while (cmd);
+	_edgx_psfp_flt_wait_cmd(flt);
 	table0 = edgx_rd16(flt->iobase, FILTER_TBL_0);
 	table1 = edgx_rd16(flt->iobase, FILTER_TBL_1);
 	table2 = edgx_rd16(flt->iobase, FILTER_TBL_2);
@@ -1238,6 +1242,16 @@ static void edgx_psfp_hit_shutdown(struct psfp_hit *hit)
 
 /* PSFP Stream Gates */
 
+static inline void edgx_psfp_gt_wait_cmd(struct psfp_gates *gates)
+{
+	u16 cmd;
+
+	usleep_range(300, 400);
+	do {
+		cmd = edgx_get16(gates->iobase, SGATE_CMD, 15, 15);
+	} while (cmd);
+}
+
 static void edgx_psfp_gt_read_sgate_hw(struct psfp_gates *gates,
 				       u16 gate,
 				       struct psfp_gt_sgate_entry *entry)
@@ -1248,10 +1262,7 @@ static void edgx_psfp_gt_read_sgate_hw(struct psfp_gates *gates,
 	u16 table0 = 0;
 
 	edgx_wr16(gates->iobase, SGATE_CMD, cmd);
-	usleep_range(300, 400);
-	do {
-		cmd = edgx_get16(gates->iobase, SGATE_CMD, 15, 15);
-	} while (cmd);
+	edgx_psfp_gt_wait_cmd(gates);
 	table0 = edgx_rd16(gates->iobase, SGATE_TBL_0);
 	edgx_psfp_dbg(gates->parent,
 		      "PSFP: Read sgate %d cmd 0x%04x table0 0x%04x\n",
@@ -1277,10 +1288,7 @@ static void edgx_psfp_gt_write_sgate_hw(struct psfp_gates *gates,
 		      gate, cmd, table0);
 	edgx_wr16(gates->iobase, SGATE_TBL_0, table0);
 	edgx_wr16(gates->iobase, SGATE_CMD, cmd);
-	usleep_range(300, 400);
-	do {
-		cmd = edgx_get16(gates->iobase, SGATE_CMD, 15, 15);
-	} while (cmd);
+	edgx_psfp_gt_wait_cmd(gates);
 }
 
 static inline struct edgx_sched *edgx_psfp_gt_get_sched(

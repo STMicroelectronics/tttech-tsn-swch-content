@@ -42,10 +42,6 @@ int edgx_br_vlan_del_pt(struct edgx_br_vlan *brvlan,
 			struct switchdev_obj_port_vlan *v, struct edgx_pt *pt);
 int edgx_br_vlan_purge_pt(struct edgx_br_vlan *brvlan, struct edgx_pt *pt);
 
-int edgx_br_vlan_dump_pt(struct edgx_br_vlan *brvlan,
-			 struct switchdev_obj_port_vlan *vlan,
-			 switchdev_obj_dump_cb_t *cb, struct edgx_pt *pt);
-
 int edgx_br_vlan_flush_mstpt(struct edgx_br_vlan *brvlan, mstid_t mstid,
 			     ptid_t ptid);
 int edgx_br_vlan_get_mstpt_state(struct edgx_br_vlan *brvlan, mstid_t mstid,
