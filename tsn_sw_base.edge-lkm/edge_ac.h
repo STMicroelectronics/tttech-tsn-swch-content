@@ -33,9 +33,13 @@ struct edgx_ifver {
 	u8 v_maj;
 } __packed;
 
+/* Opaque, interface-specific */
+struct edgx_ifpriv;
+
 struct edgx_ifreq {
 	u16 id;
 	u8  v_maj;
+	struct edgx_ifpriv *priv;
 };
 
 struct edgx_ifdesc {
@@ -65,12 +69,13 @@ struct edgx_if {
 
 #define AC_EOT_ID         (0x0)
 #define AC_AC_ID          (0x1)
+#define AC_DISABLED_ID    (0x2)
 #define AC_MGMT_ID        (0x10)
 #define AC_PARAM_ID       (0x11)
 #define AC_PORT_ID        (0x12)
 #define AC_STAT_ID        (0x13)
 #define AC_PREEMPT_ID     (0x14)
-#define AC_SHAPERS        (0x15)
+#define AC_SHAPERS_ID     (0x15)
 #define AC_PORT_TS_ID     (0x19)
 #define AC_SID_ID         (0x1A)
 #define AC_FRER_ID        (0x1B)
@@ -79,6 +84,7 @@ struct edgx_if {
 #define AC_PSFP_GATING_ID (0x21)
 #define AC_CLOCK_ID       (0x30)
 #define AC_ADPT_ID        (0x40)
+#define AC_EXT_ADPT_ID    (0x41)
 #define AC_DMA_ID         (0x60)
 
 int  edgx_probe_ac(edgx_io_t *iobase, struct device *dev);
@@ -94,9 +100,15 @@ void edgx_shutdown_ac(void);
 			edgx_ac_if2ptif(_aifd, _p, _apifd))
 
 const struct edgx_ifdesc *edgx_ac_get_if(const struct edgx_ifreq *ifreq);
+const struct edgx_ifdesc *edgx_ac_get_ifver(const struct edgx_ifreq iflist[],
+					    const struct edgx_ifpriv **priv);
 const struct edgx_ifdesc *edgx_ac_get_ptif(const struct edgx_ifreq *ifreq,
 					   ptid_t pt,
 					   struct edgx_ifdesc *ptifdesc);
+const struct edgx_ifdesc *edgx_ac_get_ptifver(const struct edgx_ifreq iflist[],
+					      ptid_t pt,
+					      struct edgx_ifdesc *ptifdesc,
+					      const struct edgx_ifpriv **priv);
 const struct edgx_ifdesc *edgx_ac_if2ptif(const struct edgx_ifdesc *ifdesc,
 					  ptid_t pt,
 					  struct edgx_ifdesc *portifdesc);

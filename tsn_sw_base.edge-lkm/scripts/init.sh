@@ -52,4 +52,3 @@ done
 # : 'self' causes action of physical device
 # : 'pvid' the vlan is a PVID at ingress - untagged frames will be assigne to this VLAN.
 # : 'untagged' the vlan is to be treated as untagged on egress
-

@@ -47,6 +47,7 @@ enum sid_ident_type {
 	SID_SOURCE = 2,
 	SID_ACTIVE = 3,
 	SID_IPSTR = 4,
+	SID_MASK_AND_MATCH = 5, // Defined in IEEE 802.1CBdb-2021 ammendment (not supported)
 	SID_IDENT_MAX
 };
 

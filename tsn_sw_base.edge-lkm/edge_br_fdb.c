@@ -590,7 +590,7 @@ static int edgx_dmac_read_next(struct edgx_dmac *dmac)
 
 	edgx_wr16(dmac->iobase, DMAC_TABLE0, DMAC_TABLE0_TRANSFER);
 	usleep_range(300, 400);
-	edgx_wait_cmd(dmac->iobase, DMAC_TABLE0, DMAC_TABLE0_TRANSFER);
+	reg = edgx_wait_cmd(dmac->iobase, DMAC_TABLE0, DMAC_TABLE0_TRANSFER);
 
 	addr[0] = edgx_rd16(dmac->iobase, DMAC_TABLE1);
 	addr[1] = edgx_rd16(dmac->iobase, DMAC_TABLE2);

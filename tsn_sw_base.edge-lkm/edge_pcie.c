@@ -160,9 +160,15 @@ static int edgx_pci_set_delays(struct edgx_pci_drv *pci_drv, struct device *dev,
 		}
 	}
 
-	edgx_link_set_delays(lnk, dtx10min, dtx10max, dtx100min, dtx100max,
-			     dtx1000min, dtx1000max, drx10min, drx10max,
-			     drx100min, drx100max, drx1000min, drx1000max);
+	edgx_link_set_delays(lnk, SPEED_10,
+			     dtx10min, dtx10max,
+			     drx10min, drx10max);
+	edgx_link_set_delays(lnk, SPEED_100,
+			     dtx100min, dtx100max,
+			     drx100min, drx100max);
+	edgx_link_set_delays(lnk, SPEED_1000,
+			     dtx1000min, dtx1000max,
+			     drx1000min, drx1000max);
 	return 0;
 }
 
@@ -266,7 +272,11 @@ static int edgx_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
 	 if (ret)
 		 goto probe_out_dly;
 	 edgx_pt_set_delay_adjust(edgx_br_get_brpt(pci_drv->br, 0),
-				  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+				  SPEED_10, 0, 0, 0, 0);
+	 edgx_pt_set_delay_adjust(edgx_br_get_brpt(pci_drv->br, 0),
+				  SPEED_100, 0, 0, 0, 0);
+	 edgx_pt_set_delay_adjust(edgx_br_get_brpt(pci_drv->br, 0),
+				  SPEED_1000, 0, 0, 0, 0);
 
 	/* Min delays for Marvell 88E1510P - standard latency mode */
 	for (i = 0; i < 3; i++) {
@@ -280,12 +290,11 @@ static int edgx_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
 		 if (ret)
 			 goto probe_out_dly;
 		 edgx_pt_set_delay_adjust(edgx_br_get_brpt(pci_drv->br, i + 1),
-					  0, 0,
-					  -600, 0,
-					  -250, 0,
-					  0, 0,
-					  -100, 0,
-					  -50, 0);
+					  SPEED_10, 0, 0, -600, 0);
+		 edgx_pt_set_delay_adjust(edgx_br_get_brpt(pci_drv->br, i + 1),
+					  SPEED_100, -250, 0, 0, 0);
+		 edgx_pt_set_delay_adjust(edgx_br_get_brpt(pci_drv->br, i + 1),
+					  SPEED_1000, -100, 0, -50, 0);
 	}
 
 	return ret;

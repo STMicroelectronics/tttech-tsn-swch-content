@@ -52,21 +52,29 @@
 #define EDGX_SCHED_OP_HOLD_MAC		(0x01)
 #define EDGX_SCHED_OP_REL_MAC		(0x02)
 
+/** Speed-dependent delay parameters */
+struct edgx_sched_spd_dly {
+	ktime_t phy_tx_min, phy_tx_max;
+	ktime_t g2o_min, g2o_max;
+	u64 v_s2g;
+	u64 g2w_min, g2w_max;
+	u64 s2g_min, s2g_max;
+	u64 s2w_min, s2w_max;
+	u64 delay_reg;
+	u64 adv_err, max_overrun;
+	u64 st_part_indep_tx_dly_min,
+	    st_part_indep_tx_dly_max;
+	u64 g_close_adv;
+};
+
 /** Delay parameters */
 struct edgx_sched_dly {
 	bool ready;
-	ktime_t phy_tx_hi_min, phy_tx_hi_max, phy_tx_lo_min, phy_tx_lo_max;
-	ktime_t g2o_hi_min, g2o_hi_max, g2o_lo_min, g2o_lo_max;
+	struct edgx_sched_spd_dly spd[EDGX_SPD_CNT];
 	u64 s2g_min, s2g_max;
-	u64 v_s2g_hi, v_s2g_lo;
-	u64 g2w_hi_min, g2w_hi_max, g2w_lo_min, g2w_lo_max;
-	u64 s2g_hi_min, s2g_hi_max, s2g_lo_min, s2g_lo_max;
-	u64 s2w_hi_min, s2w_hi_max, s2w_lo_min, s2w_lo_max;
 	u64 clk, starttime_err, delay_reg, time_advance;
+	u64 delay_reg_hi, delay_reg_lo;
 	u64 freq_err_per_sec, freq_err_per_nsec, freq_err_per_cyc;
-	u64 adv_err_hi, adv_err_lo, max_overrun_hi, max_overrun_lo;
-	u64 st_part_indep_tx_dly_hi_min, st_part_indep_tx_dly_hi_max;
-	u64 st_part_indep_tx_dly_lo_min, st_part_indep_tx_dly_lo_max;
 	u64 max_cyc_ms;
 	u64 g_close_adv_lo, g_close_adv_hi;
 };
@@ -141,74 +149,6 @@ static inline u16 edgx_st_get_hold(struct edgx_st *st)
 	return BIT(st->st_com->nr_queues);
 }
 
-
-#if defined(EDGX_SCHED_DBG)
-void edgx_sched_dump_dly(struct edgx_st *st)
-{
-	struct edgx_sched_dly *d = &st->dly;
-	struct edgx_sched *sched = edgx_st2sched(st);
-	const struct edgx_sched_limits *limits = edgx_sched_get_limits(sched);
-
-	sched_dbg("Dumping delays:\n");
-	sched_dbg("phy_tx_hi_min: %lld\n", ktime_to_ns(d->phy_tx_hi_min));
-	sched_dbg("phy_tx_hi_max: %lld\n", ktime_to_ns(d->phy_tx_hi_max));
-	sched_dbg("phy_tx_lo_min: %lld\n", ktime_to_ns(d->phy_tx_lo_min));
-	sched_dbg("phy_tx_lo_max: %lld\n", ktime_to_ns(d->phy_tx_lo_max));
-
-	sched_dbg("g2o_hi_min: %lld\n", ktime_to_ns(d->g2o_hi_min));
-	sched_dbg("g2o_hi_max: %lld\n", ktime_to_ns(d->g2o_hi_max));
-	sched_dbg("g2o_lo_min: %lld\n", ktime_to_ns(d->g2o_lo_min));
-	sched_dbg("g2o_lo_max: %lld\n", ktime_to_ns(d->g2o_lo_max));
-
-	sched_dbg("s2g_min: %lld\n", ktime_to_ns(d->s2g_min));
-	sched_dbg("s2g_max: %lld\n", ktime_to_ns(d->s2g_max));
-	sched_dbg("v_s2g_hi: %llu\n", d->v_s2g_hi);
-	sched_dbg("v_s2g_lo: %llu\n", d->v_s2g_lo);
-
-	sched_dbg("g2w_hi_min: %llu\n", d->g2w_hi_min);
-	sched_dbg("g2w_hi_max: %llu\n", d->g2w_hi_max);
-	sched_dbg("g2w_lo_min: %llu\n", d->g2w_lo_min);
-	sched_dbg("g2w_lo_max: %llu\n", d->g2w_lo_max);
-
-	sched_dbg("s2g_hi_min: %llu\n", d->s2g_hi_min);
-	sched_dbg("s2g_hi_max: %llu\n", d->s2g_hi_max);
-	sched_dbg("s2g_lo_min: %llu\n", d->s2g_lo_min);
-	sched_dbg("s2g_lo_max: %llu\n", d->s2g_lo_max);
-
-	sched_dbg("s2w_hi_min: %llu\n", d->s2w_hi_min);
-	sched_dbg("s2w_hi_max: %llu\n", d->s2w_hi_max);
-	sched_dbg("s2w_lo_min: %llu\n", d->s2w_lo_min);
-	sched_dbg("s2w_lo_max: %llu\n", d->s2w_lo_max);
-
-	sched_dbg("clk: %llu\n", d->clk);
-	sched_dbg("starttime_err: %llu\n", d->starttime_err);
-	sched_dbg("delay_reg: %llu\n", d->delay_reg);
-	sched_dbg("time_advance: %llu\n", d->time_advance);
-
-	sched_dbg("freq_err_abs: %u\n", limits->freq_err_abs);
-	sched_dbg("hw_granularity_ns: %u\n", limits->hw_granularity_ns);
-	sched_dbg("freq_err_per_sec: %llu\n", d->freq_err_per_sec);
-	sched_dbg("freq_err_per_nsec: %llu\n", d->freq_err_per_nsec);
-	sched_dbg("freq_err_per_cyc: %llu\n", d->freq_err_per_cyc);
-
-	sched_dbg("adv_err_hi: %llu\n", d->adv_err_hi);
-	sched_dbg("adv_err_lo: %llu\n", d->adv_err_lo);
-	sched_dbg("max_overrun_hi: %llu\n", d->max_overrun_hi);
-	sched_dbg("max_overrun_lo: %llu\n", d->max_overrun_lo);
-	sched_dbg("st_part_indep_tx_dly_hi_min: %llu\n",
-		  d->st_part_indep_tx_dly_hi_min);
-	sched_dbg("st_part_indep_tx_dly_hi_max: %llu\n",
-		  d->st_part_indep_tx_dly_hi_max);
-	sched_dbg("st_part_indep_tx_dly_lo_min: %llu\n",
-		  d->st_part_indep_tx_dly_lo_min);
-	sched_dbg("st_part_indep_tx_dly_lo_max: %llu\n",
-		  d->st_part_indep_tx_dly_lo_max);
-	sched_dbg("max_cyc_ms: %llu\n", d->max_cyc_ms);
-	sched_dbg("g_close_adv_lo: %llu\n", d->g_close_adv_lo);
-	sched_dbg("g_close_adv_hi: %llu\n", d->g_close_adv_hi);
-}
-#endif
-
 static void edgx_st_calc_trans_rate(struct edgx_st *st,
 				    const struct edgx_sched_tab_entry *entries,
 				    size_t count)
@@ -267,39 +207,53 @@ static void edgx_st_config_changed(struct edgx_sched_event *sched_evt)
 	edgx_fqtss_st_change(fqtss, st);
 }
 
+static const u64 g_close_adv_max_spd[] = {
+	[EDGX_SPD_10]	 = 0,
+	[EDGX_SPD_100]	 = 46,
+	[EDGX_SPD_1000]	 = 255,
+	[EDGX_SPD_2500]	 = 255,
+	[EDGX_SPD_5000]	 = 400,
+	[EDGX_SPD_10000] = 400
+};
+
+static const u64 g_close_adv_max_spd_lo[] = {
+	[EDGX_SPD_10]	 = 46,
+	[EDGX_SPD_100]	 = 255
+};
+
+static const u64 g_close_adv_div_spd[] = {
+	[EDGX_SPD_10]	 = 0,
+	[EDGX_SPD_100]	 = 80,
+	[EDGX_SPD_1000]  = 8,
+	[EDGX_SPD_2500]  = 8,
+	[EDGX_SPD_5000]  = 1,
+	[EDGX_SPD_10000] = 1
+};
+
+static const u64 g_close_adv_div_spd_lo[] = {
+	[EDGX_SPD_10] = 800,
+	[EDGX_SPD_100] = 80
+};
+
 int edgx_sched_calc_delays(struct edgx_st *st)
 {
 	struct edgx_sched *sched = edgx_st2sched(st);
 	const struct edgx_sched_limits *limits = edgx_sched_get_limits(sched);
+	const u64 max_delay_line_ns = (399 * (u64)limits->hw_granularity_ns);
 	struct edgx_link *lnk = edgx_pt_get_link(st->parent);
 	struct edgx_sched_dly *d = &st->dly;
-	enum edgx_lnk_mode lnk_mode = edgx_link_get_lnk_mode(lnk);
-	u64 max_g_close_adv_lo, max_g_close_adv_hi, rem;
-	u64 g_close_adv_div_lo, g_close_adv_div_hi;
+	struct edgx_sched_spd_dly *spd_d = NULL;
+	edgx_speed_mask_t spd_mask = edgx_link_get_speed_mask(lnk);
+	u64 rem;
+	u64 g_close_adv_max;
+	u64 g_close_adv_div;
+	u64 s2w_min = U64_MAX;
+	int spd_idx;
+	int speed;
 	int ret;
 
 	if (d->ready)
 		return 0;
-
-	ret = edgx_link_get_tx_delays_hi(lnk, &d->phy_tx_hi_min,
-					 &d->phy_tx_hi_max);
-	if (ret)
-		return ret;
-
-	ret = edgx_link_get_tx_delays_lo(lnk, &d->phy_tx_lo_min,
-					 &d->phy_tx_lo_max);
-	if (ret)
-		return ret;
-
-	ret = edgx_pt_get_g2o_hi(st->parent, &d->g2o_hi_min,
-				 &d->g2o_hi_max);
-	if (ret)
-		return ret;
-
-	ret = edgx_pt_get_g2o_lo(st->parent, &d->g2o_lo_min,
-				 &d->g2o_lo_max);
-	if (ret)
-		return ret;
 
 	d->clk = (u64)edgx_br_get_cycle_ns(edgx_sched_get_br(sched));
 	if (!d->clk)
@@ -312,31 +266,6 @@ int edgx_sched_calc_delays(struct edgx_st *st)
 	d->starttime_err = EDGX_SCHED_DEF_START_TIME_ERR;
 	d->max_cyc_ms = limits->max_cyc_ms;
 
-	d->g2w_hi_min = ktime_to_ns(ktime_add(d->phy_tx_hi_min, d->g2o_hi_min));
-	d->g2w_hi_max = ktime_to_ns(ktime_add(d->phy_tx_hi_max, d->g2o_hi_max));
-	d->g2w_lo_min = ktime_to_ns(ktime_add(d->phy_tx_lo_min, d->g2o_lo_min));
-	d->g2w_lo_max = ktime_to_ns(ktime_add(d->phy_tx_lo_max, d->g2o_lo_max));
-
-	d->delay_reg = abs((s64)d->g2w_hi_min - (s64)d->g2w_lo_min);
-	do_div(d->delay_reg, limits->hw_granularity_ns);
-
-	d->s2g_hi_min = d->s2g_min +
-			(399 * (u64)limits->hw_granularity_ns);
-	d->s2g_hi_max = d->s2g_max +
-			(399 * (u64)limits->hw_granularity_ns) +
-			d->starttime_err;
-
-	d->s2g_lo_min = d->s2g_min +
-			(399 * (u64)limits->hw_granularity_ns);
-	d->s2g_lo_max = d->s2g_max +
-			(399 * (u64)limits->hw_granularity_ns) +
-			d->starttime_err;
-
-	d->s2w_hi_min = d->s2g_hi_min + d->g2w_hi_min;
-	d->s2w_hi_max = d->s2g_hi_max + d->g2w_hi_max;
-	d->s2w_lo_min = d->s2g_lo_min + d->g2w_lo_min;
-	d->s2w_lo_max = d->s2g_lo_max + d->g2w_lo_max;
-
 	d->freq_err_per_sec = (u64)limits->freq_err_abs * 1000;
 	d->freq_err_per_nsec = d->freq_err_per_sec;
 	do_div(d->freq_err_per_nsec, 1000000);
@@ -344,84 +273,169 @@ int edgx_sched_calc_delays(struct edgx_st *st)
 	d->freq_err_per_cyc = d->freq_err_per_sec * d->max_cyc_ms;
 	do_div(d->freq_err_per_cyc, 1000);
 
-	d->time_advance = min(d->s2w_hi_min, d->s2w_lo_min) -
-			  d->freq_err_per_cyc;
+	d->delay_reg_hi = 0;
+	d->delay_reg_lo = 0;
 
-	d->adv_err_hi = d->s2w_hi_min - d->time_advance;
-	d->adv_err_lo = d->s2w_lo_min - d->time_advance -
-			(u64)limits->hw_granularity_ns * d->delay_reg;
-	d->max_overrun_hi = d->s2w_hi_max - d->time_advance +
-			    d->freq_err_per_cyc;
-	d->max_overrun_lo = d->s2w_lo_max - d->time_advance +
-			    d->freq_err_per_cyc -
-			    (u64)limits->hw_granularity_ns * d->delay_reg;
+	/* Lowest speed first in increasing speed order */
+	for (spd_idx = 0; spd_idx < EDGX_SPD_CNT; spd_idx++) {
+		spd_d = &d->spd[spd_idx];
 
-	d->v_s2g_hi = d->s2g_hi_max - d->s2g_hi_min;
-	d->v_s2g_lo = d->s2g_lo_max - d->s2g_lo_min;
+		*spd_d = (struct edgx_sched_spd_dly){ .v_s2g = 0 };
 
-	d->st_part_indep_tx_dly_hi_min = d->adv_err_hi;
-	d->st_part_indep_tx_dly_hi_max = d->adv_err_hi + d->v_s2g_hi +
-					 d->starttime_err + d->freq_err_per_cyc;
-	d->st_part_indep_tx_dly_lo_min = d->adv_err_lo;
-	d->st_part_indep_tx_dly_lo_max = d->adv_err_lo + d->v_s2g_lo +
-					 d->starttime_err + d->freq_err_per_cyc;
+		if (!(spd_mask & BIT(spd_idx)))
+			continue;
 
-	if (lnk_mode == EDGX_LNKMOD_100_1000) {
-		max_g_close_adv_lo = 46;
-		g_close_adv_div_lo = 80;
-		max_g_close_adv_hi = 255;
-		g_close_adv_div_hi = 8;
-	} else if (lnk_mode == EDGX_LNKMOD_10_100) {
-		max_g_close_adv_lo = 46;
-		g_close_adv_div_lo = 800;
-		max_g_close_adv_hi = 255;
-		g_close_adv_div_hi = 80;
-	} else if (lnk_mode == EDGX_LNKMOD_100) {
-		max_g_close_adv_lo = 46;
-		g_close_adv_div_lo = 80;
-		max_g_close_adv_hi = 0;
-		g_close_adv_div_hi = 1;
-	} else {
-		return -EINVAL;
+		speed = edgx_br_speed(spd_idx);
+		ret = edgx_link_get_speed_tx_delays(lnk, speed,
+						    &spd_d->phy_tx_min,
+						    &spd_d->phy_tx_max);
+		if (ret)
+			return ret;
+
+		ret = edgx_pt_get_speed_g2o(st->parent, speed,
+					    &spd_d->g2o_min,
+					    &spd_d->g2o_max);
+		if (ret)
+			return ret;
+
+		spd_d->g2w_min = ktime_to_ns(ktime_add(
+						spd_d->phy_tx_min,
+						spd_d->g2o_min));
+		spd_d->g2w_max = ktime_to_ns(ktime_add(
+						spd_d->phy_tx_max,
+						spd_d->g2o_max));
+
+		if (spd_idx > EDGX_SPD_1000 &&
+		    (spd_mask & BIT(EDGX_SPD_1000)))
+			spd_d->delay_reg =
+					abs((s64)spd_d->g2w_min -
+					    (s64)d->spd[EDGX_SPD_1000].g2w_min);
+		else if (spd_idx == EDGX_SPD_1000 &&
+			 (spd_mask & BIT(EDGX_SPD_100)))
+			spd_d->delay_reg =
+					abs((s64)spd_d->g2w_min -
+					    (s64)d->spd[EDGX_SPD_100].g2w_min);
+		else if (spd_idx == EDGX_SPD_100 &&
+			 (spd_mask & BIT(EDGX_SPD_10)))
+			spd_d->delay_reg =
+					abs((s64)spd_d->g2w_min -
+					    (s64)d->spd[EDGX_SPD_10].g2w_min);
+		else
+			spd_d->delay_reg = 0;
+		do_div(spd_d->delay_reg, limits->hw_granularity_ns);
+		if (spd_idx > EDGX_SPD_1000 &&
+		    (spd_mask & BIT(EDGX_SPD_1000) &&
+		     d->delay_reg_hi < spd_d->delay_reg))
+			d->delay_reg_hi = spd_d->delay_reg;
+
+		/* TODO: does not depend on speed */
+		spd_d->s2g_min = d->s2g_min + max_delay_line_ns;
+		spd_d->s2g_max = d->s2g_max + max_delay_line_ns +
+				 d->starttime_err;
+
+		spd_d->s2w_min = spd_d->s2g_min + spd_d->g2w_min;
+		spd_d->s2w_max = spd_d->s2g_max + spd_d->g2w_max;
+
+		if (s2w_min > spd_d->s2w_min)
+			s2w_min = spd_d->s2w_min;
+
+		spd_d->v_s2g = spd_d->s2g_max - spd_d->s2g_min;
 	}
 
-	d->g_close_adv_lo = d->max_overrun_lo;
-	rem = do_div(d->g_close_adv_lo, g_close_adv_div_lo);
-	if (rem)
-		d->g_close_adv_lo++;
-	d->g_close_adv_lo = min(d->g_close_adv_lo, max_g_close_adv_lo);
+	if (spd_mask & BIT(EDGX_SPD_10))
+		d->delay_reg_lo = d->spd[EDGX_SPD_100].delay_reg;
+	else if (spd_mask & BIT(EDGX_SPD_1000))
+		d->delay_reg_lo = d->spd[EDGX_SPD_1000].delay_reg;
 
-	d->g_close_adv_hi = d->max_overrun_hi;
-	rem = do_div(d->g_close_adv_hi, g_close_adv_div_hi);
-	if (rem)
-		d->g_close_adv_hi++;
-	d->g_close_adv_hi = min(d->g_close_adv_hi, max_g_close_adv_hi);
+	d->time_advance = s2w_min - d->freq_err_per_cyc;
 
-	edgx_sched_set_delay(sched, (u8)d->delay_reg);
+	for (spd_idx = 0; spd_idx < EDGX_SPD_CNT; spd_idx++) {
+		if (!(spd_mask & BIT(spd_idx)))
+			continue;
+
+		spd_d = &d->spd[spd_idx];
+
+		spd_d->adv_err = spd_d->s2w_min - d->time_advance;
+		if (spd_idx == EDGX_SPD_1000)
+			spd_d->adv_err -= (u64)limits->hw_granularity_ns *
+					  d->delay_reg_hi;
+		else if (spd_idx == EDGX_SPD_100 &&
+			 !(spd_mask & BIT(EDGX_SPD_10)))
+			spd_d->adv_err -= (u64)limits->hw_granularity_ns *
+					  d->delay_reg_lo;
+		else if (spd_idx == EDGX_SPD_10)
+			spd_d->adv_err -= (u64)limits->hw_granularity_ns *
+					  d->delay_reg_lo;
+
+		spd_d->max_overrun = spd_d->s2w_max - d->time_advance +
+				     d->freq_err_per_cyc;
+		if (spd_idx == EDGX_SPD_1000)
+			spd_d->max_overrun -= (u64)limits->hw_granularity_ns *
+					      d->delay_reg_hi;
+		else if (spd_idx == EDGX_SPD_100 &&
+			 !(spd_mask & BIT(EDGX_SPD_10)))
+			spd_d->max_overrun -= (u64)limits->hw_granularity_ns *
+					      d->delay_reg_lo;
+		else if (spd_idx == EDGX_SPD_10)
+			spd_d->max_overrun -= (u64)limits->hw_granularity_ns *
+					      d->delay_reg_lo;
+
+		spd_d->g_close_adv = spd_d->max_overrun;
+		if (spd_idx >= EDGX_SPD_1000) {
+			g_close_adv_max = g_close_adv_max_spd[spd_idx];
+			g_close_adv_div = g_close_adv_div_spd[spd_idx];
+		} else if (spd_idx == EDGX_SPD_100 &&
+			 !(spd_mask & BIT(EDGX_SPD_10))) {
+			g_close_adv_max = g_close_adv_max_spd[spd_idx];
+			g_close_adv_div = g_close_adv_div_spd[spd_idx];
+		} else {
+			g_close_adv_max = g_close_adv_max_spd_lo[spd_idx];
+			g_close_adv_div = g_close_adv_div_spd_lo[spd_idx];
+		}
+		rem = do_div(spd_d->g_close_adv, g_close_adv_div);
+		if (rem)
+			spd_d->g_close_adv++;
+		spd_d->g_close_adv = min(spd_d->g_close_adv, g_close_adv_max);
+
+		spd_d->st_part_indep_tx_dly_min = spd_d->adv_err;
+		spd_d->st_part_indep_tx_dly_max =
+				spd_d->adv_err + spd_d->v_s2g +
+				d->starttime_err + d->freq_err_per_cyc;
+	}
+
+	if (spd_mask & BIT(EDGX_SPD_10)) {
+		d->g_close_adv_lo = d->spd[EDGX_SPD_10].g_close_adv;
+		d->g_close_adv_hi = d->spd[EDGX_SPD_100].g_close_adv;
+	} else {
+		d->g_close_adv_lo = d->spd[EDGX_SPD_100].g_close_adv;
+		d->g_close_adv_hi = d->spd[EDGX_SPD_1000].g_close_adv;
+	}
+
+	edgx_sched_set_delay(sched, (u8)d->delay_reg_lo, (u8)d->delay_reg_hi);
 	edgx_sched_set_g_close_adv(sched, d->g_close_adv_lo, d->g_close_adv_hi);
 
 	d->ready = true;
 	return 0;
 }
 
-u64 edgx_st_get_part_indep_tx_dly_hi_min(struct edgx_st *st)
+u64 edgx_st_get_part_indep_tx_dly_min(struct edgx_st *st, int speed)
 {
-	return st->dly.st_part_indep_tx_dly_hi_min;
+	int spd_idx = edgx_br_spd_idx(speed);
+
+	if (spd_idx < 0)
+		return 0;
+
+	return st->dly.spd[spd_idx].st_part_indep_tx_dly_min;
 }
 
-u64 edgx_st_get_part_indep_tx_dly_hi_max(struct edgx_st *st)
+u64 edgx_st_get_part_indep_tx_dly_max(struct edgx_st *st, int speed)
 {
-	return st->dly.st_part_indep_tx_dly_hi_max;
-}
+	int spd_idx = edgx_br_spd_idx(speed);
 
-u64 edgx_st_get_part_indep_tx_dly_lo_min(struct edgx_st *st)
-{
-	return st->dly.st_part_indep_tx_dly_lo_min;
-}
+	if (spd_idx < 0)
+		return 0;
 
-u64 edgx_st_get_part_indep_tx_dly_lo_max(struct edgx_st *st)
-{
-	return st->dly.st_part_indep_tx_dly_lo_max;
+	return st->dly.spd[spd_idx].st_part_indep_tx_dly_max;
 }
 
 u64 edgx_st_get_freq_err_per_cyc(struct edgx_st *st)
@@ -670,7 +684,7 @@ static ssize_t admin_gate_states_store(struct device *dev,
 }
 
 static ssize_t max_sdu_tab_read(struct file *filp, struct kobject *kobj,
-				struct bin_attribute *bin_attr,
+				edgx_bin_attr *bin_attr,
 				char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_st *st = edgx_dev2st(kobj_to_dev(kobj));
@@ -689,7 +703,7 @@ static ssize_t max_sdu_tab_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t max_sdu_tab_write(struct file *filp, struct kobject *kobj,
-				 struct bin_attribute *bin_attr,
+				 edgx_bin_attr *bin_attr,
 				 char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_st *st = edgx_dev2st(kobj_to_dev(kobj));
@@ -711,7 +725,7 @@ static ssize_t max_sdu_tab_write(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t overrun_sdu_tab_read(struct file *filp, struct kobject *kobj,
-				    struct bin_attribute *bin_attr,
+				    edgx_bin_attr *bin_attr,
 				    char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_st *st = edgx_dev2st(kobj_to_dev(kobj));
@@ -774,7 +788,7 @@ static ssize_t oper_ctrl_list_len_show(struct device *dev,
 }
 
 static ssize_t admin_ctrl_list_read(struct file *filp, struct kobject *kobj,
-				    struct bin_attribute *bin_attr,
+				    edgx_bin_attr *bin_attr,
 				    char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_sched *sched = edgx_dev2sched(kobj_to_dev(kobj));
@@ -790,7 +804,7 @@ static ssize_t admin_ctrl_list_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t admin_ctrl_list_write(struct file *filp, struct kobject *kobj,
-				     struct bin_attribute *bin_attr,
+				     edgx_bin_attr *bin_attr,
 				     char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_st *st = edgx_dev2st(kobj_to_dev(kobj));
@@ -860,7 +874,7 @@ static int edgx_st_get_oper_ctrl_list(struct edgx_st *st,
 }
 
 static ssize_t oper_ctrl_list_read(struct file *filp, struct kobject *kobj,
-				   struct bin_attribute *bin_attr,
+				   edgx_bin_attr *bin_attr,
 				   char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_st *st = edgx_dev2st(kobj_to_dev(kobj));
@@ -1191,7 +1205,7 @@ static struct attribute_group ieee8021_st_group = {
 		&dev_attr_supported_int_max.attr,
 		NULL
 	},
-	.bin_attrs = (struct bin_attribute*[]){
+	.bin_attrs = (edgx_bin_attr *[]){
 		&bin_attr_admin_ctrl_list,
 		&bin_attr_oper_ctrl_list,
 		&bin_attr_max_sdu_tab,
@@ -1268,14 +1282,14 @@ static const struct edgx_sched_ops edgx_st_sched_ops = {
 int edgx_st_com_probe(struct edgx_br *br, struct edgx_br_irq *irq,
 		      const char *drv_name,
 		      struct edgx_st_com **pst_com,
-		      bool *max_2_speeds)
+		      bool *speeds_limited)
 {
 	const struct edgx_ifreq ifreq = { .id = AC_SCHED_ID, .v_maj = 2 };
 	const struct edgx_ifdesc *ifd_com = edgx_ac_get_if(&ifreq);
 	u16 init_gate_states = EDGX_SCHED_DEF_GATE_STATES;
 	int ret = -ENOMEM;
 
-	if (!max_2_speeds)
+	if (!speeds_limited)
 		return -EINVAL;
 
 	if (!ifd_com || !ifd_com->ptmap)
@@ -1295,7 +1309,7 @@ int edgx_st_com_probe(struct edgx_br *br, struct edgx_br_irq *irq,
 	if (ret)
 		goto out_sched_com;
 
-	*max_2_speeds = true;
+	*speeds_limited = true;
 	return ret;
 
 out_sched_com:

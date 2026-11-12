@@ -48,7 +48,6 @@
 #define SID_MAX_ORD		((u16)(-1))
 #define SID_MAX_ORD_CNT		(SID_MAX_ORD + 1)
 #define SID_TAB_INVALID		((u16)(-1))
-#define SID_MAX_NPORTS		(12U)
 #define VID_WILDCARD		(0U)
 #define SID_CTL_POS(row, col)	((((col) & 0x3) << 12) | ((row) & 0xFFF))
 #define SID_CTL_RD(row, col)	(BIT(15) | SID_CTL_POS(row, col))
@@ -76,7 +75,7 @@ struct sid_tab_entry {
 	bool match_vlan;
 	u8  mac[ETH_ALEN];
 	u16 vid;
-	u16 str_hdl[SID_MAX_NPORTS];
+	u16 str_hdl[EDGX_BR_MAX_PORTS];
 };
 
 /* CRC40 lookup table for polynomial 0x0104c11db7. */
@@ -169,6 +168,7 @@ struct edgx_sid_br {
 	u16 tab_row_cnt;
 	int port_cnt;
 	u16 sup_port_mask;
+	const struct edgx_ifdesc *ifd;
 };
 
 static inline bool edgx_sid_get_match_vlan(enum sid_tag tag, u16 vid)
@@ -778,14 +778,16 @@ static ssize_t sid_sup_ports_show(struct device *dev,
 
 	sid_dbg("\n");
 	mutex_lock(&sid_br->lock);
-	ret =  scnprintf(buf, PAGE_SIZE, "%u\n", sid_br->sup_port_mask);
+	/* Port numbering in sysfs attribute starts from 1 */
+	ret =  scnprintf(buf, PAGE_SIZE, "%u\n",
+			 (u32)sid_br->sup_port_mask << 1);
 	mutex_unlock(&sid_br->lock);
 
 	return ret;
 }
 
 static ssize_t sid_list_entries_read(struct file *filp, struct kobject *kobj,
-				     struct bin_attribute *bin_attr,
+				     edgx_bin_attr *bin_attr,
 				     char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -823,7 +825,7 @@ static ssize_t sid_list_entries_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t sid_sup_ident_types_read(struct file *filp, struct kobject *kobj,
-					struct bin_attribute *bin_attr,
+					edgx_bin_attr *bin_attr,
 					char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -849,7 +851,7 @@ static ssize_t sid_sup_ident_types_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t sid_ident_params_read(struct file *filp, struct kobject *kobj,
-				     struct bin_attribute *bin_attr,
+				     edgx_bin_attr *bin_attr,
 				     char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -885,7 +887,7 @@ static ssize_t sid_ident_params_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t sid_ident_params_write(struct file *filp, struct kobject *kobj,
-				     struct bin_attribute *bin_attr,
+				     edgx_bin_attr *bin_attr,
 				     char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -957,7 +959,7 @@ out_params_unlock:
 }
 
 static ssize_t sid_delete_write(struct file *filp, struct kobject *kobj,
-				struct bin_attribute *bin_attr,
+				edgx_bin_attr *bin_attr,
 				char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -994,7 +996,7 @@ static ssize_t sid_delete_write(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t sid_set_strhdl_write(struct file *filp, struct kobject *kobj,
-				    struct bin_attribute *bin_attr,
+				    edgx_bin_attr *bin_attr,
 				    char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -1035,7 +1037,7 @@ static ssize_t sid_set_strhdl_write(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t sid_port_pos_read(struct file *filp, struct kobject *kobj,
-				 struct bin_attribute *bin_attr,
+				 edgx_bin_attr *bin_attr,
 				 char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -1105,7 +1107,7 @@ static int sid_port_pos_set(struct edgx_sid_br *sid_br, u16 ord,
 }
 
 static ssize_t sid_port_pos_write(struct file *filp, struct kobject *kobj,
-				  struct bin_attribute *bin_attr,
+				  edgx_bin_attr *bin_attr,
 				  char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -1129,7 +1131,7 @@ static ssize_t sid_port_pos_write(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t sid_port_pos_del_write(struct file *filp, struct kobject *kobj,
-				      struct bin_attribute *bin_attr,
+				      edgx_bin_attr *bin_attr,
 				      char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -1183,7 +1185,7 @@ u32 edgx_sid_get_cnt(struct edgx_sid_br *sid, u16 str_hdl, u8 port,
 }
 
 static ssize_t sid_cps_in_read(struct file *filp, struct kobject *kobj,
-			       struct bin_attribute *bin_attr,
+			       edgx_bin_attr *bin_attr,
 			       char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_pt *pt = edgx_dev2pt(kobj_to_dev(kobj));
@@ -1203,7 +1205,7 @@ static ssize_t sid_cps_in_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t sid_cps_out_read(struct file *filp, struct kobject *kobj,
-				struct bin_attribute *bin_attr,
+				edgx_bin_attr *bin_attr,
 				char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_pt *pt = edgx_dev2pt(kobj_to_dev(kobj));
@@ -1260,7 +1262,7 @@ static struct attribute *ieee1cb_sid_attr[] = {
 	NULL,
 };
 
-static struct bin_attribute *ieee1cb_sid_binattr[] = {
+static edgx_bin_attr *ieee1cb_sid_binattr[] = {
 	&bin_attr_sid_ident_params,
 	&bin_attr_sid_delete,
 	&bin_attr_sid_port_pos,
@@ -1277,7 +1279,7 @@ static struct attribute_group sid_group = {
 	.bin_attrs = ieee1cb_sid_binattr,
 };
 
-static struct bin_attribute *ieee1cb_sid_pt_bin_attr[] = {
+static edgx_bin_attr *ieee1cb_sid_pt_bin_attr[] = {
 	&bin_attr_sid_cps_in,
 	&bin_attr_sid_cps_out,
 	NULL
@@ -1322,12 +1324,13 @@ int edgx_probe_sid(struct edgx_br *br, edgx_io_t *br_iobase,
 	sid->rb_o_root = RB_ROOT;
 	sid->rb_tmvt_root = RB_ROOT;
 	sid->rb_ht_root = RB_ROOT;
-	sid->port_cnt = min(edgx_br_get_num_ports(br), (u16)SID_MAX_NPORTS);
+	sid->port_cnt = edgx_br_get_num_ports(br);
 	sid->max_streams = max(edgx_br_get_generic_pow2(br, BR_GX_NSTREAMS),
 			       edgx_br_get_generic_pow2(br,
 							BR_GX_PSFP_NSTREAMS));
 	sid->tab_row_cnt = edgx_br_get_generic_pow2(br, BR_GX_SID_TAB_NROWS);
-	sid->sup_port_mask = (u16)ifd->ptmap << 1; /* TODO: Check port numbering! */
+	sid->sup_port_mask = (u16)ifd->ptmap;
+	sid->ifd = ifd;
 
 	/* XOR with VID in first two columns */
 	edgx_wr16(sid->tab_iobase, 0x282, 0x5);
@@ -1370,21 +1373,15 @@ static void sid_release_all(struct edgx_sid_br *sid_br)
 
 void edgx_shutdown_sid(struct edgx_sid_br *sid)
 {
-	const struct edgx_ifdesc *ifd;
 	struct edgx_ifdesc        pifd;
 	ptid_t                    ptid;
-	const struct edgx_ifreq   ifreq = { .id = AC_SID_ID, .v_maj = 2 };
 
 	if (!sid)
 		return;
 
 	sid_release_all(sid);
 
-	ifd = edgx_ac_get_if(&ifreq);
-	if (!ifd)
-		return;
-
-	edgx_ac_for_each_ifpt(ptid, ifd, &pifd) {
+	edgx_ac_for_each_ifpt(ptid, sid->ifd, &pifd) {
 		struct edgx_pt *pt = edgx_br_get_brpt(sid->parent, ptid);
 
 		if (pt)

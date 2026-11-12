@@ -181,6 +181,7 @@ struct edgx_frer {
 	u16 seqreccnt;
 	u16 seqrec_rst[_SEQREC_RCVRST_MAXRES];//FLEXDE-3139
 	struct mutex lock; /*Protects FRER data; access to STREAM_TABLE0/1/2/3*/
+	const struct edgx_ifdesc *ifd;
 };
 
 //FLEXDE-3139
@@ -369,7 +370,7 @@ static int edgx_frer_check_strhdl(u16 strhdl, struct edgx_frer *f)
 	return 0;
 }
 
-int edgx_frer_check_port(u16 ptid, struct edgx_frer *f)
+static int edgx_frer_check_port(u16 ptid, struct edgx_frer *f)
 {
 	if (ptid > edgx_br_get_num_ports(f->parent)) {
 		edgx_br_err(f->parent, "SeqEnc: Port number invalid\n");
@@ -675,7 +676,7 @@ static int edgx_frer_seqgen_create(struct edgx_frer *f, u16 fnidx)
 	return 0;
 }
 
-int _seqenc_check_dir(u8 dir, struct edgx_frer *f)
+static int _seqenc_check_dir(u8 dir, struct edgx_frer *f)
 {
 	if (dir != (u8)DIR_OUT_FAC) {
 		edgx_br_err(f->parent,
@@ -686,7 +687,7 @@ int _seqenc_check_dir(u8 dir, struct edgx_frer *f)
 	}
 }
 
-int _seqenc_check_type(u8 type, struct edgx_frer *f)
+static int _seqenc_check_type(u8 type, struct edgx_frer *f)
 {
 	if (type != (u8)TYPE_R_TAG) {
 		edgx_br_err(f->parent, "Supporting only R-tag encapsulation\n");
@@ -696,7 +697,7 @@ int _seqenc_check_type(u8 type, struct edgx_frer *f)
 	}
 }
 
-int _seqenc_check_active(u16 active, struct edgx_frer *f)
+static int _seqenc_check_active(u16 active, struct edgx_frer *f)
 {
 	if ((active != ENC_ACTIVE) && (active != ENC_PASSIVE)) {
 		edgx_br_err(f->parent, "SeqEnc: invalid activation value\n");
@@ -1030,7 +1031,7 @@ static int edgx_frer_seqenc_str2port(u16 str, struct edgx_frer *f, u16 *mask)
 	return 0;
 }
 
-int _seqrec_check_dir(u8 dir, struct edgx_frer *f)
+static int _seqrec_check_dir(u8 dir, struct edgx_frer *f)
 {
 	if (dir != (u8)DIR_IN_FAC) {
 		edgx_br_err(f->parent,
@@ -1041,7 +1042,7 @@ int _seqrec_check_dir(u8 dir, struct edgx_frer *f)
 	return -EINVAL;
 }
 
-int _seqrec_check_bool(u8 val, struct edgx_frer *f)
+static int _seqrec_check_bool(u8 val, struct edgx_frer *f)
 {
 	if (val > 0x1) {
 		edgx_br_err(f->parent,
@@ -1052,7 +1053,7 @@ int _seqrec_check_bool(u8 val, struct edgx_frer *f)
 	return -EINVAL;
 }
 
-int _seqrec_check_rcv_rst(u16 rcvrst, struct edgx_frer *f)
+static int _seqrec_check_rcv_rst(u16 rcvrst, struct edgx_frer *f)
 {
 	if (rcvrst > f->seqrec_rst[0]) {
 		edgx_br_err(f->parent,
@@ -1064,7 +1065,7 @@ int _seqrec_check_rcv_rst(u16 rcvrst, struct edgx_frer *f)
 	return -EINVAL;
 }
 
-int _seqrec_check_histl(u8 histl, struct edgx_frer *f)
+static int _seqrec_check_histl(u8 histl, struct edgx_frer *f)
 {
 	if (histl > _SEQREC_MAX_HISTL || histl < _SEQREC_MIN_HISTL) {
 		edgx_br_err(f->parent,
@@ -1076,7 +1077,7 @@ int _seqrec_check_histl(u8 histl, struct edgx_frer *f)
 	return -EINVAL;
 }
 
-int _seqrec_check_alg(u8 alg, struct edgx_frer *f)
+static int _seqrec_check_alg(u8 alg, struct edgx_frer *f)
 {
 	if (alg > ALG_MATCH) {
 		edgx_br_err(f->parent,
@@ -1089,7 +1090,7 @@ int _seqrec_check_alg(u8 alg, struct edgx_frer *f)
 	return -EINVAL;
 }
 
-void _seqrec_rbt_delnode(struct edgx_frer *f, struct _seqrec_rbt *seqrec)
+static void _seqrec_rbt_delnode(struct edgx_frer *f, struct _seqrec_rbt *seqrec)
 {
 	rb_erase(&seqrec->rbnode, &f->sr_root);
 	RB_CLEAR_NODE(&seqrec->rbnode);
@@ -1222,7 +1223,7 @@ static u16 _seqrec_calc_cfg_val(struct _seqrec_rbt *sr, u8 aging_rate)
 	//rate = basic rate | (rate scale << 2), last 4 bits
 }
 
-int _seqrec_write_tbl_err(struct edgx_frer *f, u16 str, u16 fnidx)
+static int _seqrec_write_tbl_err(struct edgx_frer *f, u16 str, u16 fnidx)
 {
 	u16 reg;
 
@@ -1608,7 +1609,7 @@ static ssize_t seqgen_create_store(struct device *dev,
 }
 
 static ssize_t seqgen_add_dir_write(struct file *filp, struct kobject *kobj,
-				    struct bin_attribute *bin_attr,
+				    edgx_bin_attr *bin_attr,
 				    char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -1630,7 +1631,7 @@ static ssize_t seqgen_add_dir_write(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t seqgen_add_str_write(struct file *filp, struct kobject *kobj,
-				    struct bin_attribute *bin_attr,
+				    edgx_bin_attr *bin_attr,
 				    char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -1653,7 +1654,7 @@ static ssize_t seqgen_add_str_write(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t seqgen_list_all_fn_read(struct file *filp, struct kobject *kobj,
-				       struct bin_attribute *bin_attr,
+				       edgx_bin_attr *bin_attr,
 				       char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -1701,7 +1702,7 @@ static ssize_t seqgen_cnt_show(struct device *dev,
 }
 
 static ssize_t seqgen_sid2fn_read(struct file *filp, struct kobject *kobj,
-				  struct bin_attribute *bin_attr,
+				  edgx_bin_attr *bin_attr,
 				  char *buf, loff_t ofs, size_t count)
 {
 	u16 val;
@@ -1743,7 +1744,7 @@ static ssize_t seqgen_sid2fn_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t seqgen_fn2dir_read(struct file *filp, struct kobject *kobj,
-				  struct bin_attribute *bin_attr,
+				  edgx_bin_attr *bin_attr,
 				  char *buf, loff_t ofs, size_t count)
 {
 	loff_t idx = 0;
@@ -1764,7 +1765,7 @@ static ssize_t seqgen_fn2dir_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t seqgen_fn2sid_read(struct file *filp, struct kobject *kobj,
-				  struct bin_attribute *bin_attr,
+				  edgx_bin_attr *bin_attr,
 				  char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -2013,7 +2014,7 @@ static ssize_t seqenc_delstr_store(struct device *dev,
 }
 
 static ssize_t seqenc_str2port_read(struct file *filp, struct kobject *kobj,
-				    struct bin_attribute *bin_attr,
+				    edgx_bin_attr *bin_attr,
 				    char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -2038,7 +2039,7 @@ static ssize_t seqenc_str2port_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t seqenc_port2str_read(struct file *filp, struct kobject *kobj,
-				    struct bin_attribute *bin_attr,
+				    edgx_bin_attr *bin_attr,
 				    char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_pt *pt = edgx_dev2pt(kobj_to_dev(kobj));
@@ -2094,7 +2095,7 @@ static ssize_t seqrec_create_store(struct device *dev,
 }
 
 static ssize_t seqrec_dir_write(struct file *filp, struct kobject *kobj,
-				struct bin_attribute *bin_attr,
+				edgx_bin_attr *bin_attr,
 				char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -2118,7 +2119,7 @@ static ssize_t seqrec_dir_write(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t seqrec_add_str_write(struct file *filp, struct kobject *kobj,
-				    struct bin_attribute *bin_attr,
+				    edgx_bin_attr *bin_attr,
 				    char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -2140,7 +2141,7 @@ static ssize_t seqrec_add_str_write(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t seqrec_del_str_write(struct file *filp, struct kobject *kobj,
-				    struct bin_attribute *bin_attr,
+				    edgx_bin_attr *bin_attr,
 				    char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -2163,7 +2164,7 @@ static ssize_t seqrec_del_str_write(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t seqrec_alg_write(struct file *filp, struct kobject *kobj,
-				struct bin_attribute *bin_attr,
+				edgx_bin_attr *bin_attr,
 				char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -2187,7 +2188,7 @@ static ssize_t seqrec_alg_write(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t seqrec_histlen_write(struct file *filp, struct kobject *kobj,
-				    struct bin_attribute *bin_attr,
+				    edgx_bin_attr *bin_attr,
 				    char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -2211,7 +2212,7 @@ static ssize_t seqrec_histlen_write(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t seqrec_rst_timeout_write(struct file *filp, struct kobject *kobj,
-					struct bin_attribute *bin_attr,
+					edgx_bin_attr *bin_attr,
 					char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -2254,7 +2255,7 @@ static int _seqrec_sysfs_set_bool(loff_t ofs, size_t count, char *buf,
 }
 
 static ssize_t seqrec_take_no_seq_write(struct file *filp, struct kobject *kobj,
-					struct bin_attribute *bin_attr,
+					edgx_bin_attr *bin_attr,
 					char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -2264,7 +2265,7 @@ static ssize_t seqrec_take_no_seq_write(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t seqrec_ind_recv_write(struct file *filp, struct kobject *kobj,
-				     struct bin_attribute *bin_attr,
+				     edgx_bin_attr *bin_attr,
 				     char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -2274,7 +2275,7 @@ static ssize_t seqrec_ind_recv_write(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t seqrec_latent_err_write(struct file *filp, struct kobject *kobj,
-				       struct bin_attribute *bin_attr,
+				       edgx_bin_attr *bin_attr,
 				       char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -2349,7 +2350,7 @@ static ssize_t seqrec_del_fn_store(struct device *dev,
 }
 
 static ssize_t seqrec_fn2sid_read(struct file *filp, struct kobject *kobj,
-				  struct bin_attribute *bin_attr,
+				  edgx_bin_attr *bin_attr,
 				  char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -2401,7 +2402,7 @@ static ssize_t seqrec_fn2sid_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t seqrec_dir_read(struct file *filp, struct kobject *kobj,
-			       struct bin_attribute *bin_attr,
+			       edgx_bin_attr *bin_attr,
 			       char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -2426,7 +2427,7 @@ static ssize_t seqrec_dir_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t seqrec_alg_read(struct file *filp, struct kobject *kobj,
-			       struct bin_attribute *bin_attr,
+			       edgx_bin_attr *bin_attr,
 			       char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -2451,7 +2452,7 @@ static ssize_t seqrec_alg_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t seqrec_histlen_read(struct file *filp, struct kobject *kobj,
-				   struct bin_attribute *bin_attr,
+				   edgx_bin_attr *bin_attr,
 				   char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -2476,7 +2477,7 @@ static ssize_t seqrec_histlen_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t seqrec_rst_timeout_read(struct file *filp, struct kobject *kobj,
-				       struct bin_attribute *bin_attr,
+				       edgx_bin_attr *bin_attr,
 				       char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -2501,7 +2502,7 @@ static ssize_t seqrec_rst_timeout_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t seqrec_take_no_seq_read(struct file *filp, struct kobject *kobj,
-				       struct bin_attribute *bin_attr,
+				       edgx_bin_attr *bin_attr,
 				       char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -2526,7 +2527,7 @@ static ssize_t seqrec_take_no_seq_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t seqrec_ind_recv_read(struct file *filp, struct kobject *kobj,
-				    struct bin_attribute *bin_attr,
+				    edgx_bin_attr *bin_attr,
 				    char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -2551,7 +2552,7 @@ static ssize_t seqrec_ind_recv_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t seqrec_latent_err_read(struct file *filp, struct kobject *kobj,
-				      struct bin_attribute *bin_attr,
+				      edgx_bin_attr *bin_attr,
 				      char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -2576,7 +2577,7 @@ static ssize_t seqrec_latent_err_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t seqrec_pt_mask_read(struct file *filp, struct kobject *kobj,
-				   struct bin_attribute *bin_attr,
+				   edgx_bin_attr *bin_attr,
 				   char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -2624,7 +2625,7 @@ static ssize_t seqrec_invseq_show(struct device *dev,
 }
 
 static ssize_t seqrec_list_all_fn_read(struct file *filp, struct kobject *kobj,
-				       struct bin_attribute *bin_attr,
+				       edgx_bin_attr *bin_attr,
 				       char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -2659,7 +2660,7 @@ static ssize_t seqrec_list_all_fn_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t cnt_sr_out_of_order_read(struct file *filp, struct kobject *kobj,
-					struct bin_attribute *bin_attr,
+					edgx_bin_attr *bin_attr,
 					char *buf, loff_t ofs, size_t count)
 {
 	loff_t idx = 0;
@@ -2685,7 +2686,7 @@ static ssize_t cnt_sr_out_of_order_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t cnt_tagless_read(struct file *filp, struct kobject *kobj,
-				struct bin_attribute *bin_attr,
+				edgx_bin_attr *bin_attr,
 				char *buf, loff_t ofs, size_t count)
 {
 	loff_t idx = 0;
@@ -2711,7 +2712,7 @@ static ssize_t cnt_tagless_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t cnt_sr_rogue_read(struct file *filp, struct kobject *kobj,
-				 struct bin_attribute *bin_attr,
+				 edgx_bin_attr *bin_attr,
 				 char *buf, loff_t ofs, size_t count)
 {
 	loff_t idx = 0;
@@ -2737,7 +2738,7 @@ static ssize_t cnt_sr_rogue_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t cnt_sr_discarded_read(struct file *filp, struct kobject *kobj,
-				     struct bin_attribute *bin_attr,
+				     edgx_bin_attr *bin_attr,
 				     char *buf, loff_t ofs, size_t count)
 {
 	loff_t idx = 0;
@@ -2763,7 +2764,7 @@ static ssize_t cnt_sr_discarded_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t cnt_sr_passed_read(struct file *filp, struct kobject *kobj,
-				  struct bin_attribute *bin_attr,
+				  edgx_bin_attr *bin_attr,
 				  char *buf, loff_t ofs, size_t count)
 {
 	loff_t idx = 0;
@@ -2790,7 +2791,7 @@ static ssize_t cnt_sr_passed_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t cnt_sr_lost_read(struct file *filp, struct kobject *kobj,
-				struct bin_attribute *bin_attr,
+				edgx_bin_attr *bin_attr,
 				char *buf, loff_t ofs, size_t count)
 {
 	loff_t idx = 0;
@@ -2821,7 +2822,7 @@ static ssize_t cnt_sr_lost_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t cnt_sr_resets_read(struct file *filp, struct kobject *kobj,
-				  struct bin_attribute *bin_attr,
+				  edgx_bin_attr *bin_attr,
 				  char *buf, loff_t ofs, size_t count)
 {
 	loff_t idx = 0;
@@ -2882,7 +2883,7 @@ static struct attribute *ieee1cb_frer_pt_attr[] = {
 	NULL
 };
 
-static struct bin_attribute *ieee1cb_frer_pt_binattr[] = {
+static edgx_bin_attr *ieee1cb_frer_pt_binattr[] = {
 	&bin_attr_seqenc_port2str,
 	&bin_attr_cnt_tagless,
 	&bin_attr_cnt_sr_out_of_order,
@@ -2968,7 +2969,7 @@ static struct attribute *ieee1cb_frer_br_attr[] = {
 	NULL
 };
 
-static struct bin_attribute *ieee1cb_frer_br_binattr[] = {
+static edgx_bin_attr *ieee1cb_frer_br_binattr[] = {
 	&bin_attr_seqgen_add_dir,
 	&bin_attr_seqgen_add_str,
 	&bin_attr_seqgen_list_all_fn,
@@ -3026,6 +3027,7 @@ int edgx_probe_frer(struct edgx_br *br, struct edgx_frer **f)
 	frer->seqreccnt = 0;
 	frer->streams_max = edgx_brfdb_sid_get_max_str(edgx_br_get_fdb(br));
 	frer->seqrec_max = edgx_br_get_generic_pow2(br, BR_GX_FRER_ENTRIES);
+	frer->ifd = ifd;
 	for (i = 0; i < EDGX_BR_MAX_PORTS; i++) {
 		frer->se_ports[i].active = ENC_UNDEFINED;
 		INIT_LIST_HEAD(&frer->se_ports[i].se_list);
@@ -3063,10 +3065,8 @@ void edgx_shutdown_frer(struct edgx_frer *f)
 	struct _seqgen_rbt *n_sg;
 	struct _se_streams_rbt *n_se;
 	int i;
-	const struct edgx_ifdesc *ifd;
 	struct edgx_ifdesc        pifd;
 	ptid_t                    ptid;
-	const struct edgx_ifreq   ifreq = { .id = AC_FRER_ID, .v_maj = 1 };
 
 	if (!f)
 		return;
@@ -3109,11 +3109,10 @@ void edgx_shutdown_frer(struct edgx_frer *f)
 		kfree(n_sg);
 	}
 
-	ifd = edgx_ac_get_if(&ifreq);
-	if (!ifd)
+	if (!f->ifd)
 		return;
 
-	edgx_ac_for_each_ifpt(ptid, ifd, &pifd) {
+	edgx_ac_for_each_ifpt(ptid, f->ifd, &pifd) {
 		struct edgx_pt *pt = edgx_br_get_brpt(f->parent, ptid);
 
 		if (pt)

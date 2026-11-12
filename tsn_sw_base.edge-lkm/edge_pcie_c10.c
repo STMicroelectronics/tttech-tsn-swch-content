@@ -189,7 +189,7 @@ static int edgx_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
 	i2c_irqbase = pci_drv->irq.irq_vec[7];
 
 	ret =  devm_mfd_add_devices(&pdev->dev, PLATFORM_DEVID_NONE, i2c_cell,
-			      	    ARRAY_SIZE(i2c_cell),
+				    ARRAY_SIZE(i2c_cell),
 				    &pdev->resource[EDGX_PCI_I2C_BAR],
 				    i2c_irqbase, NULL);
 	if (ret) {

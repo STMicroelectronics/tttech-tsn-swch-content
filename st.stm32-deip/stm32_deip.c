@@ -225,9 +225,9 @@ static int stm32_deip_probe(struct platform_device *pdev)
 	return ret;
 }
 
-static int stm32_deip_remove(struct platform_device *pdev)
+static void stm32_deip_remove(struct platform_device *pdev)
 {
-	return 0;
+	;
 }
 
 static const struct of_device_id stm32_deip_match[] = {

@@ -45,6 +45,13 @@
 #include "edge_br_sid.h"
 #include "edge_frer.h"
 
+#define EDGX_BR_ID_REG (0x0)
+
+#define BR_GX_GIGABIT_1000	BIT(0)
+#define BR_GX_GIGABIT_2500	BIT(1)
+#define BR_GX_GIGABIT_5000	BIT(2)
+#define BR_GX_GIGABIT_10000	BIT(3)
+
 struct edgx_br {
 	struct {
 		struct net_device *dev;
@@ -90,8 +97,8 @@ struct edgx_br {
 
 	struct edgx_br_irq	*irq;
 
-	enum edgx_lnk_mode	lnk_mode;
-	const char          *driver;
+	edgx_speed_mask_t	 spd_mask;
+	const char		*driver;
 };
 
 struct _sysfs_grp {
@@ -103,7 +110,7 @@ static char *netif = "(none)";
 static unsigned int resmactc = EDGX_BR_DEFAULT_RESMACTC;
 int csrating;
 char *syncmode = "1AS";
-static char *linkmode = "10/100/1000";
+static char *linkmode = "100-10000";
 static unsigned int ppm = 0;
 
 module_param(netif, charp, 0444);
@@ -115,12 +122,42 @@ MODULE_PARM_DESC(syncmode, "Time synchronization mode; IEEE 802.1AS (\"1AS\" - d
 module_param(csrating, int, 0444);
 MODULE_PARM_DESC(csrating, "Clock-source rating; defaults to 0 (lowest rating)");
 module_param(linkmode, charp, 0444);
-MODULE_PARM_DESC(linkmode, "Link mode defines the set of link speeds to use (\"10/100/1000\" - default) or \"10/100\" or \"100/1000\"");
+MODULE_PARM_DESC(linkmode, "Link mode defines the set of link speeds to use (\"100-10000\" - default) or other range or single speed.");
 module_param(ppm, uint, 0444);
 MODULE_PARM_DESC(ppm, "PPM; defaults to 25 ppm");
 
 /* list of instantiated bridges */
 static LIST_HEAD(br_list);
+
+int edgx_br_spd_idx(int speed)
+{
+	switch (speed) {
+	case SPEED_10:    return EDGX_SPD_10;
+	case SPEED_100:   return EDGX_SPD_100;
+	case SPEED_1000:  return EDGX_SPD_1000;
+	case SPEED_2500:  return EDGX_SPD_2500;
+	case SPEED_5000:  return EDGX_SPD_5000;
+	case SPEED_10000: return EDGX_SPD_10000;
+	default:          return -1;
+	}
+}
+
+static const int edgx_idx_to_speed[] = {
+	[EDGX_SPD_10] = SPEED_10,
+	[EDGX_SPD_100] = SPEED_100,
+	[EDGX_SPD_1000] = SPEED_1000,
+	[EDGX_SPD_2500] = SPEED_2500,
+	[EDGX_SPD_5000] = SPEED_5000,
+	[EDGX_SPD_10000] = SPEED_10000,
+};
+
+int edgx_br_speed(int spd_idx)
+{
+	if (spd_idx < 0 || spd_idx >= EDGX_SPD_CNT)
+		return SPEED_UNKNOWN;
+
+	return edgx_idx_to_speed[spd_idx];
+}
 
 u16 edgx_get_tc_mgmtraffic(struct edgx_br *br)
 {
@@ -512,11 +549,24 @@ static void edgx_irq_shutdown(struct edgx_br *br)
 	free_irq(br->irq->irq_vec[EDGX_IRQ_NR_DMA_ERR], br->com);
 }
 
+struct edgx_ifpriv {
+	bool mgmt_trailer;
+};
+
 static int edgx_probe_bridge(struct edgx_br *br)
 {
 	const struct edgx_ifdesc *ifd;
-	const struct edgx_ifreq ifreq_param = {.id = AC_PARAM_ID, .v_maj = 1};
-	const struct edgx_ifreq ifreq_mgmt = {.id = AC_MGMT_ID, .v_maj = 3};
+	const struct edgx_ifreq ifreq_param = {
+		.id = AC_PARAM_ID, .v_maj = 1,
+	};
+	const struct edgx_ifpriv *ifpriv_mgmt = NULL;
+	const struct edgx_ifreq iflist_mgmt[] = {
+		{ .id = AC_MGMT_ID, .v_maj = 4,
+		  .priv = &(struct edgx_ifpriv){ .mgmt_trailer = false, } },
+		{ .id = AC_MGMT_ID, .v_maj = 3,
+		  .priv = &(struct edgx_ifpriv){ .mgmt_trailer = true, } },
+		{ .id = AC_EOT_ID },
+	};
 	int err;
 
 	ifd = edgx_ac_get_if(&ifreq_param);
@@ -525,11 +575,11 @@ static int edgx_probe_bridge(struct edgx_br *br)
 
 	br->brparam = ifd->iobase;
 
-	ifd = edgx_ac_get_if(&ifreq_mgmt);
+	ifd = edgx_ac_get_ifver(iflist_mgmt, &ifpriv_mgmt);
 	if (!ifd)
 		return -ENODEV;
 
-	/*Address: SWITCH General switch configuration registers*/
+	/* Address: SWITCH General switch configuration registers */
 	br->brmgmt = ifd->iobase;
 	/* Trigger Reset @ SWITCH+0x10[15] */
 	edgx_set16(br->brmgmt, EDGX_BR_GEN_REG, 15, 15, 1);
@@ -543,9 +593,6 @@ static int edgx_probe_bridge(struct edgx_br *br)
 		  edgx_rd16(br->brmgmt, 0x8),
 		  edgx_rd16(br->brmgmt, 0xa)
 		  );
-	/* Always use 16bit mgmt trailer (COM_TRAILER_LEN) */
-	edgx_set16(br->brmgmt, EDGX_BR_GEN_REG, 3, 2, 1);
-
 	/* Enable PTP timestamping */
 	edgx_set16(br->brmgmt, EDGX_BR_GEN_REG, 13, 11, 6);
 
@@ -558,6 +605,10 @@ static int edgx_probe_bridge(struct edgx_br *br)
 	err = edgx_br_init_vlan(br, br->brmgmt, &br->vlan);
 	if (err)
 		goto out_vlan;
+	if (ifpriv_mgmt->mgmt_trailer) {
+		/* Always use 16bit mgmt trailer (COM_TRAILER_LEN) */
+		edgx_set16(br->brmgmt, EDGX_BR_GEN_REG, 3, 2, 1);
+	}
 
 	return 0;
 
@@ -694,14 +745,14 @@ static int _edgx_br_get_delays(struct edgx_br *br, loff_t idx,
 		delays->indep_min_delay_ns =
 				edgx_link_get_tx_delay_min(lnk_egress) +
 				edgx_link_get_rx_delay_min(lnk_ingress) +
-				edgx_pt_get_i2gmin(pt_ingress) +
-				edgx_pt_get_g2omin(pt_egress);
+				edgx_pt_get_i2g_min(pt_ingress) +
+				edgx_pt_get_g2o_min(pt_egress);
 		/* calculate independent max delay */
 		delays->indep_max_delay_ns =
 				edgx_link_get_tx_delay_max(lnk_egress) +
 				edgx_link_get_rx_delay_max(lnk_ingress) +
-				edgx_pt_get_i2gmax(pt_ingress) +
-				edgx_pt_get_g2omax(pt_egress);
+				edgx_pt_get_i2g_max(pt_ingress) +
+				edgx_pt_get_g2o_max(pt_egress);
 		/* calculate dependent min delay: - no dependent delay portion
 		 *     on output port
 		 * multiply with 8 for 8 bits of a byte
@@ -732,7 +783,7 @@ static int _edgx_br_get_delays(struct edgx_br *br, loff_t idx,
 }
 
 static ssize_t delays_read(struct file *filp, struct kobject *kobj,
-			   struct bin_attribute *bin_attr, char *buf,
+			   edgx_bin_attr *bin_attr, char *buf,
 			   loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -821,7 +872,7 @@ EDGX_BIN_ATTR_RO(delays, "delays", EDGX_BR_MAX_PORTS *
 		 (EDGX_BR_MAX_PORTS - 1) * EDGX_BR_MAX_TC *
 		 sizeof(struct edgx_delays));
 
-static struct bin_attribute *ieee8021_bridge_binattrs[] = {
+static edgx_bin_attr *ieee8021_bridge_binattrs[] = {
 	&bin_attr_delays,
 	NULL,
 };
@@ -838,40 +889,72 @@ static void edgx_shutdown_bridge(struct edgx_br *br)
 	edgx_brfdb_shutdown(br->fdb);
 }
 
-static int edgx_br_check_lnk_mode(struct edgx_br *br, bool max_2_speeds,
-				  u32 *freq_err_abs, u32 *sched_granul)
+static int edgx_br_parse_linkmode(edgx_speed_mask_t* spd_mask)
 {
-	if (!strncmp(linkmode, "10/100/1000", 11)) {
-		if (max_2_speeds) {
-			edgx_br_warn(br, "Link mode 10/100/1000 not supported! Switching to 100/1000 link mode.\n");
-			br->lnk_mode = EDGX_LNKMOD_100_1000;
-		} else {
-			br->lnk_mode = EDGX_LNKMOD_10_100_1000;
-		}
-	} else if (!strncmp(linkmode, "100/1000", 11)) {
-		br->lnk_mode = EDGX_LNKMOD_100_1000;
-	} else if (!strncmp(linkmode, "10/100", 11)) {
-		br->lnk_mode = EDGX_LNKMOD_10_100;
+	unsigned int min_speed = 0;
+	unsigned int max_speed = 0;
+	int min_spd_idx = 0;
+	int max_spd_idx = 0;
+	int ret;
+
+	ret = sscanf(linkmode, "%u-%u", &min_speed, &max_speed);
+	if (ret < 1)
+		return -EINVAL;
+
+	min_spd_idx = edgx_br_spd_idx(min_speed);
+	if (min_spd_idx < 0)
+		return -EINVAL;
+
+	if (ret == 2) {
+		max_spd_idx = edgx_br_spd_idx(max_speed);
+		if (max_spd_idx < 0)
+			return -EINVAL;
 	} else {
-		br->lnk_mode = EDGX_LNKMOD_INVAL;
+		max_spd_idx = min_spd_idx;
+	}
+
+	*spd_mask &= GENMASK(max_spd_idx, min_spd_idx);
+
+	return 0;
+}
+
+static int edgx_br_check_speeds(struct edgx_br *br, bool speeds_limited,
+				u32 *freq_err_abs, u32 *sched_granul)
+{
+	u16 gigabit = edgx_br_get_generic(br, BR_GX_GIGABIT);
+	int ret;
+
+	br->spd_mask = BIT(EDGX_SPD_10) | BIT(EDGX_SPD_100);
+	if (gigabit & BR_GX_GIGABIT_1000)
+		br->spd_mask |= BIT(EDGX_SPD_1000);
+	if (gigabit & BR_GX_GIGABIT_2500)
+		br->spd_mask |= BIT(EDGX_SPD_2500);
+	if (gigabit & BR_GX_GIGABIT_5000)
+		br->spd_mask |= BIT(EDGX_SPD_5000);
+	if (gigabit & BR_GX_GIGABIT_10000)
+		br->spd_mask |= BIT(EDGX_SPD_10000);
+	*sched_granul = 0;
+
+	ret = edgx_br_parse_linkmode(&br->spd_mask);
+	if (ret || br->spd_mask == 0) {
 		edgx_br_err(br, "Invalid link mode %s\n", linkmode);
 		return -EINVAL;
 	}
 
-	if (!edgx_br_get_generic(br, BR_GX_GIGABIT)) {
-		if (br->lnk_mode == EDGX_LNKMOD_10_100_1000)
-			br->lnk_mode = EDGX_LNKMOD_10_100;
-		else if (br->lnk_mode == EDGX_LNKMOD_100_1000)
-			br->lnk_mode = EDGX_LNKMOD_100;
-	}
-
-	if ((br->lnk_mode == EDGX_LNKMOD_100_1000) ||
-	    (br->lnk_mode == EDGX_LNKMOD_100)) {
-		*sched_granul = 320;
-	} else if (br->lnk_mode == EDGX_LNKMOD_10_100) {
-		*sched_granul = 3200;
-	} else {
-		*sched_granul = 0;
+	if (speeds_limited) {
+		if (!(br->spd_mask & BIT(EDGX_SPD_10))) {
+			/* > 10 Mbps */
+			*sched_granul = 320;
+		} else if (br->spd_mask & ~(BIT(EDGX_SPD_10) |
+					    BIT(EDGX_SPD_100))) {
+			/* Cannot support both 10 Mbps and > 100 Mbps */
+			edgx_br_err(br, "Link mode %s not supported!",
+				    linkmode);
+			return -EINVAL;
+		} else {
+			/* 10-100 Mbps */
+			*sched_granul = 3200;
+		}
 	}
 
 	if (!ppm) {
@@ -894,7 +977,7 @@ int edgx_br_probe_one(unsigned int br_id, struct device *dev,
 {
 	int ret;
 	struct edgx_br *br;
-	bool max_2_speeds = false;
+	bool speeds_limited = false;
 	u32 freq_err_abs;
 	u32 sched_granul;
 
@@ -911,7 +994,7 @@ int edgx_br_probe_one(unsigned int br_id, struct device *dev,
 	br->bridge.refs  = 0;
 	br->hw.id        = br_id;
 	br->irq		 = irq;
-	br->driver   = drv_name;
+	br->driver	 = drv_name;
 
 	spin_lock_init(&br->lock);
 	eth_random_addr(br->hw.base_mac);
@@ -953,14 +1036,14 @@ int edgx_br_probe_one(unsigned int br_id, struct device *dev,
 		goto out_stat;
 
 	ret = edgx_st_com_probe(br, irq, dev_name(dev),
-				&br->st_com, &max_2_speeds);
+				&br->st_com, &speeds_limited);
 	if (ret && ret != -ENODEV)
 		goto out_st_com;
 
-	ret = edgx_br_check_lnk_mode(br, max_2_speeds,
-				     &freq_err_abs, &sched_granul);
+	ret = edgx_br_check_speeds(br, speeds_limited,
+				   &freq_err_abs, &sched_granul);
 	if (ret)
-		goto out_st_com;
+		goto out_check_speeds;
 
 	edgx_st_com_set_params(br->st_com, freq_err_abs, sched_granul);
 
@@ -970,11 +1053,11 @@ int edgx_br_probe_one(unsigned int br_id, struct device *dev,
 		resmactc = EDGX_BR_DEFAULT_RESMACTC;
 	}
 
-	ret = edgx_probe_brports(br, br->lnk_mode, br->br_pt);
+	ret = edgx_probe_brports(br, br->spd_mask, br->br_pt);
 	if (ret)
 		goto out_brports;
 
-	ret = edgx_init_epport(br, br->lnk_mode, &br->ep_pt);
+	ret = edgx_init_epport(br, br->spd_mask, &br->ep_pt);
 	if (ret)
 		goto out_epports;
 
@@ -1019,6 +1102,7 @@ out_psfp:
 out_epports:
 	edgx_shutdown_brports(br->br_pt);
 out_brports:
+out_check_speeds:
 	edgx_st_com_shutdown(br->st_com);
 out_st_com:
 	edgx_shutdown_stat(br->stat);
@@ -1057,9 +1141,9 @@ void edgx_br_shutdown(struct edgx_br *br)
 	edgx_shutdown_stat(br->stat);
 	edgx_shutdown_time(br->time);
 	edgx_com_shutdown(br->com);
+	edgx_br_sysfs_clear(br);
 	edgx_shutdown_bridge(br);
 
-	edgx_br_sysfs_clear(br);
 	list_del(&br->entry);
 
 	edgx_br_info(br, "Shutdown Bridge %d ... done\n", br->hw.id);

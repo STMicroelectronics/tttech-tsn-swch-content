@@ -50,13 +50,6 @@ struct edgx_ptfillqu {
 	spinlock_t   lock;
 };
 
-enum _dly_adj_spd {
-	_ADJ_10 = 0,
-	_ADJ_100,
-	_ADJ_1000,
-	_NADJSPD, /* must be last */
-};
-
 enum _dly_adj_dir {
 	_ADJ_TX = 0,
 	_ADJ_RX,
@@ -70,6 +63,23 @@ enum _dly_adj_min_max {
 };
 
 #define EDGX_DLY_ADJ_MASK GENMASK(_NADJSPD * _NADJDIR * _NADJMX - 1, 0)
+
+#define EDGX_DLY_ADJ_BIT(spd_idx, dir, min_max)                                \
+		BIT((spd_idx) * (_NADJDIR + _NADJMX) +                         \
+		    (dir) * _NADJDIR +                                         \
+		    (min_max))
+
+#define EDGX_DLY_ADJ_SPD_BITS(spd_idx)                                         \
+		(EDGX_DLY_ADJ_BIT((spd_idx), _ADJ_TX, _ADJ_MIN) |              \
+		 EDGX_DLY_ADJ_BIT((spd_idx), _ADJ_TX, _ADJ_MAX) |              \
+		 EDGX_DLY_ADJ_BIT((spd_idx), _ADJ_RX, _ADJ_MIN) |              \
+		 EDGX_DLY_ADJ_BIT((spd_idx), _ADJ_RX, _ADJ_MAX))
+
+struct edgx_ifpriv {
+	bool cutthrough;
+	bool mgmt;
+	void (*update_speed)(struct edgx_pt *pt, int speed);
+};
 
 struct edgx_pt {
 	struct edgx_br		*parent;
@@ -90,8 +100,9 @@ struct edgx_pt {
 	struct edgx_preempt	*preempt;
 	struct edgx_fqtss	*fqtss;
 	struct mutex 		 reg_lock; /* Protects register access */
-	int			 indep_dly_adj[_NADJSPD][_NADJDIR][_NADJMX];
+	int			 indep_dly_adj[EDGX_SPD_CNT][_NADJDIR][_NADJMX];
 	u32			 dly_adj_flags;
+	struct edgx_ifpriv	 ifpriv;
 };
 
 #define _PT_STP_FWD       0x0
@@ -166,6 +177,10 @@ struct edgx_pt_ipo {
 #define _FRAMESIZE_BASE(_iob, idx) (_GEN_BASE(_iob) + 0x40 + (0x02 * (idx)))
 #define _FRAMESIZE_MASK		(0x7ff)
 #define _FRAMESIZE_OVERHEAD	(12U)
+
+#define _PT_REG_STATE           (0x0)
+#define _PT_REG_VLAN0           (0x10)
+#define _PT_REG_VLAN1           (0x12)
 
 #define _FIDCFG_REG(_ofs)       (0x80 + (_ofs))
 
@@ -473,8 +488,8 @@ void edgx_pt_set_pvid(struct edgx_pt *pt, u16 vid)
 	/* Set both registers; one is PVID, the other one also assigns priority-
 	 * tagged frames to the PVID.
 	 */
-	edgx_set16(_GEN_BASE(pt->iobase), 0x10, 11, 0, vid);
-	edgx_set16(_GEN_BASE(pt->iobase), 0x12, 11, 0, vid);
+	edgx_set16(_GEN_BASE(pt->iobase), _PT_REG_VLAN0, 11, 0, vid);
+	edgx_set16(_GEN_BASE(pt->iobase), _PT_REG_VLAN1, 11, 0, vid);
 }
 
 void edgx_pt_clear_pvid(struct edgx_pt *pt)
@@ -484,19 +499,19 @@ void edgx_pt_clear_pvid(struct edgx_pt *pt)
 
 u16 edgx_pt_get_pvid(struct edgx_pt *pt)
 {
-	return edgx_get16(_GEN_BASE(pt->iobase), 0x10, 11, 0);
+	return edgx_get16(_GEN_BASE(pt->iobase), _PT_REG_VLAN0, 11, 0);
 }
 
 static int edgx_pt_get_dflt_pcp(struct edgx_pt *pt)
 {
-	return edgx_get16(_GEN_BASE(pt->iobase), 0x10, 14, 12);
+	return edgx_get16(_GEN_BASE(pt->iobase), _PT_REG_VLAN0, 14, 12);
 }
 
 static int edgx_pt_set_dflt_pcp(struct edgx_pt *pt, unsigned int prio)
 {
 	if (prio > 7)
 		return -EINVAL;
-	edgx_set16(_GEN_BASE(pt->iobase), 0x10, 14, 12, prio);
+	edgx_set16(_GEN_BASE(pt->iobase), _PT_REG_VLAN0, 14, 12, prio);
 	return 0;
 }
 
@@ -517,7 +532,7 @@ static ssize_t flush_tree_store(struct device *dev,
 }
 
 static ssize_t tree_port_state_read(struct file *filp, struct kobject *kobj,
-				    struct bin_attribute *bin_attr, char *buf,
+				    edgx_bin_attr *bin_attr, char *buf,
 				    loff_t ofs, size_t count)
 {
 	struct edgx_pt *pt = edgx_dev2pt(kobj_to_dev(kobj));
@@ -534,7 +549,7 @@ static ssize_t tree_port_state_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t tree_port_state_write(struct file *filp, struct kobject *kobj,
-				     struct bin_attribute *bin_attr, char *buf,
+				     edgx_bin_attr *bin_attr, char *buf,
 				     loff_t ofs, size_t count)
 {
 	struct edgx_pt *pt = edgx_dev2pt(kobj_to_dev(kobj));
@@ -557,7 +572,7 @@ static struct attribute *ieee8021_mstp_attrs[] = {
 	NULL,
 };
 
-static struct bin_attribute *ieee8021_mstp_binattrs[] = {
+static edgx_bin_attr *ieee8021_mstp_binattrs[] = {
 	&bin_attr_tree_port_state,
 	NULL,
 };
@@ -662,7 +677,7 @@ static void get_tc_prio_params(int idx, int type, size_t *reg_ofs, int *bithi,
 }
 
 static ssize_t prio_regen_tbl_write(struct file *filp, struct kobject *kobj,
-				    struct bin_attribute *bin_attr,
+				    edgx_bin_attr *bin_attr,
 				    char *buf, loff_t ofs, size_t count)
 {
 	/* parameter buf contains value of priority
@@ -684,7 +699,7 @@ static ssize_t prio_regen_tbl_write(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t traffic_class_tbl_write(struct file *filp, struct kobject *kobj,
-				       struct bin_attribute *bin_attr,
+				       edgx_bin_attr *bin_attr,
 				       char *buf, loff_t ofs, size_t count)
 {
 	/* parameter buf contains value of traffic class
@@ -708,7 +723,7 @@ static ssize_t traffic_class_tbl_write(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t prio_regen_tbl_read(struct file *filp, struct kobject *kobj,
-				   struct bin_attribute *bin_attr,
+				   edgx_bin_attr *bin_attr,
 				   char *buf, loff_t ofs, size_t count)
 {
 	/* parameter buf contains value of priority
@@ -733,7 +748,7 @@ static ssize_t prio_regen_tbl_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t traffic_class_tbl_read(struct file *filp, struct kobject *kobj,
-				      struct bin_attribute *bin_attr,
+				      edgx_bin_attr *bin_attr,
 				      char *buf, loff_t ofs, size_t count)
 {
 	/* parameter buf contains value of traffic class
@@ -816,8 +831,12 @@ static ssize_t cutthrough_show(struct device *dev,
 {
 	struct edgx_pt *pt = edgx_dev2pt(dev);
 
+	if (!pt->ifpriv.cutthrough)
+		return -EOPNOTSUPP;
+
 	return scnprintf(buf, PAGE_SIZE, "%u\n",
-			 edgx_get16(_GEN_BASE(pt->iobase), 0x0, 15, 15));
+			 edgx_get16(_GEN_BASE(pt->iobase),
+				    _PT_REG_STATE, 15, 15));
 }
 
 static ssize_t cutthrough_store(struct device *dev,
@@ -827,49 +846,65 @@ static ssize_t cutthrough_store(struct device *dev,
 	struct edgx_pt *pt = edgx_dev2pt(dev);
 	bool en;
 
+	if (!pt->ifpriv.cutthrough)
+		return -EOPNOTSUPP;
+
 	if (kstrtobool(buf, &en))
 		return -EINVAL;
 
 	edgx_wr16(_GEN_BASE(pt->iobase), 0x1a, (en) ? 0xff : 0x0);
-	edgx_set16(_GEN_BASE(pt->iobase), 0x0, 15, 15, (en) ? 1 : 0);
+	edgx_set16(_GEN_BASE(pt->iobase), _PT_REG_STATE, 15, 15, (en) ? 1 : 0);
 	return count;
 }
 
 EDGX_DEV_ATTR_RW(mirror_port, "mirrorPort");
 EDGX_DEV_ATTR_RW(cutthrough, "cutThrough");
 
-void edgx_pt_set_delay_adjust(struct edgx_pt *pt,
-			      int idtx10min, int idtx10max,
-			      int idtx100min, int idtx100max,
-			      int idtx1000min, int idtx1000max,
-			      int idrx10min, int idrx10max,
-			      int idrx100min, int idrx100max,
-			      int idrx1000min, int idrx1000max)
+static ssize_t phc_timestamper_show(struct device *dev,
+				    struct device_attribute *attr, char *buf)
 {
-	pt->indep_dly_adj[_ADJ_10][_ADJ_TX][_ADJ_MIN] = idtx10min;
-	pt->indep_dly_adj[_ADJ_10][_ADJ_TX][_ADJ_MAX] = idtx10max;
-	pt->indep_dly_adj[_ADJ_100][_ADJ_TX][_ADJ_MIN] = idtx100min;
-	pt->indep_dly_adj[_ADJ_100][_ADJ_TX][_ADJ_MAX] = idtx100max;
-	pt->indep_dly_adj[_ADJ_1000][_ADJ_TX][_ADJ_MIN] = idtx1000min;
-	pt->indep_dly_adj[_ADJ_1000][_ADJ_TX][_ADJ_MAX] = idtx1000max;
-	pt->indep_dly_adj[_ADJ_10][_ADJ_RX][_ADJ_MIN] = idrx10min;
-	pt->indep_dly_adj[_ADJ_10][_ADJ_RX][_ADJ_MAX] = idrx10max;
-	pt->indep_dly_adj[_ADJ_100][_ADJ_RX][_ADJ_MIN] = idrx100min;
-	pt->indep_dly_adj[_ADJ_100][_ADJ_RX][_ADJ_MAX] = idrx100max;
-	pt->indep_dly_adj[_ADJ_1000][_ADJ_RX][_ADJ_MIN] = idrx1000min;
-	pt->indep_dly_adj[_ADJ_1000][_ADJ_RX][_ADJ_MAX] = idrx1000max;
-	pt->dly_adj_flags = EDGX_DLY_ADJ_MASK;
+	struct edgx_pt *pt = edgx_dev2pt(dev);
+
+	return scnprintf(buf, PAGE_SIZE, "%d\n",
+			 edgx_tm_get_ts_phc(pt->time));
+}
+
+static ssize_t phc_worker_show(struct device *dev,
+			       struct device_attribute *attr, char *buf)
+{
+	struct edgx_pt *pt = edgx_dev2pt(dev);
+
+	return scnprintf(buf, PAGE_SIZE, "%d\n",
+			 edgx_tm_get_wrk_phc(pt->time));
+}
+
+EDGX_DEV_ATTR_RO(phc_timestamper, "phc_timestamper");
+EDGX_DEV_ATTR_RO(phc_worker, "phc_worker");
+
+void edgx_pt_set_delay_adjust(struct edgx_pt *pt, int speed,
+			      int idtxmin, int idtxmax,
+			      int idrxmin, int idrxmax)
+{
+	int spd_idx = edgx_br_spd_idx(speed);
+
+	if (spd_idx < 0)
+		return;
+
+	pt->indep_dly_adj[spd_idx][_ADJ_TX][_ADJ_MIN] = idtxmin;
+	pt->indep_dly_adj[spd_idx][_ADJ_TX][_ADJ_MAX] = idtxmax;
+	pt->indep_dly_adj[spd_idx][_ADJ_RX][_ADJ_MIN] = idrxmin;
+	pt->indep_dly_adj[spd_idx][_ADJ_RX][_ADJ_MAX] = idrxmax;
+	pt->dly_adj_flags |= EDGX_DLY_ADJ_SPD_BITS(spd_idx);
 }
 
 static ssize_t _indep_adj_store(struct device *dev,
 				const char *buf, size_t count,
-				enum _dly_adj_spd spd_idx,
+				enum edgx_speed spd_idx,
 				enum _dly_adj_dir dir,
 				enum _dly_adj_min_max min_max)
 {
 	struct edgx_pt *pt = edgx_dev2pt(dev);
-	u32 bit = BIT(spd_idx * (_NADJDIR + _NADJMX) +
-		      dir * _NADJDIR + min_max);
+	u32 bit = EDGX_DLY_ADJ_BIT(spd_idx, dir, min_max);
 	int ret;
 
 	if (pt->dly_adj_flags & bit)
@@ -886,84 +921,168 @@ static ssize_t indep_delay10tx_min_adj_store(struct device *dev,
 					     struct device_attribute *attr,
 					     const char *buf, size_t count)
 {
-	return _indep_adj_store(dev, buf, count, _ADJ_10, _ADJ_TX, _ADJ_MIN);
+	return _indep_adj_store(dev, buf, count, EDGX_SPD_10, _ADJ_TX, _ADJ_MIN);
 }
 
 static ssize_t indep_delay10tx_max_adj_store(struct device *dev,
 					     struct device_attribute *attr,
 					     const char *buf, size_t count)
 {
-	return _indep_adj_store(dev, buf, count, _ADJ_10, _ADJ_TX, _ADJ_MAX);
+	return _indep_adj_store(dev, buf, count, EDGX_SPD_10, _ADJ_TX, _ADJ_MAX);
 }
 
 static ssize_t indep_delay10rx_min_adj_store(struct device *dev,
 					     struct device_attribute *attr,
 					     const char *buf, size_t count)
 {
-	return _indep_adj_store(dev, buf, count, _ADJ_10, _ADJ_RX, _ADJ_MIN);
+	return _indep_adj_store(dev, buf, count, EDGX_SPD_10, _ADJ_RX, _ADJ_MIN);
 }
 
 static ssize_t indep_delay10rx_max_adj_store(struct device *dev,
 					     struct device_attribute *attr,
 					     const char *buf, size_t count)
 {
-	return _indep_adj_store(dev, buf, count, _ADJ_10, _ADJ_RX, _ADJ_MAX);
+	return _indep_adj_store(dev, buf, count, EDGX_SPD_10, _ADJ_RX, _ADJ_MAX);
 }
 
 static ssize_t indep_delay100tx_min_adj_store(struct device *dev,
 					      struct device_attribute *attr,
 					      const char *buf, size_t count)
 {
-	return _indep_adj_store(dev, buf, count, _ADJ_100, _ADJ_TX, _ADJ_MIN);
+	return _indep_adj_store(dev, buf, count, EDGX_SPD_100, _ADJ_TX, _ADJ_MIN);
 }
 
 static ssize_t indep_delay100tx_max_adj_store(struct device *dev,
 					      struct device_attribute *attr,
 					      const char *buf, size_t count)
 {
-	return _indep_adj_store(dev, buf, count, _ADJ_100, _ADJ_TX, _ADJ_MAX);
+	return _indep_adj_store(dev, buf, count, EDGX_SPD_100, _ADJ_TX, _ADJ_MAX);
 }
 
 static ssize_t indep_delay100rx_min_adj_store(struct device *dev,
 					      struct device_attribute *attr,
 					      const char *buf, size_t count)
 {
-	return _indep_adj_store(dev, buf, count, _ADJ_100, _ADJ_RX, _ADJ_MIN);
+	return _indep_adj_store(dev, buf, count, EDGX_SPD_100, _ADJ_RX, _ADJ_MIN);
 }
 
 static ssize_t indep_delay100rx_max_adj_store(struct device *dev,
 					      struct device_attribute *attr,
 					      const char *buf, size_t count)
 {
-	return _indep_adj_store(dev, buf, count, _ADJ_100, _ADJ_RX, _ADJ_MAX);
+	return _indep_adj_store(dev, buf, count, EDGX_SPD_100, _ADJ_RX, _ADJ_MAX);
 }
 
 static ssize_t indep_delay1000tx_min_adj_store(struct device *dev,
 					       struct device_attribute *attr,
 					       const char *buf, size_t count)
 {
-	return _indep_adj_store(dev, buf, count, _ADJ_1000, _ADJ_TX, _ADJ_MIN);
+	return _indep_adj_store(dev, buf, count, EDGX_SPD_1000, _ADJ_TX, _ADJ_MIN);
 }
 
 static ssize_t indep_delay1000tx_max_adj_store(struct device *dev,
 					       struct device_attribute *attr,
 					       const char *buf, size_t count)
 {
-	return _indep_adj_store(dev, buf, count, _ADJ_1000, _ADJ_TX, _ADJ_MAX);
+	return _indep_adj_store(dev, buf, count, EDGX_SPD_1000, _ADJ_TX, _ADJ_MAX);
 }
 
 static ssize_t indep_delay1000rx_min_adj_store(struct device *dev,
 					       struct device_attribute *attr,
 					       const char *buf, size_t count)
 {
-	return _indep_adj_store(dev, buf, count, _ADJ_1000, _ADJ_RX, _ADJ_MIN);
+	return _indep_adj_store(dev, buf, count, EDGX_SPD_1000, _ADJ_RX, _ADJ_MIN);
 }
 
 static ssize_t indep_delay1000rx_max_adj_store(struct device *dev,
 					       struct device_attribute *attr,
 					       const char *buf, size_t count)
 {
-	return _indep_adj_store(dev, buf, count, _ADJ_1000, _ADJ_RX, _ADJ_MAX);
+	return _indep_adj_store(dev, buf, count, EDGX_SPD_1000, _ADJ_RX, _ADJ_MAX);
+}
+
+static ssize_t indep_delay2500tx_min_adj_store(struct device *dev,
+					       struct device_attribute *attr,
+					       const char *buf, size_t count)
+{
+	return _indep_adj_store(dev, buf, count, EDGX_SPD_2500, _ADJ_TX, _ADJ_MIN);
+}
+
+static ssize_t indep_delay2500tx_max_adj_store(struct device *dev,
+					       struct device_attribute *attr,
+					       const char *buf, size_t count)
+{
+	return _indep_adj_store(dev, buf, count, EDGX_SPD_2500, _ADJ_TX, _ADJ_MAX);
+}
+
+static ssize_t indep_delay2500rx_min_adj_store(struct device *dev,
+					       struct device_attribute *attr,
+					       const char *buf, size_t count)
+{
+	return _indep_adj_store(dev, buf, count, EDGX_SPD_2500, _ADJ_RX, _ADJ_MIN);
+}
+
+static ssize_t indep_delay2500rx_max_adj_store(struct device *dev,
+					       struct device_attribute *attr,
+					       const char *buf, size_t count)
+{
+	return _indep_adj_store(dev, buf, count, EDGX_SPD_2500, _ADJ_RX, _ADJ_MAX);
+}
+
+static ssize_t indep_delay5000tx_min_adj_store(struct device *dev,
+					       struct device_attribute *attr,
+					       const char *buf, size_t count)
+{
+	return _indep_adj_store(dev, buf, count, EDGX_SPD_5000, _ADJ_TX, _ADJ_MIN);
+}
+
+static ssize_t indep_delay5000tx_max_adj_store(struct device *dev,
+					       struct device_attribute *attr,
+					       const char *buf, size_t count)
+{
+	return _indep_adj_store(dev, buf, count, EDGX_SPD_5000, _ADJ_TX, _ADJ_MAX);
+}
+
+static ssize_t indep_delay5000rx_min_adj_store(struct device *dev,
+					       struct device_attribute *attr,
+					       const char *buf, size_t count)
+{
+	return _indep_adj_store(dev, buf, count, EDGX_SPD_5000, _ADJ_RX, _ADJ_MIN);
+}
+
+static ssize_t indep_delay5000rx_max_adj_store(struct device *dev,
+					       struct device_attribute *attr,
+					       const char *buf, size_t count)
+{
+	return _indep_adj_store(dev, buf, count, EDGX_SPD_5000, _ADJ_RX, _ADJ_MAX);
+}
+
+static ssize_t indep_delay10000tx_min_adj_store(struct device *dev,
+						struct device_attribute *attr,
+						const char *buf, size_t count)
+{
+	return _indep_adj_store(dev, buf, count, EDGX_SPD_10000, _ADJ_TX, _ADJ_MIN);
+}
+
+static ssize_t indep_delay10000tx_max_adj_store(struct device *dev,
+						struct device_attribute *attr,
+						const char *buf, size_t count)
+{
+	return _indep_adj_store(dev, buf, count, EDGX_SPD_10000, _ADJ_TX, _ADJ_MAX);
+}
+
+static ssize_t indep_delay10000rx_min_adj_store(struct device *dev,
+						struct device_attribute *attr,
+						const char *buf, size_t count)
+{
+	return _indep_adj_store(dev, buf, count, EDGX_SPD_10000, _ADJ_RX, _ADJ_MIN);
+}
+
+static ssize_t indep_delay10000rx_max_adj_store(struct device *dev,
+						struct device_attribute *attr,
+						const char *buf, size_t count)
+{
+	return _indep_adj_store(dev, buf, count, EDGX_SPD_10000, _ADJ_RX, _ADJ_MAX);
 }
 
 DEVICE_ATTR_WO(indep_delay10tx_min_adj);
@@ -978,10 +1097,24 @@ DEVICE_ATTR_WO(indep_delay1000tx_min_adj);
 DEVICE_ATTR_WO(indep_delay1000tx_max_adj);
 DEVICE_ATTR_WO(indep_delay1000rx_min_adj);
 DEVICE_ATTR_WO(indep_delay1000rx_max_adj);
+DEVICE_ATTR_WO(indep_delay2500tx_min_adj);
+DEVICE_ATTR_WO(indep_delay2500tx_max_adj);
+DEVICE_ATTR_WO(indep_delay2500rx_min_adj);
+DEVICE_ATTR_WO(indep_delay2500rx_max_adj);
+DEVICE_ATTR_WO(indep_delay5000tx_min_adj);
+DEVICE_ATTR_WO(indep_delay5000tx_max_adj);
+DEVICE_ATTR_WO(indep_delay5000rx_min_adj);
+DEVICE_ATTR_WO(indep_delay5000rx_max_adj);
+DEVICE_ATTR_WO(indep_delay10000tx_min_adj);
+DEVICE_ATTR_WO(indep_delay10000tx_max_adj);
+DEVICE_ATTR_WO(indep_delay10000rx_min_adj);
+DEVICE_ATTR_WO(indep_delay10000rx_max_adj);
 
 static struct attribute *edgex_ext_attrs[] = {
 	&dev_attr_mirror_port.attr,
 	&dev_attr_cutthrough.attr,
+	&dev_attr_phc_timestamper.attr,
+	&dev_attr_phc_worker.attr,
 	&dev_attr_indep_delay10tx_min_adj.attr,
 	&dev_attr_indep_delay10tx_max_adj.attr,
 	&dev_attr_indep_delay10rx_min_adj.attr,
@@ -994,6 +1127,18 @@ static struct attribute *edgex_ext_attrs[] = {
 	&dev_attr_indep_delay1000tx_max_adj.attr,
 	&dev_attr_indep_delay1000rx_min_adj.attr,
 	&dev_attr_indep_delay1000rx_max_adj.attr,
+	&dev_attr_indep_delay2500tx_min_adj.attr,
+	&dev_attr_indep_delay2500tx_max_adj.attr,
+	&dev_attr_indep_delay2500rx_min_adj.attr,
+	&dev_attr_indep_delay2500rx_max_adj.attr,
+	&dev_attr_indep_delay5000tx_min_adj.attr,
+	&dev_attr_indep_delay5000tx_max_adj.attr,
+	&dev_attr_indep_delay5000rx_min_adj.attr,
+	&dev_attr_indep_delay5000rx_max_adj.attr,
+	&dev_attr_indep_delay10000tx_min_adj.attr,
+	&dev_attr_indep_delay10000tx_max_adj.attr,
+	&dev_attr_indep_delay10000rx_min_adj.attr,
+	&dev_attr_indep_delay10000rx_max_adj.attr,
 	NULL,
 };
 
@@ -1230,9 +1375,8 @@ static void edgx_pt_tx_timeout(struct net_device *netdev, unsigned int txqueue)
 	edgx_com_tx_timeout(pt->hcom, netdev);
 }
 
-static void
-edgx_brpt_get_stats64(struct net_device *netdev,
-		      struct rtnl_link_stats64 *storage)
+static void edgx_brpt_get_stats64(struct net_device *netdev,
+				  struct rtnl_link_stats64 *storage)
 {
 	struct edgx_pt *pt = net2pt(netdev);
 
@@ -1287,9 +1431,8 @@ static int edgx_pt_get_phys_name(struct net_device *netdev,
 	return (ret < 0 || ret >= len) ? -ENOBUFS : 0;
 }
 
-static void
-edgx_eppt_get_stats64(struct net_device *netdev,
-		      struct rtnl_link_stats64 *storage)
+static void edgx_eppt_get_stats64(struct net_device *netdev,
+				  struct rtnl_link_stats64 *storage)
 {
 	struct edgx_pt *pt = net2pt(netdev);
 	struct edgx_pt *mgmt_pt = edgx_com_get_mgmt_pt(pt->hcom);
@@ -1312,8 +1455,8 @@ edgx_eppt_get_stats64(struct net_device *netdev,
 	storage->tx_errors = 0;
 }
 
-void edgx_pt_get_drvinfo(struct net_device *netdev,
-			 struct ethtool_drvinfo *info)
+static void edgx_pt_get_drvinfo(struct net_device *netdev,
+				struct ethtool_drvinfo *info)
 {
 	struct edgx_pt *pt = net2pt(netdev);
 	u32 svn = edgx_br_get_version(pt->parent);
@@ -1325,22 +1468,25 @@ void edgx_pt_get_drvinfo(struct net_device *netdev,
 	snprintf(info->fw_version, sizeof(info->fw_version), "SVN %u", svn);
 }
 
-int edgx_pt_set_wol(struct net_device *netdev, struct ethtool_wolinfo *wol)
+static int edgx_pt_set_wol(struct net_device *netdev,
+			   struct ethtool_wolinfo *wol)
 {
 	return -EOPNOTSUPP;
 }
 
-void edgx_pt_get_wol(struct net_device *netdev, struct ethtool_wolinfo *wol)
+static void edgx_pt_get_wol(struct net_device *netdev,
+			    struct ethtool_wolinfo *wol)
 {
 	wol->supported = 0;
 	wol->wolopts = 0;
 }
 
 #if LINUX_VERSION_CODE < KERNEL_VERSION(6, 11, 0)
-int edgx_pt_get_ts_info(struct net_device *netdev, struct ethtool_ts_info *info)
+static int edgx_pt_get_ts_info(struct net_device *netdev,
+			       struct ethtool_ts_info *info)
 #else
-int edgx_pt_get_ts_info(struct net_device *netdev,
-			struct kernel_ethtool_ts_info *info)
+static int edgx_pt_get_ts_info(struct net_device *netdev,
+			       struct kernel_ethtool_ts_info *info)
 #endif
 {
 	struct edgx_pt *pt = net2pt(netdev);
@@ -1359,12 +1505,6 @@ int edgx_pt_get_ts_info(struct net_device *netdev,
 			   (1u << HWTSTAMP_FILTER_PTP_V2_L2_EVENT);
 
 	info->phc_index = edgx_tm_get_phc(pt->time, 0);
-
-#if defined(PTP_PTP_OFFSET_PRECISE)
-	info->phc_index_2nd   = edgx_tm_get_phc(pt->time, 1);
-	info->phc_timestamper = edgx_tm_get_ts_phc(pt->time);
-	info->phc_worker      = edgx_tm_get_wrk_phc(pt->time);
-#endif
 
 	return 0;
 }
@@ -1390,11 +1530,14 @@ edgx_fdb_offload_notify(struct edgx_pt *pt,
 				 pt->netdev, &info.info, NULL);
 }
 
-int edgx_pt_fdb_add(struct ndmsg *ndm, struct nlattr *tb[],
-		    struct net_device *netdev,
-		    const unsigned char *addr, u16 vid,
-		    u16 flags,
-		    struct netlink_ext_ack *extack)
+static int edgx_pt_fdb_add(struct ndmsg *ndm, struct nlattr *tb[],
+			   struct net_device *netdev,
+			   const unsigned char *addr, u16 vid,
+			   u16 flags,
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 13, 0)
+			   bool *notified,
+#endif
+			   struct netlink_ext_ack *extack)
 {
 	int err;
 	struct edgx_pt *pt = net2pt(netdev);
@@ -1411,10 +1554,13 @@ int edgx_pt_fdb_add(struct ndmsg *ndm, struct nlattr *tb[],
 	return 0;
 }
 
-int edgx_pt_fdb_del(struct ndmsg *ndm, struct nlattr *tb[],
-		    struct net_device *netdev,
-		    const unsigned char *addr, u16 vid,
-		    struct netlink_ext_ack *extack)
+static int edgx_pt_fdb_del(struct ndmsg *ndm, struct nlattr *tb[],
+			   struct net_device *netdev,
+			   const unsigned char *addr, u16 vid,
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 13, 0)
+			   bool *notified,
+#endif
+			   struct netlink_ext_ack *extack)
 {
 	int err;
 	struct edgx_pt *pt = net2pt(netdev);
@@ -1473,9 +1619,9 @@ nla_put_failure:
 	return -EMSGSIZE;
 }
 
-int edgx_pt_fdb_dump(struct sk_buff *skb, struct netlink_callback *ncb,
-		     struct net_device *dev,
-		     struct net_device *filter_dev, int *idx)
+static int edgx_pt_fdb_dump(struct sk_buff *skb, struct netlink_callback *ncb,
+			    struct net_device *dev,
+			    struct net_device *filter_dev, int *idx)
 {
 	struct edgx_pt *pt = net2pt(dev);
 	int err;
@@ -1489,8 +1635,8 @@ static struct notifier_block edgx_netdev_nb __read_mostly = {
 	.notifier_call = edgx_netdev_event,
 };
 
-int edgx_tc_setup(struct net_device *netdev, enum tc_setup_type type,
-		  void *type_data)
+static int edgx_tc_setup(struct net_device *netdev, enum tc_setup_type type,
+			 void *type_data)
 {
 	struct edgx_pt *pt = net2pt(netdev);
 	struct edgx_com *com = edgx_br_get_com(pt->parent);
@@ -1862,29 +2008,46 @@ static edgx_pt_link_cb _link_cb[] = {
 	NULL,
 };
 
-static void edgx_pt_update_speed(struct edgx_pt *pt, int speed)
+static void edgx_pt_update_speed_deip(struct edgx_pt *pt, int speed)
 {
 	switch (speed) {
 	case SPEED_10:
 		/* Set MII/10 Mbit/s */
-		edgx_set16(_GEN_BASE(pt->iobase), 0x0, 5, 4, 0x0);
-		edgx_set16(_GEN_BASE(pt->iobase), 0x0, 9, 8, 0x3);
+		edgx_set16(_GEN_BASE(pt->iobase), _PT_REG_STATE, 5, 4, 0x0);
+		edgx_set16(_GEN_BASE(pt->iobase), _PT_REG_STATE, 9, 8, 0x3);
 		break;
 	case SPEED_100:
 		/* Set MII/100 Mbit/s */
-		edgx_set16(_GEN_BASE(pt->iobase), 0x0, 5, 4, 0x0);
-		edgx_set16(_GEN_BASE(pt->iobase), 0x0, 9, 8, 0x2);
+		edgx_set16(_GEN_BASE(pt->iobase), _PT_REG_STATE, 5, 4, 0x0);
+		edgx_set16(_GEN_BASE(pt->iobase), _PT_REG_STATE, 9, 8, 0x2);
 		break;
 	case SPEED_1000:
 		/* Set MII/1000 Mbit/s */
-		edgx_set16(_GEN_BASE(pt->iobase), 0x0, 5, 4, 0x2);
-		edgx_set16(_GEN_BASE(pt->iobase), 0x0, 9, 8, 0x1);
+		edgx_set16(_GEN_BASE(pt->iobase), _PT_REG_STATE, 5, 4, 0x2);
+		edgx_set16(_GEN_BASE(pt->iobase), _PT_REG_STATE, 9, 8, 0x1);
 		break;
 	default:
-		edgx_pt_err(pt, "Invalid link speed: %u\n",
-			    edgx_link_get_speed(pt->link));
-		break;
+		edgx_pt_err(pt, "Invalid link speed: %d\n", speed);
 	}
+}
+
+static void edgx_pt_update_speed_nova(struct edgx_pt *pt, int speed)
+{
+	u16 speed_sel = 0;
+
+	switch (speed) {
+	case SPEED_10:    speed_sel = 0x3; break;
+	case SPEED_100:   speed_sel = 0x2; break;
+	case SPEED_1000:  speed_sel = 0x1; break;
+	case SPEED_2500:  speed_sel = 0x4; break;
+	case SPEED_5000:  speed_sel = 0x5; break;
+	case SPEED_10000: speed_sel = 0x6; break;
+	default:
+		edgx_pt_err(pt, "Invalid link speed: %d\n", speed);
+		return;
+	}
+
+	edgx_set16(_GEN_BASE(pt->iobase), _PT_REG_STATE, 7, 4, speed_sel);
 }
 
 void edgx_pt_link_change(struct net_device *netdev)
@@ -1895,9 +2058,12 @@ void edgx_pt_link_change(struct net_device *netdev)
 	int lnk_speed = edgx_link_get_speed(pt->link);
 
 	if (lnk_state) {
-		edgx_pt_update_speed(pt, lnk_speed);
+		pt->ifpriv.update_speed(pt, lnk_speed);
 		edgx_link_update_speed(pt->link, lnk_speed);
-		edgx_pt_info(pt, "Link is UP at %u Mbps\n", lnk_speed);
+		if (lnk_speed == SPEED_UNKNOWN)
+			edgx_pt_info(pt, "Link is UP at unknown speed\n");
+		else
+			edgx_pt_info(pt, "Link is UP at %d Mbps\n", lnk_speed);
 	} else {
 		edgx_pt_info(pt, "Link is DOWN\n");
 	}
@@ -1907,31 +2073,43 @@ void edgx_pt_link_change(struct net_device *netdev)
 		(*cb)(pt, lnk_state, lnk_speed);
 }
 
+enum dly_min_max { DLY_MIN = 0, DLY_MAX };
+
+struct edgx_pt_mii_cycle_ns {
+	unsigned int num;
+	unsigned int denom;
+};
+
+static const struct edgx_pt_mii_cycle_ns edgx_pt_spd_mii_cycle_ns[] = {
+	[EDGX_SPD_10]    = { 400, 1 },
+	[EDGX_SPD_100]   = {  40, 1 },
+	[EDGX_SPD_1000]  = {   8, 1 },
+	[EDGX_SPD_2500]  = {  64, 10 },
+	[EDGX_SPD_5000]  = {  64, 10 },
+	[EDGX_SPD_10000] = {  64, 10 },
+};
+
 static ktime_t _edgx_pt_get_dly_spd(struct edgx_pt *pt, size_t ofs_base,
-				    bool max, int speed)
+				    enum dly_min_max min_max, int speed)
 {
+	int spd_idx = edgx_br_spd_idx(speed);
 	size_t ofs = ofs_base;
-	unsigned int mii_cycle_ns;
+	const struct edgx_pt_mii_cycle_ns *mii_cycle_ns;
 	u16 v;
 
-	switch (speed) {
-	case SPEED_10:
-		mii_cycle_ns = 400;
-		break;
-	case SPEED_100:
-		mii_cycle_ns = 40;
-		ofs          += BR_FEAT_DLY_SPD_STEP;
-		break;
-	case SPEED_1000:
-		mii_cycle_ns = 8;
-		ofs          += (2 * BR_FEAT_DLY_SPD_STEP);
-		break;
-	default:
+	if (spd_idx < 0) {
 		edgx_pt_warn(pt, "Internal delay unknown (set to 0ns) due to unknown port speed.\n");
 		return ktime_set(0, 0);
 	}
 
-	ofs += (BR_FEAT_DLY_MAX_OFS * max);
+	mii_cycle_ns = &edgx_pt_spd_mii_cycle_ns[spd_idx];
+	ofs += spd_idx * BR_FEAT_DLY_SPD_STEP;
+	ofs += BR_FEAT_DLY_MAX_OFS * min_max;
+	/* TODO: Get rid of this workaround for inconsistent register map */
+	if (spd_idx >= EDGX_SPD_2500) {
+		ofs += 0x100;
+		ofs -= EDGX_SPD_2500 * BR_FEAT_DLY_SPD_STEP;
+	}
 	v = edgx_br_get_feature(pt->parent, ofs);
 
 	/* Calculation for the framesize-independent part is identical for G2O
@@ -1939,80 +2117,48 @@ static ktime_t _edgx_pt_get_dly_spd(struct edgx_pt *pt, size_t ofs_base,
 	 * combined (dependent and independent) delay.
 	 * The formula is the same also for I2SG.
 	 */
-	return ktime_set(0, (edgx_br_get_cycle_ns(pt->parent) *
-			     (v & 0xFF) + mii_cycle_ns * ((v >> 8) & 0xFF)));
+	return ktime_set(0, (edgx_br_get_cycle_ns(pt->parent) * (v & 0xFF) +
+			     (mii_cycle_ns->num * ((v >> 8) & 0xFF)) /
+			     mii_cycle_ns->denom));
 }
 
-static ktime_t _edgx_pt_get_dly(struct edgx_pt *pt, size_t ofs_base, bool max)
+static ktime_t _edgx_pt_get_dly(struct edgx_pt *pt, size_t ofs_base,
+				enum dly_min_max min_max)
 {
 	int speed = edgx_pt_get_speed(pt);
 
-	return _edgx_pt_get_dly_spd(pt, ofs_base, max, speed);
-}
-
-int edgx_pt_get_g2o_lo(struct edgx_pt *pt, ktime_t *g2o_min,
-		       ktime_t *g2o_max)
-{
-	enum edgx_lnk_mode lnk_mode = edgx_link_get_lnk_mode(pt->link);
-
-	if ((lnk_mode == EDGX_LNKMOD_100_1000) ||
-	    (lnk_mode == EDGX_LNKMOD_100)) {
-		*g2o_min = _edgx_pt_get_dly_spd(pt, BR_FEAT_G2O_BASE, false,
-						SPEED_100);
-		*g2o_max = _edgx_pt_get_dly_spd(pt, BR_FEAT_G2O_BASE, true,
-						SPEED_100);
-	} else if (lnk_mode == EDGX_LNKMOD_10_100) {
-		*g2o_min = _edgx_pt_get_dly_spd(pt, BR_FEAT_G2O_BASE, false,
-						SPEED_10);
-		*g2o_max = _edgx_pt_get_dly_spd(pt, BR_FEAT_G2O_BASE, true,
-						SPEED_10);
-	} else {
-		return -EINVAL;
-	}
-	return 0;
-}
-
-int edgx_pt_get_g2o_hi(struct edgx_pt *pt, ktime_t *g2o_min,
-		       ktime_t *g2o_max)
-{
-	enum edgx_lnk_mode lnk_mode = edgx_link_get_lnk_mode(pt->link);
-
-	if (lnk_mode == EDGX_LNKMOD_100_1000) {
-		*g2o_min = _edgx_pt_get_dly_spd(pt, BR_FEAT_G2O_BASE, false,
-						SPEED_1000);
-		*g2o_max = _edgx_pt_get_dly_spd(pt, BR_FEAT_G2O_BASE, true,
-						SPEED_1000);
-	} else if ((lnk_mode == EDGX_LNKMOD_10_100) ||
-		   (lnk_mode == EDGX_LNKMOD_100)) {
-		*g2o_min = _edgx_pt_get_dly_spd(pt, BR_FEAT_G2O_BASE, false,
-						SPEED_100);
-		*g2o_max = _edgx_pt_get_dly_spd(pt, BR_FEAT_G2O_BASE, true,
-						SPEED_100);
-	} else {
-		return -EINVAL;
-	}
-	return 0;
+	return _edgx_pt_get_dly_spd(pt, ofs_base, min_max, speed);
 }
 
 int edgx_pt_get_i2sg_hi(struct edgx_pt *pt, ktime_t *i2sg_min,
 			ktime_t *i2sg_max)
 {
-	enum edgx_lnk_mode lnk_mode = edgx_link_get_lnk_mode(pt->link);
+	edgx_speed_mask_t spd_mask = edgx_link_get_speed_mask(pt->link);
+	int speed = edgx_br_speed(fls(spd_mask) - 1);
 
-	if (lnk_mode == EDGX_LNKMOD_100_1000) {
-		*i2sg_min = _edgx_pt_get_dly_spd(pt, BR_FEAT_I2SG_BASE, false,
-						 SPEED_1000);
-		*i2sg_max = _edgx_pt_get_dly_spd(pt, BR_FEAT_I2SG_BASE, true,
-						 SPEED_1000);
-	} else if ((lnk_mode == EDGX_LNKMOD_10_100) ||
-		   (lnk_mode == EDGX_LNKMOD_100)) {
-		*i2sg_min = _edgx_pt_get_dly_spd(pt, BR_FEAT_I2SG_BASE, false,
-						 SPEED_100);
-		*i2sg_max = _edgx_pt_get_dly_spd(pt, BR_FEAT_I2SG_BASE, true,
-						 SPEED_100);
-	} else {
+	if (speed == SPEED_UNKNOWN)
 		return -EINVAL;
-	}
+
+	*i2sg_min = _edgx_pt_get_dly_spd(pt, BR_FEAT_I2SG_BASE, DLY_MIN, speed);
+	*i2sg_max = _edgx_pt_get_dly_spd(pt, BR_FEAT_I2SG_BASE, DLY_MAX, speed);
+	return 0;
+}
+
+int edgx_pt_get_speed_g2o(struct edgx_pt *pt, int speed,
+			  ktime_t *g2o_min, ktime_t *g2o_max)
+{
+	int spd_idx = edgx_br_spd_idx(speed);
+	edgx_speed_mask_t spd_mask;
+
+	if (spd_idx < 0)
+		return -EINVAL;
+
+	spd_mask = edgx_link_get_speed_mask(pt->link);
+	if (!(spd_mask & BIT(spd_idx)))
+		return -EINVAL;
+
+	*g2o_min = _edgx_pt_get_dly_spd(pt, BR_FEAT_G2O_BASE, DLY_MIN, speed);
+	*g2o_max = _edgx_pt_get_dly_spd(pt, BR_FEAT_G2O_BASE, DLY_MAX, speed);
 	return 0;
 }
 
@@ -2028,64 +2174,64 @@ void edgx_pt_set_sg_delay(struct edgx_pt *pt, ktime_t sg_dly)
 	edgx_wr16(pt->iobase, _SGATE_DELAY, (u16)sgate_delay_reg);
 }
 
-ktime_t edgx_pt_get_g2omax(struct edgx_pt *pt)
+ktime_t edgx_pt_get_g2o_max(struct edgx_pt *pt)
 {
-	return _edgx_pt_get_dly(pt, BR_FEAT_G2O_BASE, true);
+	return _edgx_pt_get_dly(pt, BR_FEAT_G2O_BASE, DLY_MAX);
 }
 
-ktime_t edgx_pt_get_g2omin(struct edgx_pt *pt)
+ktime_t edgx_pt_get_g2o_min(struct edgx_pt *pt)
 {
-	return _edgx_pt_get_dly(pt, BR_FEAT_G2O_BASE, false);
+	return _edgx_pt_get_dly(pt, BR_FEAT_G2O_BASE, DLY_MIN);
 }
 
-ktime_t edgx_pt_get_i2gmax(struct edgx_pt *pt)
+ktime_t edgx_pt_get_i2g_max(struct edgx_pt *pt)
 {
-	return _edgx_pt_get_dly(pt, BR_FEAT_I2G_BASE, true);
+	return _edgx_pt_get_dly(pt, BR_FEAT_I2G_BASE, DLY_MAX);
 }
 
-ktime_t edgx_pt_get_i2gmin(struct edgx_pt *pt)
+ktime_t edgx_pt_get_i2g_min(struct edgx_pt *pt)
 {
-	return _edgx_pt_get_dly(pt, BR_FEAT_I2G_BASE, false);
+	return _edgx_pt_get_dly(pt, BR_FEAT_I2G_BASE, DLY_MIN);
 }
 
-ktime_t edgx_pt_get_i2sgmax(struct edgx_pt *pt)
+ktime_t edgx_pt_get_i2sg_max(struct edgx_pt *pt)
 {
-	return _edgx_pt_get_dly(pt, BR_FEAT_I2SG_BASE, true);
+	return _edgx_pt_get_dly(pt, BR_FEAT_I2SG_BASE, DLY_MAX);
 }
 
-ktime_t edgx_pt_get_i2sgmin(struct edgx_pt *pt)
+ktime_t edgx_pt_get_i2sg_min(struct edgx_pt *pt)
 {
-	return _edgx_pt_get_dly(pt, BR_FEAT_I2SG_BASE, false);
+	return _edgx_pt_get_dly(pt, BR_FEAT_I2SG_BASE, DLY_MIN);
 }
 
-ktime_t edgx_pt_get_offline_g2omax(struct edgx_pt *pt, int speed)
+static ktime_t edgx_pt_get_offline_g2o_max(struct edgx_pt *pt, int speed)
 {
-	return _edgx_pt_get_dly_spd(pt, BR_FEAT_G2O_BASE, true, speed);
+	return _edgx_pt_get_dly_spd(pt, BR_FEAT_G2O_BASE, DLY_MAX, speed);
 }
 
-ktime_t edgx_pt_get_offline_g2omin(struct edgx_pt *pt, int speed)
+static ktime_t edgx_pt_get_offline_g2o_min(struct edgx_pt *pt, int speed)
 {
-	return _edgx_pt_get_dly_spd(pt, BR_FEAT_G2O_BASE, false, speed);
+	return _edgx_pt_get_dly_spd(pt, BR_FEAT_G2O_BASE, DLY_MIN, speed);
 }
 
-ktime_t edgx_pt_get_offline_i2gmax(struct edgx_pt *pt, int speed)
+static ktime_t edgx_pt_get_offline_i2g_max(struct edgx_pt *pt, int speed)
 {
-	return _edgx_pt_get_dly_spd(pt, BR_FEAT_I2G_BASE, true, speed);
+	return _edgx_pt_get_dly_spd(pt, BR_FEAT_I2G_BASE, DLY_MAX, speed);
 }
 
-ktime_t edgx_pt_get_offline_i2gmin(struct edgx_pt *pt, int speed)
+static ktime_t edgx_pt_get_offline_i2g_min(struct edgx_pt *pt, int speed)
 {
-	return _edgx_pt_get_dly_spd(pt, BR_FEAT_I2G_BASE, false, speed);
+	return _edgx_pt_get_dly_spd(pt, BR_FEAT_I2G_BASE, DLY_MIN, speed);
 }
 
-ktime_t edgx_pt_get_offline_i2sgmax(struct edgx_pt *pt, int speed)
+static ktime_t edgx_pt_get_offline_i2sg_max(struct edgx_pt *pt, int speed)
 {
-	return _edgx_pt_get_dly_spd(pt, BR_FEAT_I2SG_BASE, true, speed);
+	return _edgx_pt_get_dly_spd(pt, BR_FEAT_I2SG_BASE, DLY_MAX, speed);
 }
 
-ktime_t edgx_pt_get_offline_i2sgmin(struct edgx_pt *pt, int speed)
+static ktime_t edgx_pt_get_offline_i2sg_min(struct edgx_pt *pt, int speed)
 {
-	return _edgx_pt_get_dly_spd(pt, BR_FEAT_I2SG_BASE, false, speed);
+	return _edgx_pt_get_dly_spd(pt, BR_FEAT_I2SG_BASE, DLY_MIN, speed);
 }
 
 struct edgx_enhanced_delay_item {
@@ -2102,10 +2248,10 @@ struct edgx_enhanced_delay_item {
 } __packed;
 
 struct edgx_enhanced_delays {
-	struct edgx_enhanced_delay_item pt_delay[3];
+	struct edgx_enhanced_delay_item pt_delay[EDGX_SPD_CNT];
 } __packed;
 
-static bool _edgx_pt_adj_indep(struct edgx_pt *pt, unsigned int *dly, int adj,
+static bool _edgx_pt_adj_indep(struct edgx_pt *pt, u32 *dly, int adj,
 			       const char *name)
 {
 	if (adj < 0 && *dly < -adj) {
@@ -2122,21 +2268,10 @@ static int _edgx_pt_adj_indep_delays(struct edgx_pt *pt,
 				     int speed)
 {
 	bool ok = true;
-	unsigned int spd_idx;
+	int spd_idx = edgx_br_spd_idx(speed);
 
-	switch (speed) {
-	case SPEED_10:
-		spd_idx = _ADJ_10;
-		break;
-	case SPEED_100:
-		spd_idx = _ADJ_100;
-		break;
-	case SPEED_1000:
-		spd_idx = _ADJ_1000;
-		break;
-	default:
+	if (spd_idx < 0)
 		return -EINVAL;
-	}
 
 	ok &= _edgx_pt_adj_indep(pt, &delays->indep_rx_delay_min_ns,
 				 pt->indep_dly_adj[spd_idx][_ADJ_RX][_ADJ_MIN],
@@ -2154,104 +2289,76 @@ static int _edgx_pt_adj_indep_delays(struct edgx_pt *pt,
 	return ok ? 0 : -EINVAL;
 }
 
-static u32 _edgx_pt_delay_link_mode_select(u16 speed, enum edgx_lnk_mode mode,
-					   u32 in, u64 hi, u64 lo)
-{
-	switch (mode) {
-	case EDGX_LNKMOD_100:
-		if (speed == SPEED_100)
-			return in + hi;
-	        return 0;
-	case EDGX_LNKMOD_100_1000:
-		if (speed == SPEED_100)
-			return in + lo;
-		if (speed == SPEED_1000)
-			return in + hi;
-		return 0;
-	case EDGX_LNKMOD_10_100:
-		if (speed == SPEED_10)
-			return in + lo;
-		if (speed == SPEED_100)
-			return in + hi;
-		return 0;
-	case EDGX_LNKMOD_10_100_1000:
-		return in;
-	default:
-		return 0;
-	}
-}
-
-static int _edgx_pt_get_enhanced_delays(struct edgx_pt *pt, loff_t idx,
+static int _edgx_pt_get_enhanced_delays(struct edgx_pt *pt, int spd_idx,
 					struct edgx_enhanced_delay_item *delays)
 {
-	u64 rem, help_idx = (u64)idx, help_speed = 1000;
-	u16 reverse_speed_index[3] = {SPEED_10, SPEED_100, SPEED_1000};
+	u32 help_speed = 10000;
+	u16 reverse_speed_index[EDGX_SPD_CNT] = {
+		SPEED_10,   SPEED_100,  SPEED_1000,
+		SPEED_2500, SPEED_5000, SPEED_10000
+	};
 	u16 speed;
 	struct edgx_link *link;
 	struct edgx_st *st;
+	int ret;
 
 	link = pt->link;
 	st = pt->st;
 
 	if (!st) {
-		edgx_err("cannot calculate delays: not fully initialized!\n");
+		edgx_pt_err(pt, "Cannot calculate delays: not fully initialized!\n");
 		return -ENOENT;
 	}
 
-	rem = edgx_sched_calc_delays(st);
-	if (rem) {
-		edgx_err("error in getting frequency correcting delays: %lld\n", rem);
+	ret = edgx_sched_calc_delays(st);
+	if (ret) {
+		edgx_pt_err(pt, "Error in getting frequency correcting delays: %d\n",
+			    ret);
 		return -ENOENT;
 	}
 
-	rem = do_div(help_idx, sizeof(struct edgx_enhanced_delays));
-	delays->port = (u16)(help_idx + 1);
-	speed = reverse_speed_index[do_div(rem, 3)];
+	if (!(edgx_link_get_speed_mask(pt->link) & BIT(spd_idx)))
+		return -EINVAL;
+
+	delays->port = pt->ptid;
+	speed = reverse_speed_index[spd_idx];
 	delays->speed = speed;
 
-	rem = do_div(help_speed, speed);
+	help_speed /= speed;
 
-	delays->dep_rx_delay_min_ps = help_speed * 8 * 1000;
+	delays->dep_rx_delay_min_ps = help_speed * 8 * 100;
 	delays->dep_rx_delay_max_ps = delays->dep_rx_delay_min_ps;
 
 	delays->indep_rx_delay_min_ns =
 		edgx_link_get_offline_rx_delay_min(link, speed) +
-		edgx_pt_get_offline_i2sgmin(pt, speed);
+		edgx_pt_get_offline_i2sg_min(pt, speed);
 
 	delays->indep_rx_delay_max_ns =
 		edgx_link_get_offline_rx_delay_max(link, speed) +
-		edgx_pt_get_offline_i2sgmax(pt, speed);
+		edgx_pt_get_offline_i2sg_max(pt, speed);
 
-	delays->indep_rly_delay_min_ns = edgx_pt_get_offline_i2gmin(pt, speed) -
-		edgx_pt_get_offline_i2sgmin(pt, speed);
-	delays->indep_rly_delay_max_ns = edgx_pt_get_offline_i2gmax(pt, speed) -
-		edgx_pt_get_offline_i2sgmax(pt, speed);
+	delays->indep_rly_delay_min_ns = edgx_pt_get_offline_i2g_min(pt, speed) -
+		edgx_pt_get_offline_i2sg_min(pt, speed);
+	delays->indep_rly_delay_max_ns = edgx_pt_get_offline_i2g_max(pt, speed) -
+		edgx_pt_get_offline_i2sg_max(pt, speed);
 
 	delays->indep_tx_delay_min_ns =
-		_edgx_pt_delay_link_mode_select(
-			speed, edgx_link_get_lnk_mode(link),
-			edgx_link_get_offline_tx_delay_min(link, speed) +
-			        edgx_pt_get_offline_g2omin(pt, speed),
-			edgx_st_get_part_indep_tx_dly_hi_min(st),
-			edgx_st_get_part_indep_tx_dly_lo_min(st)
-		);
+		edgx_link_get_offline_tx_delay_min(link, speed) +
+		edgx_pt_get_offline_g2o_min(pt, speed) +
+		edgx_st_get_part_indep_tx_dly_min(st, speed);
 
 	delays->indep_tx_delay_max_ns =
-		_edgx_pt_delay_link_mode_select(
-			speed, edgx_link_get_lnk_mode(link),
-			edgx_link_get_offline_tx_delay_max(link, speed) +
-			        edgx_pt_get_offline_g2omax(pt, speed) +
-			        edgx_st_get_freq_err_per_cyc(st),
-			edgx_st_get_part_indep_tx_dly_hi_max(st),
-			edgx_st_get_part_indep_tx_dly_lo_max(st)
-		);
+		edgx_link_get_offline_tx_delay_max(link, speed) +
+		edgx_pt_get_offline_g2o_max(pt, speed) +
+		edgx_st_get_freq_err_per_cyc(st) +
+		edgx_st_get_part_indep_tx_dly_max(st, speed);
 
 	return _edgx_pt_adj_indep_delays(pt, delays, speed);
 }
 
 static ssize_t port_delays_read(struct file *filp, struct kobject *kobj,
-			   struct bin_attribute *bin_attr, char *buf,
-			   loff_t ofs, size_t count)
+				edgx_bin_attr *bin_attr, char *buf,
+				loff_t ofs, size_t count)
 {
 	struct edgx_pt *pt = edgx_dev2pt(kobj_to_dev(kobj));
 	loff_t idx;
@@ -2263,7 +2370,7 @@ static ssize_t port_delays_read(struct file *filp, struct kobject *kobj,
 	if (ret)
 		return ret;
 
-	ret = _edgx_pt_get_enhanced_delays(pt, idx, &delays);
+	ret = _edgx_pt_get_enhanced_delays(pt, (int)idx, &delays);
 	if (ret)
 		return ret;
 
@@ -2272,11 +2379,10 @@ static ssize_t port_delays_read(struct file *filp, struct kobject *kobj,
 	return count;
 }
 
-EDGX_BIN_ATTR_RO(port_delays, "port_delays", EDGX_BR_MAX_PORTS *
-		 (EDGX_BR_MAX_PORTS - 1) * EDGX_BR_MAX_TC *
+EDGX_BIN_ATTR_RO(port_delays, "port_delays",
 		 sizeof(struct edgx_enhanced_delays));
 
-static struct bin_attribute *ieee8021_bridge_binattrs[] = {
+static edgx_bin_attr *ieee8021_bridge_binattrs[] = {
 	&bin_attr_prio_regen_tbl,
 	&bin_attr_traffic_class_tbl,
 	&bin_attr_port_delays,
@@ -2289,9 +2395,10 @@ static struct attribute_group ieee8021_bridge_group = {
 	.bin_attrs = ieee8021_bridge_binattrs,
 };
 
-static void edgx_pt_set_mgmt(struct edgx_pt *pt, bool is_mgmt)
+static inline void edgx_pt_set_mgmt( struct edgx_pt *pt, bool is_mgmt)
 {
-	edgx_set16(_GEN_BASE(pt->iobase), 0, 3, 2, is_mgmt);
+	if (pt->ifpriv.mgmt)
+		edgx_set16(_GEN_BASE(pt->iobase), _PT_REG_STATE, 3, 2, is_mgmt);
 }
 
 struct edgx_st *edgx_pt_get_st(struct edgx_pt *pt)
@@ -2363,8 +2470,10 @@ static struct edgx_pt *_edgx_pt_init(struct edgx_br  *br,
 	/* don't change network namespace? */
 #if LINUX_VERSION_CODE < KERNEL_VERSION(6, 12, 0)
 	netdev->features |= NETIF_F_NETNS_LOCAL;
-#else
+#elif LINUX_VERSION_CODE < KERNEL_VERSION(6, 15, 0)
 	netdev->netns_local = true;
+#else
+	netdev->netns_immutable = true;
 #endif
 
 	pt->ptid    = ptid;
@@ -2398,7 +2507,7 @@ static void _edgx_pt_clear(struct edgx_pt *pt)
 }
 
 static inline int _edgx_pt_activate(struct edgx_pt *pt,
-				    enum edgx_lnk_mode lnk_mode,
+				    edgx_speed_mask_t spd_mask,
 				    bool internal)
 {
 	int r;
@@ -2407,7 +2516,7 @@ static inline int _edgx_pt_activate(struct edgx_pt *pt,
 	SET_NETDEV_DEV(pt->netdev, edgx_br_get_dev(pt2br(pt)));
 	register_netdev(pt->netdev);
 
-	r = edgx_link_init(pt, &pt->link, lnk_mode, internal);
+	r = edgx_link_init(pt, &pt->link, spd_mask, internal);
 	if (r)
 		unregister_netdev(pt->netdev);
 	return r;
@@ -2429,7 +2538,7 @@ static void edgx_netdev_ep_setup(struct net_device *netdev)
 }
 
 int edgx_init_epport(struct edgx_br *br,
-		     enum edgx_lnk_mode lnk_mode,
+		     edgx_speed_mask_t spd_mask,
 		     struct edgx_pt **ppt)
 {
 	struct edgx_pt *pt = NULL;
@@ -2465,8 +2574,10 @@ int edgx_init_epport(struct edgx_br *br,
 		/* don't change network namespace? */
 #if LINUX_VERSION_CODE < KERNEL_VERSION(6, 12, 0)
 		netdev->features |= NETIF_F_NETNS_LOCAL;
-#else
+#elif LINUX_VERSION_CODE < KERNEL_VERSION(6, 15, 0)
 		netdev->netns_local = true;
+#else
+		netdev->netns_immutable = true;
 #endif
 
 		pt->ptid    = PT_EP_ID;
@@ -2499,7 +2610,7 @@ int edgx_init_epport(struct edgx_br *br,
 	}
 
 	edgx_pt_info(pt, "Setup Endpoint Port ...\n");
-	if (_edgx_pt_activate(pt, lnk_mode, true))
+	if (_edgx_pt_activate(pt, spd_mask, true))
 		goto err_port;
 
 	return 0;
@@ -2510,23 +2621,41 @@ err_port:
 }
 
 int edgx_probe_brports(struct edgx_br *br,
-		       enum edgx_lnk_mode lnk_mode,
+		       edgx_speed_mask_t spd_mask,
 		       struct edgx_pt **ppt)
 {
 	const struct edgx_ifdesc *ifd;
-	struct edgx_ifdesc        pifd;
-	ptid_t                    ptid;
-	ptid_t                    mgmt_ptid;
-	const struct edgx_ifreq   ifreq = { .id = AC_PORT_ID, .v_maj = 2 };
+	struct edgx_ifdesc	  pifd;
+	ptid_t			  ptid;
+	ptid_t			  mgmt_ptid;
+	int			  speed;
+	const struct edgx_ifpriv *ifpriv = NULL;
+	const struct edgx_ifreq	  iflist[] = {
+		{ .id = AC_PORT_ID, .v_maj = 3,
+		  .priv = &(struct edgx_ifpriv){
+			  .cutthrough = false,
+			  .mgmt = false,
+			  .update_speed = edgx_pt_update_speed_nova,
+		  }
+		},
+		{ .id = AC_PORT_ID, .v_maj = 2,
+		  .priv = &(struct edgx_ifpriv){
+			  .cutthrough = true,
+			  .mgmt = true,
+			  .update_speed = edgx_pt_update_speed_deip,
+		  }
+		},
+		{ .id = AC_EOT_ID }
+	};
 
 	if (!br || !ppt)
 		return -EINVAL;
-	ifd = edgx_ac_get_if(&ifreq);
+	ifd = edgx_ac_get_ifver(iflist, &ifpriv);
 	if (!ifd)
 		return -ENODEV;
 
 	edgx_br_info(br, "Traffic class for reserved MAC traffic: %u\n",
-			edgx_get_tc_mgmtraffic(br));
+		     edgx_get_tc_mgmtraffic(br));
 
 	mgmt_ptid = edgx_com_get_mgmt_ptid(edgx_br_get_com(br));
 
@@ -2538,15 +2667,16 @@ int edgx_probe_brports(struct edgx_br *br,
 		if (!pt)
 			goto err_port;
 
+		pt->ifpriv = *ifpriv;
 		pt->iobase = pifd.iobase;
-		pt->netdev->netdev_ops     = &edgx_brpt_netdev_ops;
-		pt->netdev->ethtool_ops    = &edgx_brpt_ethtool_ops;
+		pt->netdev->netdev_ops	   = &edgx_brpt_netdev_ops;
+		pt->netdev->ethtool_ops	   = &edgx_brpt_ethtool_ops;
 		pt->netdev->watchdog_timeo = msecs_to_jiffies(EDGX_PT_WDT_MS);
 
 		edgx_pt_info(pt, "Setup Bridge Port %d %s...\n", ptid,
 			     (ptid == mgmt_ptid) ? "(mgmt)" : " ");
 
-		if (_edgx_pt_activate(pt, lnk_mode, (ptid == mgmt_ptid))) {
+		if (_edgx_pt_activate(pt, spd_mask, ptid == mgmt_ptid)) {
 			edgx_pt_set_mgmt(pt, false);
 			_edgx_pt_clear(pt);
 			goto err_port;
@@ -2568,13 +2698,14 @@ int edgx_probe_brports(struct edgx_br *br,
 			break;
 		default:
 			edgx_pt_err(pt,
-			"Unsupported number of traffic classes: %d.\n",
-			edgx_br_get_generic(edgx_pt_get_br(pt),
+			    "Unsupported number of traffic classes: %d.\n",
+			    edgx_br_get_generic(edgx_pt_get_br(pt),
 						BR_GX_QUEUES));
 		}
 
-		edgx_wr16(_GEN_BASE(pt->iobase), 0x10, BIT(15));
-		edgx_set16(_GEN_BASE(pt->iobase), 0x0, 1, 0, _PT_STP_FWD);
+		edgx_wr16(_GEN_BASE(pt->iobase), _PT_REG_VLAN0, BIT(15));
+		edgx_set16(_GEN_BASE(pt->iobase), _PT_REG_STATE,
+			   1, 0, _PT_STP_FWD);
 
 		edgx_pt_clear_pvid(pt);
 
@@ -2595,15 +2726,17 @@ int edgx_probe_brports(struct edgx_br *br,
 			edgx_pt_info(pt, "   Adding Frame Preemption ...");
 
 		/* cycling through possible speeds to populate adapter delay table */
-		edgx_pt_update_speed(pt, SPEED_10);
-		edgx_link_update_delays(pt->link, SPEED_10);
-		edgx_pt_update_speed(pt, SPEED_100);
-		edgx_link_update_delays(pt->link, SPEED_100);
-		edgx_pt_update_speed(pt, SPEED_1000);
-		edgx_link_update_delays(pt->link, SPEED_1000);
+		for (int spd_idx = 0; spd_idx < EDGX_SPD_CNT; spd_idx++) {
+			if (!(spd_mask & BIT(spd_idx)))
+				continue;
+
+			speed = edgx_br_speed(spd_idx);
+			pt->ifpriv.update_speed(pt, speed);
+			edgx_link_update_delays(pt->link, speed);
+		}
 
 		/* Set initial speed for FES, based on link's default */
-		edgx_pt_update_speed(pt, edgx_link_get_speed(pt->link));
+		pt->ifpriv.update_speed(pt, edgx_link_get_speed(pt->link));
 		goto next_port;
 
 err_port:
@@ -2643,7 +2776,7 @@ void edgx_shutdown_brports(struct edgx_pt **ppt)
 			_edgx_pt_deactivate(*ppt);
 			edgx_stat_free_hdl((*ppt)->hstat);
 			(*ppt)->hstat = NULL;
-			edgx_pt_set_mgmt((*ppt), false);
+			edgx_pt_set_mgmt(*ppt, false);
 			edgx_pt_info((*ppt), "Shutdown Bridge Port %d ...\n",
 				     (*ppt)->ptid);
 			_edgx_pt_clear(*ppt);

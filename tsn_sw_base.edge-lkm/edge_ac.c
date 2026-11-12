@@ -31,9 +31,12 @@ static struct edgx_ifdesc *_ifm;
 
 int edgx_probe_ac(edgx_io_t *iobase, struct device *dev)
 {
-	int                i;
-	struct edgx_if    *itf;
-	struct edgx_ifreq  selfreq = { .id = AC_AC_ID, .v_maj = 1 };
+	int			 i;
+	const struct edgx_if	*itf = (struct edgx_if *)((u8 *)iobase +
+							  AC_IFMAP_OFS);
+	struct edgx_ifdesc	*ifd;
+	struct edgx_ifreq	 selfreq = { .id = AC_AC_ID, .v_maj = 1 };
+	u32			 addr;
 
 	if (!iobase)
 		return -ENODEV;
@@ -44,22 +47,25 @@ int edgx_probe_ac(edgx_io_t *iobase, struct device *dev)
 
 	edgx_info("Enumerating interfaces on device '%s %s'...\n",
 		  dev_driver_string(dev), dev_name(dev));
-	for (i = 0, itf = (struct edgx_if *)(((u8 *)iobase) + AC_IFMAP_OFS);
-	     (itf->id != AC_EOT_ID) && (i < AC_MAX_ENTRIES);
+	ifd = &_ifm[0];
+	for (i = 0; (itf->id != AC_EOT_ID) && (i < AC_MAX_ENTRIES);
 	     itf++, i++) {
-		u32 addr       = itf->addr;
+		if (itf->id == AC_DISABLED_ID)
+			continue;
 
-		_ifm[i].id     = le16_to_cpu(itf->id);
-		_ifm[i].ver    = itf->ver;
-		_ifm[i].iobase = iobase + le32_to_cpu(itf->addr);
-		_ifm[i].len    = le32_to_cpu(itf->len);
-		_ifm[i].ptmap  = le32_to_cpu(itf->ptmap);
+		addr		= le32_to_cpu(itf->addr);
+		ifd->id		= le16_to_cpu(itf->id);
+		ifd->ver	= itf->ver;
+		ifd->iobase	= iobase + addr;
+		ifd->len	= le32_to_cpu(itf->len);
+		ifd->ptmap	= le32_to_cpu(itf->ptmap);
 		edgx_info("   %d: <0x%02X> @ 0x%08X/0x%06zx, v%u.%u - [0x%X]\n",
-			  i, _ifm[i].id, addr, _ifm[i].len,
-			  _ifm[i].ver.v_maj, _ifm[i].ver.v_min, _ifm[i].ptmap);
+			  i, ifd->id, addr, ifd->len,
+			  ifd->ver.v_maj, ifd->ver.v_min, ifd->ptmap);
+		ifd++;
 	}
 
-	_ifm[i].id = AC_EOT_ID;
+	ifd->id = AC_EOT_ID;
 	if (!edgx_ac_get_if(&selfreq)) {
 		edgx_shutdown_ac();
 		edgx_err("Interface-Map self-check ... FAILED\n");
@@ -71,7 +77,7 @@ int edgx_probe_ac(edgx_io_t *iobase, struct device *dev)
 
 const struct edgx_ifdesc *edgx_ac_get_if(const struct edgx_ifreq *ifreq)
 {
-	int i = 0;
+	unsigned int i = 0;
 
 	if (!_ifm || !ifreq)
 		return NULL;
@@ -85,6 +91,29 @@ const struct edgx_ifdesc *edgx_ac_get_if(const struct edgx_ifreq *ifreq)
 	return NULL;
 }
 
+const struct edgx_ifdesc *edgx_ac_get_ifver(const struct edgx_ifreq iflist[],
+					    const struct edgx_ifpriv **priv)
+{
+	unsigned int i;
+	const struct edgx_ifreq *ifreq;
+
+	if (!_ifm || !iflist)
+		return NULL;
+	for (i = 0; i < AC_MAX_ENTRIES; i++) {
+		struct edgx_ifdesc *itf = &_ifm[i];
+
+		for (ifreq = &iflist[0]; ifreq->id != AC_EOT_ID; ifreq++) {
+			if (itf->id        == ifreq->id &&
+			    itf->ver.v_maj == ifreq->v_maj) {
+				if (priv)
+					*priv = ifreq->priv;
+				return itf;
+			}
+		}
+	}
+	return NULL;
+}
+
 const struct edgx_ifdesc *edgx_ac_if2ptif(const struct edgx_ifdesc *ifdesc,
 					  ptid_t pt,
 					  struct edgx_ifdesc *ptifdesc)
@@ -94,10 +123,17 @@ const struct edgx_ifdesc *edgx_ac_if2ptif(const struct edgx_ifdesc *ifdesc,
 
 	ptifdesc->id      = ifdesc->id;
 	ptifdesc->ver     = ifdesc->ver;
-	/* TODO: Change to do_div! */
-	ptifdesc->len     = ifdesc->len / hweight_long(ifdesc->ptmap);
-	ptifdesc->iobase  = ifdesc->iobase + (pt * ptifdesc->len);
 	ptifdesc->ptmap   = BIT(pt);
+	/* External port adapter addresses are used in sequence */
+	if (ifdesc->id == AC_EXT_ADPT_ID) {
+		u32 pt_idx = hweight32(ifdesc->ptmap & GENMASK(pt, 0)) - 1;
+
+		ptifdesc->len     = ifdesc->len / hweight32(ifdesc->ptmap);
+		ptifdesc->iobase  = ifdesc->iobase + (pt_idx * ptifdesc->len);
+	} else {
+		ptifdesc->len     = ifdesc->len / hweight32(ifdesc->ptmap);
+		ptifdesc->iobase  = ifdesc->iobase + (pt * ptifdesc->len);
+	}
 
 	return ptifdesc;
 }
@@ -106,7 +142,51 @@ const struct edgx_ifdesc *edgx_ac_get_ptif(const struct edgx_ifreq *ifreq,
 					   ptid_t pt,
 					   struct edgx_ifdesc *ptifdesc)
 {
-	const struct edgx_ifdesc *ifdesc = edgx_ac_get_if(ifreq);
+	const struct edgx_ifdesc *ifdesc = NULL;
+	unsigned int i = 0;
+
+	if (!_ifm || !ifreq)
+		return NULL;
+	for (i = 0; i < AC_MAX_ENTRIES; i++) {
+		struct edgx_ifdesc *itf = &_ifm[i];
+
+		if (itf->id        == ifreq->id &&
+		    itf->ver.v_maj == ifreq->v_maj &&
+		    itf->ptmap     & BIT(pt)) {
+			ifdesc = itf;
+		}
+	}
+
+	if (!ifdesc)
+		return NULL;
+	return edgx_ac_if2ptif(ifdesc, pt, ptifdesc);
+}
+
+const struct edgx_ifdesc *edgx_ac_get_ptifver(const struct edgx_ifreq iflist[],
+					      ptid_t pt,
+					      struct edgx_ifdesc *ptifdesc,
+					      const struct edgx_ifpriv **priv)
+{
+	const struct edgx_ifdesc *ifdesc = NULL;
+	unsigned int i;
+	const struct edgx_ifreq *ifreq;
+
+	if (!_ifm || !iflist)
+		return NULL;
+	for (i = 0; i < AC_MAX_ENTRIES; i++) {
+		struct edgx_ifdesc *itf = &_ifm[i];
+
+		for (ifreq = &iflist[0]; ifreq->id != AC_EOT_ID; ifreq++) {
+			if (itf->id        == ifreq->id &&
+			    itf->ver.v_maj == ifreq->v_maj &&
+			    itf->ptmap     &  BIT(pt)) {
+				ifdesc = itf;
+				if (priv)
+					*priv = ifreq->priv;
+				break;
+			}
+		}
+	}
 
 	if (!ifdesc)
 		return NULL;

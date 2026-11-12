@@ -121,7 +121,6 @@ struct edgx_br_vlan {
 #define _ENGINEERED_TRAFFIC(boolean)	(((boolean) ? (0x1) : (0x0)) << 15)
 
 #define _MTPORTS_REG      0x12
-#define _MTPORTS_ALL      0xFFFF
 #define _MTFID_REG        0x14
 
 static inline struct edgx_br_vlan *edgx_dev2brvlan(struct device *dev)
@@ -504,8 +503,6 @@ int edgx_br_vlan_add_pt(struct edgx_br_vlan *brvlan,
 
 	if (!brvlan)
 		return -EINVAL;
-	if (brvlan->nvlans >= brvlan->max_vlans)
-		return -ENOMEM;
 
 	/* TODO: 'bridge vlan add pvid' (without 'untagged') causes traceback
 	 * set CONFIG_BUG=n to omit.
@@ -529,6 +526,8 @@ int edgx_br_vlan_add_pt(struct edgx_br_vlan *brvlan,
 		if (vid == edgx_pt_get_pvid(pt) && !pvid)
 			edgx_pt_clear_pvid(pt);
 	} else {
+		if (brvlan->nvlans >= brvlan->max_vlans)
+			goto out_no_vid;
 		vlan = _edgx_br_vlan_get_free_vlan(brvlan);
 		fid  = _edgx_br_vlan_get_free_fid(brvlan);
 		if (vlan && fid) {
@@ -722,7 +721,7 @@ static ssize_t vlan_ver_show(struct device *dev,
 }
 
 static ssize_t vid2fid_read(struct file *filp, struct kobject *kobj,
-			    struct bin_attribute *bin_attr, char *buf,
+			    edgx_bin_attr *bin_attr, char *buf,
 			    loff_t ofs, size_t count)
 {
 	struct edgx_br_vlan *brvlan = edgx_dev2brvlan(kobj_to_dev(kobj));
@@ -738,7 +737,7 @@ static ssize_t vid2fid_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t vid2fid_write(struct file *filp, struct kobject *kobj,
-			     struct bin_attribute *bin_attr, char *buf,
+			     edgx_bin_attr *bin_attr, char *buf,
 			     loff_t ofs, size_t count)
 {
 	struct edgx_br_vlan *brvlan = edgx_dev2brvlan(kobj_to_dev(kobj));
@@ -752,7 +751,7 @@ static ssize_t vid2fid_write(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t fid2vid_read(struct file *filp, struct kobject *kobj,
-			    struct bin_attribute *bin_attr, char *buf,
+			    edgx_bin_attr *bin_attr, char *buf,
 			    loff_t ofs, size_t count)
 {
 	struct edgx_br_vlan *brvlan = edgx_dev2brvlan(kobj_to_dev(kobj));
@@ -799,7 +798,7 @@ static struct attribute *ieee8021_qbridge_attrs[] = {
 EDGX_BIN_ATTR_RW(vid2fid, "vid2fid", VLAN_N_VID * sizeof(u32));
 EDGX_BIN_ATTR_RO(fid2vid, "fid2vid", _VLAN_N_FID * _VLAN_PER_FID * sizeof(u32));
 
-static struct bin_attribute *ieee8021_qbridge_binattrs[] = {
+static edgx_bin_attr *ieee8021_qbridge_binattrs[] = {
 	&bin_attr_fid2vid,
 	/* TODO: Add option here to delete FID alloc?
 	 *       This can be done by alloc'ing to (invalid) FID 0
@@ -855,7 +854,7 @@ static ssize_t max_msti_show(struct device *dev,
 }
 
 static ssize_t fid2msti_write(struct file *filp, struct kobject *kobj,
-			      struct bin_attribute *bin_attr, char *buf,
+			      edgx_bin_attr *bin_attr, char *buf,
 			      loff_t ofs, size_t count)
 {
 	struct edgx_br_vlan *brvlan = edgx_dev2brvlan(kobj_to_dev(kobj));
@@ -869,7 +868,7 @@ static ssize_t fid2msti_write(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t fid2msti_read(struct file *filp, struct kobject *kobj,
-			     struct bin_attribute *bin_attr, char *buf,
+			     edgx_bin_attr *bin_attr, char *buf,
 			     loff_t ofs, size_t count)
 {
 	struct edgx_br_vlan *brvlan = edgx_dev2brvlan(kobj_to_dev(kobj));
@@ -892,7 +891,7 @@ static ssize_t fid2msti_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t msti_list_read(struct file *filp, struct kobject *kobj,
-			      struct bin_attribute *bin_attr, char *buf,
+			      edgx_bin_attr *bin_attr, char *buf,
 			      loff_t ofs, size_t count)
 {
 	struct edgx_br_vlan *brvlan = edgx_dev2brvlan(kobj_to_dev(kobj));
@@ -938,7 +937,7 @@ static struct attribute *ieee8021_mstp_attrs[] = {
 EDGX_BIN_ATTR_RW(fid2msti,  "fid2msti", EDGX_MAX_SUPP_MSTI * sizeof(u32));
 EDGX_BIN_ATTR_RO(msti_list, "mstiList", EDGX_MAX_SUPP_MSTI * sizeof(u32));
 
-static struct bin_attribute *ieee8021_mstp_binattrs[] = {
+static edgx_bin_attr *ieee8021_mstp_binattrs[] = {
 	&bin_attr_fid2msti,
 	&bin_attr_msti_list,
 	NULL,

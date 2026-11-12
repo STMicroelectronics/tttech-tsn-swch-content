@@ -24,6 +24,7 @@
  */
 
 #include <linux/interrupt.h>
+#include <linux/bitfield.h>
 
 #include "edge_ac.h"
 #include "edge_util.h"
@@ -40,11 +41,10 @@
 #define EDGX_COM_TS_RX_STATUS	 (0x10)
 #define EDGX_COM_TS_TX_STATUS    (0x12)
 #define EDGX_COM_TS_HDR_LEN	 (16U)     /* NOTE: error in the IP manual */
-#define EDGX_COM_TS_TIME_LO	 (0x0008)
-#define EDGX_COM_TS_TIME_HI	 (0x000a)
+#define EDGX_COM_TS_TIME	 (0x0008)
 
-#define EDGX_COM_TS_SEC_MASK     (0xc000)
-#define EDGX_COM_TS_NSEC_MASK	 (0x3fff)
+#define EDGX_COM_TS_SEC_MASK	 GENMASK(31, 30)
+#define EDGX_COM_TS_NSEC_MASK	 GENMASK(29, 0)
 #define EDGX_COM_TS_HDR_MSG_0	 (0xc)
 #define EDGX_COM_TS_HDR_MSG_1	 (0xe)
 
@@ -69,33 +69,28 @@ static const u8 *edgx_com_get_ptp_hdr(struct sk_buff *skb)
 	return ptp_hdr;
 }
 
+static inline u32 edgx_com_ts_get_ptp_ts_info(const u8 *ptp_hdr)
+{
+	return (u32)((ptp_hdr[31] << 24) | (ptp_hdr[30] << 16) |
+		     (ptp_hdr[4] << 8)   | ptp_hdr[0]);
+}
+
 static int edgx_com_ts_read(edgx_io_t *ts_base, struct timespec64 *cur_time,
-			    ktime_t *timestamp, u16 *hdr, u16 hdr_size)
+			    ktime_t *timestamp, u32 *ts_info)
 {
 	u64 sec, full_sec, full_sec_tmp;
 	u32 nsec;
-	u16 edgx_hdr[2] = {0};
-	u16 time_hi, time_lo;
-	u8  *u8hdr = (u8*)hdr;
+	u32 ts_time;
 	struct timespec64 hwts;
 
-	memset(&hdr[0], 0, EDGX_COM_TS_HDR_LEN);
-	edgx_hdr[0] = edgx_rd16(ts_base, EDGX_COM_TS_HDR_MSG_0);
-	edgx_hdr[1] = edgx_rd16(ts_base, EDGX_COM_TS_HDR_MSG_1);
+	*ts_info = edgx_rd32(ts_base, EDGX_COM_TS_HDR_MSG_0);
+	ts_time = edgx_rd32(ts_base, EDGX_COM_TS_TIME);
 
-	/* As specified in the IP registers, using u8 to avoid endianness */
-	u8hdr[0] = (u8)(edgx_hdr[0] & 0xff);
-	u8hdr[4] = (u8)(edgx_hdr[0] >> 8);
-	/* This is already provided in network endianness */
-	hdr[15] = edgx_hdr[1];
-	time_hi = edgx_rd16(ts_base, EDGX_COM_TS_TIME_HI);
-	time_lo = edgx_rd16(ts_base, EDGX_COM_TS_TIME_LO);
+	edgx_dbg("%s: ts_info=0x%x, ts_time=0x%x", __func__,
+		 *ts_info, ts_time);
 
-	edgx_dbg("%s: edgx_hdr=%x:%x | time_hi:%x | time_lo:%x", __func__,
-		 edgx_hdr[0], edgx_hdr[1], time_hi, time_lo);
-
-	sec = ((time_hi & EDGX_COM_TS_SEC_MASK) >> 14);
-	nsec = (((time_hi & EDGX_COM_TS_NSEC_MASK) << 16) | time_lo);
+	sec  = FIELD_GET(EDGX_COM_TS_SEC_MASK,  ts_time);
+	nsec = FIELD_GET(EDGX_COM_TS_NSEC_MASK, ts_time);
 	if (nsec >= NSEC_PER_SEC) {
 		nsec -= NSEC_PER_SEC;
 		++sec;
@@ -131,7 +126,7 @@ static int edgx_com_ts_read(edgx_io_t *ts_base, struct timespec64 *cur_time,
 
 static int edgx_com_ts_read_rx(struct edgx_com_pts *pts,
 			       struct timespec64 *cur_time,
-			       ktime_t *timestamp, u16 *hdr, u16 hdr_size)
+			       ktime_t *timestamp, u32 *ts_info)
 {
 	int ret;
 
@@ -143,15 +138,15 @@ static int edgx_com_ts_read_rx(struct edgx_com_pts *pts,
 	edgx_wait_cmd(pts->iobase, EDGX_COM_TS_CMD_BASE,
 		      EDGX_COM_TRANSFER_TS_CMD);
 
-	ret = edgx_com_ts_read(pts->iobase, cur_time, timestamp, hdr, hdr_size);
+	ret = edgx_com_ts_read(pts->iobase, cur_time, timestamp, ts_info);
 	spin_unlock_bh(pts->ts_lock);
-	edgx_dbg("ts_read_rx: %*ph\n", 2*EDGX_COM_TS_HDR_LEN, (u8 *)hdr);
+	edgx_dbg("%s: port=%u, ts_info=0x%x\n", __func__, pts->ptid, *ts_info);
 	return ret;
 }
 
 static int edgx_com_ts_read_tx(struct edgx_com_pts *pts,
 			       struct timespec64 *cur_time,
-			       ktime_t *timestamp, u16 *hdr, u16 hdr_size)
+			       ktime_t *timestamp, u32 *ts_info)
 {
 	int ret;
 
@@ -163,9 +158,9 @@ static int edgx_com_ts_read_tx(struct edgx_com_pts *pts,
 	edgx_wait_cmd(pts->iobase, EDGX_COM_TS_CMD_BASE,
 		      EDGX_COM_TRANSFER_TS_CMD);
 
-	ret = edgx_com_ts_read(pts->iobase, cur_time, timestamp, hdr, hdr_size);
+	ret = edgx_com_ts_read(pts->iobase, cur_time, timestamp, ts_info);
 	spin_unlock_bh(pts->ts_lock);
-	edgx_dbg("ts_read_tx: %*ph\n", 2*EDGX_COM_TS_HDR_LEN, (u8 *)hdr);
+	edgx_dbg("%s: port=%u, ts_info=0x%x\n", __func__, pts->ptid, *ts_info);
 	return ret;
 }
 
@@ -173,95 +168,83 @@ static void edgx_com_ts_find_tx(struct edgx_com_pts *pts,
 				struct timespec64 *cur_time)
 {
 	int i = 0;
-	int ts_ret;
-	const u8 *hdr, *ts_hdr_u8, hdr_position[4] = {0, 4, 30, 31};
 	struct skb_shared_hwtstamps hwts;
 	struct sk_buff *found_skb;
-	u16 ts_hdr[EDGX_COM_TS_HDR_LEN] = {0};
+	const u8 *hdr;
+	u32 ptp_ts_info;
+	u32 ts_info;
 	u16 ts_ctrl;
+	int ret;
 
-	edgx_dbg("COM TS: find_tx.\n");
+	edgx_dbg("COM TS: find_tx, port=%u\n", pts->ptid);
 	/* First read the register for the TX timestamp status */
 	ts_ctrl = edgx_rd16(pts->iobase, EDGX_COM_TS_TX_STATUS);
 	/* If the port bit is set there is a timestamp ready to be used */
 	while (ts_ctrl & BIT(pts->ptid)) {
 		found_skb = NULL;
-		ts_ret = edgx_com_ts_read_tx(pts, cur_time,
-					     &hwts.hwtstamp,
-					     ts_hdr, EDGX_COM_TS_HDR_LEN);
+		ret = edgx_com_ts_read_tx(pts, cur_time, &hwts.hwtstamp,
+					  &ts_info);
 
 		while (kfifo_out_spinlocked(&pts->tx_queue, &found_skb,
 					    1, &pts->lock)) {
 			hdr = edgx_com_get_ptp_hdr(found_skb);
-			ts_hdr_u8 = (u8 *)&ts_hdr[0];
-			for (i = 0; i < 4; ++i)
-				if (memcmp(&ts_hdr_u8[hdr_position[i]],
-					   &hdr[hdr_position[i]],
-					   sizeof(u8))) {
-					dev_kfree_skb_any(found_skb);
-					found_skb = NULL;
-					break;
-				}
-			if (found_skb)
+			ptp_ts_info = edgx_com_ts_get_ptp_ts_info(hdr);
+			if (ts_info == ptp_ts_info)
 				break;
-			edgx_dbg("%s: tx removed from kfifo kfifo_pos=%u, port=%u\n",
-				 __func__, i++, pts->ptid);
+			dev_kfree_skb_any(found_skb);
+			found_skb = NULL;
+			edgx_dbg("%s: tx removed from kfifo, port=%u, kfifo_pos=%u\n",
+				 __func__, pts->ptid, i++);
 		}
 
 		if (found_skb) {
 			/* Matching frame found, but timestamp is invalid. */
-			if (ts_ret) {
-				edgx_warn("%s: Cannot calculate port%u timestamp.\n",
-					 __func__, pts->ptid);
+			if (ret) {
+				edgx_warn("%s: Cannot calculate timestamp, port=%u\n",
+					  __func__, pts->ptid);
 				dev_kfree_skb_any(found_skb);
 			} else {
-				edgx_dbg("%s: ts=%llu, pos=%u\n",
-					 __func__, hwts.hwtstamp, i);
+				edgx_dbg("%s: port=%u, ts=%llu, pos=%u\n",
+					 __func__, pts->ptid, hwts.hwtstamp, i);
 				edgx_com_txts_dispatch(found_skb, &hwts);
 			}
-		} else
-			edgx_warn("%s(): TX timestamp lost.\n", __func__);
+		} else {
+			edgx_warn("%s(): TX timestamp lost, port=%u\n",
+				  __func__, pts->ptid);
+		}
 		/* Read TX timestamp status for next loop */
 		ts_ctrl = edgx_rd16(pts->iobase, EDGX_COM_TS_TX_STATUS);
 	}
 }
 
-static void edgx_com_ts_find_rx(struct edgx_com_pts *pts, const u16 *hdr,
+static void edgx_com_ts_find_rx(struct edgx_com_pts *pts, const u8 *ptp_hdr,
 				struct timespec64 *cur_time, ktime_t *time)
 {
-	const u8 *hdr_u8, *ts_hdr_u8, hdr_position[4] = {0, 4, 30, 31};
-	int i = 0;
-	int ts_ret;
-	u16 ts_hdr[EDGX_COM_TS_HDR_LEN] = {0};
+	u32 ptp_ts_info = edgx_com_ts_get_ptp_ts_info(ptp_hdr);
+	u32 ts_info;
 	ktime_t tmp_time;
 	u16 ts_ctrl;
+	int ret;
 
-	edgx_dbg("COM TS: find_rx.\n");
-	hdr_u8 = (u8 *)hdr;
+	edgx_dbg("COM TS: find_rx\n");
 	/* First read the register for the RX timestamp status */
 	ts_ctrl = edgx_rd16(pts->iobase, EDGX_COM_TS_RX_STATUS);
 	/* If the port bit is set there is a timestamp ready to be used */
 	while (ts_ctrl & BIT(pts->ptid)) {
-		ts_ret = edgx_com_ts_read_rx(pts, cur_time, &tmp_time,
-					     ts_hdr, EDGX_COM_TS_HDR_LEN);
-		ts_hdr_u8 = (u8 *)&ts_hdr[0];
-		for (i = 0; i < 4; ++i)
-			if (memcmp(&ts_hdr_u8[hdr_position[i]],
-				   &hdr_u8[hdr_position[i]], sizeof(u8)))
-				break;
-		if (i == 4) {
+		ret = edgx_com_ts_read_rx(pts, cur_time, &tmp_time, &ts_info);
+		if (ts_info == ptp_ts_info) {
 			/* Matching frame found, but timestamp is invalid. */
-			if (ts_ret) {
-				edgx_err("%s: Cannot calculate port%u timestamp!\n",
-					 __func__, pts->ptid);
+			if (ret) {
+				edgx_warn("%s: Cannot calculate timestamp, port=%u\n",
+					  __func__, pts->ptid);
 				break;
 			}
 			*time = tmp_time;
-			edgx_dbg("%s: ts=%lld, port=%d\n",
-				 __func__, *time, pts->ptid);
+			edgx_dbg("%s: port=%d, ts=%lld\n",
+				 __func__, pts->ptid, *time);
 			break;
 		}
-		edgx_err("%s: rx not found: port=%u\n", __func__, pts->ptid);
+		edgx_warn("%s: rx not found, port=%u\n", __func__, pts->ptid);
 		/* Read RX timestamp status for next loop */
 		ts_ctrl = edgx_rd16(pts->iobase, EDGX_COM_TS_RX_STATUS);
 	}
@@ -359,13 +342,15 @@ struct sk_buff *edgx_com_ts_xmit(struct edgx_com_ts *ts,
 
 	if (!kfifo_in_spinlocked(&pts->tx_queue, &skb, 1, &pts->lock)) {
 		dev_kfree_skb_any(skb_backup);
-		edgx_warn("%s(): Tx timestamp dropped.\n", __func__);
+		edgx_warn("%s(): Tx timestamp dropped port=%u\n",
+			  __func__, ptid);
 		return skb;
 	}
 
 	skb_shinfo(skb)->tx_flags |= SKBTX_IN_PROGRESS;
 	skb_tx_timestamp(skb);
-	edgx_dbg("%s: queued. pos=%d\n", __func__, kfifo_len(&pts->tx_queue));
+	edgx_dbg("%s: queued, port=%u, pos=%d\n",
+		 __func__, ptid, kfifo_len(&pts->tx_queue));
 	return skb_backup;
 }
 
@@ -377,7 +362,7 @@ static void edgx_com_ts_work_tx(struct work_struct *work)
 	struct edgx_com_pts *pts;
 	struct edgx_com_ts *ts = edgx_work_to_ts(work);
 
-	edgx_dbg("COM TS: work_tx.\n");
+	edgx_dbg("COM TS: work_tx\n");
 	edgx_br_clr_int_stat(ts->parent, BIT(EDGX_IRQ_NR_TS_TX));
 
 	for (ptid = 0; ptid < EDGX_BR_MAX_PORTS; ptid++) {
@@ -393,7 +378,7 @@ static void edgx_com_ts_work_tx(struct work_struct *work)
 
 irqreturn_t edgx_com_ts_isr(struct edgx_com_ts *ts)
 {
-	edgx_dbg("COM TS: Isr.\n");
+	edgx_dbg("COM TS: Isr\n");
 	edgx_br_irq_disable(ts->parent, EDGX_IRQ_NR_TS_TX);
 	queue_work(ts->wq_tx, &ts->work_tx);
 
@@ -421,8 +406,7 @@ void edgx_com_ts_rx(struct edgx_com_ts *ts, struct sk_buff *skb, ptcom_t ptcom)
 
 	time = edgx_br_get_pt_time(ts->parent, ptid);
 	edgx_tm_get_ts_time(time, &cur_time);
-	edgx_com_ts_find_rx(pts, (const u16 *)ptp_hdr,
-			    &cur_time, &hwts->hwtstamp);
+	edgx_com_ts_find_rx(pts, ptp_hdr, &cur_time, &hwts->hwtstamp);
 }
 
 int edgx_com_ts_init(struct edgx_com_ts *ts, edgx_io_t *mngmnt_base,

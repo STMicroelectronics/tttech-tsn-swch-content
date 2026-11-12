@@ -32,6 +32,7 @@
 #include <linux/of_device.h>
 #include <linux/slab.h>
 #include <linux/interrupt.h>
+#include <linux/irq.h>
 
 #include "edge.h"
 #include "edge_bridge.h"
@@ -138,9 +139,8 @@ static int edgx_get_mem_res(struct platform_device *pdev, void **base)
 		return -ENODEV;
 	}
 
-	dev_info(&pdev->dev, "MEM-resource '%s' 0x%llx/0x%llx -> 0x%px\n",
-		 mem->name, (long long unsigned int)mem->start,
-		 (long long unsigned int)resource_size(mem), *base);
+	dev_info(&pdev->dev, "MEM-resource '%s' %pR -> 0x%px\n",
+		 mem->name, mem, *base);
 	return 0;
 }
 

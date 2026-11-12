@@ -841,7 +841,7 @@ static void edgx_sched_adjust_time(struct edgx_st *sched,
 	u32 adj = EDGX_SCHED_TIME_ADJ_DC;
 	struct edgx_link *lnk = edgx_pt_get_link(sched->parent);
 	ktime_t link_dly = edgx_link_get_tx_delay_min(lnk);
-	ktime_t g2o_min = edgx_pt_get_g2omin(sched->parent);
+	ktime_t g2o_min = edgx_pt_get_g2o_min(sched->parent);
 	s64 diff;
 
 	switch (sched->link_mode) {
@@ -1422,7 +1422,7 @@ static ssize_t admin_gate_states_store(struct device *dev,
 }
 
 static ssize_t max_sdu_tab_read(struct file *filp, struct kobject *kobj,
-				struct bin_attribute *bin_attr,
+				edgx_bin_attr *bin_attr,
 				char *buf, loff_t ofs, size_t count)
 {
 	struct device *dev = kobj_to_dev(kobj);
@@ -1454,7 +1454,7 @@ static ssize_t max_sdu_tab_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t max_sdu_tab_write(struct file *filp, struct kobject *kobj,
-				 struct bin_attribute *bin_attr,
+				 edgx_bin_attr *bin_attr,
 				 char *buf, loff_t ofs, size_t count)
 {
 	struct device *dev = kobj_to_dev(kobj);
@@ -1477,7 +1477,7 @@ static ssize_t max_sdu_tab_write(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t overrun_sdu_tab_read(struct file *filp, struct kobject *kobj,
-				    struct bin_attribute *bin_attr,
+				    edgx_bin_attr *bin_attr,
 				    char *buf, loff_t ofs, size_t count)
 {
 	struct device *dev = kobj_to_dev(kobj);
@@ -1554,7 +1554,7 @@ static ssize_t oper_ctrl_list_len_show(struct device *dev,
 }
 
 static ssize_t admin_ctrl_list_read(struct file *filp, struct kobject *kobj,
-				    struct bin_attribute *bin_attr,
+				    edgx_bin_attr *bin_attr,
 				    char *buf, loff_t ofs, size_t count)
 {
 	struct device *dev = kobj_to_dev(kobj);
@@ -1635,7 +1635,7 @@ static ssize_t edgx_sched_set_cl_entry(struct edgx_st *sched,
 }
 
 static ssize_t admin_ctrl_list_write(struct file *filp, struct kobject *kobj,
-				     struct bin_attribute *bin_attr,
+				     edgx_bin_attr *bin_attr,
 				     char *buf, loff_t ofs, size_t count)
 {
 	struct device *dev = kobj_to_dev(kobj);
@@ -1694,7 +1694,7 @@ static ssize_t edgx_sched_get_op_entry(struct edgx_st *sched,
 }
 
 static ssize_t oper_ctrl_list_read(struct file *filp, struct kobject *kobj,
-				   struct bin_attribute *bin_attr,
+				   edgx_bin_attr *bin_attr,
 				   char *buf, loff_t ofs, size_t count)
 {
 	struct device *dev = kobj_to_dev(kobj);
@@ -2073,7 +2073,7 @@ static struct attribute_group ieee8021_st_group = {
 		&dev_attr_supported_int_max.attr,
 		NULL
 	},
-	.bin_attrs = (struct bin_attribute*[]){
+	.bin_attrs = (edgx_bin_attr *[]){
 		&bin_attr_admin_ctrl_list,
 		&bin_attr_oper_ctrl_list,
 		&bin_attr_max_sdu_tab,
@@ -2154,27 +2154,17 @@ int edgx_sched_calc_delays(struct edgx_st *st)
 	return 0;
 }
 
-u64 edgx_st_get_part_indep_tx_dly_hi_min(struct edgx_st *st)
+u64 edgx_st_get_part_indep_tx_dly_min(struct edgx_st *st, int speed)
 {
 	(void)st;
+	(void)speed;
 	return 0;
 }
 
-u64 edgx_st_get_part_indep_tx_dly_hi_max(struct edgx_st *st)
+u64 edgx_st_get_part_indep_tx_dly_max(struct edgx_st *st, int speed)
 {
 	(void)st;
-	return 0;
-}
-
-u64 edgx_st_get_part_indep_tx_dly_lo_min(struct edgx_st *st)
-{
-	(void)st;
-	return 0;
-}
-
-u64 edgx_st_get_part_indep_tx_dly_lo_max(struct edgx_st *st)
-{
-	(void)st;
+	(void)speed;
 	return 0;
 }
 

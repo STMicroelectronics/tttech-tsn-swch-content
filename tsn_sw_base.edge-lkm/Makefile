@@ -14,9 +14,14 @@ target ?= platform
 sched  ?= fsc
 sid    ?= sid
 
-edge_lkm_mod-target-pcie_c10 = edgx_pcie_c10_lkm
-edge_lkm_mod-target-pcie     = edgx_pcie_lkm
-edge_lkm_mod-target-platform = edgx_pfm_lkm
+edge_lkm_mod-target-pcie_xmc      = edgx_pcie_xmc_lkm
+edge_lkm_mod-target-pcie_sbc3513l = edgx_pcie_sbc3513l_lkm
+edge_lkm_mod-target-pcie_c10      = edgx_pcie_c10_lkm
+edge_lkm_mod-target-pcie          = edgx_pcie_lkm
+edge_lkm_mod-target-platform      = edgx_pfm_lkm
+
+mdio-target-pcie_xmc              = apb2mdio
+mdio                              = $(or $(mdio-target-$(target)), altera)
 
 edge_lkm_mod = $(edge_lkm_mod-target-$(target))
 
@@ -28,7 +33,10 @@ sched-flags-fsc = -DEDGX_DISABLE_PSFP
 
 obj-m += $(edge_lkm_mod).o
 
-ccflags-y := -I$(PWD) $(sched-flags-$(sched))
+ccflags-y := -I$(CURDIR) $(sched-flags-$(sched))
+ifneq ($(version),)
+ccflags-y += -DEDGX_SW_CORE_VERSION=\"$(version)\"
+endif
 
 $(edge_lkm_mod)-objs := \
 		   edge_ac.o                 \
@@ -46,7 +54,7 @@ $(edge_lkm_mod)-objs := \
 		   edge_br_$(sid).o          \
 		   edge_frer.o               \
 		   altera_pio.o              \
-		   edge_mdio.o               \
+		   edge_mdio_$(mdio).o       \
 		   edge_port.o               \
 		   edge_time.o               \
 		   $(sched-obj-$(sched))     \
@@ -56,7 +64,7 @@ all : modules
 
 modules modules_install clean :
 	@echo Building $@ via $(KDIR)
-	KCPPFLAGS="-D_EDGX_GIT="$(GIT_COMMIT) $(MAKE) -C $(KDIR) M=$(PWD) $@
+	KCPPFLAGS="-D_EDGX_GIT="$(GIT_COMMIT) $(MAKE) -C $(KDIR) M=$(CURDIR) $@
 
 coccicheck:
 	@echo Coccichecking via $(KDIR)

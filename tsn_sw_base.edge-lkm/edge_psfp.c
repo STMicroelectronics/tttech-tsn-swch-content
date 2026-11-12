@@ -276,7 +276,7 @@ struct psfp_gt_dly_pt {
 
 struct psfp_gt_dly_sched {
 	u64 clk;
-	u64 s2g_min, s2g_max, s2g, s2sg;
+	u64 s2sg_min, s2sg_max, s2sg, s2sg_sched;
 	s64 retard;
 };
 
@@ -292,6 +292,7 @@ struct psfp_gates {
 	edgx_io_t *iobase;
 	const struct psfp_limits *limits;
 	struct edgx_sched_com *sched_com;
+	const struct edgx_ifdesc *ifd_gating;
 	struct psfp_gt gt[];
 };
 
@@ -1369,9 +1370,10 @@ static void edgx_psfp_gt_dump_dly_sched(struct psfp_gt *gt)
 
 	edgx_psfp_dbg(br, "PSFP: gate %u delays:\n", sched_idx);
 	edgx_psfp_dbg(br, "PSFP:     clk %llu\n", dly_sch->clk);
-	edgx_psfp_dbg(br, "PSFP:     s2g %lld .. %lld ns -> %lld ns\n",
-		      dly_sch->s2g_min, dly_sch->s2g_max, dly_sch->s2g);
-	edgx_psfp_dbg(br, "PSFP:     s2sg %lld ns\n", dly_sch->s2sg);
+	edgx_psfp_dbg(br, "PSFP:     s2sg %lld .. %lld ns -> %lld ns\n",
+		      dly_sch->s2sg_min, dly_sch->s2sg_max, dly_sch->s2sg);
+	edgx_psfp_dbg(br, "PSFP:     s2sg_sched %lld ns\n",
+		      dly_sch->s2sg_sched);
 	if (dly_sch->retard < S64_MAX)
 		edgx_psfp_dbg(br, "PSFP:     retard %lld ns\n",
 			      dly_sch->retard);
@@ -1389,13 +1391,13 @@ static s64 edgx_psfp_gt_calc_retard(struct psfp_gt_dly_sched *dly_sch,
 						 dly_pt->i2sg_max));
 	dly_pt->w2sg = (dly_pt->w2sg_min + dly_pt->w2sg_max + 1) / 2;
 	if (dly_pt_ref)
-		dly_pt->sgate_delay = (s64)dly_pt->w2sg - (s64)dly_sch->s2g
-				      - ((s64)dly_pt_ref->w2sg -
-					 (s64)dly_sch->s2g -
-					 dly_pt_ref->sgate_delay);
+		dly_pt->sgate_delay = (s64)dly_pt->w2sg - (s64)dly_sch->s2sg -
+				      ((s64)dly_pt_ref->w2sg -
+				       (s64)dly_sch->s2sg -
+				       dly_pt_ref->sgate_delay);
 	else
 		dly_pt->sgate_delay = 0;
-	retard = (s64)dly_pt->w2sg - (s64)dly_sch->s2sg -
+	retard = (s64)dly_pt->w2sg - (s64)dly_sch->s2sg_sched -
 		 (s64)dly_pt->sgate_delay;
 	return retard;
 }
@@ -1411,7 +1413,7 @@ static int edgx_psfp_gt_calc_delays(struct psfp_gt *gt)
 	struct edgx_pt *pt;
 	struct edgx_link *lnk;
 	ptid_t ptid;
-	u64 s2sg_sched;
+	u64 s2sg_sched_dep;
 	s64 retard;
 	int speed;
 	int ret;
@@ -1428,14 +1430,14 @@ static int edgx_psfp_gt_calc_delays(struct psfp_gt *gt)
 	/* Scheduler index affects stream to stream gate delay and retard,
 	 * but not sgate_delay (gets cancelled)
 	 */
-	s2sg_sched = sched_idx * dly_sch->clk;
+	s2sg_sched_dep = sched_idx * dly_sch->clk;
 
 	ret = edgx_sched_get_s2g(sched, dly_sch->clk,
-				 &dly_sch->s2g_min, &dly_sch->s2g_max);
+				 &dly_sch->s2sg_min, &dly_sch->s2sg_max);
 	if (ret)
 		return ret;
-	dly_sch->s2g = (dly_sch->s2g_min + dly_sch->s2g_max + 1)/2;
-	dly_sch->s2sg = dly_sch->s2g + s2sg_sched;
+	dly_sch->s2sg = (dly_sch->s2sg_min + dly_sch->s2sg_max + 1) / 2;
+	dly_sch->s2sg_sched = dly_sch->s2sg + s2sg_sched_dep;
 
 	edgx_psfp_dbg(gates->parent,
 		      "PSFP: Find reference and determine retard\n");
@@ -1496,8 +1498,8 @@ static int edgx_psfp_gt_calc_delays(struct psfp_gt *gt)
 		lnk = edgx_pt_get_link(pt);
 		dly_pt->lnk_rx_min = edgx_link_get_rx_delay_min(lnk);
 		dly_pt->lnk_rx_max = edgx_link_get_rx_delay_max(lnk);
-		dly_pt->i2sg_min = edgx_pt_get_i2sgmin(pt);
-		dly_pt->i2sg_max = edgx_pt_get_i2sgmax(pt);
+		dly_pt->i2sg_min = edgx_pt_get_i2sg_min(pt);
+		dly_pt->i2sg_max = edgx_pt_get_i2sg_max(pt);
 		retard = edgx_psfp_gt_calc_retard(dly_sch, dly_pt, dly_pt_ref);
 		edgx_psfp_gt_dump_dly_pt(gt, dly_pt);
 		edgx_psfp_dbg(gates->parent, "PSFP:     retard %lld ns\n",
@@ -1598,6 +1600,7 @@ static int edgx_psfp_gt_init(struct edgx_br *br, struct edgx_br_irq *irq,
 	gates->parent = br;
 	gates->iobase = ifd_sgate->iobase;
 	gates->limits = limits;
+	gates->ifd_gating = ifd_gating;
 
 	ret = edgx_sched_com_probe(br, irq, EDGX_IRQ_NR_PSFP_SCHED_TAB,
 				   drv_name, ifd_gating,
@@ -1666,7 +1669,7 @@ static inline struct psfp_flt *edgx_dev2psfp_flt(struct device *dev)
 }
 
 static ssize_t flt_tbl_read(struct file *filp, struct kobject *kobj,
-			    struct bin_attribute *bin_attr,
+			    edgx_bin_attr *bin_attr,
 			    char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -1793,7 +1796,7 @@ out:
 }
 
 static ssize_t flt_tbl_write(struct file *filp, struct kobject *kobj,
-			     struct bin_attribute *bin_attr,
+			     edgx_bin_attr *bin_attr,
 			     char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_br *br = edgx_dev2br(kobj_to_dev(kobj));
@@ -1915,7 +1918,7 @@ static ssize_t flt_str_cnt_read(struct kobject *kobj,
 
 static ssize_t flt_cnt_matching_frames_read(struct file *filp,
 					    struct kobject *kobj,
-					    struct bin_attribute *bin_attr,
+					    edgx_bin_attr *bin_attr,
 					    char *buf, loff_t ofs, size_t count)
 {
 	return flt_str_cnt_read(kobj, buf, ofs, count,
@@ -1924,7 +1927,7 @@ static ssize_t flt_cnt_matching_frames_read(struct file *filp,
 
 static ssize_t flt_cnt_passing_frames_read(struct file *filp,
 					   struct kobject *kobj,
-					   struct bin_attribute *bin_attr,
+					   edgx_bin_attr *bin_attr,
 					   char *buf, loff_t ofs, size_t count)
 {
 	return flt_str_cnt_read(kobj, buf, ofs, count,
@@ -1933,7 +1936,7 @@ static ssize_t flt_cnt_passing_frames_read(struct file *filp,
 
 static ssize_t flt_cnt_not_passing_frames_read(struct file *filp,
 					       struct kobject *kobj,
-					       struct bin_attribute *bin_attr,
+					       edgx_bin_attr *bin_attr,
 					       char *buf, loff_t ofs, size_t count)
 {
 	return flt_str_cnt_read(kobj, buf, ofs, count,
@@ -1942,7 +1945,7 @@ static ssize_t flt_cnt_not_passing_frames_read(struct file *filp,
 
 static ssize_t flt_cnt_passing_sdu_read(struct file *filp,
 					struct kobject *kobj,
-					struct bin_attribute *bin_attr,
+					edgx_bin_attr *bin_attr,
 					char *buf, loff_t ofs, size_t count)
 {
 	return flt_str_cnt_read(kobj, buf, ofs, count,
@@ -1951,7 +1954,7 @@ static ssize_t flt_cnt_passing_sdu_read(struct file *filp,
 
 static ssize_t flt_cnt_not_passing_sdu_read(struct file *filp,
 					    struct kobject *kobj,
-					    struct bin_attribute *bin_attr,
+					    edgx_bin_attr *bin_attr,
 					    char *buf, loff_t ofs, size_t count)
 {
 	return flt_str_cnt_read(kobj, buf, ofs, count,
@@ -1960,7 +1963,7 @@ static ssize_t flt_cnt_not_passing_sdu_read(struct file *filp,
 
 static ssize_t flt_cnt_red_frames_read(struct file *filp,
 				       struct kobject *kobj,
-				       struct bin_attribute *bin_attr,
+				       edgx_bin_attr *bin_attr,
 				       char *buf, loff_t ofs, size_t count)
 {
 	return flt_str_cnt_read(kobj, buf, ofs, count,
@@ -2116,7 +2119,7 @@ static ssize_t gt_hit_cnt_read(struct kobject *kobj,
 
 static ssize_t gt_hit_low_cnt_read(struct file *filp,
 				   struct kobject *kobj,
-				   struct bin_attribute *bin_attr,
+				   edgx_bin_attr *bin_attr,
 				   char *buf, loff_t ofs, size_t count)
 {
 	return gt_hit_cnt_read(kobj, buf, ofs, count, PSFP_CNT_HIT_A);
@@ -2124,7 +2127,7 @@ static ssize_t gt_hit_low_cnt_read(struct file *filp,
 
 static ssize_t gt_hit_high_cnt_read(struct file *filp,
 				    struct kobject *kobj,
-				    struct bin_attribute *bin_attr,
+				    edgx_bin_attr *bin_attr,
 				    char *buf, loff_t ofs, size_t count)
 {
 	return gt_hit_cnt_read(kobj, buf, ofs, count, PSFP_CNT_HIT_B);
@@ -2192,7 +2195,7 @@ static struct edgx_sched *edgx_dev2psfp_gcl_sched(struct device *dev,
 
 static ssize_t gt_gate_enabled_read(struct file *filp,
 				    struct kobject *kobj,
-				    struct bin_attribute *bin_attr,
+				    edgx_bin_attr *bin_attr,
 				    char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_sched *sched = edgx_dev2psfp_sched(kobj_to_dev(kobj),
@@ -2208,7 +2211,7 @@ static ssize_t gt_gate_enabled_read(struct file *filp,
 
 static ssize_t gt_gate_enabled_write(struct file *filp,
 				     struct kobject *kobj,
-				     struct bin_attribute *bin_attr,
+				     edgx_bin_attr *bin_attr,
 				     char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_sched *sched = edgx_dev2psfp_sched(kobj_to_dev(kobj),
@@ -2224,7 +2227,7 @@ static ssize_t gt_gate_enabled_write(struct file *filp,
 
 static ssize_t gt_admin_gate_states_read(struct file *filp,
 					 struct kobject *kobj,
-					 struct bin_attribute *bin_attr,
+					 edgx_bin_attr *bin_attr,
 					 char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_sched *sched = edgx_dev2psfp_sched(kobj_to_dev(kobj),
@@ -2241,7 +2244,7 @@ static ssize_t gt_admin_gate_states_read(struct file *filp,
 
 static ssize_t gt_admin_gate_states_write(struct file *filp,
 					  struct kobject *kobj,
-					  struct bin_attribute *bin_attr,
+					  edgx_bin_attr *bin_attr,
 					  char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_sched *sched = edgx_dev2psfp_sched(kobj_to_dev(kobj),
@@ -2260,7 +2263,7 @@ static ssize_t gt_admin_gate_states_write(struct file *filp,
 
 static ssize_t gt_admin_ipv_read(struct file *filp,
 				 struct kobject *kobj,
-				 struct bin_attribute *bin_attr,
+				 edgx_bin_attr *bin_attr,
 				 char *buf, loff_t ofs, size_t count)
 {
 	s8 *ipv = (s8 *)buf;
@@ -2284,7 +2287,7 @@ static ssize_t gt_admin_ipv_read(struct file *filp,
 
 static ssize_t gt_admin_ipv_write(struct file *filp,
 				  struct kobject *kobj,
-				  struct bin_attribute *bin_attr,
+				  edgx_bin_attr *bin_attr,
 				  char *buf, loff_t ofs, size_t count)
 {
 	s8 *ipv = (s8 *)buf;
@@ -2308,7 +2311,7 @@ static ssize_t gt_admin_ipv_write(struct file *filp,
 
 static ssize_t gt_closed_inv_rx_ena_read(struct file *filp,
 					 struct kobject *kobj,
-					 struct bin_attribute *bin_attr,
+					 edgx_bin_attr *bin_attr,
 					 char *buf, loff_t ofs, size_t count)
 {
 	size_t idx;
@@ -2326,7 +2329,7 @@ static ssize_t gt_closed_inv_rx_ena_read(struct file *filp,
 
 static ssize_t gt_closed_inv_rx_ena_write(struct file *filp,
 					  struct kobject *kobj,
-					  struct bin_attribute *bin_attr,
+					  edgx_bin_attr *bin_attr,
 					  char *buf, loff_t ofs, size_t count)
 {
 	size_t idx;
@@ -2345,7 +2348,7 @@ static ssize_t gt_closed_inv_rx_ena_write(struct file *filp,
 
 static ssize_t gt_closed_inv_rx_read(struct file *filp,
 				     struct kobject *kobj,
-				     struct bin_attribute *bin_attr,
+				     edgx_bin_attr *bin_attr,
 				     char *buf, loff_t ofs, size_t count)
 {
 	size_t idx;
@@ -2363,7 +2366,7 @@ static ssize_t gt_closed_inv_rx_read(struct file *filp,
 
 static ssize_t gt_closed_inv_rx_write(struct file *filp,
 				      struct kobject *kobj,
-				      struct bin_attribute *bin_attr,
+				      edgx_bin_attr *bin_attr,
 				      char *buf, loff_t ofs, size_t count)
 {
 	size_t idx;
@@ -2382,7 +2385,7 @@ static ssize_t gt_closed_inv_rx_write(struct file *filp,
 
 static ssize_t gt_admin_ctrl_list_len_read(struct file *filp,
 					   struct kobject *kobj,
-					   struct bin_attribute *bin_attr,
+					   edgx_bin_attr *bin_attr,
 					   char *buf, loff_t ofs, size_t count)
 {
 	u32 *list_len = (u32 *)buf;
@@ -2400,7 +2403,7 @@ static ssize_t gt_admin_ctrl_list_len_read(struct file *filp,
 
 static ssize_t gt_admin_ctrl_list_len_write(struct file *filp,
 					    struct kobject *kobj,
-					    struct bin_attribute *bin_attr,
+					    edgx_bin_attr *bin_attr,
 					    char *buf, loff_t ofs, size_t count)
 {
 	const u32 *list_len = (u32 *)buf;
@@ -2418,7 +2421,7 @@ static ssize_t gt_admin_ctrl_list_len_write(struct file *filp,
 
 static ssize_t gt_oper_ctrl_list_len_read(struct file *filp,
 					  struct kobject *kobj,
-					  struct bin_attribute *bin_attr,
+					  edgx_bin_attr *bin_attr,
 					  char *buf, loff_t ofs, size_t count)
 {
 	u32 *list_len = (u32 *)buf;
@@ -2471,7 +2474,7 @@ static void edgx_psfp_gt_export_gcl(struct edgx_sched_tab_entry *sched_entries,
 
 static ssize_t gt_admin_ctrl_list_read(struct file *filp,
 				       struct kobject *kobj,
-				       struct bin_attribute *bin_attr,
+				       edgx_bin_attr *bin_attr,
 				       char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_sched_tab_entry *entry = (struct edgx_sched_tab_entry *)buf;
@@ -2493,7 +2496,7 @@ static ssize_t gt_admin_ctrl_list_read(struct file *filp,
 
 static ssize_t gt_admin_ctrl_list_write(struct file *filp,
 					struct kobject *kobj,
-					struct bin_attribute *bin_attr,
+					edgx_bin_attr *bin_attr,
 					char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_sched_tab_entry *entry = (struct edgx_sched_tab_entry *)buf;
@@ -2553,7 +2556,7 @@ static int edgx_psfp_gt_get_oper_ctrl_list(struct edgx_sched *sched,
 }
 
 static ssize_t gt_oper_ctrl_list_read(struct file *filp, struct kobject *kobj,
-				      struct bin_attribute *bin_attr,
+				      edgx_bin_attr *bin_attr,
 				      char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_sched_tab_entry *entry = (struct edgx_sched_tab_entry *)buf;
@@ -2577,7 +2580,7 @@ static ssize_t gt_oper_ctrl_list_read(struct file *filp, struct kobject *kobj,
 
 static ssize_t gt_admin_cycle_time_read(struct file *filp,
 					struct kobject *kobj,
-					struct bin_attribute *bin_attr,
+					edgx_bin_attr *bin_attr,
 					char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_sched_rational *cycle_time =
@@ -2596,7 +2599,7 @@ static ssize_t gt_admin_cycle_time_read(struct file *filp,
 
 static ssize_t gt_admin_cycle_time_write(struct file *filp,
 					 struct kobject *kobj,
-					 struct bin_attribute *bin_attr,
+					 edgx_bin_attr *bin_attr,
 					 char *buf, loff_t ofs, size_t count)
 {
 	const struct edgx_sched_rational *cycle_time =
@@ -2615,7 +2618,7 @@ static ssize_t gt_admin_cycle_time_write(struct file *filp,
 
 static ssize_t gt_oper_cycle_time_read(struct file *filp,
 				       struct kobject *kobj,
-				       struct bin_attribute *bin_attr,
+				       edgx_bin_attr *bin_attr,
 				       char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_sched_rational *cycle_time =
@@ -2634,7 +2637,7 @@ static ssize_t gt_oper_cycle_time_read(struct file *filp,
 
 static ssize_t gt_admin_cycle_time_ext_read(struct file *filp,
 					    struct kobject *kobj,
-					    struct bin_attribute *bin_attr,
+					    edgx_bin_attr *bin_attr,
 					    char *buf, loff_t ofs, size_t count)
 {
 	u32 *cycle_time_ext = (u32 *)buf;
@@ -2654,7 +2657,7 @@ static ssize_t gt_admin_cycle_time_ext_read(struct file *filp,
 
 static ssize_t gt_admin_cycle_time_ext_write(struct file *filp,
 					     struct kobject *kobj,
-					     struct bin_attribute *bin_attr,
+					     edgx_bin_attr *bin_attr,
 					     char *buf, loff_t ofs,
 					     size_t count)
 {
@@ -2679,7 +2682,7 @@ static ssize_t gt_admin_cycle_time_ext_write(struct file *filp,
 
 static ssize_t gt_oper_cycle_time_ext_read(struct file *filp,
 					   struct kobject *kobj,
-					   struct bin_attribute *bin_attr,
+					   edgx_bin_attr *bin_attr,
 					   char *buf, loff_t ofs, size_t count)
 {
 	u32 *cycle_time_ext = (u32 *)buf;
@@ -2699,7 +2702,7 @@ static ssize_t gt_oper_cycle_time_ext_read(struct file *filp,
 
 static ssize_t gt_admin_base_time_read(struct file *filp,
 				       struct kobject *kobj,
-				       struct bin_attribute *bin_attr,
+				       edgx_bin_attr *bin_attr,
 				       char *buf, loff_t ofs, size_t count)
 {
 	struct timespec64 *base_time = (struct timespec64 *)buf;
@@ -2717,7 +2720,7 @@ static ssize_t gt_admin_base_time_read(struct file *filp,
 
 static ssize_t gt_admin_base_time_write(struct file *filp,
 					struct kobject *kobj,
-					struct bin_attribute *bin_attr,
+					edgx_bin_attr *bin_attr,
 					char *buf, loff_t ofs, size_t count)
 {
 	const struct timespec64 *base_time = (struct timespec64 *)buf;
@@ -2735,7 +2738,7 @@ static ssize_t gt_admin_base_time_write(struct file *filp,
 
 static ssize_t gt_oper_base_time_read(struct file *filp,
 				      struct kobject *kobj,
-				      struct bin_attribute *bin_attr,
+				      edgx_bin_attr *bin_attr,
 				      char *buf, loff_t ofs, size_t count)
 {
 	struct timespec64 *base_time = (struct timespec64 *)buf;
@@ -2753,7 +2756,7 @@ static ssize_t gt_oper_base_time_read(struct file *filp,
 
 static ssize_t gt_config_change_read(struct file *filp,
 				     struct kobject *kobj,
-				     struct bin_attribute *bin_attr,
+				     edgx_bin_attr *bin_attr,
 				     char *buf, loff_t ofs, size_t count)
 {
 	bool config_change;
@@ -2772,7 +2775,7 @@ static ssize_t gt_config_change_read(struct file *filp,
 
 static ssize_t gt_config_change_write(struct file *filp,
 				      struct kobject *kobj,
-				      struct bin_attribute *bin_attr,
+				      edgx_bin_attr *bin_attr,
 				      char *buf, loff_t ofs, size_t count)
 {
 	struct edgx_sched *sched = edgx_dev2psfp_sched(kobj_to_dev(kobj),
@@ -2788,7 +2791,7 @@ static ssize_t gt_config_change_write(struct file *filp,
 
 static ssize_t gt_config_change_time_read(struct file *filp,
 					  struct kobject *kobj,
-					  struct bin_attribute *bin_attr,
+					  edgx_bin_attr *bin_attr,
 					  char *buf, loff_t ofs, size_t count)
 {
 	struct timespec64 *cc_time = (struct timespec64 *)buf;
@@ -2806,7 +2809,7 @@ static ssize_t gt_config_change_time_read(struct file *filp,
 
 static ssize_t gt_config_pending_read(struct file *filp,
 				      struct kobject *kobj,
-				      struct bin_attribute *bin_attr,
+				      edgx_bin_attr *bin_attr,
 				      char *buf, loff_t ofs, size_t count)
 {
 	bool config_pending;
@@ -2825,7 +2828,7 @@ static ssize_t gt_config_pending_read(struct file *filp,
 
 static ssize_t gt_config_change_error_read(struct file *filp,
 					   struct kobject *kobj,
-					   struct bin_attribute *bin_attr,
+					   edgx_bin_attr *bin_attr,
 					   char *buf, loff_t ofs, size_t count)
 {
 	u64 *cc_error = (u64 *)buf;
@@ -2843,7 +2846,7 @@ static ssize_t gt_config_change_error_read(struct file *filp,
 
 static ssize_t gt_tick_granul_read(struct file *filp,
 				   struct kobject *kobj,
-				   struct bin_attribute *bin_attr,
+				   edgx_bin_attr *bin_attr,
 				   char *buf, loff_t ofs, size_t count)
 {
 	u32 *tick_granul = (u32 *)buf;
@@ -2862,7 +2865,7 @@ static ssize_t gt_tick_granul_read(struct file *filp,
 
 static ssize_t gt_current_time_read(struct file *filp,
 				    struct kobject *kobj,
-				    struct bin_attribute *bin_attr,
+				    edgx_bin_attr *bin_attr,
 				    char *buf, loff_t ofs, size_t count)
 {
 	struct timespec64 *ts = (struct timespec64 *)buf;
@@ -3040,7 +3043,7 @@ static struct attribute *ieee8021_psfp_attrs[] = {
 	NULL,
 };
 
-static struct bin_attribute *ieee8021_psfp_binattrs[] = {
+static edgx_bin_attr *ieee8021_psfp_binattrs[] = {
 	&bin_attr_flt_tbl,
 	&bin_attr_flt_cnt_matching_frames,
 	&bin_attr_flt_cnt_passing_frames,
@@ -3078,7 +3081,7 @@ static struct attribute_group ieee8021_psfp_group = {
 	.bin_attrs = ieee8021_psfp_binattrs,
 };
 
-static struct bin_attribute *ieee8021_psfp_pt_binattrs[] = {
+static edgx_bin_attr *ieee8021_psfp_pt_binattrs[] = {
 	&bin_attr_gt_hit_low_cnt,
 	&bin_attr_gt_hit_high_cnt,
 	NULL,
@@ -3092,7 +3095,8 @@ static struct attribute_group ieee8021_psfp_pt_group = {
 /* PSFP functionality [de]initialization */
 
 int edgx_probe_psfp(struct edgx_br *br, struct edgx_br_irq *irq,
-		    const char *drv_name, struct edgx_psfp **ppsfp)
+		    const char *drv_name,
+		    struct edgx_psfp **ppsfp)
 {
 	const struct edgx_ifdesc *ifd_gating;
 	const struct edgx_ifreq   ifreq_gating = {
@@ -3100,7 +3104,7 @@ int edgx_probe_psfp(struct edgx_br *br, struct edgx_br_irq *irq,
 		.v_maj = 2
 	};
 	const struct edgx_ifdesc *ifd_flt;
-	const struct edgx_ifreq   ifreq_flt    = {
+	const struct edgx_ifreq   ifreq_flt = {
 		.id    = AC_PSFP_ID,
 		.v_maj = 1
 	};
@@ -3179,22 +3183,16 @@ out_flt:
 
 void edgx_shutdown_psfp(struct edgx_psfp *psfp)
 {
-	const struct edgx_ifreq ifreq = {
-		.id    = AC_PSFP_GATING_ID,
-		.v_maj = 2
-	};
-	const struct edgx_ifdesc *ifd;
 	struct edgx_ifdesc        ptifd;
 	ptid_t                    ptid;
 
 	if (!psfp)
 		return;
 
-	ifd = edgx_ac_get_if(&ifreq);
-	if (!ifd)
+	if (!psfp->gates.ifd_gating)
 		return;
 
-	edgx_ac_for_each_ifpt(ptid, ifd, &ptifd) {
+	edgx_ac_for_each_ifpt(ptid, psfp->gates.ifd_gating, &ptifd) {
 		struct edgx_pt *pt = edgx_br_get_brpt(psfp->parent, ptid);
 
 		if (pt)

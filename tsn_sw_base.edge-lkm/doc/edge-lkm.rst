@@ -4,7 +4,7 @@ EDGE - LKM
 
 This document describes the structure and usage of the EDGE-LKM device driver.
 These procedures apply for systems based on Altera Cyclon V SoC Reference design
-e.g. DE-Evaluation Board. 
+e.g. DE-Evaluation Board.
 
 Structure
 =========
@@ -18,7 +18,7 @@ EDGE-LKM consists of the following kernel modules:
 * EDGE Switch Core Driver (*edgx_sw_core.ko*)
     + implements the HW-interface independent part of the driver
 * EDGE MDIO Driver (*edgx_mdio.ko*)
-    + used to create MDIO buses, they can be used later to connect 
+    + used to create MDIO buses, they can be used later to connect
       to PHY devices
 
 Building
@@ -108,7 +108,7 @@ EDGE Switch Core Configuration
 The EDGE Switch Core Driver module exposes the following parameters:
 
 * *netif*
-    Bridge- and End Station tunnelling network interface 
+    Bridge- and End Station tunnelling network interface
     (xMII connectivity only!)
 
 * *mgmttc*
@@ -118,7 +118,7 @@ Example: ::
 
   modprobe edgx_sw_core netif="eth0:0"
 
-For each bridge port, PHY delays shall be configured for each supported 
+For each bridge port, PHY delays shall be configured for each supported
 transmission speed via these sysfs interfaces: ::
 
   /sys/class/net/BRIDGE_PORT_INTERFACE/phy/delay10tx
@@ -131,7 +131,7 @@ transmission speed via these sysfs interfaces: ::
 Loading
 =======
 
-Perform the following steps on the target system in the prescribed order 
+Perform the following steps on the target system in the prescribed order
 to start EDGE-LKM:
 
 * Load *edgx_hif_platform.ko* and *altera_pio.ko*
@@ -143,5 +143,5 @@ to start EDGE-LKM:
 * Set MAC addresses on each bridge port
 * Set delay parameters on each bridge port
 
-Please refer to start-up scripts in the reference design software package 
+Please refer to start-up scripts in the reference design software package
 e.g. DE-Evaluation Board.

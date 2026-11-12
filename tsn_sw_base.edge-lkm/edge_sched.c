@@ -23,6 +23,8 @@
  * TTTech Computertechnik AG, Schoenbrunnerstrasse 7, 1040 Vienna, Austria
  */
 
+#include <linux/bitfield.h>
+
 #include "edge_ac.h"
 #include "edge_port.h"
 #include "edge_sched.h"
@@ -108,6 +110,9 @@
 #define EDGX_SCHED_HW_TAB_CNT		(2U)
 /* Maximum possible number of schedule table rows */
 #define EDGX_SCHED_HW_MAX_ROWS		(1024U)
+
+#define EDGX_SCHED_DELAY_MASK_LO	GENMASK(2, 0)
+#define EDGX_SCHED_DELAY_MASK_HI	GENMASK(9, 8)
 
 /** Scheduler state machine states */
 enum edgx_sched_state {
@@ -1155,9 +1160,11 @@ struct edgx_br *edgx_sched_get_br(struct edgx_sched *sched)
 	return sched->com->parent;
 }
 
-void edgx_sched_set_delay(struct edgx_sched *sched, u8 delay)
+void edgx_sched_set_delay(struct edgx_sched *sched, u8 delay_lo, u8 delay_hi)
 {
-	edgx_wr16(sched->iobase, EDGX_SCHED_DELAY, delay);
+	edgx_wr16(sched->iobase, EDGX_SCHED_DELAY,
+		  FIELD_PREP(EDGX_SCHED_DELAY_MASK_LO, delay_lo) |
+		  FIELD_PREP(EDGX_SCHED_DELAY_MASK_HI, delay_hi));
 }
 
 void edgx_sched_set_g_close_adv(struct edgx_sched *sched,

@@ -20,4 +20,3 @@ do
     sudo ip link set dev $nbr down
     sudo ip link del dev $nbr
 done
-

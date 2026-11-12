@@ -33,11 +33,11 @@ struct edgx_com;
 struct edgx_com_hdl;
 
 #define COM_FLAG_NONE         ((ptflags_t)0x0)
-#define COM_FLAG_MACSEC       ((ptflags_t)0x80)
-#define COM_FLAG_SMD_R        ((ptflags_t)0x60)
-#define COM_FLAG_SMD_V        ((ptflags_t)0x40)
-#define COM_FLAG_SMD_ES       ((ptflags_t)0x20)
-#define COM_FLAG_IPOMARK      ((ptflags_t)0x10)
+#define COM_FLAG_MACSEC       ((ptflags_t)0x8000)
+#define COM_FLAG_SMD_R        ((ptflags_t)0x6000)
+#define COM_FLAG_SMD_V        ((ptflags_t)0x4000)
+#define COM_FLAG_SMD_ES       ((ptflags_t)0x2000)
+#define COM_FLAG_IPOMARK      ((ptflags_t)0x1000)
 
 #define COM_FLAG_PREEMPT_MASK  (COM_FLAG_SMD_R  |         \
 				COM_FLAG_SMD_V  |         \

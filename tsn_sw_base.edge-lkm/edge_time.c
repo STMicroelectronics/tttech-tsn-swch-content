@@ -105,7 +105,7 @@ struct edgx_clk {
 
 struct edgx_time {
 	edgx_io_t            *iobase;
-	const struct edgx_br *parent;
+	struct edgx_br       *parent;
 	ptvec_t               ptmap;
 
 	struct edgx_clk       clk[EDGX_TM_NCLOCKS];
@@ -324,64 +324,6 @@ static int edgx_clk_cs_getcrosststamp(struct ptp_clock_info *ptp,
 	return ret;
 }
 
-#ifdef PTP_PTP_OFFSET_PRECISE
-static int edgx_clk_getphcxtstamp(struct ptp_clock_info *ptp,
-				  struct ptp_clock_info *ptp_peer,
-				  struct device_device_crosststamp *cts)
-{
-	struct edgx_clk   *clk      = ptp2clk(ptp);
-	struct edgx_clk   *clk_peer = ptp2clk(ptp_peer);
-	struct edgx_clk   *trigger  = clk;
-	struct edgx_clk   *latch    = clk_peer;
-	edgx_io_t         *xtsbase  = clk->parent->xtsbase;
-	struct timespec64  ts_trigg;
-	struct timespec64  ts_latch;
-	unsigned long      flags;
-
-	if (ptp == ptp_peer) {
-		/* trivial case */
-		edgx_clk_gettime64(ptp, &ts_trigg);
-		cts->device      = ktime_set(ts_trigg.tv_sec, ts_trigg.tv_nsec);
-		cts->peer_device = ktime_set(ts_trigg.tv_sec, ts_trigg.tv_nsec);
-		return 0;
-	}
-
-	/* FRTC0 triggers the FPTS, so if we want FRTC1 to be the driver, we
-	 * need to swap the timestamps in the result
-	 */
-	if (clk->tmmux_id == FPTS_TRIGGER_CLK_ID) {
-		trigger = clk_peer;
-		latch   = clk;
-	}
-
-	raw_spin_lock_irqsave(&trigger->lock, flags);
-	edgx_wr16(xtsbase, FPTS_TS_CTL, 1); /* start FPTS recording */
-
-	/* The following reading has the impact, that actual time from
-	 * clock latch gets to block FPTS.
-	 */
-	edgx_clk_read_ts(trigger, &ts_trigg); /* read time = trigger FPTS */
-
-	/* omission of FPTS_TS_SEC_HI is done by intention */
-	ts_latch.tv_sec  = (u64)edgx_rd32(xtsbase, FPTS_TS_SEC_LO);
-	ts_latch.tv_nsec = edgx_get32(xtsbase, FPTS_TS_NSEC, 29, 0);
-
-	raw_spin_unlock_irqrestore(&trigger->lock, flags);
-
-	if (trigger == clk) {
-		/* 'device'/'ptp' requested and triggered, so do stright copy */
-		cts->device = ktime_set(ts_trigg.tv_sec, ts_trigg.tv_nsec);
-		cts->peer_device = ktime_set(ts_latch.tv_sec, ts_latch.tv_nsec);
-	} else {
-		/* 'device_peer'/'ptp_peer' requested, so we need to swap */
-		cts->device = ktime_set(ts_latch.tv_sec, ts_latch.tv_nsec);
-		cts->peer_device = ktime_set(ts_trigg.tv_sec, ts_trigg.tv_nsec);
-	}
-
-	return 0;
-}
-#endif
-
 static int edgx_clk_settime64(struct ptp_clock_info *ptp,
 			      const struct timespec64 *ts)
 {
@@ -409,14 +351,11 @@ static const struct ptp_clock_info edgx_tm_ptp_info = {
 	.adjtime        = edgx_clk_adjtime,
 	.gettime64      = edgx_clk_gettime64,
 	.getcrosststamp = edgx_clk_cs_getcrosststamp,
-#ifdef PTP_PTP_OFFSET_PRECISE
-	.getphcxtstamp  = edgx_clk_getphcxtstamp,
-#endif
 	.settime64      = edgx_clk_settime64,
 };
 
-int edgx_tm_set_role_phc(struct edgx_time *time, enum edgx_clk_role role,
-			 int ptpidx)
+static int edgx_tm_set_role_phc(struct edgx_time *time, enum edgx_clk_role role,
+				int ptpidx)
 {
 	int id;
 
@@ -464,8 +403,99 @@ int edgx_tm_get_role_time(const struct edgx_time *time,
 			    : -EINVAL;
 }
 
-int edgx_probe_time(const struct edgx_br *br, struct edgx_time **ptime,
-		    ptvec_t *map)
+struct edgx_phc_xtstamp {
+	struct ptp_clock_time ts;
+	struct ptp_clock_time wrk;
+};
+
+static inline struct edgx_time *edgx_dev2time(struct device *dev)
+{
+	return edgx_br_get_br_time(edgx_dev2br(dev));
+}
+
+static ssize_t phc_xtstamp_read(struct file *filp, struct kobject *kobj,
+				edgx_bin_attr *bin_attr,
+				char *buf, loff_t ofs, size_t count)
+{
+	struct edgx_time	*time	 = edgx_dev2time(kobj_to_dev(kobj));
+	struct edgx_phc_xtstamp	*xts	 = (struct edgx_phc_xtstamp *)buf;
+	/* FRTC0 triggers the FPTS */
+	struct edgx_clk		*trigger = &time->clk[0];
+	edgx_io_t		*xtsbase = trigger->parent->xtsbase;
+	struct timespec64	 ts_trigg;
+	struct timespec64	 ts_latch;
+	unsigned long		 flags;
+	int			 ret;
+
+	if (ofs != 0)
+		return -EINVAL;
+	if (count != sizeof(*xts))
+		return -EINVAL;
+
+	if (time->rclk[EDGX_TM_ROLE_TS] == time->rclk[EDGX_TM_ROLE_WRK]) {
+		/* trivial case */
+		ret = edgx_tm_get_ts_time(time, &ts_trigg);
+		if (ret)
+			return ret;
+
+		xts->ts = (struct ptp_clock_time){
+			.sec = ts_trigg.tv_sec,
+			.nsec = ts_trigg.tv_nsec
+		};
+		xts->wrk = xts->ts;
+		return count;
+	}
+
+	raw_spin_lock_irqsave(&trigger->lock, flags);
+	edgx_wr16(xtsbase, FPTS_TS_CTL, 1); /* start FPTS recording */
+
+	/* The following reading has the impact, that actual time from
+	 * clock latch gets to block FPTS.
+	 */
+	edgx_clk_read_ts(trigger, &ts_trigg); /* read time = trigger FPTS */
+
+	/* omission of FPTS_TS_SEC_HI is done by intention */
+	ts_latch.tv_sec  = (u64)edgx_rd32(xtsbase, FPTS_TS_SEC_LO);
+	ts_latch.tv_nsec = edgx_get32(xtsbase, FPTS_TS_NSEC, 29, 0);
+
+	raw_spin_unlock_irqrestore(&trigger->lock, flags);
+
+	xts->ts = (struct ptp_clock_time){
+		.sec = ts_trigg.tv_sec,
+		.nsec = ts_trigg.tv_nsec
+	};
+	xts->wrk = (struct ptp_clock_time){
+		.sec = ts_latch.tv_sec,
+		.nsec = ts_latch.tv_nsec
+	};
+
+	return count;
+}
+
+EDGX_BIN_ATTR_RO(phc_xtstamp, "phc_xtstamp", sizeof(struct edgx_phc_xtstamp));
+
+static edgx_bin_attr *edgex_ext_binattrs[] = {
+        &bin_attr_phc_xtstamp,
+        NULL,
+};
+
+static struct attribute_group edgex_ext_group = {
+        .name = "edgex-ext",
+        .bin_attrs = edgex_ext_binattrs,
+};
+
+static int edgx_tm_sysfs_add(struct edgx_time *time)
+{
+	struct edgx_br *br = time->parent;
+	struct attribute_group *grp = &edgex_ext_group;
+	int ret = edgx_br_sysfs_add(br, grp);
+
+	if (ret)
+		edgx_br_warn(br, "Can't create sysfs group %s\n", grp->name);
+	return ret;
+}
+
+int edgx_probe_time(struct edgx_br *br, struct edgx_time **ptime, ptvec_t *map)
 {
 	const struct edgx_ifdesc *ifd;
 	const struct edgx_ifreq   ifreq = { .id = AC_CLOCK_ID, .v_maj = 1 };
@@ -473,6 +503,7 @@ int edgx_probe_time(const struct edgx_br *br, struct edgx_time **ptime,
 	struct edgx_time         *time;
 	u16                       reg, nclk, nxts, ntmux;
 	int                       i;
+	int                       ret;
 
 	if (!br || !ptime)
 		return -EINVAL;
@@ -542,11 +573,6 @@ int edgx_probe_time(const struct edgx_br *br, struct edgx_time **ptime,
 	time->rclk[EDGX_TM_ROLE_TS]  = &time->clk[0];
 	time->rclk[EDGX_TM_ROLE_WRK] = &time->clk[reg];
 
-#ifdef PTP_PTP_OFFSET_PRECISE
-	/* 2nd-PHC patch is in place -> use both clocks */
-	/* Pair up the two clocks for HW cross-timestamping */
-	ptp_clock_set_peer(time->clk[0].ptp, time->clk[1].ptp);
-
 	edgx_br_info(br, "Synchronisation mode (syncmode): %s\n",
 		     syncmode);
 
@@ -562,16 +588,15 @@ int edgx_probe_time(const struct edgx_br *br, struct edgx_time **ptime,
 		edgx_tm_set_role_phc(time, EDGX_TM_ROLE_WRK,
 				     ptp_clock_index(time->clk[1].ptp));
 	}
-#else
-	/* 2nd-PHC patch is NOT in place -> use only FRTC0 */
-	edgx_tm_set_role_phc(time, EDGX_TM_ROLE_WRK,
-			     ptp_clock_index(time->clk[0].ptp));
-#endif
 	if (edgx_clk_cs_init(time->rclk[EDGX_TM_ROLE_WRK])) {
 		edgx_br_err(br, "Cannot initialize clocksource!\n");
 		goto out_clk;
 	}
 	edgx_br_info(br, "Clock source rating (csrating): %d\n", csrating);
+
+	ret = edgx_tm_sysfs_add(time);
+	if (ret)
+		goto out_sysfs;
 
 	edgx_br_info(br, "Timestamper clock: /dev/ptp%d\n",
 		     edgx_tm_get_ts_phc(time));
@@ -581,6 +606,7 @@ int edgx_probe_time(const struct edgx_br *br, struct edgx_time **ptime,
 
 	return 0;
 
+out_sysfs:
 out_clk:
 	edgx_shutdown_time(time);
 	return -ENODEV;

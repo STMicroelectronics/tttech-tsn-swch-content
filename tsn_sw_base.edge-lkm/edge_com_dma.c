@@ -66,14 +66,12 @@
 struct edgx_com_dma_desc {
 	u16 cfg;
 	u16 dummy_1;
+	u16 port;
 	u16 mgmt;
-	u16 dummy_2;
-	u16 p_data_l;
-	u16 p_data_h;
+	u32 p_data;
 	u16 dummy_3;
 	u16 dummy_4;
-	u16 ts_ns_l;
-	u16 ts_ns_h;
+	u32 ts_ns;
 	u16 ts_s_l;
 	u16 dummy_5;
 	u16 dummy_6;
@@ -82,58 +80,15 @@ struct edgx_com_dma_desc {
 	u16 dummy_9;
 } __packed;
 
-#define edgx_dma_get_len(pdesc) (le16_to_cpu((pdesc)->cfg) & 0x7ff)
-#define edgx_dma_get_lerr(pdesc) (le16_to_cpu((pdesc)->cfg) & BIT(13))
-#define edgx_dma_get_err(pdesc) (le16_to_cpu((pdesc)->cfg) & BIT(14))
-#define edgx_dma_get_init(pdesc) (le16_to_cpu((pdesc)->cfg) & BIT(15))
-#define edgx_dma_get_port(pdesc) (le16_to_cpu((pdesc)->mgmt) & 0xfff)
-#define edgx_dma_get_flags(pdesc) (le16_to_cpu((pdesc)->mgmt) >> 8)
-
-static inline u32 edgx_dma_get_pdata(struct edgx_com_dma_desc *pdesc)
-{
-	return (u32)le16_to_cpu(pdesc->p_data_l) |
-	       ((u32)le16_to_cpu(pdesc->p_data_h) << 16);
-}
-
-static inline void edgx_dma_clr_lerr(struct edgx_com_dma_desc *pdesc)
-{
-	pdesc->cfg = __cpu_to_le16(le16_to_cpu(pdesc->cfg) & (~BIT(13)));
-}
-
-static inline void edgx_dma_clr_err(struct edgx_com_dma_desc *pdesc)
-{
-	pdesc->cfg = __cpu_to_le16(le16_to_cpu(pdesc->cfg) & (~BIT(14)));
-}
-
-static inline void edgx_dma_set_port(struct edgx_com_dma_desc *pdesc,
-				     u16 port_mask, u16 flags)
-{
-	pdesc->mgmt = __cpu_to_le16((flags << 8) | (port_mask & 0xfff));
-}
-
-static inline void edgx_dma_set_init(struct edgx_com_dma_desc *pdesc)
-{
-	pdesc->cfg = __cpu_to_le16(le16_to_cpu(pdesc->cfg) | BIT(15));
-}
-
-static inline void edgx_dma_set_len(struct edgx_com_dma_desc *pdesc,
-				    unsigned int len)
-{
-	pdesc->cfg = __cpu_to_le16((le16_to_cpu(pdesc->cfg) & (~0x7ff)) |
-		     (len & 0x7ff));
-}
-
-static inline void edgx_dma_set_pdata(struct edgx_com_dma_desc *pdesc,
-				      u32 pdata)
-{
-	pdesc->p_data_l = __cpu_to_le16(pdata & 0xffff);
-	pdesc->p_data_h = __cpu_to_le16(pdata >> 16);
-}
+struct edgx_ifpriv {
+	bool mgmt_field;
+};
 
 struct edgx_dma_queue {
 	spinlock_t		  lock;		/* Sync. access to dma queue */
 	int			  idx;
 	enum dma_data_direction   dir;
+	bool                      mgmt_field;
 	edgx_io_t		 *cfg_base;
 	struct edgx_com_dma_desc *desc;
 	dma_addr_t		  desc_bus_addr;
@@ -154,13 +109,85 @@ struct edgx_com_dma {
 	u8			 real_num_tx_queues;
 	u8			 real_num_rx_queues;
 	u8			 q_idx_brpt;
+#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 14, 0)
 	struct net_device	 napi_dev;
+#else
+	struct net_device	 *napi_dev;
+#endif
 	struct napi_struct	 napi_rx;
 };
 
 #define edgx_com_to_dma(pcom)   container_of(pcom, struct edgx_com_dma, com)
 #define edgx_napi_to_dma_rx(pnapi) container_of(pnapi, struct edgx_com_dma, \
 						napi_rx)
+
+#define edgx_dma_get_len(pdesc) (le16_to_cpu((pdesc)->cfg) & 0x7ff)
+#define edgx_dma_get_lerr(pdesc) (le16_to_cpu((pdesc)->cfg) & BIT(13))
+#define edgx_dma_get_err(pdesc) (le16_to_cpu((pdesc)->cfg) & BIT(14))
+#define edgx_dma_get_init(pdesc) (le16_to_cpu((pdesc)->cfg) & BIT(15))
+
+static inline u32 edgx_dma_get_pdata(struct edgx_com_dma_desc *pdesc)
+{
+	return le32_to_cpu(pdesc->p_data);
+}
+
+static inline void edgx_dma_clr_lerr(struct edgx_com_dma_desc *pdesc)
+{
+	pdesc->cfg = __cpu_to_le16(le16_to_cpu(pdesc->cfg) & (~BIT(13)));
+}
+
+static inline void edgx_dma_clr_err(struct edgx_com_dma_desc *pdesc)
+{
+	pdesc->cfg = __cpu_to_le16(le16_to_cpu(pdesc->cfg) & (~BIT(14)));
+}
+
+static inline void edgx_dma_set_port(struct edgx_com_dma_desc *pdesc,
+				     u16 port_mask)
+{
+	pdesc->port = __cpu_to_le16(port_mask);
+}
+
+static inline u16 edgx_dma_get_port(struct edgx_com_dma_desc *pdesc)
+{
+	return le16_to_cpu(pdesc->port);
+}
+
+static inline void edgx_dma_set_flags(const struct edgx_dma_queue *q,
+				      struct edgx_com_dma_desc *pdesc,
+				      u16 flags)
+{
+	/* Call edgx_dma_set_port() before this */
+	if (!q->mgmt_field)
+		pdesc->port |= __cpu_to_le16(flags & COM_FLAG_MASK);
+	else
+		pdesc->mgmt = __cpu_to_le16(flags);
+}
+
+static inline u16 edgx_dma_get_flags(const struct edgx_dma_queue *q,
+				     struct edgx_com_dma_desc *pdesc)
+{
+	if (!q->mgmt_field)
+		return le16_to_cpu(pdesc->port) & COM_FLAG_MASK;
+	return le16_to_cpu(pdesc->mgmt);
+}
+
+static inline void edgx_dma_set_init(struct edgx_com_dma_desc *pdesc)
+{
+	pdesc->cfg = __cpu_to_le16(le16_to_cpu(pdesc->cfg) | BIT(15));
+}
+
+static inline void edgx_dma_set_len(struct edgx_com_dma_desc *pdesc,
+				    unsigned int len)
+{
+	pdesc->cfg = __cpu_to_le16((le16_to_cpu(pdesc->cfg) & (~0x7ff)) |
+		     (len & 0x7ff));
+}
+
+static inline void edgx_dma_set_pdata(struct edgx_com_dma_desc *pdesc,
+				      u32 pdata)
+{
+	pdesc->p_data = __cpu_to_le32(pdata);
+}
 
 static void edgx_dma_dump(struct edgx_dma_queue *q, int i, const char *str)
 {
@@ -171,47 +198,52 @@ static void edgx_dma_dump(struct edgx_dma_queue *q, int i, const char *str)
 			u8 *d = (u8 *)q->skb[i]->data;
 
 #if defined(EDGX_COM_DMA_DBG_SHORT)
-			edgx_dbg("%s Q%.2d D%.2d: cfg=0x%.4x mgt=0x%.4x dL=0x%.4x dH=0x%.4x %pM %pM %*phN %*phN\n",
-				 str,
+			edgx_dbg("%s %s Q%.2d D%.2d: cfg=0x%.4x mgt=0x%.4x d=0x%.8x %pM %pM %*phN %*phN\n",
+				 str, q->dir == DMA_TO_DEVICE ? "tx" : "rx",
 				 q->idx, i, q->desc[i].cfg, q->desc[i].mgmt,
-				 q->desc[i].p_data_h, q->desc[i].p_data_l,
+				 q->desc[i].p_data,
 				 &d[0], &d[6], 4, &d[12], 4, &d[16]);
 #else
-			edgx_dbg("%s Q%.2d D%.2d: l=%d ler=%d er=%d i=%d p=%d f=0x%x %pM %pM %*phN %*phN\n",
-				 str, q->idx, i,
+			edgx_dbg("%s %s Q%.2d D%.2d: l=%d ler=%d er=%d i=%d p=%d f=0x%x %pM %pM %*phN %*phN\n",
+				 str, q->dir == DMA_TO_DEVICE ? "tx" : "rx",
+				 q->idx, i,
 				 edgx_dma_get_len(&q->desc[i]),
 				 edgx_dma_get_lerr(&q->desc[i]) ? 1 : 0,
 				 edgx_dma_get_err(&q->desc[i]) ? 1 : 0,
 				 edgx_dma_get_init(&q->desc[i]) ? 1 : 0,
 				 edgx_dma_get_port(&q->desc[i]),
-				 edgx_dma_get_flags(&q->desc[i]),
+				 edgx_dma_get_flags(q, &q->desc[i]),
 				 &d[0], &d[6], 4, &d[12], 4, &d[16]);
 #endif
 		} else {
 #if defined(EDGX_COM_DMA_DBG_SHORT)
-			edgx_dbg("D%.2d: cfg=0x%.4x mgt=0x%.4x dL=0x%.4x dH=0x%.4x\n",
+			edgx_dbg("%s %s D%.2d: cfg=0x%.4x mgt=0x%.4x d=0x%.8x\n",
+				 str, q->dir == DMA_TO_DEVICE ? "tx" : "rx",
 				 i, q->desc[i].cfg, q->desc[i].mgmt,
-				 q->desc[i].p_data_h, q->desc[i].p_data_l);
+				 q->desc[i].p_data);
 #else
-			edgx_dbg("%s Q%.2d D%.2d: l=%d ler=%d er=%d i=%d p=%d f=0x%x\n",
-				 str, q->idx, i,
+			edgx_dbg("%s %s Q%.2d D%.2d: l=%d ler=%d er=%d i=%d p=%d f=0x%x\n",
+				 str, q->dir == DMA_TO_DEVICE ? "tx" : "rx",
+				 q->idx, i,
 				 edgx_dma_get_len(&q->desc[i]),
 				 edgx_dma_get_lerr(&q->desc[i]) ? 1 : 0,
 				 edgx_dma_get_err(&q->desc[i]) ? 1 : 0,
 				 edgx_dma_get_init(&q->desc[i]) ? 1 : 0,
 				 edgx_dma_get_port(&q->desc[i]),
-				 edgx_dma_get_flags(&q->desc[i]));
+				 edgx_dma_get_flags(q, &q->desc[i]));
 #endif
 		}
 }
 
 static int edgx_dma_queue_init(struct edgx_dma_queue *q, struct device *dev,
 			       edgx_io_t *dma_base, int idx,
-			       enum dma_data_direction dir)
+			       enum dma_data_direction dir,
+			       const struct edgx_ifpriv *dma_ifpriv)
 {
 	q->cfg_base = dma_base;
 	q->idx = idx;
 	q->dir = dir;
+	q->mgmt_field = dma_ifpriv->mgmt_field;
 	spin_lock_init(&q->lock);
 
 	// TODO: Somewhere set dev->tx_queue_len to EDGX_DMA_DESC_CNT -1??
@@ -302,7 +334,9 @@ static int edgx_dma_enq(struct edgx_dma_queue *q, struct device *dev,
 			return -ENOMEM;
 		}
 
-		edgx_dbg("DMA-enq: Q%d, pos=%d, cnt=%d, len=%d, port_mask=0x%x, flags=0x%x\n",
+		edgx_dbg("DMA-enq: %s Q%d, pos=%d, cnt=%d, "
+			 "len=%d, port_mask=0x%x, flags=0x%x\n",
+			 q->dir == DMA_TO_DEVICE ? "tx" : "rx",
 			 q->idx, q->enq_pos, q->cnt, len, port_mask, flags);
 
 		q->skb[q->enq_pos] = skb;
@@ -312,7 +346,8 @@ static int edgx_dma_enq(struct edgx_dma_queue *q, struct device *dev,
 
 		dma_rmb();
 		edgx_dma_set_len(desc, len);
-		edgx_dma_set_port(desc, port_mask, flags);
+		edgx_dma_set_port(desc, port_mask);
+		edgx_dma_set_flags(q, desc, flags);
 		edgx_dma_set_pdata(desc, phys_addr);
 		dma_wmb();
 		edgx_dma_set_init(desc);
@@ -365,7 +400,7 @@ static struct sk_buff *edgx_dma_deq(struct edgx_dma_queue *q,
 	if (q->dir == DMA_FROM_DEVICE) {
 		skb_put(skb, edgx_dma_get_len(desc));
 		*port_mask = edgx_dma_get_port(desc);
-		*flags = edgx_dma_get_flags(desc);
+		*flags = edgx_dma_get_flags(q, desc);
 		dma_unmap_single(dev, edgx_dma_get_pdata(desc),
 				 EDGX_DMA_MAX_LEN, q->dir);
 	} else {
@@ -373,9 +408,12 @@ static struct sk_buff *edgx_dma_deq(struct edgx_dma_queue *q,
 				 skb->len, q->dir);
 	}
 
-	edgx_dbg("DMA-deq: Q%d, pos=%d, cnt=%d, pmask=0x%x, flags=0x%x, len=%d, skb_len=%d\n",
+	edgx_dbg("DMA-deq: %s Q%d, pos=%d, cnt=%d, pmask=0x%x, flags=0x%x, "
+		 "len=%d, skb_len=%d\n",
+		 q->dir == DMA_TO_DEVICE ? "tx" : "rx",
 		 q->idx, q->deq_pos, q->cnt, edgx_dma_get_port(desc),
-		 edgx_dma_get_flags(desc), edgx_dma_get_len(desc), skb->len);
+		 edgx_dma_get_flags(q, desc),
+		 edgx_dma_get_len(desc), skb->len);
 
 	edgx_dma_dump(q, q->deq_pos, "DE:");
 
@@ -662,7 +700,8 @@ static irqreturn_t edgx_dma_err_isr(struct edgx_com *com)
 	return IRQ_HANDLED;
 }
 
-void edgx_com_dma_tx_timeout(struct edgx_com *com, struct net_device *netdev)
+static void edgx_com_dma_tx_timeout(struct edgx_com *com,
+				    struct net_device *netdev)
 {
 	struct edgx_com_dma *dma = edgx_com_to_dma(com);
 	int i;
@@ -677,8 +716,9 @@ void edgx_com_dma_tx_timeout(struct edgx_com *com, struct net_device *netdev)
 			netif_wake_subqueue(netdev, i);//TODO Wake up all quues?
 }
 
-bool edgx_com_dma_multiqueue_support(struct edgx_com *com, u8 *num_tx_queues,
-				     u8 *num_rx_queues)
+static bool edgx_com_dma_multiqueue_support(struct edgx_com *com,
+					    u8 *num_tx_queues,
+					    u8 *num_rx_queues)
 {
 	struct edgx_com_dma *dma = edgx_com_to_dma(com);
 
@@ -732,11 +772,10 @@ static ssize_t dma_dump_all_show(struct device *dev,
 			u8 *d = (u8 *)q->skb[i]->data;
 
 			ret += scnprintf(buf + ret, PAGE_SIZE - ret,
-					"Q%.2d D%.2d: cfg=0x%.4x mgt=0x%.4x dL=0x%.4x dH=0x%.4x %pM %pM %*phN %*phN\n",
+					"Q%.2d D%.2d: cfg=0x%.4x mgt=0x%.4x d=0x%.8x %pM %pM %*phN %*phN\n",
 					q->idx, i, q->desc[i].cfg,
-					q->desc[i].mgmt, q->desc[i].p_data_h,
-					q->desc[i].p_data_l, &d[0], &d[6],
-					4, &d[12], 4, &d[16]);
+					q->desc[i].mgmt, q->desc[i].p_data,
+					&d[0], &d[6], 4, &d[12], 4, &d[16]);
 		}
 
 	q = &dma->rx_queue[0];
@@ -746,11 +785,10 @@ static ssize_t dma_dump_all_show(struct device *dev,
 			u8 *d = (u8 *)q->skb[i]->data;
 
 			ret += scnprintf(buf + ret, PAGE_SIZE - ret,
-					"Q%.2d D%.2d: cfg=0x%.4x mgt=0x%.4x dL=0x%.4x dH=0x%.4x %pM %pM %*phN %*phN\n",
+					"Q%.2d D%.2d: cfg=0x%.4x mgt=0x%.4x d=0x%.8x %pM %pM %*phN %*phN\n",
 					q->idx, i, q->desc[i].cfg,
-					q->desc[i].mgmt, q->desc[i].p_data_h,
-					q->desc[i].p_data_l, &d[0], &d[6],
-					4, &d[12], 4, &d[16]);
+					q->desc[i].mgmt, q->desc[i].p_data,
+					&d[0], &d[6], 4, &d[12], 4, &d[16]);
 		}
 	return ret;
 }
@@ -887,6 +925,9 @@ static void edgx_com_dma_shutdown(struct edgx_com *com)
 	for (i = 0; i < dma->real_num_tx_queues; i++)
 		edgx_dma_queue_release(&dma->tx_queue[i], dev);
 
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 14, 0)
+	free_netdev(dma->napi_dev);
+#endif
 	edgx_com_release(com);
 	kfree(dma);
 }
@@ -903,7 +944,8 @@ static struct edgx_com_ops edgx_com_dma_ops = {
 
 static int edgx_com_dma_init(struct edgx_com_dma *dma, struct edgx_br *br,
 			     edgx_io_t *dma_base, edgx_io_t *mngmt_base,
-			     ptid_t dma_pt)
+			     ptid_t dma_pt,
+			     const struct edgx_ifpriv *dma_ifpriv)
 {
 	int i, ret;
 	struct device *dev = edgx_br_get_dev(br);
@@ -915,10 +957,20 @@ static int edgx_com_dma_init(struct edgx_com_dma *dma, struct edgx_br *br,
 
 	dma->dma_base = dma_base;
 
+#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 14, 0)
 	init_dummy_netdev(&dma->napi_dev);
 
 	netif_napi_add_weight(&dma->napi_dev, &dma->napi_rx,
 			      edgx_dma_poll_rx, EDGX_DMA_RX_WEIGHT);
+#else
+	dma->napi_dev = alloc_netdev_dummy(0);
+	if (!dma->napi_dev) {
+		ret = -ENOMEM;
+		goto out_err_dummy_netdev;
+	}
+	netif_napi_add_weight(dma->napi_dev, &dma->napi_rx,
+			      edgx_dma_poll_rx, EDGX_DMA_RX_WEIGHT);
+#endif
 
 	dma->real_num_tx_queues = edgx_br_get_generic(br,
 						      BR_GX_DMA_TX_DESC_RINGS);
@@ -931,7 +983,8 @@ static int edgx_com_dma_init(struct edgx_com_dma *dma, struct edgx_br *br,
 	for (i = 0; !ret && (i < dma->real_num_tx_queues); i++)
 		ret = edgx_dma_queue_init(&dma->tx_queue[i], dev,
 					  dma->dma_base, EDGX_DMA_TX_IDX(i),
-					  DMA_TO_DEVICE);
+					  DMA_TO_DEVICE,
+					  dma_ifpriv);
 
 	/* For now only TX multiq is enabled, do the same here to enable RX */
 	dma->real_num_rx_queues = EDGX_DMA_RX_QUEUE_CNT;
@@ -939,7 +992,8 @@ static int edgx_com_dma_init(struct edgx_com_dma *dma, struct edgx_br *br,
 	for (i = 0; !ret && (i < dma->real_num_rx_queues); i++)
 		ret = edgx_dma_queue_init(&dma->rx_queue[i], dev,
 					  dma->dma_base, EDGX_DMA_RX_IDX(i),
-					  DMA_FROM_DEVICE);
+					  DMA_FROM_DEVICE,
+					  dma_ifpriv);
 
 	for (i = 0; !ret && (i < dma->real_num_rx_queues); i++)
 		while (!ret)
@@ -972,34 +1026,45 @@ out_err_init_queues:
 		edgx_dma_queue_release(&dma->tx_queue[i], dev);
 
 	netif_napi_del(&dma->napi_rx);
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 14, 0)
+	free_netdev(dma->napi_dev);
+out_err_dummy_netdev:
+#endif
 	edgx_com_release(&dma->com);
 out_err_init_com:
 	return ret;
 }
 
-int edgx_com_dma_probe(struct edgx_br *br,
-		       edgx_io_t *mngmt_base, struct edgx_com **com)
+int edgx_com_dma_probe(struct edgx_br *br, edgx_io_t *mngmt_base,
+		       struct edgx_com **com)
 {
 	int ret;
 	struct edgx_ifdesc ptifd;
 	ptid_t dma_pt;
 	struct edgx_com_dma *dma;
 	struct device *dev = edgx_br_get_dev(br);
-	const struct edgx_ifreq   ifreq = { .id = AC_PORT_ID, .v_maj = 2 };
+	const struct edgx_ifpriv *dma_ifpriv = NULL;
+	const struct edgx_ifreq iflist[] = {
+		{ .id = AC_PORT_ID, .v_maj = 3,
+		  .priv = &(struct edgx_ifpriv){ .mgmt_field = true } },
+		{ .id = AC_PORT_ID, .v_maj = 2,
+		  .priv = &(struct edgx_ifpriv){ .mgmt_field = false } },
+		{ .id = AC_EOT_ID },
+	};
 
 	if (dma_set_mask(dev, DMA_BIT_MASK(32))) {
 		edgx_br_warn(br, "COM DMA not supported!\n");
 		return -ENODEV;
 	}
 
-	if (dma_set_coherent_mask(dev, 0xffffffe0)) {
+	if (dma_set_coherent_mask(dev, DMA_BIT_MASK(32))) {
 		edgx_br_warn(br, "COM DMA not supported!\n");
 		return -ENODEV;
 	}
 
 	dma_pt = ffs(edgx_br_get_generic(br, BR_GX_DMA_PORTS)) - 1;
 
-	if (!edgx_ac_get_ptif(&ifreq, dma_pt, &ptifd))
+	if (!edgx_ac_get_ptifver(iflist, dma_pt, &ptifd, &dma_ifpriv))
 		return -ENODEV;
 
 	dma = kzalloc(sizeof(*dma), GFP_KERNEL);
@@ -1007,7 +1072,7 @@ int edgx_com_dma_probe(struct edgx_br *br,
 		return -ENOMEM;
 
 	ret = edgx_com_dma_init(dma, br, ptifd.iobase + DMA_ITF_OFFS,
-				mngmt_base, dma_pt);
+				mngmt_base, dma_pt, dma_ifpriv);
 	if (ret) {
 		kfree(dma);
 		return ret;

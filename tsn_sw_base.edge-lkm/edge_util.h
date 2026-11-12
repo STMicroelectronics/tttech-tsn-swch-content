@@ -27,6 +27,7 @@
 #define _EDGE_UTIL_H
 
 #include <linux/kernel.h>
+#include <linux/version.h>
 #include "edge_defines.h"
 
 static inline u16 edgx_rd16(edgx_io_t *iobase, size_t ofs)
@@ -97,13 +98,15 @@ static inline u16 _edgx_get16(edgx_io_t *iobase, size_t ofs, int bithi,
 	_edgx_get16(iobase, ofs, bithi, bitlo);                         \
 })
 
-static inline void edgx_wait_cmd(edgx_io_t *iobase, size_t ofs, u16 mask)
+static inline u16 edgx_wait_cmd(edgx_io_t *iobase, size_t ofs, u16 mask)
 {
 	u16 cmd;
 
 	do {
 		cmd = edgx_rd16(iobase, ofs);
 	} while (cmd & mask);
+
+	return cmd;
 }
 
 #define ether_addr_cmp(mac1, mac2) memcmp((mac1), (mac2), ETH_ALEN)
@@ -111,6 +114,12 @@ static inline void edgx_wait_cmd(edgx_io_t *iobase, size_t ofs, u16 mask)
 #define _EDGX_PERM_RW VERIFY_OCTAL_PERMISSIONS(0644)
 #define _EDGX_PERM_RO VERIFY_OCTAL_PERMISSIONS(0444)
 #define _EDGX_PERM_WO VERIFY_OCTAL_PERMISSIONS(0200)
+
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 16, 0)
+#define edgx_bin_attr const struct bin_attribute
+#else
+#define edgx_bin_attr struct bin_attribute
+#endif
 
 #define EDGX_BIN_ATTR_RW(_name, _fname, _size)                 \
 	static struct bin_attribute bin_attr_##_name = {       \

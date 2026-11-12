@@ -342,76 +342,21 @@ static ssize_t preempt_active_show(struct device *dev,
 static ssize_t rel_adv_show(struct device *dev,
 			    struct device_attribute *attr, char *buf)
 {
-	struct edgx_preempt *pmt = edgx_dev2preempt(dev);
-	u32 rel_adv = 0;
-	unsigned int mii_cycle = 0;
-	u16 reg = 0;
-	int clk_cycle = edgx_br_get_cycle_ns(edgx_pt_get_br(pmt->parent));
-	struct edgx_br *br = edgx_pt_get_br(pmt->parent);
-
-	switch (edgx_pt_get_speed(pmt->parent)) {
-	case SPEED_10:
-		reg = edgx_br_get_feature(br, BR_FEAT_RELADV_10);
-		mii_cycle = MII_CYCLE_NS_10;
-		break;
-	case SPEED_100:
-		reg = edgx_br_get_feature(br, BR_FEAT_RELADV_100);
-		mii_cycle = MII_CYCLE_NS_100;
-		break;
-	case SPEED_1000:
-		reg = edgx_br_get_feature(br, BR_FEAT_RELADV_1000);
-		mii_cycle = MII_CYCLE_NS_1000;
-		break;
-	default:
-		edgx_pt_warn(pmt->parent,
-			     "Default release advance value used\n");
-		break;
-	}
-
-	rel_adv = clk_cycle * ADV_CLK_CYCLES(reg) +
-		  mii_cycle * ADV_MII_CYCLES(reg);
-	return scnprintf(buf, PAGE_SIZE, "%u\n", rel_adv);
+	/* Information not available and useless outside device */
+	return scnprintf(buf, PAGE_SIZE, "%u\n", 0);
 }
 
 static ssize_t hold_adv_show(struct device *dev,
 			     struct device_attribute *attr,
 			     char *buf)
 {
-	struct edgx_preempt *pmt = edgx_dev2preempt(dev);
-	u32 hold_adv = 0;
-	unsigned int mii_cycle = 0;
-	u16 reg = 0;
-	int clk_cycle = edgx_br_get_cycle_ns(edgx_pt_get_br(pmt->parent));
-	u16 add_frag = edgx_rd16(pmt->iobase, PMT_TX_PREE1);
-	struct edgx_br *br = edgx_pt_get_br(pmt->parent);
-
-	switch (edgx_pt_get_speed(pmt->parent)) {
-	case SPEED_10:
-		reg = edgx_br_get_feature(br, BR_FEAT_HOLDADV_10);
-		mii_cycle = MII_CYCLE_NS_10;
-		break;
-	case SPEED_100:
-		reg = edgx_br_get_feature(br, BR_FEAT_HOLDADV_100);
-		mii_cycle = MII_CYCLE_NS_100;
-		break;
-	case SPEED_1000:
-		reg = edgx_br_get_feature(br, BR_FEAT_HOLDADV_1000);
-		mii_cycle = MII_CYCLE_NS_1000;
-		break;
-	default:
-		edgx_pt_warn(pmt->parent, "Default hold advance value used\n");
-		hold_adv = 0x0;
-		break;
-	}
-
-	hold_adv = clk_cycle * ADV_CLK_CYCLES(reg) + mii_cycle *
-		   (128 + add_frag * 64 + ADV_MII_CYCLES(reg));
-	return scnprintf(buf, PAGE_SIZE, "%u\n", hold_adv);
+	/* Information not available and useless outside device */
+	return scnprintf(buf, PAGE_SIZE, "%u\n", 0);
 }
 
 static ssize_t frame_preempt_status_read(struct file *filp,
 					 struct kobject *kobj,
-					 struct bin_attribute *b_attr,
+					 edgx_bin_attr *b_attr,
 					 char *buf, loff_t ofs,
 					 size_t count)
 {
@@ -438,7 +383,7 @@ static ssize_t frame_preempt_status_read(struct file *filp,
 
 static ssize_t frame_preempt_status_write(struct file *filp,
 					  struct kobject *kobj,
-					  struct bin_attribute *bin_attr,
+					  edgx_bin_attr *bin_attr,
 					  char *buf,
 					  loff_t ofs, size_t count)
 {
@@ -513,7 +458,7 @@ static struct attribute *ieee8021_preempt_attr[] = {
 	NULL,
 };
 
-static struct bin_attribute *ieee8021_preempt_binattr[] = {
+static edgx_bin_attr *ieee8021_preempt_binattr[] = {
 	&bin_attr_frame_preempt_status,
 	NULL,
 };
@@ -677,8 +622,13 @@ int edgx_probe_preempt(struct edgx_pt *pt, struct edgx_com_hdl *hcom,
 	(*ppreempt)->disable_ver = false;
 	preempt_set_tx(*ppreempt);
 
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 15, 0)
+	hrtimer_setup(&(*ppreempt)->timer, &preempt_verification_fn,
+		      CLOCK_MONOTONIC, HRTIMER_MODE_REL);
+#else
 	hrtimer_init(&(*ppreempt)->timer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
 	(*ppreempt)->timer.function = &preempt_verification_fn;
+#endif
 
 	spin_lock_init(&(*ppreempt)->lock);
 

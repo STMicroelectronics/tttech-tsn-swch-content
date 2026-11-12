@@ -44,7 +44,7 @@ struct edgx_st_com;
 int edgx_st_com_probe(struct edgx_br *br, struct edgx_br_irq *irq,
 		      const char *drv_name,
 		      struct edgx_st_com **pst_com,
-		      bool *max_2_speeds);
+		      bool *speeds_limited);
 void edgx_st_com_set_params(struct edgx_st_com *st_com,
 			    u32 freq_err_abs, u32 sched_granul);
 void edgx_st_com_shutdown(struct edgx_st_com *st_com);
@@ -61,10 +61,8 @@ int edgx_st_get_trans_rate(struct edgx_st *st,
 			   struct edgx_st_tr_rate *tr_rate);
 
 int edgx_sched_calc_delays(struct edgx_st *st);
-u64 edgx_st_get_part_indep_tx_dly_hi_min(struct edgx_st *st);
-u64 edgx_st_get_part_indep_tx_dly_hi_max(struct edgx_st *st);
-u64 edgx_st_get_part_indep_tx_dly_lo_min(struct edgx_st *st);
-u64 edgx_st_get_part_indep_tx_dly_lo_max(struct edgx_st *st);
+u64 edgx_st_get_part_indep_tx_dly_min(struct edgx_st *st, int speed);
+u64 edgx_st_get_part_indep_tx_dly_max(struct edgx_st *st, int speed);
 u64 edgx_st_get_freq_err_per_cyc(struct edgx_st *st);
 
 #endif /* _EDGE_ST_H */

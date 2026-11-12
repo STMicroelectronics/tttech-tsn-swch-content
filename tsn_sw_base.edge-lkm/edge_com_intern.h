@@ -30,11 +30,6 @@
 #include "edge_com_ts.h"
 #include "edge_defines.h"
 
-/* Communication flags */
-#define COM_TRAILER_LEN   (2)
-#define COM_FLAGS_IDX     (0)
-#define COM_PORT_IDX      (1)
-
 struct edgx_com_ops {
 	void (*shutdown)(struct edgx_com *com);
 	void (*early_shutdown)(struct edgx_com *com);

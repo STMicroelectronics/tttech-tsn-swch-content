@@ -34,12 +34,12 @@
 
 /*Offset calculated for shapers register address*/
 #define OFFS(IDX)	(0x30 + (IDX) * 2)
-/*1000 mbps*/
-#define MAX_LINE_SPEED	(1000000000)
+/*10000 Mbps*/
+#define MAX_LINE_SPEED	(10000000000ll)
 /*Mac value to be written into shapers register in case of strict prio*/
-#define MAX_ADDEND		(65535)
+#define MAX_ADDEND	(65535)
 /*Speed is returned in Mbps, this value is used for conversion to bps*/
-#define MEGA_VAL	(1000000)
+#define MEGA_VAL	(1000000ll)
 /*Transmission selection algorithm CBS */
 #define CBS		(1)
 /*Transmission selection algorithm Strict priority */
@@ -48,18 +48,22 @@
 #define PERCENTAGE(NUM, PERC) ((NUM) * (PERC) / 100)
 
 struct edgx_fqtss {
-	struct edgx_pt		*parent;
-	edgx_io_t		*iobase;
-			/* Transmission selection algorithm table*/
-	u8			tsa_tbl[EDGX_BR_MAX_TC];
-			/* table,used for admin slope val*/
-	u32			adminidleslope[EDGX_BR_MAX_TC];
-			/* table used for internal values of idleslopes*/
-	u32			idleslope[EDGX_BR_MAX_TC];
-			/* addend is the rate at which credit increases*/
-	u16			addend[EDGX_BR_MAX_TC];
-			/*Protect writing to shapers register*/
-	struct mutex		lock;
+	struct edgx_pt	*parent;
+	edgx_io_t	*iobase;
+			 /* 1/Nth bytes of resolution */
+	u8		 resolution_bits;
+			 /* counter increment interval in clock cycles */
+	u8		 interval_cycles;
+			 /* Transmission selection algorithm table */
+	u8		 tsa_tbl[EDGX_BR_MAX_TC];
+			 /* table, used for admin slope val */
+	u64		 adminidleslope[EDGX_BR_MAX_TC];
+			 /* table used for internal values of idleslopes */
+	u64		 idleslope[EDGX_BR_MAX_TC];
+			 /* addend is the rate at which credit increases */
+	u16		 addend[EDGX_BR_MAX_TC];
+			 /* Protect writing to shapers register */
+	struct mutex	 lock;
 };
 
 static inline struct edgx_fqtss *edgx_dev2fqtss(struct device *dev)
@@ -72,19 +76,26 @@ static inline struct edgx_fqtss *edgx_dev2fqtss(struct device *dev)
  * which credit increases which is also the rate the queue is shaped to.
  * This is the only configurable value to be written to shaper register
  * The resolution of the rate adjustment is:
- * Rate (resolution) = 1/4096 Bytes * clk_freq Hz / 8
+ * Rate (resolution) =
+ *	1/(2^resolution_bits) Bytes * clk_freq Hz / interval_cycles
+ * which leads to
+ * addend =
+ *	rate_bps x interval_cycles x 2^resolution_bits / (clk x 8)
  */
-static u16 edgx_fqtss_calc_addend(u32 bitrate, u32 clk)
+static u16 edgx_fqtss_calc_addend(u64 bitrate, u32 clk,
+				  u8 resolution_bits, u8 interval_cycles)
 {
 	u64 addend_tmp;
+	/* This is safe for up to ~ 536 MHz, should suffice */
+	u32 divisor  = clk * 8;
 
-	/* rate x 8 x 4096 / (clk x 8) = (rate x 2^12) / clk  */
-	addend_tmp = ((uint64_t)bitrate << 12) + clk - 1u;
-	do_div(addend_tmp, clk);
+	addend_tmp = ((bitrate * interval_cycles) << resolution_bits) +
+		     divisor - 1u;
+	do_div(addend_tmp, divisor);
 	if (addend_tmp == 1)
 		pr_warn("Min bitrate value set in shaper reg\n");
 
-	return (uint16_t)addend_tmp;
+	return (u16)addend_tmp;
 }
 
 /**
@@ -104,7 +115,7 @@ static void edgx_fqtss_write_addend(struct edgx_fqtss *fqtss,
 	mutex_unlock(&fqtss->lock);
 }
 
-/*period in ns, we need frequency in Hz -> 1/(cycle*10^-9) = 10^9/cycle */
+/* period in ns, we need frequency in Hz -> 1/(cycle*10^-9) = 10^9/cycle */
 static u32 edgx_fqtss_get_clk(struct edgx_fqtss *fqtss)
 {
 	int cycle = edgx_br_get_cycle_ns(edgx_pt_get_br(fqtss->parent));
@@ -122,7 +133,7 @@ static u16 edgx_fqtss_calc_idle_slope(struct edgx_fqtss *fqtss, u8 idx,
 {
 	u16 addend = 0;
 	u64 tmp = 0;
-	u32 bitrate = 0;
+	u64 bitrate = 0;
 	int clk = edgx_fqtss_get_clk(fqtss);
 	int link_speed;
 
@@ -137,27 +148,27 @@ static u16 edgx_fqtss_calc_idle_slope(struct edgx_fqtss *fqtss, u8 idx,
 	/* Overflow check: a*b > c if and only if a > c/b */
 	if (bitrate > (div64_u64(U64_MAX, num))) {
 		/* try to first divide and then multiply */
-		if (div64_u64 (num, dnm) > 0) {
-			tmp = (div64_u64 (num, dnm));
-			bitrate = (u32)tmp * bitrate;
+		if (div64_u64(num, dnm) > 0) {
+			tmp = (div64_u64(num, dnm));
+			bitrate = tmp * bitrate;
 		} else {
 			// a/b=0 -> b>a -> x=b/a in order to see how much is
 			// b bigger than a
-			tmp = div64_u64 (dnm, num);
+			tmp = div64_u64(dnm, num);
 			num = num * tmp;
-			tmp = div64_u64 (num, dnm);
-			bitrate = (u32)tmp * bitrate;
-			bitrate = div64_u64 (bitrate, tmp);
+			tmp = div64_u64(num, dnm);
+			bitrate = tmp * bitrate;
+			bitrate = div64_u64(bitrate, tmp);
 		}
 	} else {
-		tmp = ((u64)bitrate * num);
+		tmp = bitrate * num;
 		bitrate = div64_u64(tmp, dnm);
 	}
 
 	if ((link_speed == SPEED_UNKNOWN) && (bitrate > MAX_LINE_SPEED)) {
 		bitrate = MAX_LINE_SPEED;
 		edgx_pt_warn(fqtss->parent, "TSA: Speed unknown\n");
-	} else if (bitrate > (link_speed * MEGA_VAL)) {
+	} else if (bitrate > link_speed * MEGA_VAL) {
 		bitrate = link_speed * MEGA_VAL;
 		edgx_pt_warn(fqtss->parent, "TSA:set max line speed\n");
 	}
@@ -165,7 +176,9 @@ static u16 edgx_fqtss_calc_idle_slope(struct edgx_fqtss *fqtss, u8 idx,
 	mutex_lock(&fqtss->lock);
 	fqtss->idleslope[idx] = bitrate;
 	mutex_unlock(&fqtss->lock);
-	addend = edgx_fqtss_calc_addend(bitrate, clk);
+	addend = edgx_fqtss_calc_addend(bitrate, clk,
+					fqtss->resolution_bits,
+					fqtss->interval_cycles);
 
 	return addend;
 }
@@ -185,7 +198,7 @@ void edgx_fqtss_st_change(struct edgx_fqtss *fqt, struct edgx_st *st)
 	nr_queues = edgx_br_get_generic(edgx_pt_get_br(fqt->parent),
 					BR_GX_QUEUES);
 
-	/*Recalculate value in shaper reg in case TSA = CBS*/
+	/* Recalculate value in shaper reg in case TSA = CBS */
 	for (i = 0; i < nr_queues; i++) {
 		/* This function is called in the context of sched - that means
 		 * that the scheduler data already locked. Thus here the
@@ -201,24 +214,25 @@ void edgx_fqtss_st_change(struct edgx_fqtss *fqt, struct edgx_st *st)
 }
 
 static ssize_t admin_slope_tbl_read(struct file *filp, struct kobject *kobj,
-				    struct bin_attribute *bin_attr,
+				    edgx_bin_attr *bin_attr,
 				    char *buf, loff_t ofs, size_t count)
 {
 	loff_t	idx = 0;
 	struct	edgx_fqtss *fqt = edgx_dev2fqtss(kobj_to_dev(kobj));
 	u8	nr_queues = edgx_br_get_generic(edgx_pt_get_br(fqt->parent),
 						BR_GX_QUEUES);
+	u64 *slope = (u64 *)buf;
 
 	if (edgx_sysfs_tbl_params(ofs, count, sizeof(u64), &idx) ||
 	    idx > (nr_queues - 1))
 		return -EINVAL;
 
-	((u64 *)buf)[0] = fqt->adminidleslope[idx];
+	slope[0] = fqt->adminidleslope[idx];
 	return count;
 }
 
 static ssize_t oper_slope_tbl_read(struct file *filp, struct kobject *kobj,
-				   struct bin_attribute *bin_attr,
+				   edgx_bin_attr *bin_attr,
 				   char *buf, loff_t ofs, size_t count)
 {
 /* operIdleSlope and adminIdleSlope are equal as SRP is not in operation.*/
@@ -226,7 +240,7 @@ static ssize_t oper_slope_tbl_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t admin_slope_tbl_write(struct file *filp, struct kobject *kobj,
-				     struct bin_attribute *bin_attr,
+				     edgx_bin_attr *bin_attr,
 				     char *buf, loff_t ofs, size_t count)
 {
 	loff_t	idx = 0;
@@ -238,26 +252,29 @@ static ssize_t admin_slope_tbl_write(struct file *filp, struct kobject *kobj,
 	struct edgx_st *st = edgx_pt_get_st(fqtss->parent);
 	u8	nr_queues = edgx_br_get_generic(edgx_pt_get_br(fqtss->parent),
 						BR_GX_QUEUES);
+	const u64 *slope = (u64 *)buf;
 
 	if (edgx_sysfs_tbl_params(ofs, count, sizeof(u64), &idx) ||
 	    idx > (nr_queues - 1))
 		return -EINVAL;
 
 	link_speed = edgx_pt_get_speed(fqtss->parent);
-	/*Setting slope to value greater than link speed is forbidden*/
+	/* Setting slope to value greater than link speed is forbidden */
 	if (link_speed == SPEED_UNKNOWN) {
 		edgx_pt_warn(fqtss->parent, "Unknown port speed\n");
-		if (*((u32 *)buf) > MAX_LINE_SPEED)
+		if (*slope > MAX_LINE_SPEED)
 			return -EINVAL;
-	} else if (*((u32 *)buf) > (link_speed * MEGA_VAL)) {
+	} else if (*slope > link_speed * MEGA_VAL) {
 		return -EINVAL;
 	}
 
-	addend = edgx_fqtss_calc_addend(*((u32 *)buf), clk);
+	addend = edgx_fqtss_calc_addend(*slope, clk,
+					fqtss->resolution_bits,
+					fqtss->interval_cycles);
 
 	mutex_lock(&fqtss->lock);
-	fqtss->adminidleslope[idx] = *((u32 *)buf);
-	fqtss->idleslope[idx] = *((u32 *)buf);
+	fqtss->adminidleslope[idx] = *slope;
+	fqtss->idleslope[idx] = *slope;
 	fqtss->addend[idx] = addend;
 	mutex_unlock(&fqtss->lock);
 
@@ -270,7 +287,7 @@ static ssize_t admin_slope_tbl_write(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t tsa_tbl_read(struct file *filp, struct kobject *kobj,
-			    struct bin_attribute *bin_attr,
+			    edgx_bin_attr *bin_attr,
 			    char *buf, loff_t ofs, size_t count)
 {
 	loff_t	idx = 0;
@@ -288,7 +305,7 @@ static ssize_t tsa_tbl_read(struct file *filp, struct kobject *kobj,
 }
 
 static ssize_t tsa_tbl_write(struct file *filp, struct kobject *kobj,
-			     struct bin_attribute *bin_attr,
+			     edgx_bin_attr *bin_attr,
 			     char *buf, loff_t ofs, size_t count)
 {
 	loff_t	i = 0;
@@ -315,32 +332,49 @@ EDGX_BIN_ATTR_RW(admin_slope_tbl, "adminIdleSlopeTable",
 EDGX_BIN_ATTR_RW(tsa_tbl, "TxSelectionAlgorithmTable",
 		EDGX_BR_MAX_TC * sizeof(u8));
 
-static struct bin_attribute *ieee8021fqtss_binattrs[] = {
+static edgx_bin_attr *ieee8021fqtss_binattrs[] = {
 	&bin_attr_oper_slope_tbl,
 	&bin_attr_admin_slope_tbl,
 	&bin_attr_tsa_tbl,
 	NULL
-	};
+};
 
 static struct attribute_group ts_algorithm_group = {
 	.name  = "ieee8021Fqtss",
 	.bin_attrs = ieee8021fqtss_binattrs,
 };
 
+struct edgx_ifpriv {
+	u8 resolution_bits;
+	u8 interval_cycles;
+};
+
 int edgx_probe_fqtss(struct edgx_pt *pt,
 		     edgx_io_t *iobase, struct edgx_fqtss **pt_fqtss)
 {
 	const struct edgx_ifdesc *ifd_pt;
-	const struct edgx_ifreq	ifr = {.id = AC_SHAPERS, .v_maj = 1};
-	ptid_t			ptid = edgx_pt_get_id(pt);
-	struct edgx_ifdesc	ptifd;
-	u16			i = 0;
-	struct edgx_fqtss	*fqtss;
-	unsigned int		clk = 0;
+	const struct edgx_ifpriv *ifpriv = NULL;
+	const struct edgx_ifreq iflist[] = {
+		{ .id = AC_SHAPERS_ID, .v_maj = 2,
+		  .priv = &(struct edgx_ifpriv){
+			  .resolution_bits = 10,
+			  .interval_cycles = 1 } },
+		{ .id = AC_SHAPERS_ID, .v_maj = 1,
+		  .priv = &(struct edgx_ifpriv){
+			  .resolution_bits = 12,
+			  .interval_cycles = 8 } },
+		{ .id = AC_EOT_ID },
+	};
+
+	ptid_t			  ptid = edgx_pt_get_id(pt);
+	struct edgx_ifdesc	  ptifd;
+	u16			  i = 0;
+	struct edgx_fqtss	 *fqtss;
+	unsigned int		  clk = 0;
 	u8 nr_queues = edgx_br_get_generic(edgx_pt_get_br(pt), BR_GX_QUEUES);
 
 	/* Get the port specific part of the HW ITF */
-	ifd_pt = edgx_ac_get_ptif(&ifr, ptid, &ptifd);
+	ifd_pt = edgx_ac_get_ptifver(iflist, ptid, &ptifd, &ifpriv);
 	if (!ifd_pt)
 		return -ENODEV;
 
@@ -352,6 +386,8 @@ int edgx_probe_fqtss(struct edgx_pt *pt,
 
 	(fqtss)->iobase = iobase;
 	(fqtss)->parent = pt;
+	(fqtss)->resolution_bits = ifpriv->resolution_bits;
+	(fqtss)->interval_cycles = ifpriv->interval_cycles;
 	mutex_init(&fqtss->lock);
 	clk = edgx_fqtss_get_clk(fqtss);
 

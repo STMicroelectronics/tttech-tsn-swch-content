@@ -32,6 +32,8 @@
 #include "edge_util.h"
 #include "edge_com_ts.h"
 
+#define COM_TRAILER_LEN   (2)
+
 struct edgx_com_xmii {
 	struct edgx_com		 com;
 	struct net_device	*net;
@@ -62,8 +64,9 @@ static netdev_tx_t edgx_com_xmii_xmit(struct edgx_com *com, struct sk_buff *skb,
 	skb = edgx_com_ts_xmit(&com->ts, skb, ptcom);
 
 	skb_trailer = skb_put(skb, COM_TRAILER_LEN);
-	skb_trailer[COM_PORT_IDX]  = ptcom;
-	skb_trailer[COM_FLAGS_IDX] = flags;
+	flags &= COM_FLAG_MASK;
+	skb_trailer[0] = (u8)((ptcom | flags) >> 8);
+	skb_trailer[1] = (u8)ptcom;
 	skb->dev = xmii->net;
 
 	dev_queue_xmit(skb);
@@ -88,8 +91,9 @@ static rx_handler_result_t edgx_com_xmii_rx(struct sk_buff **pskb)
 
 	/* get management trailer ... */
 	skb_trailer = skb_tail_pointer(skb) - COM_TRAILER_LEN;
-	ptcom = skb_trailer[COM_PORT_IDX];
-	flags = skb_trailer[COM_FLAGS_IDX];
+	ptcom = (skb_trailer[0] << 8) | skb_trailer[1];
+	flags = ptcom & COM_FLAG_MASK;
+	ptcom &= ~COM_FLAG_MASK;
 	/* ... and remove it from skb */
 	skb_trim(skb, skb->len - COM_TRAILER_LEN);
 

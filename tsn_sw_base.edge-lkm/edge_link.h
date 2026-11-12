@@ -55,23 +55,19 @@ void edgx_link_update_speed(struct edgx_link *lnk, int speed);
 void edgx_link_update_delays(struct edgx_link *lnk, int speed);
 int edgx_link_is_external(struct edgx_link *lnk);
 int edgx_link_set_mdiobus(struct edgx_link *lnk, const char *mdiobus_id);
-void edgx_link_set_delays(struct edgx_link  *lnk,
-			  unsigned int dtx10min, unsigned int dtx10max,
-			  unsigned int dtx100min, unsigned int dtx100max,
-			  unsigned int dtx1000min, unsigned int dtx1000max,
-			  unsigned int drx10min, unsigned int drx10max,
-			  unsigned int drx100min, unsigned int drx100max,
-			  unsigned int drx1000min, unsigned int drx1000max);
-enum edgx_lnk_mode edgx_link_get_lnk_mode(struct edgx_link  *lnk);
-int edgx_link_get_tx_delays_hi(struct edgx_link  *lnk,
-			       ktime_t *dtx_min, ktime_t *dtx_max);
-int edgx_link_get_tx_delays_lo(struct edgx_link  *lnk,
-			       ktime_t *dtx_min, ktime_t *dtx_max);
-int edgx_link_get_rx_delays_hi(struct edgx_link  *lnk,
+void edgx_link_set_delays(struct edgx_link *lnk, int speed,
+			  unsigned int dtxmin, unsigned int dtxmax,
+			  unsigned int drxmin, unsigned int drxmax);
+edgx_speed_mask_t edgx_link_get_speed_mask(struct edgx_link *lnk);
+int edgx_link_get_rx_delays_hi(struct edgx_link *lnk,
 			       ktime_t *drx_min, ktime_t *drx_max);
-int  edgx_link_init(struct edgx_pt *pt, struct edgx_link **lnk,
-		    enum edgx_lnk_mode lnk_mode,
-		    bool internal);
+int edgx_link_get_speed_tx_delays(struct edgx_link *lnk, int speed,
+				  ktime_t *dtx_min, ktime_t *dtx_max);
+int edgx_link_get_speed_rx_delays(struct edgx_link *lnk, int speed,
+				  ktime_t *dtx_min, ktime_t *dtx_max);
+int edgx_link_init(struct edgx_pt *pt, struct edgx_link **lnk,
+		   edgx_speed_mask_t spd_mask,
+		   bool internal);
 void edgx_link_shutdown(struct edgx_link *lnk);
 
 #endif /* _EDGE_LINK_H */

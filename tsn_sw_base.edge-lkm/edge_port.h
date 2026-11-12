@@ -37,10 +37,10 @@ struct edgx_pt;
 typedef void (*edgx_pt_link_cb)(struct edgx_pt *pt, int link, int speed);
 
 int edgx_probe_brports(struct edgx_br *br,
-		       enum edgx_lnk_mode lnk_mode,
+		       edgx_speed_mask_t spd_mask,
 		       struct edgx_pt **ppt);
 int edgx_init_epport(struct edgx_br *br,
-		     enum edgx_lnk_mode lnk_mode,
+		     edgx_speed_mask_t spd_mask,
 		     struct edgx_pt **ppt);
 
 void edgx_shutdown_brports(struct edgx_pt **ppt);
@@ -62,26 +62,20 @@ int                edgx_pt_get_speed(struct edgx_pt *pt);
 u32                edgx_pt_get_framesize(struct edgx_pt *pt, int idx);
 void               edgx_pt_set_framesize(struct edgx_pt *pt, int idx, u32 val);
 
-ktime_t            edgx_pt_get_g2omax(struct edgx_pt *pt);
-ktime_t            edgx_pt_get_g2omin(struct edgx_pt *pt);
-ktime_t            edgx_pt_get_i2gmax(struct edgx_pt *pt);
-ktime_t            edgx_pt_get_i2gmin(struct edgx_pt *pt);
-ktime_t            edgx_pt_get_i2sgmax(struct edgx_pt *pt);
-ktime_t            edgx_pt_get_i2sgmin(struct edgx_pt *pt);
-int edgx_pt_get_g2o_lo(struct edgx_pt *pt, ktime_t *g2o_min,
-		       ktime_t *g2o_max);
-int edgx_pt_get_g2o_hi(struct edgx_pt *pt, ktime_t *g2o_min,
-		       ktime_t *g2o_max);
+ktime_t            edgx_pt_get_g2o_max(struct edgx_pt *pt);
+ktime_t            edgx_pt_get_g2o_min(struct edgx_pt *pt);
+ktime_t            edgx_pt_get_i2g_max(struct edgx_pt *pt);
+ktime_t            edgx_pt_get_i2g_min(struct edgx_pt *pt);
+ktime_t            edgx_pt_get_i2sg_max(struct edgx_pt *pt);
+ktime_t            edgx_pt_get_i2sg_min(struct edgx_pt *pt);
 int edgx_pt_get_i2sg_hi(struct edgx_pt *pt, ktime_t *i2sg_min,
 			ktime_t *i2sg_max);
+int edgx_pt_get_speed_g2o(struct edgx_pt *pt, int speed,
+			  ktime_t *g2o_min, ktime_t *g2o_max);
 void edgx_pt_set_sg_delay(struct edgx_pt *pt, ktime_t sg_dly);
-void edgx_pt_set_delay_adjust(struct edgx_pt *pt,
-			      int idtx10min, int idtx10max,
-			      int idtx100min, int idtx100max,
-			      int idtx1000min, int idtx1000max,
-			      int idrx10min, int idrx10max,
-			      int idrx100min, int idrx100max,
-			      int idrx1000min, int idrx1000max);
+void edgx_pt_set_delay_adjust(struct edgx_pt *pt, int speed,
+			      int idtxmin, int idtxmax,
+			      int idrxmin, int idrxmax);
 
 void edgx_pt_link_change(struct net_device *netdev);
 

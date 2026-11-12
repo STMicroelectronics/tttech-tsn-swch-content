@@ -232,13 +232,14 @@ void edgx_stat_free_hdl(struct edgx_stat_hdl *sh)
 	}
 }
 
-int edgx_probe_stat(const struct edgx_br *br, struct edgx_stat **pstat,
+int edgx_probe_stat(const struct edgx_br *br,
+		    struct edgx_stat **pstat,
 		    ptvec_t *map)
 {
 	const struct edgx_ifdesc *ifd;
-	struct edgx_ifdesc        pifd;
-	ptid_t                    ptid;
-	struct edgx_ifreq         ifreq = { .id = AC_STAT_ID, .v_maj = 2 };
+	struct edgx_ifdesc	  pifd;
+	ptid_t			  ptid;
+	struct edgx_ifreq	  ifreq = { .id = AC_STAT_ID, .v_maj = 2 };
 
 	if (!br || !pstat)
 		return -EINVAL;

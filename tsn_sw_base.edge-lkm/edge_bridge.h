@@ -56,13 +56,18 @@ enum edgx_br_irq_trig_type {
 	EDGX_IRQ_LEVEL_TRIG
 };
 
-enum edgx_lnk_mode {
-	EDGX_LNKMOD_INVAL = 0,
-	EDGX_LNKMOD_10_100_1000,
-	EDGX_LNKMOD_10_100,
-	EDGX_LNKMOD_100_1000,
-	EDGX_LNKMOD_100
+enum edgx_speed {
+	/* Must be in increasing speed order */
+	EDGX_SPD_10 = 0,
+	EDGX_SPD_100,
+	EDGX_SPD_1000,
+	EDGX_SPD_2500,
+	EDGX_SPD_5000,
+	EDGX_SPD_10000,
+	EDGX_SPD_CNT
 };
+
+typedef u16 edgx_speed_mask_t;
 
 struct edgx_br_irq {
 	int				irq_vec[EDGX_IRQ_CNT];
@@ -73,6 +78,9 @@ struct edgx_br_irq {
 extern int csrating;
 extern char *syncmode;
 extern struct attribute *ieee8021_brpt_common[];
+
+int edgx_br_spd_idx(int speed);
+int edgx_br_speed(int spd_idx);
 
 int edgx_br_probe_one(unsigned int br_id, struct device *dev,
 		      void *base, struct edgx_br_irq *irq,

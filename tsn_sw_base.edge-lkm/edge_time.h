@@ -36,8 +36,7 @@ enum edgx_clk_role {
 	EDGX_TM_MAX_ROLES,   /* must be last, do not use! */
 };
 
-int  edgx_probe_time(const struct edgx_br *br, struct edgx_time **time,
-		     ptvec_t *map);
+int  edgx_probe_time(struct edgx_br *br, struct edgx_time **time, ptvec_t *map);
 void edgx_shutdown_time(struct edgx_time *time);
 
 int edgx_tm_get_phc(const struct edgx_time *time, unsigned int idx);

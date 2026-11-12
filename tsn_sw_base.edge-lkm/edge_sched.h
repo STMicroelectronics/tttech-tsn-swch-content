@@ -93,7 +93,7 @@ void edgx_sched_lock(struct edgx_sched *sched);
 void edgx_sched_unlock(struct edgx_sched *sched);
 
 struct edgx_br *edgx_sched_get_br(struct edgx_sched *sched);
-void edgx_sched_set_delay(struct edgx_sched *sched, u8 delay);
+void edgx_sched_set_delay(struct edgx_sched *sched, u8 delay_lo, u8 delay_hi);
 void edgx_sched_set_g_close_adv(struct edgx_sched *sched,
 				u16 g_cl_adv_lo, u16 g_cl_adv_hi);
 int edgx_sched_get_s2g(struct edgx_sched *sched, u64 clk,

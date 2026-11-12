@@ -11,4 +11,3 @@ sock.sendto("robot", (MCAST_GRP, MCAST_PORT))
 
 # Note: to see an effect, port_xmit-function must be instrumented and
 #       interfaces must have an IP address
-

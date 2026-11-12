@@ -51,6 +51,7 @@
 #include <linux/io.h>
 #include <linux/delay.h>
 #include <linux/of.h>
+#include <linux/version.h>
 #include "altera_pio.h"
 
 /**
@@ -146,7 +147,11 @@ static int flx_pio_gpio_get(struct gpio_chip *chip, unsigned int offset)
 /**
  * GPIO chip interface: set GPIO value
  */
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 17, 0)
+static int flx_pio_gpio_set(struct gpio_chip *chip,
+#else
 static void flx_pio_gpio_set(struct gpio_chip *chip,
+#endif
 			     unsigned int offset, int value)
 {
 	struct flx_pio_dev_priv *dp = container_of(chip,
@@ -162,6 +167,10 @@ static void flx_pio_gpio_set(struct gpio_chip *chip,
 		 offset, value,
 		 ioread32(dp->ioaddr + FLX_PIO_DIR_REG),
 		 ioread32(dp->ioaddr + FLX_PIO_DATA_REG));
+
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 17, 0)
+	return 0;
+#endif
 }
 
 /**

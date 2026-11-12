@@ -57,7 +57,7 @@ typedef u16 mstid_t;
 
 typedef u32 ptvec_t;
 typedef int ptid_t;
-typedef u8  ptflags_t;
+typedef u16 ptflags_t;
 
 /* TODO shouldn't we use the already defined ptvec_t??? */
 typedef u16 ptcom_t;
@@ -109,12 +109,6 @@ typedef void __iomem edgx_io_t;
 /* User Manual Sect. 4.1.4 Feature Registers */
 #define BR_FEAT_BASE          (BR_GX_BASE + 0x100)
 #define BR_FEAT_CLKFREQ       (0x0)
-#define BR_FEAT_HOLDADV_10    (0x100)
-#define BR_FEAT_HOLDADV_100   (0x102)
-#define BR_FEAT_HOLDADV_1000  (0x104)
-#define BR_FEAT_RELADV_10     (0x108)
-#define BR_FEAT_RELADV_100    (0x10A)
-#define BR_FEAT_RELADV_1000   (0x10C)
 
 #define BR_FEAT_I2G_BASE      (0x110)
 #define BR_FEAT_G2O_BASE      (0x120)
